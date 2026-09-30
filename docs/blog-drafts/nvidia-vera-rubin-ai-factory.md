@@ -4,6 +4,7 @@ Status: PENDING-HIC-REVIEW
 Extracted-From: onelifetime.world/posts/nvidia-vera-rubin-ai-factory.html
 Extracted-On: 2026-08-12
 Published: 2026-06-24
+claims_checked: 2026-09-30
 
 > This draft was reconstructed from the already-published page, because the
 > post went live without one (Rule 13). It is here so the text is reviewable,
@@ -15,7 +16,7 @@ Published: 2026-06-24
 NVIDIA Vera Rubin redefines what an AI factory looks like. The sovereign edge is still a
 box you own.
 
-24 Jun 2026 · by Risto Anton Paarni
+24 Jun 2026 · by Risto Anton Päärni
 
 The note, in one line
 
@@ -23,7 +24,7 @@ A decade after DGX-1, NVIDIA just redefined the AI factory at POD scale. We chee
 And the regulated EU workloads we serve still run on a box the customer owns. Vera Rubin
 makes the foundation. Sovereignty makes it deployable.
 
-Good news from a good partner.
+Good news from a platform we build on.
 
 Ten years ago, DGX-1 fit a supercomputer in a box you could wheel onto a loading dock.
 That box changed who could train a model. Vera Rubin moves the unit of design up a level
@@ -54,20 +55,24 @@ get trained on a Vera Rubin POD, our customers get the benefit without ever touc
 POD. That is the right division of labour. NVIDIA scales the factory; we deliver the box
 on the customer's floor.
 
-And the European half of that factory is no longer hypothetical. In June 2026 NVIDIA put
-35 AI supercomputers across 23 European countries — roughly 800 AI
-exaflops, anchored by EuroHPC AI Factories like Barcelona's MareNostrum 5. That is
-the sovereign upstream we point to: train on EU soil, under EU governance, then deploy the
+And the European half of that factory is no longer hypothetical. In June 2026 NVIDIA and
+its partners announced 35 new AI supercomputers under construction across 23 European
+countries — up to roughly 800 AI exaflops, including EuroHPC AI Factories like Barcelona's
+MareNostrum 5. That is
+the sovereign upstream we point to: train on EU soil, under EU governance — as the
+Soofi team did, building a German–English foundation model end to end on a sovereign
+industrial AI cloud in Munich [3] — then deploy the
 result down to a box the customer owns. The factory got closer to home. The edge stayed
 exactly where it belongs.
 
 What a POD-scale factory does not change
 
-A factory is a place where many workloads share infrastructure. For the regulated half
+A factory is a place where many workloads share infrastructure — and compute, made in an
+extremely concentrated supply chain, is exactly where policy reaches for its levers [2]. For the regulated half
 of our work, that sharing is exactly the thing the law will not allow.
 
 CLOUD Act reach, GDPR Article 5 and Schrems II, NIS2 24-hour incident reporting, EU AI
-Act Article 12 immutable logs — none of these are solved by a faster factory. They
+Act Article 12 lifetime event logs [1] — none of these are solved by a faster factory. They
 are solved by jurisdiction, ownership, and an auditable handoff on hardware the customer
 holds.
 
@@ -104,13 +109,13 @@ compounds. That is enough.
 The short version
 
 - A decade after DGX-1, Vera Rubin moves the unit of design from the box to the
-POD-scale factory. Real, and good for everyone downstream.
+  POD-scale factory. Real, and good for everyone downstream.
 
 - The factory trains and refreshes. The regulated edge runs the result on hardware the
-customer owns.
+  customer owns.
 
 - A faster factory does not solve CLOUD Act, GDPR, NIS2, or AI Act Article 12. Ownership
-and jurisdiction do.
+  and jurisdiction do.
 
 - We do not compete with the factory. We sit at the far end of its road.
 
@@ -119,7 +124,7 @@ and jurisdiction do.
 ## Read next
 
 - The moat is not the model — NVIDIA makes it possible, EU-sovereign deployment
-makes it defensible
+  makes it defensible
 
 - NVIDIA GTC 2026 — what the keynote means for industrial AI roadmaps
 
@@ -127,6 +132,14 @@ makes it defensible
 
 - Our layers are solid — Aiven, Scaleway, KYA + Foundry
 
-Risto Anton Paarni
+Risto Anton Päärni
 
 CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal
+
+## Sources
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 12. Official Journal of the European Union, L 2024/1689. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Sastry, G., Heim, L., Belfield, H., Anderljung, M., Brundage, M., Hazell, J., O'Keefe, C., Hadfield, G. K., et al. (2024). Computing Power and the Governance of Artificial Intelligence. arXiv. https://arxiv.org/abs/2402.08797
+
+[3] The Soofi Team (Droste, B., Fitzek, D., Härle, R., et al.) (2026). A Sovereign, Open-Source Foundation Model for German and English. arXiv. https://arxiv.org/abs/2607.09424

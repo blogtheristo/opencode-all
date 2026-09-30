@@ -40,25 +40,69 @@ open_decisions: |
      ehdollisesta toteavaksi.
   2. Saako tekstissä sanoa, että Aegis-tier oletusarvoisesti kieltää HNP:n? Se on
      §14.2.1:ssä ja on tuotepositiointia, ei vain tekniikkaa. Luku 5 sanoo sen.
+claims_checked: 2026-09-30
+sources:
+  - title: "Agent Payments Protocol (AP2) — documentation and specification v0.2"
+    authors: "Google Agentic Commerce / AP2 contributors"
+    year: 2026
+    venue: "GitHub (google-agentic-commerce/AP2)"
+    url: "https://github.com/google-agentic-commerce/AP2"
+    type: standard
+  - title: "API v2 overview — Idempotency"
+    authors: "Stripe"
+    year: 2026
+    venue: "Stripe Docs"
+    url: "https://docs.stripe.com/api-v2-overview"
+    type: industry
+  - title: "Universal Commerce Protocol (UCP) — README, maintainers and governance"
+    authors: "UCP Authors"
+    year: 2026
+    venue: "GitHub (Universal-Commerce-Protocol)"
+    url: "https://github.com/Universal-Commerce-Protocol/ucp"
+    type: standard
+  - title: "Agentic Commerce Protocol (ACP)"
+    authors: "OpenAI; Stripe (maintainers)"
+    year: 2026
+    venue: "GitHub (agentic-commerce-protocol/agentic-commerce-protocol)"
+    url: "https://github.com/agentic-commerce-protocol/agentic-commerce-protocol"
+    type: standard
+  - title: "Zero-Trust Runtime Verification for Agentic Payment Protocols: Mitigating Replay and Context-Binding Failures in AP2"
+    authors: "Lan, Q.; Kaul, A.; Jones, S.; Westrum, S."
+    year: 2026
+    venue: "arXiv:2602.06345"
+    url: "https://arxiv.org/abs/2602.06345"
+    type: academic
+  - title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 12 and 14"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
+  - title: "Regulating AI Agents"
+    authors: "Gardhouse, K.; Oueslati, A.; Kolt, N."
+    year: 2026
+    venue: "arXiv:2603.23471"
+    url: "https://arxiv.org/abs/2603.23471"
+    type: academic
 ---
 
 # Kun agentti maksaa: kolme protokollaa, neljä kaistaa ja yksi kertakäyttöinen avain
 
 Sarjan yhdeksän ensimmäistä osaa on käsitellyt sitä, mitä agentti saa **tehdä**. Tämä osa käsittelee sitä, mitä agentti saa **kuluttaa**.
 
-Ne eivät ole sama kysymys, ja ero paljastui vuoden 2026 alkupuolella kaikille yhtä aikaa: maksualan toimijat julkaisivat johtolangat agenttitransaktioille — ja yksikään niistä ei ratkaise sitä, pitäisikö tätä nimenomaista agenttia päästää maksamaan.
+Ne eivät ole sama kysymys, ja ero paljastui syksyn 2025 ja alkuvuoden 2026 aikana kaikille lähes yhtä aikaa: maksualan toimijat julkaisivat johtolangat agenttitransaktioille [1][3][4] — ja yksikään niistä ei ratkaise sitä, pitäisikö tätä nimenomaista agenttia päästää maksamaan.
 
 ## 1. Kolme protokollaa, ja mitä ne eivät tee
 
 Kentällä on kolme kilpailevaa mutta osin päällekkäistä protokollaa. Ne kannattaa erottaa, koska ne ratkaisevat eri osaa ongelmasta:
 
-| Protokolla                            | Vastuutaho                                          | Mitä se standardoi                                                                                                                                                                                                                   |
-| ------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **AP2** — Agent Payments Protocol     | Google → luovutettu **FIDO Alliancelle**            | Kolme allekirjoitettua **mandaattia** — Intent, Cart, Payment — kukin W3C Verifiable Credential -muodossa. Lisäksi **Human Not Present (HNP)**: ennakkovaltuutettu suoritus ilman ihmistä paikalla, sekä väärentämätön toimintaloki. |
-| **UCP** — Universal Commerce Protocol | Google + Shopify + Walmart, laaja tekninen neuvosto | Koko kaupankäyntipolku: löytäminen → ostoskori → kassa → oston jälkeiset toimet.                                                                                                                                                     |
-| **ACP** — Agentic Commerce Protocol   | OpenAI + Stripe                                     | Rakenteinen kassavirta agenttipinnan sisällä.                                                                                                                                                                                        |
+| Protokolla                            | Vastuutaho                                                                                                              | Mitä se standardoi                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **AP2** — Agent Payments Protocol     | Google → luovutettu **FIDO Alliancelle**                                                                                | Allekirjoitetut **mandaatit** todennettavina digitaalisina valtakirjoina (SD-JWT): v0.2:ssa **Checkout Mandate** ja **Payment Mandate**, kumpikin avoimena (käyttäjän rajat) ja suljettuna (tietty ostos); v0.1 puhui Intent-, Cart- ja Payment-mandaateista. Lisäksi **Human Not Present (HNP)**: ennakkovaltuutettu suoritus ilman ihmistä paikalla, sekä kiistämätön kryptografinen kirjausketju [1]. |
+| **UCP** — Universal Commerce Protocol | Google + Shopify (perustajat), laaja tekninen neuvosto (mm. Etsy, Target, Wayfair, Amazon, Meta, Microsoft, Stripe) [3] | Koko kaupankäyntipolku: löytäminen → ostoskori → kassa → oston jälkeiset toimet [3].                                                                                                                                                                                                                                                                                                                     |
+| **ACP** — Agentic Commerce Protocol   | OpenAI + Stripe [4]                                                                                                     | Rakenteinen kassavirta agenttipinnan sisällä; 2026-04-17-versiosta lähtien myös ostoskori, tuotesyöte ja tilaukset [4].                                                                                                                                                                                                                                                                                  |
 
-_(Tilatiedot ovat kanonisesta lähteestä ja päivätty 06.07.2026 — tarkistettavien väitteiden listalla, ks. frontmatter.)_
+_(Tilatiedot tarkistettu protokollien julkisista spesifikaatioista 30.09.2026 [1][3][4]. Tämän tekstin kaistataulukko käyttää v0.1:n nimiä Intent + Cart + Payment; v0.2:ssa samat roolit kantavat avoin ja suljettu Checkout Mandate sekä Payment Mandate.)_
 
 Kaikki kolme vastaavat kysymykseen **"miten mandaatti kulkee johdolla?"**
 
@@ -123,7 +167,7 @@ Luottamuspiste **ei saa valtuuttaa toimea suoraan.** Syy on se, että "estetää
 
 Tämä ei ole eksoottinen vikatila. Se on itsestään selvän toteutuksen oletustulos.
 
-Ratkaisu on tehdä valtuutuksesta **kulutettava** eikä luettava. Luottamusmoottori ei palauta numeroa vaan **kertakäyttöisen, aikaan sidotun, kryptografisesti allekirjoitetun valtuutustokenin**. Toimen ensimmäinen operaatio on atominen kuluta-ja-suorita myöntävää auktoriteettia vastaan: token todennetaan, merkitään kulutetuksi ja toimi valtuutetaan **yhdessä jakamattomassa operaatiossa**. Jos token ei kelpaa kulutushetkellä, toimi ei suoritu — eikä sitä yritetä automaattisesti uudelleen.
+Ratkaisu on tehdä valtuutuksesta **kulutettava** eikä luettava. Luottamusmoottori ei palauta numeroa vaan **kertakäyttöisen, aikaan sidotun, kryptografisesti allekirjoitetun valtuutustokenin**. Toimen ensimmäinen operaatio on atominen kuluta-ja-suorita myöntävää auktoriteettia vastaan: token todennetaan, merkitään kulutetuksi ja toimi valtuutetaan **yhdessä jakamattomassa operaatiossa**. Jos token ei kelpaa kulutushetkellä, toimi ei suoritu — eikä sitä yritetä automaattisesti uudelleen. Sama johtopäätös on tehty AP2:n tietoturva-analyysissä: allekirjoitus ja vanhenemisaika eivät riitä, vaan tarvitaan kontekstiin sidottu, kerran kulutettava valtuutus, joka arvioidaan suoritushetkellä [5].
 
 Ja tärkein rivi: **suorittava komponentti ei koskaan arvioi tokenin voimassaoloa paikallisesti.**
 
@@ -131,11 +175,11 @@ Ja tärkein rivi: **suorittava komponentti ei koskaan arvioi tokenin voimassaolo
 
 Maksujen puolella tästä seuraa ominaisuus, jota ei tarvitse rakentaa erikseen.
 
-Tuplaveloitus syntyy tavallisesti uudelleenyrityksestä. Agentti lähettää maksun, verkko katkeaa ennen vastausta, agentti ei tiedä menikö se läpi, agentti yrittää uudelleen. Tavallinen suojaus on idempotenssiavain: kauppias tunnistaa saman pyynnön ja hylkää kaksoiskappaleen.
+Tuplaveloitus syntyy tavallisesti uudelleenyrityksestä. Agentti lähettää maksun, verkko katkeaa ennen vastausta, agentti ei tiedä menikö se läpi, agentti yrittää uudelleen. Tavallinen suojaus on idempotenssiavain: maksupalvelu tunnistaa saman pyynnön eikä suorita sitä toiseen kertaan, vaan palauttaa ensimmäisen pyynnön tuloksen [2].
 
 Kertakäyttöinen valtuutustoken siirtää saman suojauksen **askelta ylemmäs ja aikaisemmaksi**. Toinen yritys ei epäonnistu kauppiaan päässä — se epäonnistuu **ennen kuin se lähtee**, koska token on jo kulutettu. Ero on käytännössä kolminkertainen:
 
-1. **Suojaus ei riipu vastapuolesta.** Idempotenssi on kauppiaan ominaisuus, ja se on eri jokaisella kauppiaalla. Tokenin kulutus on oman auktoriteetin ominaisuus, ja se on sama kaikkialle.
+1. **Suojaus ei riipu vastapuolesta.** Idempotenssi on vastapuolen — kauppiaan tai maksupalvelun — ominaisuus, ja sen säännöt vaihtelevat: saman palveluntarjoajan kahdessakin API-versiossa toistoikkuna on 24 tuntia tai 30 päivää [2]. Tokenin kulutus on oman auktoriteetin ominaisuus, ja se on sama kaikkialle.
 2. **Suojaus kattaa kaikki kolme rataa.** Sama mekanismi toimii AP2:lla, UCP:llä ja ACP:llä, koska se ei ole maksuprotokollan piirre.
 3. **Uudelleenyritys ei ole kielletty, se on mahdoton.** Sääntö "epäonnistunutta ei yritetä automaattisesti uudelleen" on koodattu tilaan eikä käytäntöön. Käytäntö, joka kieltää uudelleenyrityksen, unohtuu jonkun kirjaston oletusasetuksissa.
 
@@ -163,9 +207,9 @@ Kaksi asiaa tekee tästä toimivan riidassa eikä vain kaaviossa.
 
 Kaupallisesti tämä on juuri se, mitä vastapuoli tarvitsee: ei lopullista totuutta heti, vaan tieto siitä, mihin suuntaan tutkinta kulkee, määräajassa, jonka voi kirjoittaa sopimukseen.
 
-**Toinen: todisteet ovat yksi ketju eivätkä kaksi.** Jokainen mandaattitapahtuma — myöntö, esitys, suoritus, peruutus — kirjataan sekä forensiseen jälkeen että sääntelyn edellyttämään kirjanpitokerrokseen, avaimena sessio ja mandaatin tunniste. Tulos on yksi todisteketju, joka kelpaa **sekä maksuverkolle että EU AI Actin käyttöönottajan velvoitteelle.**
+**Toinen: todisteet ovat yksi ketju eivätkä kaksi.** Jokainen mandaattitapahtuma — myöntö, esitys, suoritus, peruutus — kirjataan sekä forensiseen jälkeen että sääntelyn edellyttämään kirjanpitokerrokseen, avaimena sessio ja mandaatin tunniste. Tulos on yksi todisteketju, joka kelpaa **sekä maksuverkolle että EU AI Actin lokitus- ja ihmisvalvontavaatimuksille** (artiklat 12 ja 14, jotka sitovat suuririskisiä järjestelmiä; kaikki agentit eivät ole sellaisia) [6][7].
 
-Se on kohta, jota yksikään kolmesta protokollasta ei käsittele — ne ovat kaikki yhdysvaltalaisvetoisia ja ratkaisevat maksuriskin, eivät sääntelyvelvoitetta. Eurooppalaiselle ostajalle ne ovat sama tapahtuma kahdesta syystä, ja kahteen kertaan lokitettu tapahtuma on kaksi eri tarinaa siitä hetkestä, jolloin niitä vertaillaan.
+Se on kohta, jota yksikään kolmesta protokollasta ei käsittele — ne ovat kaikki pohjoisamerikkalaisten toimijoiden käynnistämiä (AP2:n standardointi jatkuu nyt FIDO Alliancessa [1]) ja ratkaisevat maksuriskin, eivät sääntelyvelvoitetta. Eurooppalaiselle ostajalle ne ovat sama tapahtuma kahdesta syystä, ja kahteen kertaan lokitettu tapahtuma on kaksi eri tarinaa siitä hetkestä, jolloin niitä vertaillaan.
 
 ### Ja yksi tuotepositio, joka kannattaa sanoa suoraan
 
@@ -183,6 +227,22 @@ Se on tarkoituksellinen kanta. Luottamuspiste kertoo, kuinka hyvin agentti on k�
 - **Attribuutiokello käy havainnosta**, ei toimittajan ilmoittamasta sulkemisesta — ja todisteketju on yksi, ei kaksi.
 
 **Seuraavassa osassa (11/11):** EUDI Wallet ja eIDAS 2.0 — kuka se ihminen oikeastaan on, jonka puolesta agentti toimii, ja yksi aito yhteensopivuusongelma, jonka wallet-ankkurointi paljastaa.
+
+## Lähteet
+
+[1] Google Agentic Commerce / AP2 contributors (2026). Agent Payments Protocol (AP2) — documentation and specification v0.2. GitHub. https://github.com/google-agentic-commerce/AP2
+
+[2] Stripe (2026). API v2 overview — Idempotency. Stripe Docs. https://docs.stripe.com/api-v2-overview
+
+[3] UCP Authors (2026). Universal Commerce Protocol (UCP) — README, maintainers and governance. GitHub. https://github.com/Universal-Commerce-Protocol/ucp
+
+[4] OpenAI & Stripe (2026). Agentic Commerce Protocol (ACP). GitHub. https://github.com/agentic-commerce-protocol/agentic-commerce-protocol
+
+[5] Lan, Q., Kaul, A., Jones, S. & Westrum, S. (2026). Zero-Trust Runtime Verification for Agentic Payment Protocols: Mitigating Replay and Context-Binding Failures in AP2. arXiv:2602.06345. https://arxiv.org/abs/2602.06345
+
+[6] Euroopan parlamentti ja neuvosto (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), artiklat 12 ja 14. Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[7] Gardhouse, K., Oueslati, A. & Kolt, N. (2026). Regulating AI Agents. arXiv:2603.23471. https://arxiv.org/abs/2603.23471
 
 ---
 

@@ -1,15 +1,17 @@
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 Reviewed-By: Risto Anton Päärni (HIC)
 Reviewed-On: 2026-07-30
 Approval-Record: HIC, 30.07.2026 — "Approve post". Third revision round. Full text shown
-  in one fenced code block on rounds 1 and 2; round 3 applied the Boardy correction (the €0
-  marginal-cost claim was false and was replaced with the bounded-compute-economics framing),
-  whose Act III passage was shown verbatim before approval.
+in one fenced code block on rounds 1 and 2; round 3 applied the Boardy correction (the €0
+marginal-cost claim was false and was replaced with the bounded-compute-economics framing),
+whose Act III passage was shown verbatim before approval.
 Slug: harness-paywall-depth-arbitrage
 Title: The Harness Paywall
 Language: en
 Target: onelifetime.world/posts/harness-paywall-depth-arbitrage.html
 Date: 2026-07-30
+claims_checked: 2026-09-30
 
 # The Harness Paywall
 
@@ -22,10 +24,10 @@ Chained together, they describe where enterprise AI money is about to move.
 
 On Microsoft's Q4 earnings call on 29 July, an analyst asked Satya Nadella how
 Microsoft benefits when enterprises adopt open models. He did not defend the lab
-relationship. He described an architecture:
+relationship. He described an architecture [1]:
 
-> "You've got to keep your harness separate from the model. The harness will
-> ensure that your memory, your context, all of that is external. That means any
+> "You've got to keep your harness separate from the model, when the harness will
+> ensure that your memory, your context all of that is external. That means any
 > given model at any given time is swappable."
 
 Models are ephemeral. The scaffolding around them — context routing, tool calling,
@@ -38,12 +40,12 @@ Build for the harness.
 Then Composio published a benchmark that puts a price on that advice. Same model,
 same 28 tasks, only the harness changed. Success rates came out close. Token
 consumption did not: a spread of up to **30×**, medians of 61k, 67k and 340k tokens
-per task. At $3 per million input tokens, that is roughly $0.22, $0.28 and $2.00
-for the same work.
+per task. Composio's own average cost per task, at $3 per million input tokens,
+came to roughly $0.22, $0.28 and $2.00 for the same work — averages, not the
+medians multiplied out.
 
-Read it honestly before you use it: Composio makes one of the three harnesses
-tested, and it placed near the top of its own leaderboard. The task set is not
-published. One model, one run. Treat the *direction* as real and the exact
+Read it honestly before you use it: it is one vendor's own publication, not an
+independent study. The task set is not published. One model, one run. Treat the _direction_ as real and the exact
 multiple as unsettled.
 
 Even so, the conflict with Act I is hard to escape. If the harness is where the
@@ -63,16 +65,16 @@ bill disappears.
 Be careful with that sentence, because the tempting version of it is false. Tokens
 on your own hardware are not free. You still pay for electricity, for amortising the
 box, for maintenance, for serving the model, and for whichever bottleneck you reach
-first. What changes is the *shape* of the cost: an unpredictable charge that scales
+first. What changes is the _shape_ of the cost: an unpredictable charge that scales
 with how hard your agents think becomes a bounded one you sized in advance. The 340k
 tokens stop being an elastic exposure and become an allocation of capacity you have
 already provisioned.
 
 Two things had to become true for that to work, and both now have. Sub-quadratic
 attention — hybrid designs that mix state-space layers with attention — makes a
-large context window economically usable rather than merely advertised. And
+large context window economically usable rather than merely advertised [2]. And
 inference engines have appeared that hold throughput as the context fills, instead
-of collapsing to single digits once real work accumulates.
+of collapsing to single digits once real work accumulates [3].
 
 ## Two workloads, two correct answers
 
@@ -101,7 +103,9 @@ plainly.
 
 Every GPU has a throughput knee. To the left of it, memory bandwidth and KV-cache
 comfortably carry the active context and generation stays responsive. Past it,
-VRAM fills, requests queue, and throughput collapses non-linearly into latency. So
+VRAM fills, requests queue, and throughput collapses non-linearly into latency —
+KV-cache memory grows with every request's context and caps how many requests fit
+in a batch [3]. So
 the shift does not remove cost — it **changes the kind of cost you pay**:
 
 - **Metered cloud:** cost scales with tokens; concurrency is effectively unlimited.
@@ -136,7 +140,7 @@ uncomfortable, harness overhead is now a more likely culprit than model price, a
 it is the cheaper thing to change.
 
 **Harness ownership is now a decision you have to make.** As of 29 July, "we keep
-the harness separate from the model" is an earnings-call talking point from the
+the harness separate from the model" is an earnings-call talking point [1] from the
 largest enterprise software vendor on earth — so as a vendor claim it is table
 stakes, and anyone selling you that sentence alone is describing the floor. The
 consequential version of it is not a vendor's to answer. If the harness is the
@@ -150,7 +154,7 @@ whoever is holding your context when you want to change something.
 compute whose cost is bounded rather than metered, and a vendor whose revenue scales
 with tokens has little reason to make token-intensive work cheap. But be precise about the
 limit of that argument, because a good procurement team will be: metered vendors
-*can* reprice — reserved capacity and provisioned throughput already do. A capacity
+_can_ reprice — reserved capacity and provisioned throughput already do. A capacity
 contract answers the bill. It does not answer where your evidence lives, under
 whose law, or who can compel its disclosure. Compute makes deep harness work
 affordable; jurisdiction makes it defensible. The moat is both, and neither one
@@ -162,6 +166,14 @@ interesting job now is finding out precisely where it stops being true.
 
 ---
 
-*The thesis–antithesis–synthesis framing in this piece was drafted with Google
+_The thesis–antithesis–synthesis framing in this piece was drafted with Google
 Gemini 3.6 Thinking and adopted after review. The benchmark figures are Composio's,
-published on 29–30 July 2026 and cited with the caveats above.*
+published on 29–30 July 2026 and cited with the caveats above._
+
+## Sources
+
+[1] Microsoft (2026). Microsoft Fiscal Year 2026 Fourth Quarter Earnings Conference Call — transcript, 29 July 2026. Microsoft Investor Relations. https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
+
+[2] Lieber, O., Lenz, B., Bata, H., Cohen, G., Osin, J., et al. (2024). Jamba: A Hybrid Transformer-Mamba Language Model. arXiv:2403.19887. https://arxiv.org/abs/2403.19887
+
+[3] Kwon, W., Li, Z., Zhuang, S., Sheng, Y., Zheng, L., Yu, C. H., Gonzalez, J. E., Zhang, H. & Stoica, I. (2023). Efficient Memory Management for Large Language Model Serving with PagedAttention. arXiv:2309.06180. https://arxiv.org/abs/2309.06180

@@ -4,6 +4,7 @@ Status: PENDING-HIC-REVIEW
 Extracted-From: onelifetime.world/posts/nvidia-halos-robotics-physical-ai-safety.html
 Extracted-On: 2026-08-12
 Published: 2026-07-10
+claims_checked: 2026-09-30
 
 > This draft was reconstructed from the already-published page, because the
 > post went live without one (Rule 13). It is here so the text is reviewable,
@@ -27,7 +28,7 @@ that pre-assesses a robot against IEC 61508 and ISO 13849 before formal certific
 Agility Robotics is already integrating it into Digit for Amazon and Toyota floors. We
 cheer it. And we build the layer it does not cover.
 
-Good news from a good partner.
+Good news from a platform we build on.
 
 We have written before about
 the supercomputer that moved onto the robot. Halos is the next layer up — not more compute, but the safety architecture that
@@ -61,8 +62,9 @@ Every EU physical-AI deployment we touch eventually runs into the same two clock
 Machinery Regulation (EU) 2023/1230, which moves AI-driven safety components to mandatory
 third-party certification from 20 Jan 2027, and the AI Act's
 embedded high-risk obligations, which land on the same machines from
-2 Aug 2028. Notified Body queues already run six to twelve months. The
-honest math is that the runway is already tight.
+2 Aug 2028. How long Notified Body queues will run is an open question — six to twelve months is
+the figure we hear quoted, not one we can source. If it holds, the honest math is that the
+runway is already tight.
 
 Halos changes what a deployer can point to when a Notified Body asks "how did you
 validate this." Before Halos, that answer was a bespoke, in-house safety-engineering
@@ -74,7 +76,9 @@ What a certification does not give you
 Certification is a snapshot. It says the robot, as built, met a standard on the day it
 was assessed. The Machinery Regulation and the AI Act do not stop asking questions on
 that day — Article 9 risk management, Article 12 record-keeping, Article 14 human
-oversight are all continuous duties, not one-time boxes.
+oversight are all continuous duties, not one-time boxes [1]. Researchers have a name for
+the opposite belief — the "compliance fiction" that a system evaluated once stays
+compliant [2].
 
 A Halos-certified robot that runs for two years without a signed, auditable evidence
 trail is a robot that passed an exam and then stopped showing its work. That is the gap
@@ -107,8 +111,9 @@ Control Room and Situation Room, the same governed loop we have described before
 
 NVIDIA called Halos a safety system, not a compliance guarantee. We will keep the same
 restraint. Passing IEC 61508 and ISO 13849 says the hardware and OS can be trusted to fail
-safely. It does not, on its own, produce the immutable Article-12 log a regulator asks for
-eighteen months into a deployment.
+safely. It does not, on its own, produce the Article-12 event log a regulator asks for
+eighteen months into a deployment [1] — and assuring the learning components themselves
+takes reliability evidence that consensus-based safety standards were not written for [3].
 
 A pre-certification report is not an audit trail. We will not say our evidence layer makes
 a robot safer — Halos does that. We say it keeps the proof of that safety alive,
@@ -117,35 +122,43 @@ signed, and local, for as long as the robot is on the floor. That is enough.
 The short version
 
 - Halos for Robotics is a full-stack functional-safety system, not a new model —
-built on 18,600+ engineering-years of NVIDIA autonomous-vehicle safety data.
+  built on 18,600+ engineering-years of NVIDIA autonomous-vehicle safety data.
 
 - Its ANAB-accredited Inspection Lab pre-assesses against IEC 61508 and ISO 13849 before
-third-party (Notified Body) certification. Agility Robotics' Digit is first
-through, deploying for Amazon and Toyota.
+  third-party (Notified Body) certification. Agility Robotics' Digit is first
+  through, deploying for Amazon and Toyota.
 
 - This lands right as the EU Machinery Regulation (20 Jan 2027) and AI Act embedded
-high-risk rules (2 Aug 2028) tighten — a pre-certification pipeline moves the
-expected baseline forward of both deadlines.
+  high-risk rules (2 Aug 2028) tighten — a pre-certification pipeline moves the
+  expected baseline forward of both deadlines.
 
 - Certification is a snapshot. Article 9/12/14 obligations are continuous. We do not
-compete with the safety island — we keep the evidence trail alive after the
-certificate is issued.
+  compete with the safety island — we keep the evidence trail alive after the
+  certificate is issued.
 
 - Halos gets the robot certified. Our Control Room keeps it evidenced.
 
 ## Read next
 
 - NVIDIA Jetson Thor — the supercomputer moves onto the robot, the governance
-sits beside it
+  sits beside it
 
 - The moat is not the model — NVIDIA makes it possible, EU-sovereign deployment
-makes it defensible
+  makes it defensible
 
 - The three-piece loop — Lifetime World Model V1 for control rooms
 
 - Europe's AI factory came home — 35 supercomputers, and why the edge still
-needs a box
+  needs a box
 
 Risto Anton Päärni
 
 Founder, CEO · Lifetime Oy · Editor in Chief, Lifetime Scope Journal
+
+## Sources
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 9, 12 and 14. Official Journal of the European Union, L 2024/1689. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Dussert, J. (2026). Who judges the judges? Governance from metrics: a runtime framework for continuous LLM compliance monitoring. arXiv. https://arxiv.org/abs/2605.24737
+
+[3] Dong, Y., Huang, W., Bharti, V., Cox, V., Banks, A., Wang, S., Zhao, X., Schewe, S., Huang, X. (2021). Reliability Assessment and Safety Arguments for Machine Learning Components in System Assurance. arXiv (ACM Transactions on Embedded Computing Systems). https://arxiv.org/abs/2112.00646

@@ -11,9 +11,36 @@ approved_by: HIC
 approved_at: 2026-09-24
 published: onelifetime.world/posts/mita-one-lifetime-tarkoittaa.fi.html
 revision: 2 (Copilot review 24.09.2026, HIC forwarded: tighten opening, one company example, "johtaa ympäristövaikutuksia", technology section moved up, active-ontology seed, final line)
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 source: HIC-päätös v2.0 (24.09.2026), docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md §0, §13; market-signals MS-2026-09-001…004; HIC:n lisäohje "älä kirjoita teknologia-artikkelia, kirjoita maailmanmalli"
 approved: 2026-09-28 (HIC, Blog editor)
+claims_checked: 2026-09-30
+sources:
+  - title: "ESG Reporting Lifecycle Management with Large Language Models and AI Agents"
+    authors: "Hoang, T.; Klymenko, M.; Xu, X.; Pan, S.; Ding, Y.; Tang, X.; Yang, Z.; Shi, J.; Lo, D."
+    year: 2026
+    venue: "arXiv:2603.10646"
+    url: "https://arxiv.org/abs/2603.10646"
+    type: academic
+  - title: "Human-in-the-loop or AI-in-the-loop? Automate or Collaborate?"
+    authors: "Natarajan, S.; Mathur, S.; Sidheekh, S.; Stammer, W.; Kersting, K."
+    year: 2024
+    venue: "arXiv:2412.14232"
+    url: "https://arxiv.org/abs/2412.14232"
+    type: academic
+  - title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act), Article 14 (Human oversight)"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
+  - title: "Microsoft Fiscal Year 2026 Fourth Quarter Earnings Conference Call — transcript"
+    authors: "Microsoft (Nadella, S.; Hood, A.)"
+    year: 2026
+    venue: "Microsoft Investor Relations"
+    url: "https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4"
+    type: primary
 ---
 
 # Mitä One Lifetime tarkoittaa?
@@ -46,7 +73,9 @@ Toinen syy liittyy päätöksiin. Yhden elämän aikana ihminen tekee rajallisen
 päätöksiä. Hyvä päätös ei ole se, joka on tehty eniten tiedon kanssa, vaan se, joka on tehty
 riittävän ymmärryksen kanssa ja josta joku kantaa vastuun. Tekoäly voi havaita muutoksen,
 analysoida vaihtoehtoja ja ehdottaa seuraavaa askelta. Se voi oppia nopeammin kuin kukaan
-meistä. Mutta vastuu päätöksestä ei siirry, koska vastuu on inhimillinen asia. Se kuuluu
+meistä. Mutta vastuu päätöksestä ei siirry, koska vastuu on inhimillinen asia — myös EU:n tekoälyasetus
+edellyttää suuririskisiltä järjestelmiltä, että ihminen voi valvoa niitä ja ohittaa tai kumota
+niiden tuotoksen [3]. Se kuuluu
 sille, jolla on yksi elämä ja joka elää päätöksen seurausten kanssa.
 
 ## Miksi yksi planeetta?
@@ -66,7 +95,7 @@ joka kestää seuraavan vuosikymmenen.
 
 Tästä seuraa yksi käytännön näkemys: yritykset tulevat johtamaan ympäristövaikutuksia yhtä
 tarkasti kuin talouttaan. Se, mikä tänään näyttää raportointivelvoitteelta, on huomenna tapa nähdä oma jälki ja tehdä siitä
-kilpailukykyä. Yksi planeetta ei ole rajoite, joka estää kasvun. Se on kehys, joka kertoo,
+kilpailukykyä [1]. Yksi planeetta ei ole rajoite, joka estää kasvun. Se on kehys, joka kertoo,
 millainen kasvu on mahdollista.
 
 ## Miksi teknologia on väline?
@@ -79,7 +108,9 @@ yrityksellä on sen jälkeen parempi käsitys siitä, mitä se tekee ja miksi.
 Tämä erottelu ratkaisee monta asiaa. Se ratkaisee, mistä puhumme asiakkaalle: emme malleista,
 agenteista tai alustoista, vaan siitä, mikä hänen yrityksessään muuttuu. Se ratkaisee, miten
 suhtaudumme mallien vaihtumiseen: mallit vaihtuvat, teknologia muuttuu, järjestelmät kehittyvät,
-mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä. Jos ketju säilyy, väline voi
+mutta havaintojen, oppimisen ja päätösten ketjun pitää säilyä. Saman arkkitehtuurin kuvasi Microsoftin
+toimitusjohtaja heinäkuussa 2026: kun muisti ja konteksti pidetään mallin ulkopuolella, mikä
+tahansa malli on vaihdettavissa [4]. Jos ketju säilyy, väline voi
 vaihtua vaikka joka vuosi.
 
 **Jos yritys menettää havaintonsa, oppimisensa ja päätöstensä perustelut aina, kun väline
@@ -134,7 +165,7 @@ jättää jälkeensä, ei sen mukaan, kuinka uutta se on.
 Yritys on osa ratkaisua, koska se on rakenne, joka toteuttaa muutoksen mittakaavassa.
 
 Tekoäly voi oppia. Ihmiset voivat oppia. Parhaat tulokset syntyvät, kun molemmat oppivat ja
-ymmärtävät, miksi päätökset tehdään. Siksi rakennamme järjestelmiä, joissa havainnot,
+ymmärtävät, miksi päätökset tehdään [2]. Siksi rakennamme järjestelmiä, joissa havainnot,
 oppiminen, päätökset ja vaikutukset ovat jäljitettävissä myös vuosien päästä. Teknologia
 muuttuu. Mallit vaihtuvat. Vastuu säilyy ihmisellä.
 
@@ -144,6 +175,16 @@ kannattaa automatisoida ensimmäisenä, miten tekoäly muuttaa asiantuntijatyöt
 näkyvyys verkossa ratkaisee kilpailukyvyn. Jokainen niistä on tämän maailmanmallin sovellus.
 
 Tekoäly oppii. Ymmärtävä ihminen kantaa vastuun päätöksestä.
+
+## Lähteet
+
+[1] Hoang, T., Klymenko, M., Xu, X., Pan, S., Ding, Y., Tang, X., Yang, Z., Shi, J. & Lo, D. (2026). ESG Reporting Lifecycle Management with Large Language Models and AI Agents. arXiv:2603.10646. https://arxiv.org/abs/2603.10646
+
+[2] Natarajan, S., Mathur, S., Sidheekh, S., Stammer, W. & Kersting, K. (2024). Human-in-the-loop or AI-in-the-loop? Automate or Collaborate? arXiv:2412.14232. https://arxiv.org/abs/2412.14232
+
+[3] Euroopan parlamentti ja neuvosto (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), artikla 14 (Human oversight). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[4] Microsoft (2026). Microsoft Fiscal Year 2026 Fourth Quarter Earnings Conference Call — transcript, 29 July 2026. Microsoft Investor Relations. https://www.microsoft.com/en-us/investor/events/fy-2026/earnings-fy-2026-q4
 
 ---
 
