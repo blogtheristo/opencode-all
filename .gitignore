@@ -216,6 +216,10 @@ Admin/Acer-Veriton-GN100/training/cache/
 !Admin/Acer-Veriton-GN100/training/.env.training.example
 .opencode/settings.local.json
 .opencode/failover.log
+# OpenCode installs its plugin dependencies here on every start — generated, never commit
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/node_modules/
 opencode.json.save
 .copilot-worktrees/
 .worktrees/
