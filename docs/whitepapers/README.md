@@ -34,15 +34,28 @@ published to public-site folders (CLAUDE.md Non-Negotiable Rule 5).
 
 ---
 
+## Sales-path proposals (30.09.2026)
+
+`SALES_WHITEPAPER_PROPOSALS.md` re-ranks the series around live pipeline paths: WP13 _When the link drops_ (Aegis Pilot), WP14 _Batch-level PCF_ (Kemira), WP15 _Containment is not evidence_ (CISO), WP16 _Article 50 for agent operators_, WP17 _Buying AI under €60,000_ (Finnish agencies), WP18 _Pricing an agent before it runs_. WP05 folds into WP13 as a Defence annex; WP04 becomes the regulatory-calendar section of WP14 and WP16. Every new paper follows `docs/BLOG_STANDARD.md` §17 (customer value, ≥3 sources with ≥1 academic, routes, demo only from `products.json`).
+
 ## Existing whitepapers (reconcile — do not duplicate)
 
 The repo already ships whitepapers. New WPs must extend or refresh these, not replace them.
 Canonical inventory is the manifest in `scripts/bundle-whitepapers-for-llm.cjs`.
 
-- **European Sovereign Industrial Intelligence v1.1** — `Learn/sovereign-industrial-intelligence-whitepaper-v1.1.html` (v1.1 23.09.2026: DWS IQ 6 price is €4,999 one-time; v1.0 kept) (overlaps WP10)
-- **KYA Specification — IDV Provider Certification (whitepaper v1.1; specification KYA-IDV-CERT v1.0)** — `Learn/KYA-IDV-CERT-Whitepaper-v1.1.html` (v1.1 23.09.2026: terminology fix to "KYA Specification"; v1.0 file kept) + published at `dws10.com/kya-standard/whitepaper/` (mirror `landing-pages/dws10-com/`) (overlaps WP08)
-- **Shufti KYA whitepaper** — `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md` + `Learn/2026-03-17-shufti-kya-whitepaper_v1.1.html` (v1.1 23.09.2026: same terminology fix)
+- **European Sovereign Industrial Intelligence v1.1** — `Learn/sovereign-industrial-intelligence-whitepaper-v1.2.html` (v1.2 30.09.2026: AI Act/CSRD dates, 50 production agents, contact; v1.1 23.09.2026: €4,999 one-time; older versions kept) (overlaps WP10)
+- **KYA Specification — IDV Provider Certification (whitepaper v1.1; specification KYA-IDV-CERT v1.0)** — `Learn/KYA-IDV-CERT-Whitepaper-v1.2.html` (v1.2 30.09.2026: remaining "standard" wording, high-risk date; v1.1 23.09.2026: "KYA Specification"; older files kept) + published at `dws10.com/kya-standard/whitepaper/` (mirror `landing-pages/dws10-com/`) (overlaps WP08)
+- **Shufti KYA whitepaper** — `docs/field-notes/2026-03-17-shufti-kya-whitepaper.md` + `Learn/2026-03-17-shufti-kya-whitepaper_v1.2.html` (v1.2 30.09.2026: same fixes as KYA-IDV-CERT v1.2)
 - **Bundling:** `node scripts/bundle-whitepapers-for-llm.cjs` concatenates the canonical inventory for LLM upload.
+
+## Drift audit 30.09.2026 — open items (HIC)
+
+- **Agent count conflict:** Truth row 19 = 50 production agents (code-derived); row 36 = 58 agents (handbook capacity line). SII v1.2 uses 50; WP01 still says 58. Pick one canonical figure.
+- **Public KYA page** (`dws10.com/kya-standard/whitepaper/`, both folders): Art. 12 sets no "5 years" retention (Art. 19 / 26(6): at least 6 months); NIS2 Art. 23 is 24 h / 72 h / 1 month reporting, not "sub-second telemetry"; footer says Helsinki (Espoo). Public copy — fix only after HIC approval.
+- **Compliant by Construction:** "Lifetime Fleet (Mobile) Control Room" names and an IGX Thor "mill-floor brain" are not in `products.json` (sold: GN100 Control Room, IGX Orin, Thor Mobile Office). Needs the HIC's product naming.
+- **WP07:** "FuelEU ahead" — FuelEU Maritime applies since 01.01.2025.
+- **§17.2 sources:** no whitepaper yet has `customer_value`, ≥3 sources with ≥1 academic, or `claims_checked`. Retrofit when each is next revised.
+- **KYA fee tables** (IDV-CERT, Shufti) are not in `products.json`.
 
 ## Status
 
