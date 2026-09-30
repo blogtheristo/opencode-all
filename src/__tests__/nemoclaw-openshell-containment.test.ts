@@ -17,12 +17,12 @@ vi.mock('../utils/logger.js', () => ({ default: logger }));
 
 import { ComplianceAgent } from '../agents/compliance.agent.js';
 import {
-  ContainmentEvidence,
-  ContainmentMode,
-  NemoClawSkillHost,
-  SandboxTier,
+  type ContainmentEvidence,
+  type ContainmentMode,
   getTierCapabilities,
+  NemoClawSkillHost,
   resolveTier,
+  type SandboxTier,
 } from '../mcp/nemoclaw-skill-host.js';
 import type { AgentContext } from '../agents/types.js';
 

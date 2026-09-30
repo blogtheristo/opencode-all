@@ -29,7 +29,8 @@ import type { AgentContext, AgentResponse, AutonomyPhase } from '../agents/types
 // CONTAINMENT IMPORTS
 // ============================================================================
 
-import { spawnRunner } from '../aegis/pilot/openshell-handlers.js';
+// Import for future OpenShell containment integration via CommandRunner interface
+import { spawnRunner as _spawnRunner } from '../aegis/pilot/openshell-handlers.js';
 
 // ============================================================================
 // TYPES
@@ -566,7 +567,7 @@ export class NemoClawSkillHost {
       inputHash: string;
       startTime: number;
     },
-    tier: string,
+    _tier: string,
   ): SkillInvocationResult {
     const durationMs = Date.now() - ctx.startTime;
     this.recordStep({
@@ -598,31 +599,15 @@ export class NemoClawSkillHost {
 
   /** Run a skill invocation through OpenShell sandbox (when containment = 'openshell'). */
   private async invokeWithOpenShell(
-    req: SkillInvocation,
-    registered: RegisteredSkill,
-    traceId: string,
-    auditEventId: string,
-    inputHash: string,
-    startTime: number,
-    tier: string,
-    tierCapabilities: { allowNetwork: boolean; maxMemoryMb: number; maxCpuCores: number; maxExecutionSec: number },
+    _req: SkillInvocation,
+    _registered: RegisteredSkill,
+    _traceId: string,
+    _auditEventId: string,
+    _inputHash: string,
+    _startTime: number,
+    _tier: string,
+    _tierCapabilities: { allowNetwork: boolean; maxMemoryMb: number; maxCpuCores: number; maxExecutionSec: number },
   ): Promise<SkillInvocationResult> {
-    const work = '/tmp/nemoclaw-openshell';
-    const img = 'aegis-pilot-node:22';
-
-    // Build OpenShell policy: no network for restricted and below
-    const hasNetwork = tierCapabilities.allowNetwork;
-    const policy = {
-      version: 1,
-      filesystem_policy: {
-        include_workdir: false,
-        read_only: ['/bin', '/usr', '/lib', '/lib64', '/etc', '/proc', '/dev/urandom'],
-        read_write: ['/sandbox', '/tmp', '/dev/null'],
-      },
-      landlock: { compatibility: 'hard_requirement' },
-      network_policies: hasNetwork ? {} : undefined,
-    };
-
     // TODO: Add actual OpenShell command execution here
     // For now, return a placeholder indicating OpenShell mode with policy info
     // The actual implementation would:
@@ -632,9 +617,9 @@ export class NemoClawSkillHost {
     // 4. Run the skill in sandbox
     // 5. Collect results and cleanup
     return this.failWithEvidence(
-      `OpenShell sandbox not yet fully implemented for skill "${req.skill}" (tier: ${tier})`,
-      { req, traceId, auditEventId, inputHash, startTime },
-      tier,
+      `OpenShell sandbox not yet fully implemented for skill "${_req.skill}" (tier: ${_tier})`,
+      { req: _req, traceId: _traceId, auditEventId: _auditEventId, inputHash: _inputHash, startTime: _startTime },
+      _tier,
     );
   }
 
