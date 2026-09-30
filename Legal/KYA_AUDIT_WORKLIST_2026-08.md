@@ -8,10 +8,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-parts-8-10-flfmrn | Date: 08.08.2026 | Changes: P3-1 merkitty korjatuksi — sarjan numerointi 1–11 lukittu (`docs/blog-drafts/SARJA_KYA_S1_NUMEROINTI.md`), osat 8–10 kirjoitettu luonnoksiksi. P3-3 päivitetty 7 → 10 odottavaa luonnosta. Jäännösvelka (Osan 7 "Katso myös" -lista) kirjattu P3-1:n alle sen sijaan että kohta olisi suljettu kokonaan.
 - Version: 1.0 | Tool: Claude Code (Opus 5) | Session: claude/agent-use-cases-comparison-h7vl25 | Date: 08.08.2026 | Changes: Ensimmäinen versio — koottu auditlista KYA-sarjan katselmuksen tuottamasta korjausvelasta. 12 tiedostoa, 16 työkohtaa, prioriteetti ja hyväksymiskriteeri per kohta.
 
 Session Links & References:
@@ -37,7 +38,7 @@ Document Status:
 | **P0 (esto)** | 3 (kaikki korjattu)        | Estävät KYA-S1-attestaation. Standardi väittää jotain mitä ei tapahdu. |
 | **P1**        | 5        | Turvallisuus- tai auditointiaukko, ei vielä julkinen väärä väite.      |
 | **P2**        | 5        | Dokumenttivelka, ristiriitainen kanoni, versiotunnisteet.              |
-| **P3**        | 3        | Blogisarjan sisäinen johdonmukaisuus ennen julkaisua.                  |
+| **P3**        | 3 (1 korjattu)       | Blogisarjan sisäinen johdonmukaisuus ennen julkaisua.                  |
 
 **Kriittisin havainto:** `KYA_S1.md` §9 väitti, että DWS:n referenssitoteutus tarjoaa TRS-kontrollin. `src/identity/ats-engine.ts` ei toteuttanut yhtään TRS-1:n neljästä vaaditusta syötteestä. Korjattu v1.3:ssa julkaisemalla conformance-note, ja **IDV-jäsen on nyt toteutettu koodissa** (P0-1, 08.08.2026). Kolme neljästä syötteestä puuttuu yhä, joten TRS-1 ei ole täytetty eikä tieriä väitetä.
 
@@ -186,7 +187,7 @@ Auditoija ei voi viitata kontrolliin versiolla, kun dokumentti on eri mieltä it
 
 ## 4. P3 — Blogisarjan johdonmukaisuus ennen julkaisua
 
-### P3-1 · Sarjan numerointi kesken
+### P3-1 · Sarjan numerointi kesken ✅ KORJATTU 08.08.2026
 
 Osat 5, 6, 7 kantavat `series: "… n/7"`. HIC:n suunnitelma osista 8–11 tekee kokonaismäärästä 11. Osa 11 on kirjoitettu (`eudi-wallet-eidas2-idv-ankkurointi.md`, merkitty 11/11), osat 8–10 puuttuvat.
 
@@ -194,13 +195,19 @@ Lisäksi osien 1–4 kartoitus on epäselvä: Osan 7 "Katso myös" -lista nimeä
 
 **Korjaus.** Lukitse kartoitus 1–11 ennen ensimmäistäkään julkaisua.
 
+**TOTEUTETTU 08.08.2026.** Kartoitus lukittu tiedostoon `docs/blog-drafts/SARJA_KYA_S1_NUMEROINTI.md`, joka kirjaa myös osien 1–4 johtamisperusteen (kolme itsenäistä signaalia: Osan 7 yhteenvetoketju, olemassa olevat `series`-kentät, sisältöriippuvuus). Osien 5–7 `series`-kentät korjattu `/7` → `/11`; osille 1–4 lisätty `series`, alkuperäinen merkintä säilytetty `series_original`-kentässä (Sääntö 12). Osan 7 "sarjan päätösosa" täsmennetty ydinkaaren päätökseksi ilman että alkuperäistä yhteenvetokappaletta muutettiin. Osat 8–10 kirjoitettu (`kya-s1-ekosysteemi-ja-tuotanto-roadmap`, `lifetime-world-model-globaalina-tilarekisterina`, `agentic-commerce-protokollat-ja-autonomiset-maksut`), kaikki `Status: DRAFT`.
+
+**JÄÄNNÖSVELKA tässä kohdassa:** Osan 7 "Katso myös" -lista osoittaa yhä osiin 1–3 KYA-johdantoteksteinä, joita ei ole repossa luonnoksina. Ne eivät ole lukitun kartoituksen osia 1–3. Lista on korjattava osoittamaan kartoitukseen ennen julkaisua.
+
 ### P3-2 · Osan 11 kolme varmentamatonta EU-väitettä
 
 `eudi-wallet-eidas2-idv-ankkurointi.md` merkitsee frontmatterissa kolme väitettä tarkistettavaksi: EUDI-asetuksen takaraja ja nykytila, edustusattestaation normatiivinen tila, sekä peruutustiedon todellinen etenemisviive. Kolmas kantaa §5:n koko argumentin IDV-4:n Gold-tason yhteensopivuudesta.
 
 **Korjaus.** Varmenna lähteestä. Nämä ovat julkisia väitteitä EU-sääntelystä.
 
-### P3-3 · Seitsemän luonnosta odottaa HIC-hyväksyntää
+### P3-3 · Kymmenen luonnosta odottaa HIC-hyväksyntää
+
+_(Päivitetty 08.08.2026: seitsemän → kymmenen. KYA-sarjan osat 8–10 kirjoitettu; sarjan 11 osasta 10 on `docs/blog-drafts/`-luonnoksena, osa 1 omalla frontmatter-tyylillään. Muut kansion luonnokset eivät kuulu tähän sarjaan.)_
 
 Kaikki `docs/blog-drafts/` -tiedostot ovat `Status: DRAFT`. Non-Negotiable Rule 13: hyväksyntä on annettava **slug-kohtaisesti**, ei yleisenä "julkaise kaikki".
 

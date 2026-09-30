@@ -6,6 +6,7 @@ Title: Tunne agenttisi — yksi allekirjoitettu sivu tekoälystä, joka koskee d
 Language: fi
 Target: onelifetime.world/posts/kya-s1-one-signed-page.fi.html
 Date: 2026-08-06
+Series: "Blogi 1/11 · DWS IQ & Lifetime World Model" (kartoitus lukittu docs/blog-drafts/SARJA_KYA_S1_NUMEROINTI.md)
 Note: Lukijaystävällinen uudelleenkirjoitus HIC:n ohjeesta (06.08.2026) — aiempi versio oli liian tekninen ja lyhyt lukijalle, joka ei tunne agentteja eikä KYA:ta. Jokainen termi avataan. Ääni DWS_BLOG_STANDARD §12 (Seth Godin -talotyyli). KYA-S1 on spesifikaatio, ei standardi (HIC-korjaus 06.08.2026, Legal/KYA_S1.md v1.3). Tämä FI-versio on käännöspohja; HIC vie Geminiin muille kielille.
 
 # Tunne agenttisi — yksi allekirjoitettu sivu tekoälystä, joka koskee dataasi

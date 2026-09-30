@@ -8,6 +8,7 @@ author: Risto Anton Päärni
 date: 2026-08-07
 Status: DRAFT
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25), tarkistettu KYA-S1:tä vasten
+series: "Blogi 2/11 · DWS IQ & Lifetime World Model"
 ---
 
 # HIC-hallintamalli ja DWS IQ -agentit

@@ -8,8 +8,16 @@ author: Risto Anton Päärni
 date: 2026-08-07
 Status: DRAFT
 source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25)
-series: Kolmas osa sarjassa "HIC-hallintamalli ja DWS IQ -agentit"
-resolved_issue: "LWM-termiristiriita ratkaistu 23.09.2026: ONTOLOGY.md §4.1 nimeää kaksi kerrosta (mallipohja + tilarekisteri ja muisti). Tämä teksti käyttää tilarekisterikerrosta, KYA-S1 osan 9 mukaisesti (HIC 09.08.2026)."
+series: "Blogi 4/11 · DWS IQ & Lifetime World Model"
+series_original: Kolmas osa sarjassa "HIC-hallintamalli ja DWS IQ -agentit" (alkuperäinen merkintä säilytetty, Sääntö 12)
+open_issue: |
+  TERMISTÖRISTIRIITA (Sääntö 7 — ratkaistava ennen julkaisua). DWS_TRUTH_STANDARD.md rivi 20
+  määrittelee Lifetime World Model (LWM) -termin toimialakohtaiseksi, yrityskohtaisesti
+  hienosäädetyksi mallipohjaksi ("each industry carries its own ontology + Lifetime World Model
+  (LWM) base, fine-tuned per enterprise"). Tämä teksti käyttää samaa termiä eri merkityksessä:
+  reaaliaikaisena tila- ja luottamusrekisterinä (IDV/TRS/PRV-selkäranka). Nämä ovat eri asioita.
+  Vaihtoehdot: (a) käytä hallintakerroksesta eri nimeä, (b) laajenna rivin 20 kanoninen määritelmä
+  kattamaan molemmat kerrokset. Älä julkaise ennen kuin valinta on tehty ja kanoni päivitetty.
 ---
 
 # Lifetime World Model ja teollisuuden prosessimallit
