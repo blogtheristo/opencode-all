@@ -10,6 +10,7 @@ export * from './evidence-ledger.js';
 export * from './ledger-segments.js';
 export * from './kill-authority.js';
 export * from './decision-authority.js';
+export * from './lease.js';
 export * from './uplink-probe.js';
 export * from './workflow-runner.js';
 export * from './acceptance.js';
