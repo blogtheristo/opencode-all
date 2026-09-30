@@ -1,14 +1,15 @@
-# DWS Gamma Brand Standard v3.14
+# DWS Gamma Brand Standard v3.15
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
-Version: 3.14
+Version: 3.15
 
 Sessions & Modifications:
 
-- Version: 3.14 | Tool: Claude Code | Session: claude/focused-ritchie-rou192 | Date: 27.09.2026 | Changes: Added §2.2 DWS Gold Standard — HIC 27.09.2026: "when HIC says gold standard" means the cari.fi palette exactly as in production (blogtheristo/cari `public/index.html`, commit dd2a144) plus IBM Plex typography. Dark-only token set, gold usage rules, trigger phrase registered in STANDARDS_ROUTING.md.
+- Version: 3.15 | Tool: Claude Code (Opus 5) | Session: cursor/signed-work-gtm-pivot-ced6 | Date: 22.09.2026 | Changes: §23.3 subject-line format brought under the First-Touch Fence — cold first-touch subjects name the frozen money, not the regulatory trigger; the legacy `[Company] + DWS: [Regulatory Trigger]` format is kept and fenced to recipients already using the regulation's name with us. Raised by drafting `sales-outreach/CAPTAIN_DAY_SIGNED_WORK_OFFERS_2026-09.md` (HIC Q2 = A for the offers). Standards-gap fix per STANDARDS_ROUTING "How to Apply" step 4.
+- Version: 3.14 | Tool: Claude Code (Opus 5) | Session: claude/continue-session-v5c3vj | Date: 22.09.2026 | Changes: Added §22 "First-Touch Fence — Signed Work (Trophy Effect)" — first-touch never leads with the noun _compliance_; EN/FI lockstep hero, sub-line, industry and public-sector openers, investor line, say/do-not-say table, guardrails. Annotated the DWS10 Offensive / Commercial-Edge block: its defensive-door instruction is superseded at first-touch (original sentence preserved per §21 formulation-preservation). HIC Q1 = A (22.09.2026) on `docs/plans/2026-09-21-signed-work-gtm-pivot.md`. Harness: Claude Code on the web. HIC-approved-drift: none.
 - Version: 3.13 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Locked IT/business offer line (FI): Aegis/Infra split by contract, risk and jurisdiction; Connect produces KYA-compliant signed auditable outcomes. SEAL value line remains CIO-layer.
 - Version: 3.12 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Boardy audit — lifetime.fi commercial core is the compliance outcome (Aegis/infra for sensitive; hyperscaler per contract/jurisdiction; DWS IQ Connect signed outcomes from both). Public CLOUD Act-zero fenced to Aegis/EU-only path. Coaching: hybrid finding is not the second sentence unless it explains the participant’s problem; keep the EU-sovereign perimeter promise.
 - Version: 3.11 | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §22 Use-in — lifetime.fi consulting (five-language homepages + Starter package) carries the locked pair plus the operational consulting lede (sensitive on sovereign, rest on hyperscaler). Not a headline replacement.
@@ -47,7 +48,7 @@ Document Status:
 - Languages Available: English
 - Publication Status: ACTIVE
 
-***
+---
 
 **Effective Date:** February 2026
 **Scope:** All DWS landing pages (dws10.com, dws6.com, onelifetime.world, lifetime.fi)
@@ -60,36 +61,35 @@ All AI agents (Claude Code, Cursor, Codex), VS Code, and human developers MUST f
 
 ## Table of Contents
 
-| #   | Section                                   | Scope                                        |
-| --- | ----------------------------------------- | -------------------------------------------- |
-| 0   | Store Identity & Product Data             | Store pages                                  |
-| 1   | Store Category Navigation                 | Store buy/ pages                             |
-| 2   | Dark Theme Tokens                         | All pages                                    |
-| 2.2 | DWS Gold Standard (cari.fi + IBM Plex)    | When HIC says "gold standard"                |
-| 3   | Product Card Component                    | Store pages                                  |
-| 4   | Store Category Taxonomy                   | products.json                                |
-| 5   | Iron Clad Navigation (v3.0)               | **All pages**                                |
-| 6   | Iron Clad Footer (v1.0)                   | **All pages**                                |
-| 7   | Hero Section Standard                     | All content pages                            |
-| 8   | Typography & Fonts                        | All pages                                    |
-| 9   | Logo Usage & Assets                       | All pages                                    |
-| 10  | SEO Meta Tags Standard                    | **All pages**                                |
-| 11  | Sovereignty Badge System                  | Products & compliance                        |
-| 12  | A2A Agent Integration                     | Industrial pages                             |
-| 13  | Responsive Breakpoints                    | All pages                                    |
-| 14  | Accessibility (WCAG 2.2)                  | All pages                                    |
-| 15  | Shared Assets Registry                    | Infrastructure                               |
-| 16  | Page Template                             | New pages                                    |
-| 17  | Climate IQ Pantheon Agent Brand Identity  | onelifetime.world agent cards                |
-| 18  | Dashboard Profile Menu Standard           | Logged-in dashboard (v10-react)              |
-| 19  | Onboarding Wizard Standard                | First-run experience (v10-react)             |
-| 20  | Compliance Score Widget Standard          | Dashboard compliance ring (v10-react)        |
-| 21  | CLI Rich Output Standard                  | CLI human-readable formatting                |
+| #   | Section                                   | Scope                                          |
+| --- | ----------------------------------------- | ---------------------------------------------- |
+| 0   | Store Identity & Product Data             | Store pages                                    |
+| 1   | Store Category Navigation                 | Store buy/ pages                               |
+| 2   | Dark Theme Tokens                         | All pages                                      |
+| 3   | Product Card Component                    | Store pages                                    |
+| 4   | Store Category Taxonomy                   | products.json                                  |
+| 5   | Iron Clad Navigation (v3.0)               | **All pages**                                  |
+| 6   | Iron Clad Footer (v1.0)                   | **All pages**                                  |
+| 7   | Hero Section Standard                     | All content pages                              |
+| 8   | Typography & Fonts                        | All pages                                      |
+| 9   | Logo Usage & Assets                       | All pages                                      |
+| 10  | SEO Meta Tags Standard                    | **All pages**                                  |
+| 11  | Sovereignty Badge System                  | Products & compliance                          |
+| 12  | A2A Agent Integration                     | Industrial pages                               |
+| 13  | Responsive Breakpoints                    | All pages                                      |
+| 14  | Accessibility (WCAG 2.2)                  | All pages                                      |
+| 15  | Shared Assets Registry                    | Infrastructure                                 |
+| 16  | Page Template                             | New pages                                      |
+| 17  | Climate IQ Pantheon Agent Brand Identity  | onelifetime.world agent cards                  |
+| 18  | Dashboard Profile Menu Standard           | Logged-in dashboard (v10-react)                |
+| 19  | Onboarding Wizard Standard                | First-run experience (v10-react)               |
+| 20  | Compliance Score Widget Standard          | Dashboard compliance ring (v10-react)          |
+| 21  | CLI Rich Output Standard                  | CLI human-readable formatting                  |
 | 22  | Product Pitch Lines                       | Canonical one-liners (EN/FI; axis line 5-lang) |
-| 23  | 4P Capital Classes                        | Canonical terminology (positioning)          |
-| 24  | Outreach Voice & Email Standard           | B2B outreach email + LinkedIn                |
-| 25  | Personnel Photography & Multimodal Assets | CVs, customer docs, whitepapers, video/audio |
-| 26  | Investor Deck Standard (v1.0)             | Professional presentation (HTML/PDF/Gamma)   |
+| 23  | 4P Capital Classes                        | Canonical terminology (positioning)            |
+| 24  | Outreach Voice & Email Standard           | B2B outreach email + LinkedIn                  |
+| 25  | Personnel Photography & Multimodal Assets | CVs, customer docs, whitepapers, video/audio   |
+| 26  | Investor Deck Standard (v1.0)             | Professional presentation (HTML/PDF/Gamma)     |
 
 ---
 
@@ -310,58 +310,6 @@ All pages include `hreflang` alternate links for SEO.
 ### "Built in Finland" Footer Badge
 
 Added to `ironclad-footer.js` v1.2. Displays Finnish flag SVG + "Built in Finland · EU Sovereign AI · Finnish Jurisdiction" above the footer columns on every page.
-
----
-
-## 2.2 DWS Gold Standard (v3.14)
-
-**Trigger:** when the HIC says **"gold standard"** (or "brand gold standard"), use this section. It means the cari.fi colours, exactly as live in production, set in IBM Plex type. It is not the retired `digital-design-gold` product palette and not the §2.1 Nordic Industrial palette.
-**Decided:** HIC, 27.09.2026.
-**Colour source (canonical):** `blogtheristo/cari` → `public/index.html` `:root` block, commit `dd2a144` (2026-08-05). If cari.fi changes, cari is right and this table follows in the same commit.
-**cari.fi is read-only for DWS work (HIC 27.09.2026).** Copy its settings into DWS; never edit, fix, restyle or open PRs against `blogtheristo/cari` or cari.fi from a DWS task, even when a value there looks wrong. Report a suspected issue to the HIC instead.
-**Typography source:** §2.1 IBM Plex stack (replaces cari.fi's `system-ui` stack).
-
-### Colour Tokens (exact cari.fi values)
-
-| Token              | Value                       | Usage                                                         |
-| ------------------ | --------------------------- | ------------------------------------------------------------- |
-| `--gs-bg`          | `#0a0a0b`                   | Page background (near-black)                                  |
-| `--gs-bg-2`        | `#121214`                   | Alternate section / panel background                          |
-| `--gs-card`        | `#161619`                   | Cards, blocks                                                 |
-| `--gs-line`        | `rgba(255, 255, 255, 0.12)` | Hairlines, card borders                                       |
-| `--gs-line-strong` | `rgba(255, 255, 255, 0.22)` | Ghost-button and emphasised borders                           |
-| `--gs-text`        | `#f4f5f7`                   | Body and heading text                                         |
-| `--gs-muted`       | `#a2abb8`                   | Secondary text, labels                                        |
-| `--gs-gold`        | `#f0a92b`                   | The one accent: eyebrows, primary button, icons, focus ring   |
-| `--gs-gold-dark`   | `#cf8f1e`                   | Gold hover / pressed                                          |
-| `--gs-on-gold`     | `#0a0a0b`                   | Text on gold fills (never white on gold)                      |
-| `--gs-radius`      | `14px`                      | Cards and panels; buttons and pills use `999px`               |
-| `--gs-tr`          | `200ms cubic-bezier(0.4, 0, 0.2, 1)` | All hover/focus transitions                          |
-
-cari.fi also defines `--wa: #25d366` (WhatsApp button). It is a channel colour, not a brand colour. Do not use it outside a WhatsApp CTA.
-
-### Typography
-
-| Role     | Font                    | Weight   | Notes                                                        |
-| -------- | ----------------------- | -------- | ------------------------------------------------------------ |
-| Headings | IBM Plex Sans Condensed | 600, 700 | `line-height: 1.15`, `letter-spacing: -0.02em` (cari.fi)     |
-| Body     | IBM Plex Sans           | 400–700  | `line-height: 1.65`; 17px on marketing pages, 15px on dense documents |
-| Labels / code / data | IBM Plex Mono | 400, 500 | Eyebrows: uppercase, `letter-spacing: 0.09em`, gold, 600 |
-
-Fallback stack for every face: `system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` (the cari.fi stack).
-
-### Usage rules
-
-- **Dark only.** Gold Standard is a single dark look; do not invert it into a light theme. Set `color-scheme: dark` and an explicit `background` on `body`.
-- **One accent.** Gold is the only accent hue. Status colours (success, warning, critical) are semantic and are not a second accent.
-- **Hero glow.** The cari.fi signature is a soft gold radial glow on the hero: `radial-gradient(60% 80% at 85% 0%, rgba(240,169,43,.16) 0, transparent 60%)`. Use once per page.
-- **Buttons.** Primary = gold fill, `--gs-on-gold` text, pill radius; ghost = transparent with `--gs-line-strong` border that turns gold on hover.
-- **Motion.** Scroll reveal via `shared-assets/motion/reveal.js` (already adapted from cari.fi), with its no-JS backstop.
-- **Contrast.** Gold `#f0a92b` on `#0a0a0b` passes WCAG AA for text; gold on `#161619` cards is fine for text 14px+ bold. Never set gold text on a light background.
-
-### Where it applies
-
-Internal architecture pages, investor-facing visuals and artefacts the HIC flags as "gold standard". Public dws10.com / onelifetime.world / lifetime.fi pages keep §2.1 Nordic Industrial until the HIC decides to migrate them.
 
 ---
 
@@ -872,16 +820,15 @@ For products and pages related to EU data sovereignty compliance.
 
 **Badge types:**
 
-| Badge                      | Color                    | CSS Class                           | Usage                                |
-| -------------------------- | ------------------------ | ----------------------------------- | ------------------------------------ |
-| EU Data Residency          | `#10b981` (green)        | `.sovereignty-badge.eu-data`        | Data stays in EU                     |
-| GAIA-X Aligned             | `#2563eb` (blue)         | `.sovereignty-badge.gaia-x`         | GAIA-X Level 3 compliant             |
-| NIS2 Ready                 | `#8b5cf6` (purple)       | `.sovereignty-badge.nis2`           | NIS2 Directive compliant             |
-| EU AI Act                  | `#f59e0b` (amber)        | `.sovereignty-badge.eu-ai-act`      | EU AI Act Article 12 compliant       |
-| CLOUD Act Free             | `#ef4444` (red accent)   | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure             |
-| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv`     | NVIDIA Connect ISV certified         |
-| Red Hat Technology Partner | `#ee0000` (Red Hat red)  | `.sovereignty-badge.redhat`         | Red Hat AgentOps ecosystem           |
-| Microsoft ISV Partner      | `#0067b8` (Microsoft blue) | `.sovereignty-badge.microsoft-isv` | Microsoft ISV / M365 Agents Toolkit |
+| Badge                      | Color                    | CSS Class                           | Usage                          |
+| -------------------------- | ------------------------ | ----------------------------------- | ------------------------------ |
+| EU Data Residency          | `#10b981` (green)        | `.sovereignty-badge.eu-data`        | Data stays in EU               |
+| GAIA-X Aligned             | `#2563eb` (blue)         | `.sovereignty-badge.gaia-x`         | GAIA-X Level 3 compliant       |
+| NIS2 Ready                 | `#8b5cf6` (purple)       | `.sovereignty-badge.nis2`           | NIS2 Directive compliant       |
+| EU AI Act                  | `#f59e0b` (amber)        | `.sovereignty-badge.eu-ai-act`      | EU AI Act Article 12 compliant |
+| CLOUD Act Free             | `#ef4444` (red accent)   | `.sovereignty-badge.cloud-act-free` | No US CLOUD Act exposure       |
+| NVIDIA Connect ISV Partner | `#76b900` (NVIDIA green) | `.sovereignty-badge.nvidia-isv`     | NVIDIA Connect ISV certified   |
+| Red Hat Technology Partner | `#ee0000` (Red Hat red)  | `.sovereignty-badge.redhat`         | Red Hat AgentOps ecosystem     |
 
 **Badge CSS:**
 
@@ -929,11 +876,6 @@ For products and pages related to EU data sovereignty compliance.
   background: rgba(238, 0, 0, 0.15);
   color: #ee0000;
   border: 1px solid rgba(238, 0, 0, 0.3);
-}
-.sovereignty-badge.microsoft-isv {
-  background: rgba(0, 103, 184, 0.15);
-  color: #2b9bf4;
-  border: 1px solid rgba(0, 103, 184, 0.3);
 }
 ```
 
@@ -985,31 +927,6 @@ For products and pages related to EU data sovereignty compliance.
 - [x] Landing pages synced (dual folder rule)
 - [ ] Red Hat logo asset added to shared-assets/logos/
 - [ ] OpenShift AI integration documented in architecture docs
-
-### 11.3 Microsoft ISV Partner Badge
-
-**Status:** Confirmed (2026-06-07). Held under the **Lifetime Oy** Microsoft Entra tenant (directory `lifetimeoy1624259183583`, primary domain `lifetime.fi`). Independently verifiable via the Microsoft ISV / Cloud Partner program for the Lifetime Oy tenant.
-
-**Colors:** Microsoft Blue `#0067b8`, lightened text `#2b9bf4` (for dark backgrounds), White `#ffffff`.
-
-**Context:** Lifetime Oy is an approved Microsoft ISV (Independent Software Vendor). Membership backs the `m365-consultancy` store product (MPN `M365-ATK-2026`), which delivers Declarative Agents and Custom Engine Agents for Microsoft 365 Copilot, Teams conversational agents, and Office Add-ins via the Microsoft 365 Agents Toolkit (ATK) — the evolution of Teams Toolkit. ISV membership unlocks Microsoft Partner Network resources, co-sell via Microsoft marketplace / AppSource, technical pre-sales support, and a dev/test tenant with preconfigured M365 permissions.
-
-**Usage rules:**
-
-- Display on the `m365-consultancy` product page, partner/ecosystem sections, and M365-related agent pages.
-- Correct term is **"Microsoft ISV Partner"** — never claim "Microsoft certified" or "Microsoft Gold Partner".
-- The legal entity is **Lifetime Oy** (Legal Identity Rule); do not credit the program to "DWS OU" or any other entity.
-- Reference the Microsoft 365 Agents Toolkit (ATK) when describing M365 agent delivery.
-
-**Implementation checklist (2026-06-07):**
-
-- [x] Microsoft ISV application confirmed (Lifetime Oy Entra tenant `lifetimeoy1624259183583`, `lifetime.fi`)
-- [x] Badge added to §11 Sovereignty Badge System table + `.sovereignty-badge.microsoft-isv` CSS class
-- [x] Field note status updated to Approved (`docs/field-notes/2026-05-10-microsoft-isv-program-application.md`)
-- [x] `m365-consultancy` product badge confirmed as "Microsoft ISV Partner" (root + landing-pages mirror in sync)
-- [ ] Microsoft Partner / AppSource verification URL added once listing is live
-- [ ] Firehorse Suite AppSource listing explored
-- [ ] Microsoft logo asset added to shared-assets/logos/
 
 ---
 
@@ -2107,45 +2024,45 @@ Founder-confirmed 10.07.2026 ("this is important! We do Sovereign Industrial Int
 
 ### Sovereignty as the Primary Segmentation Axis (Cross-Product / GTM Cut)
 
-HIC-locked 14.09.2026. This is how DWS cuts the market and the SKU ladder — not a new product. *Primary* = the first cut (jurisdiction / CLOUD Act / legal parent). *Not the only one* = industry, price, capability, language, and workload sensitivity remain later cuts. The em dash is load-bearing.
+HIC-locked 14.09.2026. This is how DWS cuts the market and the SKU ladder — not a new product. _Primary_ = the first cut (jurisdiction / CLOUD Act / legal parent). _Not the only one_ = industry, price, capability, language, and workload sensitivity remain later cuts. The em dash is load-bearing.
 
 **Headline (use verbatim):**
 
-| Lang | Locked line |
-| ---- | ----------- |
-| EN | Sovereignty is the primary segmentation axis — not the only one. |
-| FI | Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa. |
-| SV | Suveränitet är den primära segmenteringsaxeln — inte den enda. |
-| DE | Souveränität ist die primäre Segmentierungsachse — nicht die einzige. |
-| FR | La souveraineté est l'axe de segmentation principal — pas le seul. |
+| Lang | Locked line                                                           |
+| ---- | --------------------------------------------------------------------- |
+| EN   | Sovereignty is the primary segmentation axis — not the only one.      |
+| FI   | Suvereeniteetti on ensisijainen segmentointiakseli — ei ainoa.        |
+| SV   | Suveränitet är den primära segmenteringsaxeln — inte den enda.        |
+| DE   | Souveränität ist die primäre Segmentierungsachse — nicht die einzige. |
+| FR   | La souveraineté est l'axe de segmentation principal — pas le seul.    |
 
 **Lede (after the headline):**
 
-| Lang | Lede |
-| ---- | ---- |
-| EN | Jurisdiction is the first cut. Industry, price and capability still matter after it. |
-| FI | Lainkäyttö on ensimmäinen leikkaus. Toimiala, hinta ja kyvykkyys jäävät sen jälkeen. |
-| SV | Jurisdiktionen är det första snittet. Bransch, pris och förmåga räknas därefter. |
-| DE | Die Gerichtsbarkeit ist der erste Schnitt. Branche, Preis und Leistungsfähigkeit zählen danach. |
-| FR | La juridiction est la première coupure. Le secteur, le prix et la capacité comptent ensuite. |
+| Lang | Lede                                                                                            |
+| ---- | ----------------------------------------------------------------------------------------------- |
+| EN   | Jurisdiction is the first cut. Industry, price and capability still matter after it.            |
+| FI   | Lainkäyttö on ensimmäinen leikkaus. Toimiala, hinta ja kyvykkyys jäävät sen jälkeen.            |
+| SV   | Jurisdiktionen är det första snittet. Bransch, pris och förmåga räknas därefter.                |
+| DE   | Die Gerichtsbarkeit ist der erste Schnitt. Branche, Preis und Leistungsfähigkeit zählen danach. |
+| FR   | La juridiction est la première coupure. Le secteur, le prix et la capacité comptent ensuite.    |
 
 **Supporting (not headline):** “Sovereignty is segmentation.” / “Sovereignty is segmentation — locally.” (PhD moat 2) / “Suvereeniteetti on segmentointia.”
 
 **Do not:**
 
-- Say “The market splits on one axis” / “Markkina jakautuu yhdellä akselilla” / “Marknaden delas på en axel”.
-- Claim “sovereignty is the only segmentation”.
+- Say “The market splits on one axis” / “Markkina jakautuu yhdellä akselilla” / “Marknaden delas på en axel.”
+- Claim sovereignty is the only segmentation.
 - Present a DWS score or Aegis / Sovereign Infra / Connect depth as an EU SEAL certificate.
 - Treat an EU region on a US parent as the sovereign cut.
 
-**Use in:** coaching and store sovereignty compare blocks, `dws10.com` moat openers (all five language homepages), `/sovereignty-assessment/`, `lifetime.fi` consulting (five-language homepages + `consulting-packages.json` Starter package), investor/GTM slides that name the market cut. Pair with Sovereign Industrial Intelligence Outcomes (above) for the *what we deliver* line; this block is the *how the market is cut* line.
+**Use in:** coaching and store sovereignty compare blocks, `dws10.com` moat openers (all five language homepages), `/sovereignty-assessment/`, `lifetime.fi` consulting (five-language homepages + `consulting-packages.json` Starter package), investor/GTM slides that name the market cut. Pair with Sovereign Industrial Intelligence Outcomes (above) for the _what we deliver_ line; this block is the _how the market is cut_ line.
 
 **lifetime.fi consulting value line (locked 14.09.2026 — LTF-CONSULT-001, five-language homepages):**
 
-| Lang | Line |
-| ---- | ---- |
-| EN | Lifetime Oy maps each function to an indicative nearest SEAL and ships the split. We do not issue Commission SEAL evaluations. |
-| FI | Lifetime Oy kartoittaa kunkin toiminnon suuntaa-antavalle lähimmälle SEAL-portaalle ja toteuttaa jaon. Emme myönnä komission SEAL-arvioita. |
+| Lang | Line                                                                                                                                        |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| EN   | Lifetime Oy maps each function to an indicative nearest SEAL and ships the split. We do not issue Commission SEAL evaluations.              |
+| FI   | Lifetime Oy kartoittaa kunkin toiminnon suuntaa-antavalle lähimmälle SEAL-portaalle ja toteuttaa jaon. Emme myönnä komission SEAL-arvioita. |
 
 **Clarification (same block):** The customer sets the minimum level; Lifetime implements a risk-based split onto Aegis/Infra and onto Connect or a suitable hyperscaler.
 
@@ -2161,9 +2078,63 @@ Market data (Deloitte 42%, Gartner ~20%) stays thesis / field note — it explai
 
 ---
 
+### First-Touch Fence — Signed Work (Trophy Effect, 21.09.2026)
+
+**Do not lead with the word _compliance_.** First-touch is **signed work that releases money** — a tender, a shipment, an invoice, a grant. KYA, EU AI Act Article 12 and the governed ontology stay in the engine and in legal/technical annexes; they are why the artifact stands up, they are not the door.
+
+Rationale (Trophy Effect): once a funded task force is stood up, AI × compliance becomes a _status good_ the budget already bought, not a _workflow good_. You cannot sell a status good to the holder of the trophy. Sell the workflow good to whoever still has money frozen. Source: `docs/field-notes/2026-09-21-trophy-effect-stop-selling-compliance.md`, proposal `docs/plans/2026-09-21-signed-work-gtm-pivot.md` (HIC Q1 = A, 22.09.2026).
+
+**Hero (first-touch):**
+
+**EN:** We ship signed work that releases money.
+
+**FI (kotimainen):** Toimitamme allekirjoitettua työtä, joka vapauttaa rahaa.
+
+**Sub-line:**
+
+**EN:** Tenders, shipments, invoices, grants — the artifact the other side accepts, in days not quarters. Committees can keep announcing.
+
+**FI (kotimainen):** Tarjouskilpailut, toimitukset, laskut, avustukset — artefakti, jonka vastapuoli hyväksyy, päivissä ei kvartaaleissa. Komiteat saavat jatkaa ilmoittelua.
+
+**Industry opener:**
+
+**EN:** Your commercial team already has the quote. We ship the signed artifact that lets the customer take it.
+
+**FI (kotimainen):** Myynnillänne on tarjous valmiina. Me toimitamme allekirjoitetun artefaktin, jolla asiakas voi hyväksyä sen.
+
+**Public-sector opener (programme owner, never the task force that holds the trophy):**
+
+**EN:** Funded AI is required to replicate. The state still has no factory for that. We run it.
+
+**FI (kotimainen):** Rahoitetun tekoälyn on oltava monistettavissa. Valtiolla ei ole siihen tehdasta. Me ajamme sitä.
+
+**Investor line (keeps freeze/release, drops "compliance product"):**
+
+**EN:** DWS is a System of Action operator. The product is signed work that unfreezes enterprise money. We do not sell the committee.
+
+**FI (kotimainen):** DWS on System of Action -operaattori. Tuote on allekirjoitettu työ, joka vapauttaa yrityksen rahat. Emme myy komiteaa.
+
+**Say / do not say (first-touch only):**
+
+| Do not say                       | Say                                                        |
+| -------------------------------- | ---------------------------------------------------------- |
+| AI for compliance                | Signed work that releases the deal                         |
+| EU AI Act / CSRD / NIS2 platform | The artifact your customer or paying authority will accept |
+| We help your task force          | We run the loop your task force cannot copy                |
+| 90% less manual compliance hours | Days, not quarters, to a signed artifact                   |
+| Stop risking fines               | Unlock the tender / the shipment / the invoice             |
+
+**Guardrails:** no "replace your people" (§6 Ethics Principle band); no uncapped liability transfer; competitors implicit, never named (§0); no named public-sector body as a target of criticism, and no third-party funding figure from an internal anecdote in public copy; speed stated as "days, not quarters" until Product signs an SLA.
+
+**Use in:** sales-outreach openers (`INTRO_*` / `LETTER_*`), lifetime.fi and dws10.com first-touch heroes, Captain Day offers, investor first line.
+
+**Do not use in:** legal documents or compliance-claim surfaces without a `/truth-check` pass.
+
+---
+
 ### DWS10 Offensive / Commercial-Edge Pitch Block
 
-Reframes the defensive _"buy us so you don't get fined"_ line into a commercial-edge frame: compliance readiness sold as **tender-velocity and revenue, not insurance**. Moves the same product out of the risk/cost-center budget and into a growth budget — faster to unlock and larger. Derived from the offensive-positioning field note (`docs/field-notes/2026-06-10-offensive-positioning-dws10.md`) and aligned to the canonical _"compliance can freeze or release money"_ frame (System of Action Operator, above). Use the **defensive** line to get through the risk/legal/compliance door; switch to the **offensive** line once a commercial or CEO sponsor is in the room.
+Reframes the defensive _"buy us so you don't get fined"_ line into a commercial-edge frame: compliance readiness sold as **tender-velocity and revenue, not insurance**. Moves the same product out of the risk/cost-center budget and into a growth budget — faster to unlock and larger. Derived from the offensive-positioning field note (`docs/field-notes/2026-06-10-offensive-positioning-dws10.md`) and aligned to the canonical _"compliance can freeze or release money"_ frame (System of Action Operator, above). Use the **defensive** line to get through the risk/legal/compliance door; switch to the **offensive** line once a commercial or CEO sponsor is in the room. **Superseded at first-touch (21.09.2026, Trophy Effect):** the risk/legal/compliance door is the one that already bought the trophy. The original sentence is kept for provenance; in practice the defensive line is retired as a door-opener and used only if the buyer already uses the word and asks. This block stays valid _after_ a commercial sponsor is in the room — still without leading on compliance-as-product. See **First-Touch Fence — Signed Work** above.
 
 **Hero opener (sales / first-touch — imperative phrasing intended):**
 
@@ -2290,8 +2261,9 @@ Total length: **110–150 words**. No padding between sections.
 
 - Maximum **50 characters** (including spaces)
 - No "Quick question", "Following up", "Just checking in", or ALL CAPS
-- Format: `[Company] + DWS: [Regulatory Trigger]` or a short insight hook
-- Examples: `Outokumpu + DWS: ETS Phase 4`, `CSRD double-materiality — 3 questions`
+- Format under the §22 First-Touch Fence (22.09.2026, default for founder-signed first-touch): `[Company]: [the frozen money]` — name what is waiting, not the regulation.
+- Examples: `Outokumpu: the signed page before the invoice`, `Tornio: what the shipment is waiting on`
+- Legacy format `[Company] + DWS: [Regulatory Trigger]` (e.g. `Outokumpu + DWS: ETS Phase 4`) stays valid for a recipient who already uses the regulation's name with us — a reply, a referral, a renewal. Not for a cold first touch.
 
 ### 23.4 Approved CTAs
 
@@ -2307,6 +2279,8 @@ Booking link: `/book/` (relative to the sending domain).
 Never use in outreach emails or LinkedIn messages:
 
 `synergy`, `leverage`, `disruptive`, `game-changer`, `paradigm shift`, `I hope this email finds you well`, `Quick question`, `Following up`, `circle back`, `touch base`, `world-class`, `best-in-class`, `revolutionary`
+
+**First-touch noun fence (22.09.2026).** Do not open an outreach email, subject line or LinkedIn note with _compliance_ as the thing being sold (`AI for compliance`, `compliance platform`, `stop risking fines`, `we help with CSRD/NIS2/EU AI Act`). Open with the signed work that releases money — the tender, shipment, invoice or grant that moves. Regulation names belong in the body as the reason the artifact stands up, never in the first sentence. Canonical lines: §22 First-Touch Fence — Signed Work.
 
 ### 23.6 Sender Identity
 
@@ -2598,10 +2572,11 @@ Never introduce new positioning lines in a deck without documenting them in §22
 
 | Version | Date       | Changes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| v3.14   | 2026-09-27 | Added: §2.2 DWS Gold Standard — cari.fi palette exactly as live (blogtheristo/cari public/index.html, dd2a144) + IBM Plex typography; trigger phrase "gold standard" (HIC 27.09.2026). |
-| v3.13   | 2026-09-14 | Locked lifetime.fi consulting value line EN/FI (indicative nearest SEAL; not a Commission evaluation); customer sets minimum; KYA Connect outcomes; market stats stay thesis/field note. |
-| v3.12   | 2026-09-14 | Boardy: lifetime.fi commercial core = compliance outcome + Connect signed results from both paths; CLOUD Act-zero fenced to Aegis/EU-only; coaching second-sentence rule for the hybrid finding. |
-| v3.10   | 2026-09-14 | Added: §22 Sovereignty as the Primary Segmentation Axis — HIC-locked EN/FI pair plus SV/DE/FR Language Standard translations; fence on monopoly-axis / fake-SEAL / US-parent-EU-region claims. Canonical: Truth Standard row 39.                                                                                                                                                                                                                                                     |
+| v3.15   | 2026-09-22 | §23.3 cold first-touch subject lines name the frozen money, not the regulatory trigger; legacy regulatory-trigger format kept and fenced to warm recipients.                                                                                                                                                                                                                                                                                                                                                                                         |
+| v3.14   | 2026-09-22 | Added: §22 First-Touch Fence — Signed Work (Trophy Effect). First-touch never leads with the noun _compliance_; EN/FI hero, sub-line, industry and public-sector openers, investor line, say/do-not-say table. Offensive / Commercial-Edge block annotated as superseded at first-touch (original preserved). §23.5 first-touch noun fence for outreach. Source: `docs/field-notes/2026-09-21-trophy-effect-stop-selling-compliance.md`; HIC Q1 = A.                                                                                                 |
+| v3.13   | 2026-09-14 | Locked lifetime.fi consulting value line EN/FI (indicative nearest SEAL; not a Commission evaluation); customer sets minimum; KYA Connect outcomes; market stats stay thesis/field note.                                                                                                                                                                                                                                                                                                                                                             |
+| v3.12   | 2026-09-14 | Boardy: lifetime.fi commercial core = compliance outcome + Connect signed results from both paths; CLOUD Act-zero fenced to Aegis/EU-only; coaching second-sentence rule for the hybrid finding.                                                                                                                                                                                                                                                                                                                                                     |
+| v3.10   | 2026-09-14 | Added: §22 Sovereignty as the Primary Segmentation Axis — HIC-locked EN/FI pair plus SV/DE/FR Language Standard translations; fence on monopoly-axis / fake-SEAL / US-parent-EU-region claims. Canonical: Truth Standard row 39.                                                                                                                                                                                                                                                                                                                     |
 | v3.9    | 2026-07-12 | Added: §25 Personnel Photography & Multimodal Brand Assets — canonical photo registry (Risto_Malta.png APPROVED, CV/risto70.png flagged NEEDS REVIEW), personnel photo quality bar, video/audio handling, "flag don't silently use" rule. Companion to `DWS_DOCUMENT_STANDARD.md` §22.                                                                                                                                                                                                                                                               |
 | v3.6    | 2026-06-15 | Added: §24 Outreach Voice & Email Standard — consultative tone rules, email structure (hook → insight → value prop → CTA), subject line rules, approved CTAs, banned phrases, LinkedIn voice, sender spec. Governs outreach-agents skill and OutreachMessageCrafterAgent.                                                                                                                                                                                                                                                                            |
 | v3.5    | 2026-06-10 | Added: §22 DWS10 Offensive / Commercial-Edge pitch block — defensive→offensive reframe (compliance as tender-velocity / revenue, not insurance): hero opener, declarative hero H1, investor line; EN+FI lockstep, translation notes, and guardrails (no "replace people" per Ethics Principle band §6, no uncapped-liability claim, competitors implicit §0). Source: `docs/field-notes/2026-06-10-offensive-positioning-dws10.md`.                                                                                                                  |
