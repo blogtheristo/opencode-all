@@ -1,0 +1,22 @@
+{
+  "task": "Finish PR #2232: Aegis Pilot: market research, and C5 operator decision as a signed ledger event",
+  "pr": 2232,
+  "base": "main",
+  "order": 3232,
+  "maxRounds": 3,
+  "prompt": "Bring PR #2232 (\"Aegis Pilot: market research, and C5 operator decision as a signed ledger event\", branch claude/dws-iq7-aegis-research-lwqxgw) to mergeable. Do not change what the PR is for.\n1) git fetch origin && git merge origin/main — resolve every conflict keeping both sides' intent; regenerate lockfiles/generated files with the repo's tooling, never by hand.\n2) gh pr checks 2232 and gh pr view 2232 --comments: fix every failing check and every review finding that is a real bug; for optional nits, fix only if trivial.\n3) Run the checks CI would run for the changed files (npx tsc --noEmit, related vitest, prettier --check).\n4) Commit and git push origin claude/dws-iq7-aegis-research-lwqxgw (a merge commit, never a rebase or force-push).\n5) If something needs a human decision (content, pricing, policy), write it as a PR comment with gh pr comment and stop.",
+  "checks": [
+    {
+      "name": "origin/main is merged in",
+      "run": "git fetch -q origin main && git merge-base --is-ancestor origin/main HEAD"
+    },
+    {
+      "name": "no failing PR checks (except the Copilot reviewer app, which fails on every PR)",
+      "run": "out=$(gh pr checks 2232 2>&1 | grep -v copilot-pull-request-reviewer); echo \"$out\" | tail -15; ! echo \"$out\" | grep -qiE '\\bfail(ed|ure)?\\b'"
+    },
+    {
+      "name": "GitHub sees it as mergeable or merged",
+      "run": "s=$(gh pr view 2232 --json state -q .state); echo \"state=$s\"; [ \"$s\" = MERGEABLE ] || [ \"$s\" = MERGED ]"
+    }
+  ]
+}
