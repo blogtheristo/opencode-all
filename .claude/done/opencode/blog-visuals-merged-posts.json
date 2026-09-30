@@ -1,0 +1,26 @@
+{
+  "task": "Blog \u00a716 visuals: one SVG infographic for each of the 5 merged posts",
+  "prompt": "Read docs/BLOG_STANDARD.md \u00a716 (item 4 One visual, \u00a716.3 naming) and \u00a711 style tokens. For each master draft below, read its full text and create exactly one infographic SVG at the path in its visual_src front-matter field: docs/blog-drafts/img/kya-s1-trust-level-in-industrial-process.svg (flow: TRS score -> lane (automatic / human sign-off) -> single-use lease token -> fail-closed -> 72 h FLT + PRV replay), docs/blog-drafts/img/process-models-world-model-and-hic.svg (ISA-95, BPMN, SysML, VSM, SIPOC feeding the Lifetime World Model state register, with Human-in-Command setting the bounds), docs/blog-drafts/img/done-is-evidence-not-a-claim.svg (agent action -> side effect -> audit record -> done gate command result; transcript claim crossed out), docs/blog-drafts/img/sovereignty-reading-path.svg and docs/blog-drafts/img/kya-s1-reading-path.svg (a numbered reading path of the linked posts in order, titles as in the hub). Rules: hand-written SVG, viewBox 0 0 1200 675, no external fonts/images/scripts, <title> and <desc> elements, text only in English (the image is shared by all five languages; keep text short), colours from \u00a711, every label taken from the post text \u2014 no new claims or numbers. Do not change any .md file, anything under onelifetime.world/, dws10.com/ or landing-pages/. Commit and push.",
+  "base": "main",
+  "order": 105,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "five SVGs exist",
+      "run": "for s in kya-s1-trust-level-in-industrial-process process-models-world-model-and-hic done-is-evidence-not-a-claim sovereignty-reading-path kya-s1-reading-path; do test -s docs/blog-drafts/img/$s.svg || { echo missing $s; exit 1; }; done"
+    },
+    {
+      "name": "valid, self-contained SVG with title",
+      "run": "for f in docs/blog-drafts/img/{kya-s1-trust-level-in-industrial-process,process-models-world-model-and-hic,done-is-evidence-not-a-claim,sovereignty-reading-path,kya-s1-reading-path}.svg; do python3 -c \"import sys,xml.dom.minidom as m; d=m.parse(sys.argv[1]); r=d.documentElement; assert r.tagName=='svg' and r.getAttribute('viewBox'); assert d.getElementsByTagName('title'); t=open(sys.argv[1]).read(); assert '<script' not in t and 'http' not in t.replace('http://www.w3.org','')\" $f || { echo bad $f; exit 1; }; [ $(wc -c < $f) -lt 200000 ] || { echo too big $f; exit 1; }; done"
+    },
+    {
+      "name": "contract-check shows no visual gap for the five",
+      "run": "! node scripts/blog/contract-check.mjs 2>&1 | grep -E '^(kya-s1-trust-level-in-industrial-process|process-models-world-model-and-hic|done-is-evidence-not-a-claim|sovereignty-reading-path|kya-s1-reading-path) ' | grep -q visual"
+    },
+    {
+      "name": "no public-site or draft text changed",
+      "run": "test -z \"$(git diff --name-only origin/main...HEAD | grep -vE '^(docs/blog-drafts/img/|\\.claude/)')\""
+    }
+  ],
+  "scope": ["docs/blog-drafts/img/"]
+}
