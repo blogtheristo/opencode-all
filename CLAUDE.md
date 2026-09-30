@@ -177,7 +177,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 11. **`gcloud` uses CMD syntax only** — `^` continuation, never backtick. `.ps1` scripts invoke via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD.
 12. **Never lose eloquent formulations.** Preserve philosophical passages, quotes, mottos, wisdom in rewrites. See `DWS_DOCUMENT_STANDARD.md` §21.
 13. **Blog publishing:** Claude Code requires HIC approval (show text, stop, ask). OpenCode publishes via YELLOW zone. All posts: `/blog-draft` to `docs/blog-drafts/<slug>.md` → HIC approval before publish.
-14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. Full audit trail required. See `docs/DWS_COST_POLICY_STANDARD.md`.
+14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. HIC exception 27.09.2026: Claude Code pre-M1 feature work capped at $250 USD. Full audit trail required. See `docs/DWS_COST_POLICY_STANDARD.md`.
 
 ---
 

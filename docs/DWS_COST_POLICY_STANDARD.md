@@ -7,7 +7,16 @@
 
 ---
 
-Version: 1.2 [Latest]
+Version: 1.3 [Latest]
+Tool: Claude Code
+Model: anthropic/claude-opus-5-5
+Agent: claude-code
+Date: 2026-09-27
+Changes: HIC decision 27.09.2026 — Claude Code pre-M1 feature budget, capped at $250 USD.
+
+---
+
+Version: 1.2 [not latest]
 Tool: Cursor
 Model: (one-shot doc update)
 Agent: cursor
@@ -101,6 +110,15 @@ GitHub Copilot Pro+ carries a one-time **$210.00 promotional credit** (21,000 AI
 - **Use in full.** Unused credit is lost, so spending it is zero-cost. Work order: `.claude/handoffs/copilot-bonus-credits-2026-09-30.md`.
 - **No overage.** Stop Copilot agent work when the promotional line reaches $210; further Copilot usage is paid and needs HIC opt-in.
 - **Log it.** Each Copilot PR is logged against its lane in the work order.
+
+### Claude Code Pre-M1 Feature Budget (HIC decision 27.09.2026)
+
+The HIC suspends the "no new features before M1" rule (`docs/plans/2026-09-24-dgx-sketch-vs-repo-comparison.md` §4) for **Claude Code work capped at $250 USD**.
+
+- **Scope:** the Tier 2 roadmap items H9 DGX Runtime Bundle and H10 Air-gapped Sovereign Runtime (agent reading of the decision; HIC to confirm).
+- **Hard cap.** Stop at $250; more needs a new HIC decision.
+- **Persistence Rule applies.** Output is DGX-deployable code, not a cloud-hosted runtime.
+- **Log it.** Each session records its spend against the cap in `.claude/handoffs/claude/busy-galileo-qsr1x6.md`.
 
 ### Persistence Rule (HIC decision 27.09.2026)
 
@@ -281,3 +299,4 @@ This policy is **mandatory upstream** of:
 | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
 | 1.0     | 2026-09-19 | Initial policy: DGX-first + 21-day free-credit window + sandbox requirement + full audit                                        | DWS Architecture  |
 | 1.1     | 2026-09-27 | Copilot $210 promotional credit window (use in full, expires 2026-10-01); Persistence Rule: persistent capabilities land on DGX | HIC / Claude Code |
+| 1.3     | 2026-09-27 | Claude Code pre-M1 feature budget ($250 cap; H9/H10)                                                                            | HIC / Claude Code |

@@ -4,7 +4,7 @@
 
 VERSION AND AGENT HISTORY
 
-- Version: 1.3
+- Version: 1.4
 - Status: DRAFT — comparison only; decisions only where the HIC has made them
 - Document type: Gap analysis
 - Author: Claude Code (standby runtime) + risto.paarni2024@lifetime.fi
@@ -14,7 +14,8 @@ VERSION AND AGENT HISTORY
 
 Sessions & Modifications:
 
-- Version: 1.3 [Latest] | Tool: Claude Code | Date: 27.09.2026 | Changes: HIC decision: H9 DGX Runtime Bundle and H10 Air-gapped Sovereign Runtime move from Taso 3 to Taso 2 (approved to the roadmap). H10 Päätös Avoin → Backlog. §3 updated.
+- Version: 1.4 [Latest] | Tool: Claude Code | Date: 27.09.2026 | Changes: §4: HIC exception to "no new features before M1" — Claude Code work capped at 250 USD.
+- Version: 1.3 [not latest] | Tool: Claude Code | Date: 27.09.2026 | Changes: HIC decision: H9 DGX Runtime Bundle and H10 Air-gapped Sovereign Runtime move from Taso 3 to Taso 2 (approved to the roadmap). H10 Päätös Avoin → Backlog. §3 updated.
 - Version: 1.2 [not latest] | Tool: Claude Code | Date: 27.09.2026 | Changes: H3 Connector Marketplace: HIC decision recorded — stays Taso 3, architecture draft only, not on the roadmap.
 - Version: 1.1 [not latest] | Tool: Claude Code | Date: 24.09.2026 | Changes: The HIC's method is applied: every observation is recorded as Luonnos ehdottaa / Repossa / Mahdollinen täydennys / Päätös, with a level (Taso 1 implemented in the repo, Taso 2 approved to the roadmap, Taso 3 architecture sketch). Only the HIC's own decisions are filled in; the rest are Avoin (HIC). §6 truth check unchanged.
 - Version: 1.0 [not latest] | Tool: Claude Code | Date: 24.09.2026 | Changes: The HIC shared two sketches written outside the repo: the DGX reference architecture (four layers, connectors, PWA, air-gapped bundle) and the Aegis + Independent Ontology layering. Per the HIC they are assisting drafts, not a new architecture, and they do not replace the current Aegis implementation. This document compares them with the repository and lists possible complements.
@@ -74,6 +75,7 @@ Related Documents:
 
 - **Suvereniteettiperiaate** (speksi 24.09.2026) on päätetty periaate. Sen toteutusosat (H2, H9, H10) eivät silti ole toteutettuja, vaan tasolla 2 tai 3.
 - **Ei uusia ominaisuuksia ennen M1:tä** (HIC 24.09.2026). Tasolta 3 ei nosteta mitään toteutukseen ennen M1:tä ilman HIC:n päätöstä.
+  - **Poikkeus (HIC 27.09.2026):** sääntö ohitetaan Claude Code -työlle **enintään 250 USD** budjetilla. Kohde (oletus, ei HIC:n vahvistama): tason 2 kohteet H9 DGX Runtime Bundle ja H10 Air-gapped Sovereign Runtime. Budjetti on katto, ei tavoite; Persistence Rule pätee (`docs/DWS_COST_POLICY_STANDARD.md`): pysyvä kyvykkyys toimitetaan DGX:lle. Muut ominaisuudet odottavat edelleen M1:tä.
 - **Aegis pysyy ennallaan**, ja tuotteet pysyvät erillisinä ("Tässä kohtaa en yhdistäisi Aegista Independent Ontologyyn tuotteena").
 
 ## 6. Truth check on live copy (24.09.2026)
