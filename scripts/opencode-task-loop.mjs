@@ -373,6 +373,61 @@ function checkpoint(t, wt, label, gateOut) {
   if (saved.length) alert(`${t.branch}: checkpoint (${label}) — ${saved.join('; ')}`);
 }
 
+// A task is settled when its work has already reached main or its PR is gone. Re-running it
+// only produces a duplicate PR: on 29-30.09.2026 a spec edit re-queued five merged tasks and
+// the loop opened #2262, #2264, #2265, #2215 and #2259 for work main already had.
+const ghJson = (cwd, ...a) => {
+  const r = spawnSync('gh', a, { cwd, encoding: 'utf8', timeout: 60 * 1000 });
+  if (r.status !== 0) return null;
+  try {
+    return JSON.parse(r.stdout);
+  } catch {
+    return null;
+  }
+};
+function settled(t, st) {
+  const prs = ghJson(
+    PRIMARY,
+    'pr',
+    'list',
+    '--head',
+    t.branch,
+    '--state',
+    'all',
+    '--json',
+    'number,state',
+  );
+  if (prs === null) return null; // gh unavailable: do not guess
+  if (prs.some((p) => p.state === 'OPEN')) return null;
+  const mine = t.spec.pr ? prs.find((p) => p.number === t.spec.pr) : null;
+  if (t.spec.pr && (mine?.state ?? 'CLOSED') !== 'OPEN')
+    return `PR #${t.spec.pr} is ${(mine?.state ?? 'not open').toLowerCase()}`;
+  const merged = prs.find((p) => p.state === 'MERGED');
+  if (merged) return `PR #${merged.number} for this branch is merged`;
+  // Acceptance already true on main (loop-task.mjs requires every check to fail on the code of
+  // its day, so passing now means the work landed some other way). Only judged in a primary
+  // checkout that equals origin/main; cached per spec version and main commit.
+  if (t.spec.pr || !t.spec.checks?.length) return null;
+  tryGit(PRIMARY, 'fetch', '-q', 'origin', 'main');
+  const mainSha = tryGit(PRIMARY, 'rev-parse', 'origin/main');
+  if (!mainSha || tryGit(PRIMARY, 'rev-parse', 'HEAD') !== mainSha) return null;
+  if (tryGit(PRIMARY, 'status', '--porcelain', '--untracked-files=no')) return null;
+  const key = `${t.specHash}@${mainSha}`;
+  if (st.mainCheck?.key !== key) {
+    const pass = t.spec.checks.every(
+      (c) =>
+        spawnSync('bash', ['-c', c.run], {
+          cwd: PRIMARY,
+          encoding: 'utf8',
+          timeout: 15 * 60 * 1000,
+          maxBuffer: 64 * 1024 * 1024,
+        }).status === 0,
+    );
+    st.mainCheck = { key, pass };
+  }
+  return st.mainCheck.pass ? 'every acceptance check already passes on origin/main' : null;
+}
+
 function workTask(t, state) {
   const st = (state[t.branch] ??= { status: 'pending', rounds: 0 });
   if (st.status !== 'running' || st.specHash !== t.specHash) {
