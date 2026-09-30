@@ -42,6 +42,7 @@ import {
   type StopOutcome,
   submitStopCommand,
 } from './kill-authority.js';
+import { DecisionAuthority } from './decision-authority.js';
 import { ISOLATION_LADDER, type PilotScope, stepCapability } from './scope.js';
 import { spawnPilotWorker, terminateBounded } from './isolated-handlers.js';
 import { type AgentAuthority, buildAuthorityRecord, recordGrant } from './authority.js';
@@ -581,6 +582,10 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     const kill = new KillAuthority(opts.stateDir, verifier, ledger, now);
     const stopWatch = kill.watch(traceId, 100);
     cleanups.push(stopWatch);
+    // Decisions submitted while the run holds the ledger are recorded here, with the uplink down.
+    const decisions = new DecisionAuthority(opts.stateDir, verifier, ledger, site.publicKey, now);
+    const stopDecisionWatch = decisions.watch(traceId, 200);
+    cleanups.push(stopDecisionWatch);
     let periodic = 0;
     let lapses = 0;
     const probeStop = new AbortController();
@@ -736,6 +741,7 @@ export async function runAcceptance(opts: AcceptanceOptions): Promise<SignedAcce
     const postflight = await probeUplink(scope.isolation.egressProbes, probeOpts);
     logProbe(postflight, 'postflight');
     stopWatch();
+    stopDecisionWatch();
     stopHeartbeat();
     const windowEnd = now();
     if (!postflight.isolated) lapses++;

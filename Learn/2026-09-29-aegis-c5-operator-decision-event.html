@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aegis Pilot C5 decision event</title>
+    <!-- Rendered from docs/field-notes/2026-09-29-aegis-c5-operator-decision-event.md with python-markdown (pandoc unavailable in session). Source of truth is the .md. -->
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 16px;
+        line-height: 1.55;
+        color: #1a1a1a;
+        background: #fff;
+      }
+      code {
+        background: #f2f2f2;
+        padding: 1px 4px;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 4px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Aegis Pilot C5: the operator's approval as a signed decision event</h1>
+    <hr />
+    <h1>VERSION AND AGENT HISTORY</h1>
+    <p>Version: 1.0 [Latest]</p>
+    <p>Sessions &amp; Modifications:</p>
+    <ul>
+      <li>
+        Version: 1.0 [Latest] | Tool: Claude Code (web) | Session:
+        claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: C5 implemented and
+        verified. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD
+      </li>
+    </ul>
+    <p>Document Status:</p>
+    <ul>
+      <li>Created: 29.09.2026</li>
+      <li>Status: PENDING_REVIEW</li>
+    </ul>
+    <hr />
+    <h2>What happened</h2>
+    <p>
+      The HIC decided on 28.09.2026 that the pilot's first workflow is advisory: the agent
+      recommends and the operator decides. The HIC also decided that the operator's approval must be
+      recorded as a decision event, not as a note. The pilot kit had no event for this. An approval
+      would have ended up either as free text or as a <code>human.override</code> event, and the
+      acceptance test reads a <code>human.override</code> as a stop.
+    </p>
+    <p>What was built (readiness plan C5):</p>
+    <ul>
+      <li><code>src/aegis/pilot/decision-authority.ts</code> adds:</li>
+      <li>a signed <code>DecisionCommand</code> (accept, reject or defer);</li>
+      <li>
+        <code>DecisionAuthority</code>, which verifies the command locally the same way stop
+        commands are verified (credential, signature, freshness, replay);
+      </li>
+      <li><code>recordOutcome()</code>;</li>
+      <li><code>decisionJourneys()</code>, which computes coverage and median decision latency.</li>
+      <li>
+        The ledger gains two event types: <code>human.decide</code>, which is bound to the
+        recommendation by <code>seq</code> plus <code>event_hash</code> and carries
+        <code>decision_by</code> = role, and <code>outcome.record</code>.
+      </li>
+      <li>Identity:</li>
+      <li><code>decision.record</code> is an operator-only capability and requires a role.</li>
+      <li>Roles must match a pattern, which rules out personal names.</li>
+      <li>
+        <code>human.decide</code> carries no <code>agent_id</code>, so acceptance condition (iii)
+        stays sound.
+      </li>
+      <li>
+        Workflow: handlers can mark their output <code>recommendation: true</code>, and the
+        reference step <code>decide-actions</code> now does.
+      </li>
+      <li>
+        CLI: new <code>decide</code>, <code>outcome</code> and <code>journey</code> commands, plus
+        <code>issue-operator --role</code>.
+      </li>
+      <li>Runbook §5.1 documents the flow.</li>
+    </ul>
+    <h2>Verification</h2>
+    <ul>
+      <li>
+        <code>src/__tests__/aegis-pilot-decision.test.ts</code>: 15 cases. The mutation check fails
+        the right tests when the hash binding or the abandonment check is removed.
+      </li>
+      <li>
+        Existing pilot suite: 62/62 tests green in total. tsc (including the CLI and tests), eslint
+        and the evidence audit are clean.
+      </li>
+      <li>End-to-end run with a real severed uplink (<code>unshare --net</code>):</li>
+      <li>The rehearsal returned PASS.</li>
+      <li>The recommendation showed as pending.</li>
+      <li>The operator's accept was recorded inside the isolated namespace.</li>
+      <li>A second accept was refused ("already decided").</li>
+      <li>
+        The outcome was recorded, coverage went from 0 to 1, <code>decision_by</code> =
+        <code>shift-supervisor</code>, and the ledger verified.
+      </li>
+      <li>
+        Security review (security-reviewer subagent). The first verdict was <strong>FAIL</strong>: 0
+        critical, 2 high, 3 medium and 6 low findings. The crypto binding, capability and role
+        handling, signature compatibility and condition (iii) were confirmed sound. Fixed, each with
+        a test:
+      </li>
+      <li>
+        <strong>High 1: site-key exposure.</strong> The operator-side <code>decide</code> loaded the
+        site private key. It now only signs and queues the command, like <code>stop</code>.
+        Recording moved to the site side (a running <code>run</code>, or
+        <code>drain-decisions</code>).
+      </li>
+      <li>
+        <strong>High 2: silently lost decisions.</strong> Every ledger-open failure was reported as
+        "queued", and nothing drained <code>decide/</code> during a run. The acceptance run now
+        drains decisions. <code>drain-decisions</code> reports "queued" only for a live run's lock
+        (exit 2). Every other failure is an error. A test shows that a decision queued before the
+        run is recorded during the isolated run, which still PASSes, and a mutation check shows the
+        test catches a missing watch.
+      </li>
+      <li>
+        <strong>Medium 3: replay.</strong> Replay is now also checked against the ledger's
+        <code>command_id</code>, so a deleted <code>processed/</code> file cannot reopen a replay.
+      </li>
+      <li>
+        <strong>Medium 4: marker source.</strong> The recommendation marker comes from the signed
+        scope (<code>advisory: true</code>), not from the handler.
+      </li>
+      <li>
+        <strong>Medium 5: clock steps.</strong> Ledger timestamps are clamped monotonic, with
+        <code>clock_step_back_ms</code> recorded, so a clock step on an isolated site no longer
+        breaks the chain.
+      </li>
+      <li>
+        <strong>Low findings fixed:</strong>
+        <ul>
+          <li>an attacker-chosen command id is never written;</li>
+          <li>
+            the ledger is parsed once and that same parse is verified
+            (<code>readVerifiedLedger</code>);
+          </li>
+          <li>seq and hash are validated before signing;</li>
+          <li><code>evidenceRef</code> must be an identifier or URI;</li>
+          <li>dead code removed.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Open:</strong>
+        <ul>
+          <li>
+            Low 9: <code>--role</code> grants both stop and decide, so there is no separate
+            decide-only credential, and there is no site allowlist of roles.
+          </li>
+          <li><code>outcome.record</code> has no <code>recorded_by</code>.</li>
+          <li>
+            The same Low 6 command-id and Medium 3 replay pattern still exists in
+            <code>kill-authority.ts</code>, which is outside this change.
+          </li>
+        </ul>
+      </li>
+      <li>
+        After the fixes: 21 decision tests, 67/67 pilot tests, tsc and eslint clean. E2E repeated
+        with the split (the operator's <code>decide</code>, then the site's
+        <code>drain-decisions</code>, both with the uplink severed): passes.
+      </li>
+    </ul>
+    <h2>Correction the same day (Boardy's point)</h2>
+    <p>
+      Operator time was counted from the time the site <em>recorded</em> the decision. A decision
+      drained from the queue up to 10 minutes later therefore inflated the number. Now
+      <code>decided_at</code> = the operator-signed <code>issuedAt</code>,
+      <code>decision_latency_ms</code> is measured from the recommendation to that signature, and
+      <code>recorded_lag_ms</code> reports the queue delay separately.
+      <code>drain-decisions</code> records a <code>system.reconcile</code> event
+      (<code>decision-drain</code>) with the head it started from, so a catch-up is visible in the
+      chain and not spliced in. Tests: 24 in the decision file, 71 in the pilot suites. A mutation
+      check confirmed the latency test fails when the old basis is restored.
+    </p>
+    <h2>Rubber-stamp protection (HIC 29.09.2026, implemented 30.09.2026)</h2>
+    <p>
+      Boardy's point: a bare acknowledgement optimises a rubber stamp, and that does not fit a human
+      carrying responsibility for the decision.
+    </p>
+    <p>What was built:</p>
+    <ul>
+      <li>
+        <strong><code>modify</code> verdict.</strong> The command carries the sha256 of the changed
+        recommendation.
+      </li>
+      <li>
+        <strong>Reasons.</strong> Reject and modify require one, checked both before signing and on
+        receipt.
+      </li>
+      <li>
+        <strong><code>manual_entry</code>.</strong> A decision entered afterwards, with an
+        operator-stated <code>occurredAt</code>. It is recorded as <code>MANUAL_ENTRY</code> at 0.40
+        × capture-lag factor, against <code>HUMAN_CONFIRMED</code> 0.80 for a live decision
+        (decision-journey §3.5), and gets no latency number.
+      </li>
+      <li>
+        <strong><code>journey</code> output.</strong> It now includes the rejection, modification
+        and manual-entry shares, <code>weakestEvidence</code>, and a <code>reviewSignal</code> that
+        warns <code>no-challenge</code> after 10 decisions with no reject or modify.
+      </li>
+    </ul>
+    <p>Verification:</p>
+    <ul>
+      <li>30 decision tests and 163 across all pilot suites.</li>
+      <li>
+        A mutation check confirmed the reason guard, the review signal and the manual-entry latency
+        rule each fail their test when removed.
+      </li>
+      <li>The CLI E2E <code>modify</code> run with the uplink severed passes.</li>
+    </ul>
+    <p>
+      Security review (30.09.2026): <strong>PASS</strong>, with 0 critical, 0 high, 3 medium and 4
+      low findings. Fixed, each with a test and mutation-checked:
+    </p>
+    <ul>
+      <li>
+        <strong>M1.</strong> A <code>modify</code> that names the unchanged recommendation is
+        refused. The digest matches <code>output_digest</code>.
+      </li>
+      <li>
+        <strong>M2.</strong> Strength is labelled operator-attested (<code>evidenceBasis</code>).
+        This is not fixable in code; it is documented.
+      </li>
+      <li>
+        <strong>M3.</strong> The review signal is judged per operator and per recommending agent, so
+        decoys cannot mask a rubber-stamped stream.
+      </li>
+      <li>
+        <strong>L1.</strong> <code>occurredAt</code> must be strict ISO UTC and at most 30 days old.
+      </li>
+      <li><strong>L2.</strong> The reconcile event uses the signing time.</li>
+      <li><strong>L3.</strong> An unknown <code>capture</code> value throws.</li>
+      <li>
+        <strong>L4.</strong> Documented: the digest is JS-canonical, and the operator keeps the
+        modified file.
+      </li>
+    </ul>
+    <p>Suite totals: 34 decision tests and 167 across the pilot suites.</p>
+    <p>
+      What the kit cannot do: it cannot prove that a "live" signature was not a transcription. The
+      runbook states the rule, and the review signal makes the pattern visible.
+    </p>
+    <h2>Insight</h2>
+    <p>
+      The advisory workflow is the same event chain as the decision journey that was already
+      designed: <code>PATH_RECOMMENDED → PATH_ACCEPTED → OUTCOME_RECORDED</code>. Recording the
+      approval as an event costs one design decision in the ledger. It turns the pilot's output from
+      "the stop works" into "the stop works, and here is the first verifiable decision path, with a
+      customer operator as the decision-maker". Report D7 names the number that follows from this:
+      decision-path coverage.
+    </p>
+    <h2>Next steps</h2>
+    <ul>
+      <li>Fold the security-review findings into the next commit.</li>
+      <li>
+        The HIC calibrates the readiness scores (G3/G5) now that C5 has landed. I did not change the
+        scores.
+      </li>
+    </ul>
+    <h2>Skipped steps</h2>
+    <ul>
+      <li>
+        KB update: N/A. This is implementation evidence of an already-registered design
+        (<code>docs/plans/2026-09-24-decision-journey-outcome-evidence.md</code>). The KB entry
+        follows at PR merge.
+      </li>
+      <li>
+        Drive export: N/A. This session has no Drive write path for repository files, and the repo
+        is the source of truth.
+      </li>
+      <li>
+        Master's thesis (implementation evidence): N/A this pass. The four-file lockstep is not
+        opened for one component. It is queued for the next thesis pass.
+      </li>
+    </ul>
+    <h2>HIC decision question</h2>
+    <p>
+      Is coverage counted over all recommendations including abandoned ones, as implemented
+      (abandoned = complete, because the stop is also evidence)? Or are abandoned paths excluded
+      from the denominator?
+    </p>
+  </body>
+</html>

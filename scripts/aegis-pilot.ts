@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- scripts/aegis-pilot.ts
 /**
  * aegis-pilot — operator CLI for DWS-AEGIS-PILOT-001 (Store/PRODUCT_AEGIS_PILOT.md).
@@ -7,7 +7,8 @@
  * docs/runbooks/AEGIS_PILOT_RUNBOOK.md.
  *
  *   init            --state-dir D --site-id S [--org-id O]
- *   issue-operator  --state-dir D --name N --key-out K [--ttl-hours 72]
+ *   issue-operator  --state-dir D --name N --key-out K [--ttl-hours 72] [--role R]
+ *                   (--role grants decision.record; R is a role such as shift-supervisor, never a name)
  *   revoke          --state-dir D --credential ID
  *   validate-scope  --scope F
  *   probe           --scope F
@@ -15,6 +16,14 @@
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
  *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P --expect-prover-sha256 H]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
+ *   decide          --state-dir D --seq N --hash H --verdict accept|modify|reject|defer --reason R
+ *                   [--modified-file F (modify: the recommendation as changed)]
+ *                   [--capture manual_entry --occurred-at ISO (a decision entered afterwards)]
+ *                   --operator-credential C --operator-key K
+ *   drain-decisions --state-dir D            (site side: record queued decisions; a running `run` does this itself)
+ *   outcome         --state-dir D --decision-seq N --decision-hash H --result positive|negative|neutral|unknown
+ *                   [--metrics '{"eur_estimated":142.5}'] [--evidence-ref REF]
+ *   journey         --state-dir D
  *   verify          --state-dir D [--record FILE] [--expect-key-id K]
  *   reconcile       --state-dir D --scope F [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   authority       --state-dir D [--scope F] [--agent ID]   who held decision authority, and what followed
@@ -34,10 +43,21 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
   CAP_AGENT_STOP,
+  CAP_DECISION,
+  DECISION_COMMAND_MAX_AGE_MS,
+  createDecisionCommand,
+  DecisionAuthority,
+  type DecisionCapture,
+  type DecisionVerdict,
+  decisionJourneys,
   EvidenceLedger,
   buildAuthorityRecord,
   recordGrant,
   recordRevoke,
+  type OutcomeResult,
+  readLedgerEvents,
+  recordOutcome,
+  submitDecisionCommand,
   type HandlerModuleRef,
   createIsolatedRegistry,
   createOpenShellRegistry,
@@ -106,7 +126,18 @@ const { values: a, positionals } = parseArgs({
     reason: { type: 'string' },
     record: { type: 'string' },
     'expect-key-id': { type: 'string' },
-    scope: { type: 'string' },
+    role: { type: 'string' },
+    seq: { type: 'string' },
+    hash: { type: 'string' },
+    verdict: { type: 'string' },
+    'decision-seq': { type: 'string' },
+    'decision-hash': { type: 'string' },
+    result: { type: 'string' },
+    metrics: { type: 'string' },
+    'evidence-ref': { type: 'string' },
+    capture: { type: 'string' },
+    'occurred-at': { type: 'string' },
+    'modified-file': { type: 'string' },
   },
 });
 
@@ -219,6 +250,34 @@ function stopMode(): 'hard' | 'cooperative' {
   return m;
 }
 
+function captureArg(): DecisionCapture | undefined {
+  if (a.capture === undefined || a.capture === 'live') return undefined;
+  if (a.capture === 'manual_entry') return 'manual_entry';
+  throw new Error('--capture must be live or manual_entry');
+}
+
+function intArg(name: keyof typeof a): number {
+  const raw = need(name);
+  if (!/^(0|[1-9][0-9]*)$/.test(raw))
+    throw new Error(`--${String(name)} must be a non-negative integer`);
+  return Number(raw);
+}
+
+/** Open the site ledger outside a run, keeping the org id its genesis event recorded. */
+function openSiteLedger(site: SiteAuthority): EvidenceLedger {
+  const path = statePaths(site.stateDir).ledger;
+  const genesis = readLedgerEvents(path)[0];
+  if (genesis?.event_type !== 'system.genesis') {
+    throw new Error('no ledger yet — run "aegis-pilot init" first');
+  }
+  return EvidenceLedger.open(path, {
+    siteId: site.manifest.siteId,
+    orgId: String(genesis.detail.org_id ?? genesis.org_id),
+    signer: (h) => site.sign(h),
+    publicKey: site.publicKey,
+  });
+}
+
 /** Append to the site ledger (grants, revocations). Fails loud if a run holds the ledger. */
 function withLedger(site: SiteAuthority, fn: (ledger: EvidenceLedger) => void): void {
   const ledger = EvidenceLedger.open(statePaths(site.stateDir).ledger, {
@@ -275,8 +334,9 @@ async function main(): Promise<void> {
       const cred = site.issue({
         kind: 'operator',
         subjectName: need('name'),
-        capabilities: [CAP_AGENT_STOP],
+        capabilities: a.role ? [CAP_AGENT_STOP, CAP_DECISION] : [CAP_AGENT_STOP],
         subjectPublicKeyPem: kp.publicKeyPem,
+        role: a.role,
         ttlHours: Number(a['ttl-hours'] ?? 72),
       });
       withLedger(site, (ledger) =>
@@ -297,6 +357,7 @@ async function main(): Promise<void> {
         operatorId: cred.subjectId,
         credentialPath: `${statePaths(site.stateDir).credentials}/${cred.credentialId}.json`,
         keyPath: keyOut,
+        role: cred.role ?? null,
         expiresAt: cred.expiresAt,
       });
       break;
@@ -447,6 +508,101 @@ async function main(): Promise<void> {
         target: command.target,
         inboxPath: path,
       });
+      break;
+    }
+    case 'decide': {
+      // Operator side, like `stop`: sign and drop the command. Never loads the site key —
+      // the site process that owns the ledger records it (a running `run`, or `drain-decisions`).
+      const stateDir = need('state-dir');
+      const command = createDecisionCommand({
+        recommendationSeq: intArg('seq'),
+        recommendationHash: need('hash'),
+        verdict: need('verdict') as DecisionVerdict,
+        reason: need('reason'),
+        capture: captureArg(),
+        occurredAt: a['occurred-at'],
+        modifiedRecommendation: a['modified-file']
+          ? JSON.parse(readFileSync(resolve(a['modified-file']), 'utf8'))
+          : undefined,
+        operatorCredential: loadCredential(need('operator-credential')),
+        operatorKey: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
+      });
+      const path = submitDecisionCommand(stateDir, command);
+      out({
+        ok: true,
+        command: cmd,
+        commandId: command.commandId,
+        verdict: command.verdict,
+        queued: true,
+        recorded: false,
+        inboxPath: path,
+        recordBy: new Date(
+          Date.parse(command.issuedAt) + DECISION_COMMAND_MAX_AGE_MS,
+        ).toISOString(),
+        next: 'a running `run` records it within 200 ms; otherwise the site runs `drain-decisions` before recordBy',
+      });
+      break;
+    }
+    case 'drain-decisions': {
+      // Site side: record every queued decision. Holds the site key, like `run`.
+      const stateDir = need('state-dir');
+      const site = SiteAuthority.load(stateDir);
+      let ledger: EvidenceLedger;
+      try {
+        ledger = openSiteLedger(site);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : String(err);
+        // Only a live run holding the lock means "still queued" — that run drains decide/ itself.
+        // Any other failure (torn tail, broken chain) is an error, never a silent queue.
+        if (/locked by running process/.test(message)) {
+          out({ ok: false, command: cmd, queued: true, recorded: false, note: message }, 2);
+        }
+        throw err;
+      }
+      try {
+        const results = new DecisionAuthority(
+          stateDir,
+          site.verifier(),
+          ledger,
+          site.publicKey,
+        ).drainInbox(`drain-${Date.now()}`, { reconcile: true });
+        out(
+          { ok: results.every((r) => r.accepted), command: cmd, processed: results },
+          results.every((r) => r.accepted) ? 0 : 1,
+        );
+      } finally {
+        ledger.close();
+      }
+      break;
+    }
+    case 'outcome': {
+      const site = SiteAuthority.load(need('state-dir'));
+      const metrics = a.metrics ? (JSON.parse(a.metrics) as Record<string, number>) : undefined;
+      const ledger = openSiteLedger(site);
+      try {
+        const ev = recordOutcome(
+          ledger,
+          {
+            decisionSeq: intArg('decision-seq'),
+            decisionHash: need('decision-hash'),
+            result: need('result') as OutcomeResult,
+            metrics,
+            evidenceRef: a['evidence-ref'],
+          },
+          site.publicKey,
+        );
+        out({ ok: true, command: cmd, outcomeSeq: ev.seq, eventHash: ev.event_hash });
+      } finally {
+        ledger.close();
+      }
+      break;
+    }
+    case 'journey': {
+      const site = SiteAuthority.load(need('state-dir'));
+      const path = statePaths(site.stateDir).ledger;
+      const ledger = verifyLedger(path, { publicKey: site.publicKey });
+      if (!ledger.valid) out({ ok: false, command: cmd, ledger }, 4);
+      out({ ok: true, command: cmd, ...decisionJourneys(path) });
       break;
     }
     case 'verify': {
@@ -600,6 +756,10 @@ async function main(): Promise<void> {
             'prune',
             'run',
             'stop',
+            'decide',
+            'drain-decisions',
+            'outcome',
+            'journey',
             'verify',
             'reconcile',
             'status',
