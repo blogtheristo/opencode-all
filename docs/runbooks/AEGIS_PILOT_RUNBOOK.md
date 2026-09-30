@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.5 [Latest]
+Version: 1.6 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.5 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.6 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1 anti-rubber-stamp (HIC 29.09.2026): `modify` verdict, reason required on reject/modify, `manual_entry` capture with evidence strength, and review shares and signal in `journey`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.5 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: §6.1 step 5: core-step egress probe (`scripts/aegis-pilot-egress-probe.sh`) for the site's IT; worker-mode limit stated. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.2 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: OpenShell containment (C4): §6.1 rehearsal setup verified against a real gateway; §8 states what the sandbox stop proves and its measured latency. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -172,7 +173,15 @@ The first workflow is advisory (HIC 28.09.2026). The agent recommends, the opera
     --result positive --metrics '{"eur_estimated":142.5,"kwh_shifted":1800}' --evidence-ref meter-export-0311
   ```
 
-- **Pilot number (report D7).** `journey` prints `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted with an outcome. It also prints the median operator time from recommendation to decision.
+- **Checked, not acknowledged (HIC 29.09.2026).** A bare acknowledgement proves little about human oversight, so the record carries what the operator did:
+  - `--verdict modify --modified-file F`: the operator accepts with changes. The command carries the sha256 of the changed recommendation.
+  - Reject and modify require a reason.
+  - `--capture manual_entry --occurred-at ISO`: a decision taken earlier (on paper, by phone) and entered afterwards. It is recorded as `MANUAL_ENTRY` evidence (0.40 × capture-lag factor), compared with `HUMAN_CONFIRMED` (0.80) for a live signature, following decision-journey §3.5. It gets no operator-time number, because the kit did not observe the response time. Never sign a decision as live when you are transcribing it.
+- **Pilot number (report D7).** `journey` prints:
+  - `coverage`: complete paths divided by recommendations. A path is complete when it is rejected, abandoned, or accepted or modified with an outcome.
+  - The median operator time, from live decisions only.
+  - Always alongside it: `rejectionShare`, `modificationShare`, `manualEntryShare` and `weakestEvidence`, the cap on any learning delta.
+  - `reviewSignal`: `no-challenge` after 10 or more final decisions with no reject and no modify. Seconds per decision with nothing ever challenged is a warning sign, not a result. The threshold of 10 is a v1 proposal.
 
 ## 6. Phase 3 — severed-uplink acceptance (weeks 10–11)
 

@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- src/__tests__/aegis-pilot-decision.test.ts
 /**
  * Readiness plan C5 (HIC 28.09.2026): the operator's approval of a
@@ -30,6 +30,7 @@ import {
   privateKeyFromPem,
   readLedgerEvents,
   recordOutcome,
+  REVIEW_SIGNAL_MIN_DECISIONS,
   runAcceptance,
   runWorkflow,
   SiteAuthority,
@@ -40,7 +41,7 @@ import {
   validateScope,
   verifyLedger,
 } from '../aegis/pilot/index.js';
-import { signPayload } from '../aegis/pilot/crypto.js';
+import { canonicalJSON, sha256, signPayload } from '../aegis/pilot/crypto.js';
 
 let dir: string;
 let site: SiteAuthority;
@@ -593,5 +594,158 @@ describe('operator time is measured from the signed response, not from recording
     submitDecisionCommand(dir, decide(rec, operator()));
     authority().drainInbox('run');
     expect(lastEvent().event_type).toBe('human.decide');
+  });
+});
+
+describe('anti-rubber-stamp (HIC 29.09.2026)', () => {
+  function cmd(
+    rec: LedgerEvent,
+    op: ReturnType<typeof operator>,
+    extra: Partial<Parameters<typeof createDecisionCommand>[0]>,
+    now?: Date,
+  ) {
+    return createDecisionCommand(
+      {
+        recommendationSeq: rec.seq,
+        recommendationHash: rec.event_hash,
+        verdict: 'accept',
+        reason: 'checked',
+        operatorCredential: op.credential,
+        operatorKey: op.key,
+        ...extra,
+      },
+      now,
+    );
+  }
+
+  it('records a modify decision with the digest of what was actually decided, and allows its outcome', () => {
+    const rec = recommend(agent().subjectId);
+    const changed = { action: 'shift-load', mw: 1.5, window: '02:00-04:00' };
+    const out = authority().execute(
+      cmd(rec, operator(), {
+        verdict: 'modify',
+        reason: '2 MW exceeds the feeder limit tonight',
+        modifiedRecommendation: changed,
+      }),
+      'ops',
+    );
+    expect(out.accepted).toBe(true);
+    expect(lastEvent().detail).toMatchObject({
+      verdict: 'modify',
+      journey_event: 'PATH_ACCEPTED',
+      modified: true,
+      modification_digest: sha256(canonicalJSON(changed)),
+    });
+    recordOutcome(ledger, {
+      decisionSeq: out.ledgerSeq!,
+      decisionHash: out.eventHash!,
+      result: 'positive',
+    });
+    const summary = decisionJourneys(statePaths(dir).ledger);
+    expect(summary.journeys[0]).toMatchObject({ status: 'modified', complete: true });
+    expect(summary.modificationShare).toBe(1);
+  });
+
+  it('refuses a modify without a digest, and a reject or modify without a reason', () => {
+    const rec = recommend(agent().subjectId);
+    const op = operator();
+    expect(() => cmd(rec, op, { verdict: 'modify', reason: 'x' })).toThrow(/digest/);
+    expect(() => cmd(rec, op, { verdict: 'reject', reason: '  ' })).toThrow(
+      /must state its reason/,
+    );
+    expect(() =>
+      cmd(rec, op, { verdict: 'modify', reason: '', modifiedRecommendation: { a: 1 } }),
+    ).toThrow(/must state its reason/);
+    // A command body tampered to drop the reason fails on receipt too, before the signature.
+    const good = cmd(rec, op, { verdict: 'reject', reason: 'unsafe' });
+    const tampered = { ...good, reason: '' };
+    expect(authority().execute(tampered, 'ops')).toMatchObject({
+      accepted: false,
+      reason: /must state its reason/,
+    });
+  });
+
+  it('marks a decision entered afterwards as MANUAL_ENTRY at low strength, with no operator-time number', () => {
+    const rec = recommend(agent().subjectId);
+    const t0 = Date.parse(rec.timestamp);
+    const occurredAt = new Date(t0 + 60_000).toISOString();
+    const signedAt = new Date(t0 + 30 * 60_000); // typed in 30 minutes later
+    const late = new DecisionAuthority(
+      dir,
+      site.verifier(),
+      ledger,
+      site.publicKey,
+      () => new Date(signedAt.getTime() + 1000),
+    );
+    const out = late.execute(
+      cmd(rec, operator(), { capture: 'manual_entry', occurredAt }, signedAt),
+      'ops',
+    );
+    expect(out.accepted).toBe(true);
+    expect(lastEvent().detail).toMatchObject({
+      capture: 'manual_entry',
+      evidence_quality: 'MANUAL_ENTRY',
+      evidence_strength: 0.36, // 0.40 × 0.90 (captured within a day)
+      decided_at: occurredAt,
+      decision_latency_ms: null,
+    });
+    const summary = decisionJourneys(statePaths(dir).ledger);
+    expect(summary).toMatchObject({
+      manualEntryShare: 1,
+      weakestEvidence: 0.36,
+      medianDecisionLatencyMs: null,
+    });
+  });
+
+  it('records a live decision as HUMAN_CONFIRMED at full strength', () => {
+    const rec = recommend(agent().subjectId);
+    authority().execute(cmd(rec, operator(), {}), 'ops');
+    expect(lastEvent().detail).toMatchObject({
+      capture: 'live',
+      evidence_quality: 'HUMAN_CONFIRMED',
+      evidence_strength: 0.8,
+    });
+  });
+
+  it('refuses a manual entry that claims to occur after signing or before the recommendation', () => {
+    const rec = recommend(agent().subjectId);
+    const op = operator();
+    const now = new Date();
+    expect(() =>
+      cmd(
+        rec,
+        op,
+        {
+          capture: 'manual_entry',
+          occurredAt: new Date(now.getTime() + 60_000).toISOString(),
+        },
+        now,
+      ),
+    ).toThrow(/after the signing time/);
+    const early = cmd(rec, op, {
+      capture: 'manual_entry',
+      occurredAt: new Date(Date.parse(rec.timestamp) - 60_000).toISOString(),
+    });
+    expect(authority().execute(early, 'ops')).toMatchObject({
+      accepted: false,
+      reason: /before the recommendation/,
+    });
+    expect(() => cmd(rec, op, { occurredAt: now.toISOString() })).toThrow(/only to a manual entry/);
+  });
+
+  it('flags ten decisions with no rejection or modification as a possible rubber stamp', () => {
+    const a = agent();
+    const op = operator();
+    const auth = authority();
+    const recs = Array.from({ length: REVIEW_SIGNAL_MIN_DECISIONS }, () => recommend(a.subjectId));
+    for (const r of recs.slice(0, -1)) auth.execute(cmd(r, op, {}), 'ops');
+    expect(decisionJourneys(statePaths(dir).ledger).reviewSignal.status).toBe('insufficient-data');
+    auth.execute(cmd(recs.at(-1)!, op, {}), 'ops');
+    const summary = decisionJourneys(statePaths(dir).ledger);
+    expect(summary.reviewSignal.status).toBe('no-challenge');
+    expect(summary.rejectionShare).toBe(0);
+
+    auth.execute(cmd(recommend(a.subjectId), op, { verdict: 'reject', reason: 'unsafe' }), 'ops');
+    expect(decisionJourneys(statePaths(dir).ledger).reviewSignal.status).toBe('challenged');
   });
 });

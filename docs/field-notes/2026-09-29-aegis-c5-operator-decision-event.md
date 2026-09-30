@@ -69,6 +69,25 @@ What was built (readiness plan C5):
 
 Operator time was counted from the time the site _recorded_ the decision. A decision drained from the queue up to 10 minutes later therefore inflated the number. Now `decided_at` = the operator-signed `issuedAt`, `decision_latency_ms` is measured from the recommendation to that signature, and `recorded_lag_ms` reports the queue delay separately. `drain-decisions` records a `system.reconcile` event (`decision-drain`) with the head it started from, so a catch-up is visible in the chain and not spliced in. Tests: 24 in the decision file, 71 in the pilot suites. A mutation check confirmed the latency test fails when the old basis is restored.
 
+## Rubber-stamp protection (HIC 29.09.2026, implemented 30.09.2026)
+
+Boardy's point: a bare acknowledgement optimises a rubber stamp, and that does not fit a human carrying responsibility for the decision.
+
+What was built:
+
+- **`modify` verdict.** The command carries the sha256 of the changed recommendation.
+- **Reasons.** Reject and modify require one, checked both before signing and on receipt.
+- **`manual_entry`.** A decision entered afterwards, with an operator-stated `occurredAt`. It is recorded as `MANUAL_ENTRY` at 0.40 × capture-lag factor, against `HUMAN_CONFIRMED` 0.80 for a live decision (decision-journey §3.5), and gets no latency number.
+- **`journey` output.** It now includes the rejection, modification and manual-entry shares, `weakestEvidence`, and a `reviewSignal` that warns `no-challenge` after 10 decisions with no reject or modify.
+
+Verification:
+
+- 30 decision tests and 163 across all pilot suites.
+- A mutation check confirmed the reason guard, the review signal and the manual-entry latency rule each fail their test when removed.
+- The CLI E2E `modify` run with the uplink severed passes.
+
+What the kit cannot do: it cannot prove that a "live" signature was not a transcription. The runbook states the rule, and the review signal makes the pattern visible.
+
 ## Insight
 
 The advisory workflow is the same event chain as the decision journey that was already designed: `PATH_RECOMMENDED → PATH_ACCEPTED → OUTCOME_RECORDED`. Recording the approval as an event costs one design decision in the ledger. It turns the pilot's output from "the stop works" into "the stop works, and here is the first verifiable decision path, with a customer operator as the decision-maker". Report D7 names the number that follows from this: decision-path coverage.

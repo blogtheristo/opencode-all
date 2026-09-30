@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- src/aegis/pilot/decision-authority.ts
 /**
  * Aegis Pilot — operator decisions on agent recommendations (readiness plan C5,
@@ -38,7 +38,14 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import { type KeyObject, randomUUID } from 'node:crypto';
-import { publicKeyFromPem, publicPemOf, signPayload, verifyPayload } from './crypto.js';
+import {
+  canonicalJSON,
+  publicKeyFromPem,
+  publicPemOf,
+  sha256,
+  signPayload,
+  verifyPayload,
+} from './crypto.js';
 import {
   CAP_DECISION,
   CLOCK_SKEW_MS,
@@ -64,15 +71,52 @@ const EVIDENCE_REF = /^[A-Za-z0-9._:/#-]{1,200}$/;
 /** A decision command older than this is refused as a possible replay. */
 export const DECISION_COMMAND_MAX_AGE_MS = 10 * 60 * 1000;
 
-export type DecisionVerdict = 'accept' | 'reject' | 'defer';
-const VERDICTS: readonly DecisionVerdict[] = ['accept', 'reject', 'defer'];
+/**
+ * `modify`: the operator accepted the recommendation with changes, and the command
+ * carries the digest of what was actually decided. Anti-rubber-stamp (HIC 29.09.2026):
+ * the record shows what the operator checked and changed, not only that they clicked.
+ */
+export type DecisionVerdict = 'accept' | 'modify' | 'reject' | 'defer';
+const VERDICTS: readonly DecisionVerdict[] = ['accept', 'modify', 'reject', 'defer'];
 
 /** Decision-journey event each verdict corresponds to. */
 export const JOURNEY_EVENT: Record<DecisionVerdict, string> = {
   accept: 'PATH_ACCEPTED',
+  modify: 'PATH_ACCEPTED',
   reject: 'PATH_REJECTED',
   defer: 'PATH_DELAYED',
 };
+
+/**
+ * `live`: signed at the moment of deciding; the signature time is machine-observed.
+ * `manual_entry`: a decision taken earlier (on paper, by phone) and entered afterwards;
+ * the operator states when it occurred, which the kit cannot observe.
+ */
+export type DecisionCapture = 'live' | 'manual_entry';
+const CAPTURES: readonly DecisionCapture[] = ['live', 'manual_entry'];
+
+/**
+ * Evidence weights and capture-lag factors from the decision-journey design
+ * (docs/plans/2026-09-24-decision-journey-outcome-evidence.md §3.5, v1 proposals).
+ * evidence_strength = weight × factor; it caps any learning delta built on the decision.
+ */
+export const EVIDENCE_WEIGHT = { HUMAN_CONFIRMED: 0.8, MANUAL_ENTRY: 0.4 } as const;
+export function captureLagFactor(lagMs: number): number {
+  const min = 60_000;
+  const day = 24 * 60 * min;
+  if (lagMs <= 5 * min) return 1;
+  if (lagMs <= day) return 0.9;
+  if (lagMs <= 7 * day) return 0.7;
+  if (lagMs <= 30 * day) return 0.5;
+  return 0.3;
+}
+
+/**
+ * Final decisions needed before a "no challenge" review signal is reported: that many
+ * decisions with no rejection and no modification reads as a rubber stamp, not a result.
+ * v1 proposal, for the HIC to calibrate.
+ */
+export const REVIEW_SIGNAL_MIN_DECISIONS = 10;
 
 export type OutcomeResult = 'positive' | 'negative' | 'neutral' | 'unknown';
 const OUTCOME_RESULTS: readonly OutcomeResult[] = ['positive', 'negative', 'neutral', 'unknown'];
@@ -86,6 +130,37 @@ export interface DecisionCommandBody {
   reason: string;
   issuedAt: string;
   operatorCredentialId: string;
+  /** Omitted means `live` — keeps commands signed before this field verifiable. */
+  capture?: DecisionCapture;
+  /** manual_entry only: when the decision actually occurred (operator-stated). */
+  occurredAt?: string;
+  /** modify only: sha256 of the canonical JSON of the recommendation as modified. */
+  modificationDigest?: string;
+}
+
+/** Rules every decision body must meet; checked before signing and again on receipt. */
+function bodyProblem(b: DecisionCommandBody): string | null {
+  if (b.capture !== undefined && !CAPTURES.includes(b.capture)) {
+    return 'capture must be live or manual_entry';
+  }
+  if (b.verdict === 'modify') {
+    if (typeof b.modificationDigest !== 'string' || !HASH.test(b.modificationDigest)) {
+      return 'a modify decision must carry the digest of the modified recommendation';
+    }
+  } else if (b.modificationDigest !== undefined) {
+    return 'modificationDigest belongs only to a modify decision';
+  }
+  if ((b.verdict === 'reject' || b.verdict === 'modify') && !b.reason.trim()) {
+    return `a ${b.verdict} decision must state its reason`;
+  }
+  if (b.capture === 'manual_entry') {
+    const occurred = Date.parse(String(b.occurredAt));
+    if (Number.isNaN(occurred)) return 'a manual entry must state when the decision occurred';
+    if (occurred > Date.parse(b.issuedAt)) return 'occurredAt cannot be after the signing time';
+  } else if (b.occurredAt !== undefined) {
+    return 'occurredAt belongs only to a manual entry; a live decision occurs when it is signed';
+  }
+  return null;
 }
 
 export interface DecisionCommand extends DecisionCommandBody {
@@ -114,6 +189,10 @@ export function createDecisionCommand(
     reason: string;
     operatorCredential: Credential;
     operatorKey: KeyObject;
+    capture?: DecisionCapture;
+    occurredAt?: string;
+    /** modify only: the recommendation as the operator changed it (hashed, not stored). */
+    modifiedRecommendation?: unknown;
   },
   now = new Date(),
 ): DecisionCommand {
@@ -123,7 +202,7 @@ export function createDecisionCommand(
     throw new Error('operator private key does not match the key bound in the operator credential');
   }
   if (!VERDICTS.includes(params.verdict))
-    throw new Error('verdict must be accept, reject or defer');
+    throw new Error('verdict must be accept, modify, reject or defer');
   if (!Number.isSafeInteger(params.recommendationSeq) || params.recommendationSeq < 0) {
     throw new Error('recommendationSeq must be a non-negative integer');
   }
@@ -139,7 +218,15 @@ export function createDecisionCommand(
     reason: params.reason.slice(0, 200),
     issuedAt: now.toISOString(),
     operatorCredentialId: params.operatorCredential.credentialId,
+    capture: params.capture === 'manual_entry' ? 'manual_entry' : undefined,
+    occurredAt: params.occurredAt,
+    modificationDigest:
+      params.modifiedRecommendation === undefined
+        ? undefined
+        : sha256(canonicalJSON(params.modifiedRecommendation)),
   };
+  const problem = bodyProblem(body);
+  if (problem) throw new Error(problem);
   return { ...body, signature: signPayload(body, params.operatorKey) };
 }
 
@@ -233,10 +320,13 @@ export class DecisionAuthority {
       typeof command.recommendationHash !== 'string' ||
       !HASH.test(command.recommendationHash) ||
       typeof command.reason !== 'string' ||
-      command.reason.length > 200
+      command.reason.length > 200 ||
+      typeof command.issuedAt !== 'string'
     ) {
       return reject('malformed command');
     }
+    const problem = bodyProblem(command);
+    if (problem) return reject(`malformed command: ${problem}`);
     // Marked seen only once accepted: a forged file reusing a genuine commandId
     // must not be able to burn that id before the genuine command arrives.
     if (this.seen.has(command.commandId)) return reject('command already processed (replay)');
@@ -300,6 +390,15 @@ export class DecisionAuthority {
     if (decisionsFor(events, rec).some((d) => d.detail?.verdict !== 'defer')) {
       return reject('recommendation already decided', cred.subjectId);
     }
+    const live = command.capture !== 'manual_entry';
+    const occurred = live ? issued : Date.parse(command.occurredAt as string);
+    if (occurred < Date.parse(rec.timestamp)) {
+      return reject('decision cannot occur before the recommendation it answers', cred.subjectId);
+    }
+    const quality = live ? 'HUMAN_CONFIRMED' : 'MANUAL_ENTRY';
+    const captureLagMs = Math.max(0, t.getTime() - occurred);
+    const strength =
+      Math.round(EVIDENCE_WEIGHT[quality] * captureLagFactor(captureLagMs) * 100) / 100;
 
     this.seen.add(command.commandId);
     const event = this.ledger.append({
@@ -318,11 +417,20 @@ export class DecisionAuthority {
         recommendation_hash: rec.event_hash,
         recommended_by: rec.agent_id,
         reason: command.reason,
-        // occurred_at of the response is the moment the operator signed it, not the moment
-        // the site recorded it: a decision drained later must not inflate operator time.
-        decided_at: command.issuedAt,
-        decision_latency_ms: Math.max(0, issued - Date.parse(rec.timestamp)),
-        latency_basis: 'operator-signed issuedAt minus recommendation timestamp',
+        modified: command.verdict === 'modify' ? true : undefined,
+        modification_digest: command.modificationDigest,
+        // occurred_at of the response. Live: the moment the operator signed it, not the
+        // moment the site recorded it, so a drained decision does not inflate operator time.
+        decided_at: new Date(occurred).toISOString(),
+        capture: live ? 'live' : 'manual_entry',
+        evidence_quality: quality,
+        evidence_strength: strength,
+        capture_lag_ms: captureLagMs,
+        // Operator time is a number only when the response time was machine-observed.
+        decision_latency_ms: live ? Math.max(0, issued - Date.parse(rec.timestamp)) : null,
+        latency_basis: live
+          ? 'operator-signed issuedAt minus recommendation timestamp'
+          : 'none: manual entry, response time not machine-observed',
         // Queue delay between signing and recording; > 0 after a drain.
         recorded_lag_ms: Math.max(0, t.getTime() - issued),
       },
@@ -333,7 +441,7 @@ export class DecisionAuthority {
       verdict: command.verdict,
       ledgerSeq: event.seq,
       eventHash: event.event_hash,
-      decidedAt: command.issuedAt,
+      decidedAt: new Date(occurred).toISOString(),
     };
     this.outcomes.push(outcome);
     return outcome;
@@ -441,7 +549,7 @@ export function recordOutcome(
   if (decision.event_hash !== params.decisionHash) {
     throw new Error('decision hash does not match the ledger');
   }
-  if (decision.detail?.verdict !== 'accept') {
+  if (decision.detail?.verdict !== 'accept' && decision.detail?.verdict !== 'modify') {
     throw new Error('an outcome is recorded only for an accepted recommendation');
   }
   if (
@@ -466,7 +574,13 @@ export function recordOutcome(
   });
 }
 
-export type JourneyStatus = 'pending' | 'deferred' | 'accepted' | 'rejected' | 'abandoned';
+export type JourneyStatus =
+  | 'pending'
+  | 'deferred'
+  | 'accepted'
+  | 'modified'
+  | 'rejected'
+  | 'abandoned';
 
 export interface DecisionJourney {
   recommendationSeq: number;
@@ -477,8 +591,15 @@ export interface DecisionJourney {
   decisionBy: string | null;
   decisionLatencyMs: number | null;
   outcomeSeq: number | null;
-  /** Terminal: rejected, abandoned, or accepted with a recorded outcome. */
+  capture: DecisionCapture | null;
+  evidenceStrength: number | null;
+  /** Terminal: rejected, abandoned, or accepted/modified with a recorded outcome. */
   complete: boolean;
+}
+
+export interface ReviewSignal {
+  status: 'insufficient-data' | 'challenged' | 'no-challenge';
+  note: string;
 }
 
 export interface JourneySummary {
@@ -487,8 +608,17 @@ export interface JourneySummary {
   /** complete / recommendations — the pilot's sold number (report D7). Null with no recommendations. */
   coverage: number | null;
   byStatus: Record<JourneyStatus, number>;
-  /** Operator time from recommendation to final decision (report D7, secondary number). */
+  /** Operator time from recommendation to final decision, live decisions only (report D7). */
   medianDecisionLatencyMs: number | null;
+  /** accepted + modified + rejected. */
+  finalDecisions: number;
+  /** Read with operator time, never apart from it: fast decisions that never push back are a rubber stamp. */
+  rejectionShare: number | null;
+  modificationShare: number | null;
+  manualEntryShare: number | null;
+  /** Minimum evidence_strength over final decisions: the cap on any learning delta from them. */
+  weakestEvidence: number | null;
+  reviewSignal: ReviewSignal;
   journeys: DecisionJourney[];
 }
 
@@ -504,8 +634,10 @@ export function decisionJourneys(path: string): JourneySummary {
         ) ?? null)
       : null;
     let status: JourneyStatus;
-    if (final) status = final.detail.verdict === 'accept' ? 'accepted' : 'rejected';
-    else if (abandonedAfter(events, rec)) status = 'abandoned';
+    if (final) {
+      const v = final.detail.verdict;
+      status = v === 'accept' ? 'accepted' : v === 'modify' ? 'modified' : 'rejected';
+    } else if (abandonedAfter(events, rec)) status = 'abandoned';
     else status = decisions.length > 0 ? 'deferred' : 'pending';
     return {
       recommendationSeq: rec.seq,
@@ -519,14 +651,22 @@ export function decisionJourneys(path: string): JourneySummary {
           ? final.detail.decision_latency_ms
           : null,
       outcomeSeq: outcome?.seq ?? null,
+      capture: final?.detail?.capture === 'manual_entry' ? 'manual_entry' : final ? 'live' : null,
+      evidenceStrength:
+        typeof final?.detail?.evidence_strength === 'number'
+          ? final.detail.evidence_strength
+          : null,
       complete:
-        status === 'rejected' || status === 'abandoned' || (status === 'accepted' && !!outcome),
+        status === 'rejected' ||
+        status === 'abandoned' ||
+        ((status === 'accepted' || status === 'modified') && !!outcome),
     };
   });
   const byStatus: Record<JourneyStatus, number> = {
     pending: 0,
     deferred: 0,
     accepted: 0,
+    modified: 0,
     rejected: 0,
     abandoned: 0,
   };
@@ -537,6 +677,28 @@ export function decisionJourneys(path: string): JourneySummary {
     .filter((x): x is number => x !== null)
     .sort((x, y) => x - y);
   const mid = latencies.length >> 1;
+  const finalJourneys = journeys.filter((j) => j.decisionSeq !== null);
+  const finalDecisions = finalJourneys.length;
+  const share = (n: number) => (finalDecisions ? n / finalDecisions : null);
+  const strengths = finalJourneys
+    .map((j) => j.evidenceStrength)
+    .filter((x): x is number => x !== null);
+  const challenged = byStatus.rejected + byStatus.modified;
+  const reviewSignal: ReviewSignal =
+    finalDecisions < REVIEW_SIGNAL_MIN_DECISIONS
+      ? {
+          status: 'insufficient-data',
+          note: `${finalDecisions} final decision(s); the signal needs ${REVIEW_SIGNAL_MIN_DECISIONS}`,
+        }
+      : challenged === 0
+        ? {
+            status: 'no-challenge',
+            note: `${finalDecisions} decisions, none rejected or modified: review whether the operator is checking or only acknowledging`,
+          }
+        : {
+            status: 'challenged',
+            note: `${challenged} of ${finalDecisions} decisions rejected or modified`,
+          };
   return {
     recommendations: journeys.length,
     complete,
@@ -547,6 +709,12 @@ export function decisionJourneys(path: string): JourneySummary {
         ? latencies[mid]
         : (latencies[mid - 1] + latencies[mid]) / 2
       : null,
+    finalDecisions,
+    rejectionShare: share(byStatus.rejected),
+    modificationShare: share(byStatus.modified),
+    manualEntryShare: share(finalJourneys.filter((j) => j.capture === 'manual_entry').length),
+    weakestEvidence: strengths.length ? Math.min(...strengths) : null,
+    reviewSignal,
     journeys,
   };
 }

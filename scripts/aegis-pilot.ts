@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
 // Audit trail: git log -- scripts/aegis-pilot.ts
 /**
  * aegis-pilot — operator CLI for DWS-AEGIS-PILOT-001 (Store/PRODUCT_AEGIS_PILOT.md).
@@ -16,7 +16,9 @@
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
  *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P --expect-prover-sha256 H]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
- *   decide          --state-dir D --seq N --hash H --verdict accept|reject|defer --reason R
+ *   decide          --state-dir D --seq N --hash H --verdict accept|modify|reject|defer --reason R
+ *                   [--modified-file F (modify: the recommendation as changed)]
+ *                   [--capture manual_entry --occurred-at ISO (a decision entered afterwards)]
  *                   --operator-credential C --operator-key K
  *   drain-decisions --state-dir D            (site side: record queued decisions; a running `run` does this itself)
  *   outcome         --state-dir D --decision-seq N --decision-hash H --result positive|negative|neutral|unknown
@@ -45,6 +47,7 @@ import {
   DECISION_COMMAND_MAX_AGE_MS,
   createDecisionCommand,
   DecisionAuthority,
+  type DecisionCapture,
   type DecisionVerdict,
   decisionJourneys,
   EvidenceLedger,
@@ -130,6 +133,9 @@ const { values: a, positionals } = parseArgs({
     result: { type: 'string' },
     metrics: { type: 'string' },
     'evidence-ref': { type: 'string' },
+    capture: { type: 'string' },
+    'occurred-at': { type: 'string' },
+    'modified-file': { type: 'string' },
   },
 });
 
@@ -240,6 +246,12 @@ function stopMode(): 'hard' | 'cooperative' {
   if (m !== 'hard' && m !== 'cooperative')
     throw new Error('--stop-mode must be hard or cooperative');
   return m;
+}
+
+function captureArg(): DecisionCapture | undefined {
+  if (a.capture === undefined || a.capture === 'live') return undefined;
+  if (a.capture === 'manual_entry') return 'manual_entry';
+  throw new Error('--capture must be live or manual_entry');
 }
 
 function intArg(name: keyof typeof a): number {
@@ -486,6 +498,11 @@ async function main(): Promise<void> {
         recommendationHash: need('hash'),
         verdict: need('verdict') as DecisionVerdict,
         reason: need('reason'),
+        capture: captureArg(),
+        occurredAt: a['occurred-at'],
+        modifiedRecommendation: a['modified-file']
+          ? JSON.parse(readFileSync(resolve(a['modified-file']), 'utf8'))
+          : undefined,
         operatorCredential: loadCredential(need('operator-credential')),
         operatorKey: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
       });

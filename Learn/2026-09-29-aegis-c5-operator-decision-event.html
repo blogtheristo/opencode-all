@@ -185,6 +185,46 @@
       chain and not spliced in. Tests: 24 in the decision file, 71 in the pilot suites. A mutation
       check confirmed the latency test fails when the old basis is restored.
     </p>
+    <h2>Rubber-stamp protection (HIC 29.09.2026, implemented 30.09.2026)</h2>
+    <p>
+      Boardy's point: a bare acknowledgement optimises a rubber stamp, and that does not fit a human
+      carrying responsibility for the decision.
+    </p>
+    <p>What was built:</p>
+    <ul>
+      <li>
+        <strong><code>modify</code> verdict.</strong> The command carries the sha256 of the changed
+        recommendation.
+      </li>
+      <li>
+        <strong>Reasons.</strong> Reject and modify require one, checked both before signing and on
+        receipt.
+      </li>
+      <li>
+        <strong><code>manual_entry</code>.</strong> A decision entered afterwards, with an
+        operator-stated <code>occurredAt</code>. It is recorded as <code>MANUAL_ENTRY</code> at 0.40
+        × capture-lag factor, against <code>HUMAN_CONFIRMED</code> 0.80 for a live decision
+        (decision-journey §3.5), and gets no latency number.
+      </li>
+      <li>
+        <strong><code>journey</code> output.</strong> It now includes the rejection, modification
+        and manual-entry shares, <code>weakestEvidence</code>, and a <code>reviewSignal</code> that
+        warns <code>no-challenge</code> after 10 decisions with no reject or modify.
+      </li>
+    </ul>
+    <p>Verification:</p>
+    <ul>
+      <li>30 decision tests and 163 across all pilot suites.</li>
+      <li>
+        A mutation check confirmed the reason guard, the review signal and the manual-entry latency
+        rule each fail their test when removed.
+      </li>
+      <li>The CLI E2E <code>modify</code> run with the uplink severed passes.</li>
+    </ul>
+    <p>
+      What the kit cannot do: it cannot prove that a "live" signature was not a transcription. The
+      runbook states the rule, and the review signal makes the pattern visible.
+    </p>
     <h2>Insight</h2>
     <p>
       The advisory workflow is the same event chain as the decision journey that was already
