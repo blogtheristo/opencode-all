@@ -190,6 +190,49 @@ describe('OpenShell policy from the signed scope', () => {
       ).toThrow(/invalid endpoint/);
     }
   });
+
+  it('refuses alternate spellings of internal addresses and reserved ranges', () => {
+    const sync = scope().workflow.steps.find((s) => s.id === 'sync-report')!;
+    const internal = [
+      '0177.0.0.1', // octal loopback
+      '0x7f.0.0.1', // hex loopback
+      '127.1', // shortened loopback
+      '2130706433', // integer loopback
+      '0xa9fea9fe', // integer-hex metadata
+      '0xA9.0xFE.0xA9.0xFE', // hex metadata
+      '010.0.0.1', // leading zero
+      '192.0.0.8',
+      '198.18.0.1',
+      '224.0.0.1',
+      '1.2.3.300',
+    ];
+    for (const host of internal)
+      expect(
+        () => stepPolicy(sync, { endpointsByStep: { 'sync-report': [{ host, port: 443 }] } }),
+        host,
+      ).toThrow(/invalid endpoint/);
+    for (const host of ['archive.example.eu', '93.184.216.34'])
+      expect(() =>
+        stepPolicy(sync, { endpointsByStep: { 'sync-report': [{ host, port: 443 }] } }),
+      ).not.toThrow();
+  });
+});
+
+describe('sandbox absence proof', () => {
+  it('needs two consecutive complete listings without the sandbox', async () => {
+    let n = 0;
+    const seen: boolean[] = [true, false, true, false, false];
+    const runner: CommandRunner = () => {
+      const listed = seen[Math.min(n++, seen.length - 1)];
+      return Promise.resolve({
+        code: 0,
+        stdout: JSON.stringify({ sandboxes: listed ? [{ name: 'as-x' }] : [] }),
+        stderr: '',
+      });
+    };
+    expect(await confirmSandboxGone(runner, 'openshell', 'as-x', 1000, 1)).toBe(true);
+    expect(n).toBe(5); // a single absent page (the 2nd) was not taken as proof
+  });
 });
 
 describe('sandbox ↔ host path mapping', () => {
@@ -532,6 +575,15 @@ describe('OpenShell driver: the sandbox is untrusted', () => {
   it('rejects a copy-back that is not a file map', async () => {
     const { reg } = withCli({ packStdout: `AEGIS_OUT ${JSON.stringify({ a: { nested: 1 } })}\n` });
     await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/not a file map/);
+  });
+
+  it('does not promote the files of a step that reported failure', async () => {
+    const { reg } = withCli({
+      stepStdout: `AEGIS_RESULT ${JSON.stringify({ ok: false, errorMessage: 'step failed' })}\n`,
+      packStdout: outLine({ 'poisoned.md': b64('from a failed step') }),
+    });
+    await expect(reg[step().handler](ctx(step()))).rejects.toThrow(/step failed/);
+    expect(existsSync(join(dir, 'out', 'poisoned.md'))).toBe(false);
   });
 
   it('promotes verified output into the host directory', async () => {

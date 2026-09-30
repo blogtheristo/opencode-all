@@ -355,9 +355,14 @@ export async function confirmSandboxGone(
   deadlineMs: number,
   pollMs: number,
 ): Promise<boolean> {
+  // Absence counts only when two consecutive complete listings agree, so a transient empty
+  // page or a create that lands late is not taken as proof of a stop (review 30.09.2026, M2).
   const end = performance.now() + deadlineMs;
+  let absentOnce = false;
   while (performance.now() < end) {
-    if ((await listContains(run, cli, name)) === false) return true;
+    const listed = await listContains(run, cli, name);
+    if (listed === false && absentOnce) return true;
+    absentOnce = listed === false;
     await sleep(pollMs);
   }
   return false;
@@ -406,10 +411,22 @@ export async function terminateSandbox(p: {
 }): Promise<{ confirmed: boolean; ms: number; detail: string }> {
   const t0 = performance.now();
   const del = () => p.run(p.cli, ['sandbox', 'delete', p.name], { timeoutMs: 60_000 });
+  // A create still in flight could land after the sandbox was listed as gone, so it is
+  // always settled first — not only when the delete fails (security review 30.09.2026, M2).
+  if (p.create) {
+    let settled = false;
+    p.create.then(
+      () => (settled = true),
+      () => (settled = true),
+    );
+    await new Promise((r) => setImmediate(r));
+    if (!settled) {
+      p.killLocal?.();
+      await p.create.catch(() => undefined);
+    }
+  }
   let res = await del();
-  if (res.code !== 0) {
-    p.killLocal?.();
-    await p.create;
+  if (res.code !== 0 && p.create) {
     res = await del();
   }
   const gone = await confirmSandboxGone(
@@ -665,8 +682,12 @@ async function runInSandbox(
       }
       verifyOutputTree(staging, { maxFiles, maxBytes });
       if (stopping) return await stop();
-      mkdirSync(ref.outputDir, { recursive: true });
-      cpSync(staging, ref.outputDir, { recursive: true, verbatimSymlinks: true });
+      // A step that reported failure does not get its files into the report directory:
+      // that directory is staged into every later step (security review 30.09.2026, M4).
+      if (parsed.ok) {
+        mkdirSync(ref.outputDir, { recursive: true });
+        cpSync(staging, ref.outputDir, { recursive: true, verbatimSymlinks: true });
+      }
     }
     if (!parsed.ok) {
       if (parsed.errorName === 'NetworkUnavailable')

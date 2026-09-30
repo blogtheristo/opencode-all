@@ -61,8 +61,18 @@ const HOST = /^[A-Za-z0-9.-]{1,253}$/;
 function internalHost(host: string): boolean {
   const h = host.toLowerCase().replace(/\.$/, '');
   if (h === 'localhost' || /\.(localhost|local|internal|lan|home\.arpa)$/.test(h)) return true;
+  // Numeric hosts must be a canonical dotted quad. Octal (0177.0.0.1), hex (0x7f.0.0.1),
+  // shortened (127.1) and integer (2130706433) spellings resolve to loopback or metadata
+  // under inet_aton, so any other all-numeric or 0x-labelled host is refused as internal
+  // (security review 30.09.2026, M1).
+  const labels = h.split('.');
+  const numericish = labels.every((l) => /^(0x[0-9a-f]*|\d+)$/.test(l));
+  const canonical = /^(0|[1-9]\d{0,2})(\.(0|[1-9]\d{0,2})){3}$/.test(h);
+  if (numericish && !canonical) return true;
+  if (labels.some((l) => /^0x/.test(l))) return true;
   const m = /^(\d{1,3})\.(\d{1,3})\.\d{1,3}\.\d{1,3}$/.exec(h);
   if (!m) return false;
+  if ([...h.split('.')].some((o) => Number(o) > 255)) return true;
   const [a, b] = [Number(m[1]), Number(m[2])];
   return (
     a === 0 ||
@@ -71,7 +81,10 @@ function internalHost(host: string): boolean {
     (a === 169 && b === 254) ||
     (a === 172 && b >= 16 && b <= 31) ||
     (a === 192 && b === 168) ||
-    (a === 100 && b >= 64 && b <= 127)
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 192 && b === 0) ||
+    (a === 198 && (b === 18 || b === 19)) ||
+    a >= 224
   );
 }
 
