@@ -37,8 +37,8 @@
       code: 'fi',
       name: 'Suomi',
       flag: '🇫🇮',
-      home: 'Suvereeni tekoäly ja vaatimustenmukaisuus teollisuuskäyttöön. Rakennettu Suomessa.',
-      blog: 'Lifetime Scope — kentältä teollisen AI:n eturintamalta, joka toinen viikko.',
+      home: 'Yksi elämä, yksi planeetta — ymmärrämme teknologian ja muutoksen yhtenä osana ratkaisuja. Independent Ontology säilyttää organisaation ymmärryksen: havainnosta päätökseen ja vaikutukseen, yli järjestelmä- ja teknologiasukupolvien.',
+      blog: 'Lifetime Scope Journal - Business Blog kentältä teollisuuden tekoälyratkaisujen ja compliancen eturintamalta.',
       press: 'Viralliset tiedotteet Lifetime Oy:ltä — DWS IQ, KYA ja Sovereign Stack.',
     },
     {
@@ -238,8 +238,7 @@
     // as text, never interpolated into innerHTML. Escaping only & and < left >, quotes and
     // apostrophes able to break the markup.
     var heading = document.createElement('div');
-    heading.className =
-      'olw-vlb-heading' + (post && post.title ? ' olw-vlb-post-title' : '');
+    heading.className = 'olw-vlb-heading' + (post && post.title ? ' olw-vlb-post-title' : '');
     heading.textContent = '🌍 ' + (post && post.title ? post.title : '5 European Languages');
 
     el.innerHTML = rows;
