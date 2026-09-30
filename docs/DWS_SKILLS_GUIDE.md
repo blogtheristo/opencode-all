@@ -1010,6 +1010,7 @@ Regeneration is part of the same sync pass as the guide matrix: `node scripts/sk
 
 | Skill | Kind | Status | Visibility | Win11 Claude CLI | Claude Desktop | claude.ai web | Claude Mobile iOS | Claude Mobile Android | Chromebook/Antigravity | OpenCode CLI | Transport | Notes |
 | ----- | ---- | ------ | ---------- | --- | --- | --- | --- | --- | --- | --- | --------- | ----- |
+| `aegis-pilot` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | skill-pack, local-files | Repo-local skill pack (plain markdown), readable directly by Claude Code or OpenCode in this repository. |
 | `agent-run` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI and OpenCode CLI (.opencode/command/, generated). |
 | `autoresearch` | slash-command | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | slash-command, local-tools | Repo-local slash command. Available in Claude Code CLI and OpenCode CLI (.opencode/command/, generated). |
 | `autoresearch (pack)` | skill-pack | active | internal | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | skill-pack, local-files | Repo-local skill pack (plain markdown), readable directly by Claude Code or OpenCode in this repository. |
