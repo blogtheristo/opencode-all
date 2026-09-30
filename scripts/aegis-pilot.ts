@@ -339,6 +339,7 @@ async function main(): Promise<void> {
       break;
     }
     case 'validate-scope': {
+      const v = validateScope(JSON.parse(readFileSync(need('scope'), 'utf8')));
       out({ command: cmd, ...v }, v.ok ? 0 : 1);
       break;
     }
