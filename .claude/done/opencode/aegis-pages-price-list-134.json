@@ -1,0 +1,33 @@
+{
+  "task": "Aegis product pages to price list 1.34 (DWS IQ 7 naming, GA Q1 2027, pilot reported numbers)",
+  "prompt": "Bring the Aegis product pages in line with catalogue 1.34 (dws10.com/config/products.json priceHistory[0]); the catalogue is the source of truth, read records DWS-AEGIS-PILOT-001, DWS-AEGIS-001, DWS-AEGIS-SUB-001 first. Edit only the English masters dws10.com/products/aegis.html, dws-aegis-001.html, dws-aegis-sub-001.html, dws-aegis-pilot-001.html. (1) Replace every 'September 2026' availability or GA claim with: 'Release candidate 2026 · general availability Q1 2027, after the first pilot acceptance record' (keep sentence structure, badge and CTA text short, e.g. 'General availability: Q1 2027'). Keep 'pre-revenue' / preorder honesty lines. (2) Product name: 'DWS IQ 7 Aegis' for the licence page title/h1/JSON-LD name, 'DWS IQ 7 Aegis Pilot' on the pilot page; leave body references to 'Aegis' as they are. (3) Pilot page: add a short 'What the pilot reports' block after the acceptance KPI: decision-path coverage (primary), operator time per decision (secondary), energy EUR recorded as an outcome of each approved recommendation and never promised; operator approval is a signed decision event in the local ledger; agent steps run in the NVIDIA OpenShell sandbox (open source, included) and the fee buys the tested, signed acceptance record. Also update the JSON-LD description on dws-aegis-sub-001.html to match the catalogue description. Do not change any price. Do not touch dws10.com/aegis/hackathlon.html. Then regenerate the fi/sv/de/fr siblings with node scripts/i18n/build-i18n-pages.cjs (add dictionary entries for new strings; if the builder cannot translate a string, leave English rather than inventing a translation), and copy every changed file to landing-pages/dws10-com/products/ (dual-folder rule). Do not touch package.json or package-lock.json. Run node scripts/validate-product-publication.mjs (must print OK). Commit and push.",
+  "base": "main",
+  "order": 30,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "no September 2026 on EN Aegis pages",
+      "run": "! grep -il 'september 2026' dws10.com/products/aegis.html dws10.com/products/dws-aegis-001.html dws10.com/products/dws-aegis-sub-001.html"
+    },
+    {
+      "name": "GA Q1 2027 stated",
+      "run": "grep -q 'Q1 2027' dws10.com/products/dws-aegis-001.html && grep -q 'Q1 2027' dws10.com/products/aegis.html"
+    },
+    {
+      "name": "DWS IQ 7 naming",
+      "run": "grep -q 'DWS IQ 7 Aegis' dws10.com/products/dws-aegis-001.html && grep -q 'DWS IQ 7 Aegis Pilot' dws10.com/products/dws-aegis-pilot-001.html"
+    },
+    {
+      "name": "pilot reports D7 numbers",
+      "run": "grep -qi 'decision-path coverage' dws10.com/products/dws-aegis-pilot-001.html && grep -q 'OpenShell' dws10.com/products/dws-aegis-pilot-001.html"
+    },
+    {
+      "name": "i18n siblings and mirror current",
+      "run": "! grep -liE 'september 2026|septembre 2026|syyskuu[a-z]* 2026' dws10.com/products/aegis.{fi,sv,de,fr}.html dws10.com/products/dws-aegis-001.{fi,sv,de,fr}.html dws10.com/products/dws-aegis-sub-001.{fi,sv,de,fr}.html && for f in aegis dws-aegis-001 dws-aegis-sub-001 dws-aegis-pilot-001; do for l in '' .fi .sv .de .fr; do cmp -s dws10.com/products/$f$l.html landing-pages/dws10-com/products/$f$l.html || exit 1; done; done"
+    },
+    {
+      "name": "publication validator OK",
+      "run": "node scripts/validate-product-publication.mjs 2>&1 | grep -q 'OK — governed publication model'"
+    }
+  ]
+}

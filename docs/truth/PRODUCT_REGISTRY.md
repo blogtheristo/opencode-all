@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.33 [Latest]
+Version: 1.34 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.33 [Latest] | Tool: scripts/truth/product-registry.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.33. Do not edit by hand; run the script.
+- Version: 1.34 [Latest] | Tool: scripts/truth/product-registry.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.34. Do not edit by hand; run the script.
 
 Document Status:
 
@@ -63,9 +63,9 @@ TAM / yr is a model estimate per public offer (`config/truth/product-valuation-m
 | 14 | `consulting-hourly` | Senior Compliance Specialist — Retainer + Outcomes | €250 | public | — | Services | yes | €62.50M |  |
 | 15 | `conversational-agent` | EU-Hosted Conversational Agent | €3,500 | public | — | Firehorse | yes | €5.83M |  |
 | 16 | `devops-lead` | Assessment | €2,500 | public | — | Services | yes | €6.25M |  |
-| 17 | `DWS-AEGIS-001` | DWS IQ Aegis | €59,990 | public | serious | DWS IQ | yes | €18.00M |  |
+| 17 | `DWS-AEGIS-001` | DWS IQ 7 Aegis | €59,990 | public | serious | DWS IQ | yes | €18.00M |  |
 | 18 | `DWS-AEGIS-IMPL-001` | DWS IQ Aegis Implementation Programme (3 phases) | €45,000 | public | — | DWS IQ | yes | €13.50M |  |
-| 19 | `DWS-AEGIS-PILOT-001` | DWS IQ Aegis Pilot (3 months) | €19,990 | public | serious | DWS IQ | yes | €6.00M |  |
+| 19 | `DWS-AEGIS-PILOT-001` | DWS IQ 7 Aegis Pilot (3 months) | €19,990 | public | serious | DWS IQ | yes | €6.00M |  |
 | 20 | `DWS-AEGIS-SUB-001` | DWS IQ Aegis — Maintenance Subscription | €999 | public | — | DWS IQ | yes | €10.79M |  |
 | 21 | `DWS-CLIMATE-001` | DWS IQ Climate Intelligence | €2,999 | public | serious | DWS IQ | yes | €89.97M |  |
 | 22 | `DWS-EU-PILOT` | DWS IQ — EU Sovereign Pilot | €1,499 | public | serious | DWS IQ | yes | €44.97M |  |

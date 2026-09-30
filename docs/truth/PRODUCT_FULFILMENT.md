@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.33 [Latest]
+Version: 1.34 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.33 [Latest] | Tool: scripts/truth/product-fulfilment.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.33 and config/truth/product-capability-chapters.json (chapter map transcribed from docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md). Do not edit by hand; run the script. HIC 27.09.2026: report-only — never gates, hides or blocks a sale.
+- Version: 1.34 [Latest] | Tool: scripts/truth/product-fulfilment.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.34 and config/truth/product-capability-chapters.json (chapter map transcribed from docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md). Do not edit by hand; run the script. HIC 27.09.2026: report-only — never gates, hides or blocks a sale.
 
 Document Status:
 

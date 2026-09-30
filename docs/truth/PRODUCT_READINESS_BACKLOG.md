@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.33 [Latest]
+Version: 1.34 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.33 [Latest] | Tool: scripts/truth/product-readiness-backlog.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.33. Do not edit by hand; run the script. HIC 27.09.2026: "generate a roadmap/backlog entry per product for anything not finished" — report-only, never gates a sale.
+- Version: 1.34 [Latest] | Tool: scripts/truth/product-readiness-backlog.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.34. Do not edit by hand; run the script. HIC 27.09.2026: "generate a roadmap/backlog entry per product for anything not finished" — report-only, never gates a sale.
 
 Document Status:
 
@@ -657,7 +657,7 @@ Version bucket: next — proposed backlog issues:
 
 ### rb-dws-aegis-001
 
-**DWS-AEGIS-001 — DWS IQ Aegis** · Chapter 4 · catalogue version 1.0 · public
+**DWS-AEGIS-001 — DWS IQ 7 Aegis** · Chapter 4 · catalogue version 1.0 · public
 
 Version bucket: current — implemented facts:
 
@@ -697,12 +697,12 @@ Version bucket: next — proposed backlog issues:
 
 ### rb-dws-aegis-pilot-001
 
-**DWS-AEGIS-PILOT-001 — DWS IQ Aegis Pilot (3 months)** · Chapter 4 · catalogue version 1.0 · public
+**DWS-AEGIS-PILOT-001 — DWS IQ 7 Aegis Pilot (3 months)** · Chapter 4 · catalogue version 1.0 · public
 
 Version bucket: current — implemented facts:
 
 - Priced: €19990 EUR (one-time, per-3-months)
-- 7 documented feature(s)
+- 10 documented feature(s)
 - Managed delivery contract in force — checkout: /checkout/?product=DWS-AEGIS-PILOT-001 (self-serve-fallback)
 - Binary acceptance KPI defined
 - Contractual exclusions defined
