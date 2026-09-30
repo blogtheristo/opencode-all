@@ -19,7 +19,7 @@ While planning the first witnessed test of the Aegis Pilot, we asked ourselves a
 
 Those are two questions, and two different pieces of hardware answer them.
 
-**A security key proves a person.** A YubiKey is a small device you plug into your laptop and touch. It holds a secret that never leaves it. When the operator stops an agent, the key signs the command, and the signature exists only if that person's key was physically there. Copying a file does not copy it. It is the answer to "who held the authority at that moment", which is what a record of human oversight has to show where Article 14 of the EU AI Act applies, that is, for high-risk systems.
+**A security key proves a person.** A security key (a YubiKey is one example) is a small device you plug into your laptop and touch. It holds a secret that never leaves it. When the operator stops an agent, the key signs the command, and the signature exists only if that person's key was physically there. Copying a file does not copy it. It is the answer to "who held the authority at that moment", which is what a record of human oversight has to show where Article 14 of the EU AI Act applies, that is, for high-risk systems.
 
 **A TPM proves a machine.** A TPM is a small chip on the computer's motherboard. It records what the machine started up with, and it can sign a statement about that. If someone replaced the software underneath the agent, or moved the evidence to a different box, the chip's statement stops matching. It is the answer to "was this the machine, running this software".
 
@@ -31,7 +31,7 @@ Two things we do not do. We do not sell hardware. You buy the server and the key
 
 What we are working on next is the key. Signing the stop with a hardware key is a smaller step than attesting a machine, and it is the one an auditor sees first: the person, physically present, at the moment of the stop. Whether it lands before our first witnessed test is not yet decided, and we will not claim it until a stop has been signed that way and the record shows it.
 
-If you run agents where someone will later ask who stopped them and on what, ask your vendor which of the two they can show you. Then ask to see the record. Most vendors can show you a log. A log is not the same thing as a signed chain that a stranger can verify with no network and no call to the vendor. The second is what the Aegis Pilot's evidence bundle is built to hand to your auditor, and it is the reason the record says what it says.
+If you run agents where someone will later ask who stopped them and on what, ask your vendor which of the two they can show you. Then ask to see the record. Most vendors can show you a log. A log is not the same thing as a signed chain that a stranger can verify with no network and no call to the vendor. The second is what the Aegis Pilot's evidence bundle is meant to hand to your auditor. It will be ready by our first witnessed test, and until a stranger has checked one, treat it as a promise and not yet a product. That is the reason the record says what it says.
 
 Risto Anton Päärni
 Founder, CEO · Lifetime Oy · the Agent Outcome Company
