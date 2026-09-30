@@ -45,6 +45,14 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Decision record: why DWS runs on PostgreSQL (HIC, 27.09.2026).**
+  `docs/architecture/DATABASE_DECISION_POSTGRESQL.md` collects the reasons
+  from the data standard, locked decisions and security §17.5: one engine for
+  transactions, time series, vectors and documents; jsonb removes the need for
+  a separate document database; RLS in the database; portable across Supabase,
+  Aiven, edge and air-gapped hosts. Records the costs, including an unresolved
+  conflict over whether the Aiven mirror (DR-5) runs and on which provider.
+  The March Aiven note's "no CLOUD Act exposure" claim is marked superseded.
 - **Aegis Pilot hard stop (readiness plan patch C1).** Workflow steps and the
   stop-test agent now run in worker threads that an operator stop terminates
   (`src/aegis/pilot/isolated-handlers.ts`). A handler that ignores its signal or
