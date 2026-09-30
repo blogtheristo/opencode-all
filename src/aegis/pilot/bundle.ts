@@ -40,10 +40,14 @@ import { canonicalJSON, keyId, publicKeyFromPem, sha256, verifyPayload } from '.
 import { SiteAuthority, type SiteManifest, statePaths } from './identity.js';
 import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
 import { segmentPaths, verifySegments } from './ledger-segments.js';
+import { docVersion, KIT_ROOT, PROVENANCE_SOURCES, versionAtLeast } from './provenance.js';
+
+/** The auditor guide shipped in every bundle (C6). */
+export const AUDITOR_GUIDE = 'AUDITOR_GUIDE.md';
 
 /** Paths a bundle may hold (relative, forward slashes). */
 const BUNDLE_PATH =
-  /^(ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json)$/;
+  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json)$/;
 
 const ManifestSchema = z
   .object({
@@ -131,11 +135,18 @@ export function exportBundle(stateDir: string, outDir: string, now = new Date())
     const raw = readFileSync(join(state, rel));
     return { path: rel, sha256: sha256(raw), bytes: raw.length };
   });
+  // The reading path travels with the evidence (C6): the guide from the kit checkout.
+  const guideSrc = join(KIT_ROOT, PROVENANCE_SOURCES.auditorGuide);
+  if (!existsSync(guideSrc) || !docVersion(guideSrc))
+    throw new Error(`auditor guide missing or unversioned: ${guideSrc}`);
+  const guideRaw = readFileSync(guideSrc);
+  files.push({ path: AUDITOR_GUIDE, sha256: sha256(guideRaw), bytes: guideRaw.length });
+  const source = (rel: string) => (rel === AUDITOR_GUIDE ? guideSrc : join(state, rel));
   mkdirSync(outPath, { recursive: true, mode: 0o755 });
   for (const f of files) {
     const dest = join(outPath, f.path);
     mkdirSync(dirname(dest), { recursive: true, mode: 0o755 });
-    copyFileSync(join(state, f.path), dest);
+    copyFileSync(source(f.path), dest);
     // Copied bytes must be the hashed bytes (a writer could change the file in between).
     if (sha256(readFileSync(dest)) !== f.sha256)
       throw new Error(`${f.path} changed during export; export again`);
@@ -254,6 +265,8 @@ export function verifyBundle(
       e.output_digest
     )
       recorded.set(e.detail.record_id, e.output_digest);
+  const guideVersion = present.has(AUDITOR_GUIDE) ? docVersion(join(root, AUDITOR_GUIDE)) : null;
+  if (!guideVersion) failures.push(`${AUDITOR_GUIDE} missing from the bundle or unversioned`);
   for (const rel of onDisk.filter((r) => r.startsWith('acceptance/'))) {
     try {
       const signed = readJson(join(root, rel)) as {
@@ -266,6 +279,13 @@ export function verifyBundle(
       }
       if (!verifyPayload(signed.record, signed.signature, publicKey))
         failures.push(`acceptance record ${rel}: signature does not verify`);
+      // A v2 record names the guide it was signed against; an older bundled guide is stale.
+      const wanted = (signed.record as { provenance?: { documents?: { auditorGuide?: unknown } } })
+        .provenance?.documents?.auditorGuide;
+      if (typeof wanted === 'string' && guideVersion && !versionAtLeast(guideVersion, wanted))
+        failures.push(
+          `auditor guide ${guideVersion} is older than ${wanted}, which ${rel} was signed against`,
+        );
       const id = String(signed.record.recordId);
       if (recorded.get(id) !== sha256(canonicalJSON(signed.record)))
         failures.push(`acceptance record ${rel} is not recorded in the ledger under its digest`);

@@ -224,6 +224,51 @@ describe('evidence bundle — a bundle that lies', () => {
   });
 });
 
+describe('evidence bundle — the reading path (C6)', () => {
+  function v2Record(guide: string) {
+    const record = {
+      v: 2,
+      recordId: 'rec-2',
+      siteId: site.manifest.siteId,
+      provenance: { documents: { auditorGuide: guide } },
+    };
+    const l = ledger();
+    clock.setTime(clock.getTime() + 1000);
+    l.append({
+      event_type: 'acceptance.record',
+      trace_id: 't',
+      output_digest: sha256(canonicalJSON(record)),
+      detail: { record_id: record.recordId },
+    });
+    l.close();
+    mkdirSync(statePaths(dir).acceptance, { recursive: true });
+    writeFileSync(
+      join(statePaths(dir).acceptance, 'rec-2.json'),
+      JSON.stringify({ record, signature: site.sign(record) }),
+    );
+  }
+
+  it('ships the auditor guide in the bundle, covered by the signed manifest', () => {
+    exportBundle(dir, out);
+    expect(readFileSync(join(out, 'AUDITOR_GUIDE.md'), 'utf8')).toMatch(/^Version: \d/m);
+    expect(verifyBundle(out).failures).toEqual([]);
+    writeFileSync(join(out, 'AUDITOR_GUIDE.md'), 'rewritten');
+    expect(verifyBundle(out).failures.join('\n')).toMatch(/AUDITOR_GUIDE\.md/);
+  });
+
+  it('fails when the bundled guide is older than the guide a record was signed against', () => {
+    v2Record('99.0');
+    exportBundle(dir, out);
+    expect(verifyBundle(out).failures.join('\n')).toMatch(/auditor guide .* older/);
+  });
+
+  it('accepts a record signed against the bundled guide version', () => {
+    v2Record('1.0');
+    exportBundle(dir, out);
+    expect(verifyBundle(out).failures).toEqual([]);
+  });
+});
+
 describe('evidence bundle — export refuses', () => {
   it('a non-empty output directory', () => {
     mkdirSync(out);

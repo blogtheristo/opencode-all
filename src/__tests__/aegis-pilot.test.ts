@@ -763,12 +763,22 @@ describe('severed-uplink acceptance test', () => {
       connector: isolated,
       operator: { mode: 'automated', ...op },
     });
-    expect(signed.record.findings.filter((f) => !f.startsWith('Deferred'))).toEqual([]);
+    // A dirty working tree is reported, never hidden (C6); it depends on the checkout.
+    expect(
+      signed.record.findings.filter(
+        (f) => !f.startsWith('Deferred') && !f.startsWith('The kit had uncommitted changes'),
+      ),
+    ).toEqual([]);
     expect(signed.record.outcome).toBe('PASS');
     expect(signed.record.conditions.operatorStop.ticksAfterStop).toBe(0);
     expect(signed.record.conditions.operatorStop.stopMode).toBe('hard');
     expect(signed.record.conditions.operatorStop.terminationMs).not.toBeNull();
     expect(signed.record.conditions.operatorStop.lateMessages).toBe(0);
+    // C6: the record names what governed it (record shape v2).
+    expect(signed.record.v).toBe(2);
+    expect(signed.record.provenance.standards.kyaS1).toMatch(/^\d+\.\d+/);
+    expect(signed.record.provenance.kit.commit).toMatch(/^[0-9a-f]{40}$/);
+    expect(signed.record.provenance.attestation.rimVersion).toBeNull();
     // Art. 14(4)(e): the stop leaves the agent terminated, quiescent and disarmed.
     expect(signed.record.conditions.operatorStop.safeHalt).toEqual({
       pass: true,
