@@ -6,11 +6,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.17
+Version: 4.18
 
 Sessions & Modifications:
 
-- Version: 4.17 [Latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Lockstep version bump 4.16->4.17 per CLAUDE.md Thesis Rule (PhD §14.57, Hugging Face allowed-traffic signal, added). No master's-scope content: market signal only; implementation counterpart (candidate C5, network budget and egress digests) not started. | Harness: Claude Code + .claude/settings.json + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.18 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: Lockstep version bump 4.17->4.18 per CLAUDE.md Thesis Rule (PhD §14.58, negative decision evidence, added). No master's-scope content added.
+- Version: 4.17 [not latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Lockstep version bump 4.16->4.17 per CLAUDE.md Thesis Rule (PhD §14.57, Hugging Face allowed-traffic signal, added). No master's-scope content: market signal only; implementation counterpart (candidate C5, network budget and egress digests) not started. | Harness: Claude Code + .claude/settings.json + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.16 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: HIC 28.09.2026 (lockstep): additive §10.36 — completion as a command result (agent-done-gate, loop-task specs that must fail first, opencode-task-loop), the Blog editor, and BLOG_STANDARD §16 with SEO terms bound to the ontology. Implementation evidence; PRs #2203–#2211, #2210. Renumbered 4.15→4.16 on merge with main, after #2228 took 4.15 (29.09.2026).
 - Version: 4.15 [not latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Lockstep version bump 4.14->4.15 per CLAUDE.md Thesis Rule (PhD §14.55 added). Implementation counterpart (Aegis Pilot kit, PR #2225) to be written up as a master's §10.x section once that PR merges. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§10.12). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.

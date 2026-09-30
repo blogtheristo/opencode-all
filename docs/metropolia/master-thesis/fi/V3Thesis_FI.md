@@ -6,10 +6,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.17
+Version: 4.18
 Sessions & Modifications:
 
-- Version: 4.17 [Latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Lukkoaskeleen versionnosto 4.16->4.17 CLAUDE.md:n opinnäytesäännön mukaisesti (PhD §14.57, Hugging Facen sallitun liikenteen signaali, lisätty). Ei maisterityön sisältöä: pelkkä markkinasignaali; toteutusvastine (ehdotus C5, verkkobudjetti ja lähtevän liikenteen tiivisteet) ei aloitettu. | Harness: Claude Code + .claude/settings.json + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.18 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: Lukkoaskeleen versionnosto 4.17->4.18 CLAUDE.md:n opinnäytesäännön mukaisesti (PhD §14.58, kielteinen päätösnäyttö, lisätty). Maisterityön rajaukseen kuuluvaa sisältöä ei lisätty.
+- Version: 4.17 [not latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Lukkoaskeleen versionnosto 4.16->4.17 CLAUDE.md:n opinnäytesäännön mukaisesti (PhD §14.57, Hugging Facen sallitun liikenteen signaali, lisätty). Ei maisterityön sisältöä: pelkkä markkinasignaali; toteutusvastine (ehdotus C5, verkkobudjetti ja lähtevän liikenteen tiivisteet) ei aloitettu. | Harness: Claude Code + .claude/settings.json + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.16 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: HIC 28.9.2026 (lockstep): lisätty §10.36 — valmis komennon tuloksena (agent-done-gate, ensin epäonnistuvat loop-task-määrittelyt, opencode-task-loop), Blog editor sekä BLOG_STANDARD §16 ja ontologiaan sidotut SEO-termit. Toteutusnäyttöä; PR:t #2203–#2211, #2210. Renumbered 4.15→4.16 on merge with main, after #2228 took 4.15 (29.09.2026).
 - Version: 4.15 [not latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Lukkoaskeleen versionnosto 4.14->4.15 CLAUDE.md:n opinnäytesäännön mukaisesti (PhD §14.55 lisätty). Toteutusvastine (Aegis Pilot -paketti, PR #2225) kirjoitetaan maisterityön §10.x-luvuksi, kun PR on yhdistetty. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB-integraation tavoite Q3 2026 → Q4 2026 (§10.12). ABB:n nykyinen laajuus: kiinteistökerros (KNX/BACnet, rakennuksen LVI + sähköautojen lataus) validoinnissa — docs/plans/abb/.

@@ -62,7 +62,7 @@ The CLI refuses to write the operator key inside the state directory.
 
 ```bash
 # Health probe logs (replace <site>)
-journalctl -u aegis-pilot-health@<site>.timer -f
+journalctl -u aegis-pilot@<site>.service -f
 
 # Seal logs
 journalctl -u aegis-pilot-seal@<site>.service -f
