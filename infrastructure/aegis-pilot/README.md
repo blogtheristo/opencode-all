@@ -19,12 +19,12 @@ The pilot kit runs as a dedicated system user (`aegis-pilot`) with separate stat
 
 ### Units
 
-| Unit                                 | Type    | Purpose                                                                 |
-| ------------------------------------ | ------- | ----------------------------------------------------------------------- |
-| `aegis-pilot@.service`               | oneshot | Health probe: runs `aegis-pilot.ts status` to verify the state directory |
-| `aegis-pilot-health@.timer`          | timer   | Triggers the health probe every 5 minutes                               |
-| `aegis-pilot-seal@.service`          | oneshot | Ledger seal: runs `aegis-pilot.ts seal` to roll the active segment      |
-| `aegis-pilot-seal@.timer`            | timer   | Triggers the seal once per day                                          |
+| Unit                        | Type    | Purpose                                                                  |
+| --------------------------- | ------- | ------------------------------------------------------------------------ |
+| `aegis-pilot@.service`      | oneshot | Health probe: runs `aegis-pilot.ts status` to verify the state directory |
+| `aegis-pilot-health@.timer` | timer   | Triggers the health probe every 5 minutes                                |
+| `aegis-pilot-seal@.service` | oneshot | Ledger seal: runs `aegis-pilot.ts seal` to roll the active segment       |
+| `aegis-pilot-seal@.timer`   | timer   | Triggers the seal once per day                                           |
 
 **Note:** Pruning is not automated. Run `aegis-pilot prune` manually per the runbook §4 "Ledger segments and retention".
 

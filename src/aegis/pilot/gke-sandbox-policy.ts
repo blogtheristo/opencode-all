@@ -95,10 +95,7 @@ export interface SandboxManifest {
 
 const HOST = /^[A-Za-z0-9.-]{1,253}$/;
 
-export function stepSandboxManifest(
-  step: PilotStep,
-  opts: SandboxOptions = {},
-): SandboxManifest {
+export function stepSandboxManifest(step: PilotStep, opts: SandboxOptions = {}): SandboxManifest {
   const runtimeClassName = opts.runtimeClassName ?? 'gvisor';
   const image = opts.image ?? ' busybox:latest';
   const sandboxName = `aegis-${step.id}`;

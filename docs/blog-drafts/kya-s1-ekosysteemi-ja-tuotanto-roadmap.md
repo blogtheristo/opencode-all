@@ -51,7 +51,7 @@ Sarjan seitsemän ensimmäistä osaa rakensivat koneiston: spesifikaation, BPMN-
 
 **Kuka sanoo, että tuo kaikki on totta?**
 
-Tämä kirjoitus käsittelee sitä kysymystä. Se on epämukava kysymys myydä, koska rehellinen vastaus meidän omalta osaltamme on tällä hetkellä: *ei kukaan vielä.*
+Tämä kirjoitus käsittelee sitä kysymystä. Se on epämukava kysymys myydä, koska rehellinen vastaus meidän omalta osaltamme on tällä hetkellä: _ei kukaan vielä._
 
 ## 1. Miksi tiereitä on kolme eikä yksi
 
@@ -61,11 +61,11 @@ Attestointi, jossa on vain "hyväksytty / hylätty", pakottaa jokaisen adoptoija
 
 Tiereitä erottaa **kolme asiaa yhtä aikaa** — ei yksi:
 
-| Erottaja                 | Bronze                    | Silver                     | Gold                                      |
-| ------------------------ | ------------------------- | -------------------------- | ----------------------------------------- |
-| **Uusintakadenssi**      | Vuosittain                | Neljännesvuosittain        | Jatkuva (telemetria) + vuosittain 3. osap. |
+| Erottaja                     | Bronze                                                                                                              | Silver                                                                                                         | Gold                                                             |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Uusintakadenssi**          | Vuosittain                                                                                                          | Neljännesvuosittain                                                                                            | Jatkuva (telemetria) + vuosittain 3. osap.                       |
 | **Todistusaineiston syvyys** | 3. osapuolen auditointi vähintään yhdestä domainista + allekirjoitettu telemetria tai sopimus-SLA lopuista kuudesta | 3. osapuolen auditointi IDV- ja BHM-domainista + allekirjoitettu telemetria (12 kk säilytys) lopuista viidestä | Riippumaton arvioija kaikista 7 domainista + allekirjoitettu SLA |
-| **Etenemis-SLA:t**       | IDV-peruutus 15 min · TC4 15 min · red-team vuosittain | IDV-peruutus 5 min · TC4 5 min · red-team neljännesvuosittain | IDV-peruutus 60 s · TC4 60 s · red-team jatkuva |
+| **Etenemis-SLA:t**           | IDV-peruutus 15 min · TC4 15 min · red-team vuosittain                                                              | IDV-peruutus 5 min · TC4 5 min · red-team neljännesvuosittain                                                  | IDV-peruutus 60 s · TC4 60 s · red-team jatkuva                  |
 
 _(Lähde: `Legal/KYA_S1_v1.3.md` §8. Luvut ovat spesifikaatiosta, eivät tästä tekstistä.)_
 
@@ -89,7 +89,7 @@ Nyt ero on ostajalle konkreettinen. Gold-tason toimittajalta auditoija saa pää
 
 ## 3. Kaksi saraketta, jotka jätettiin tyhjiksi — tarkoituksella
 
-Sama taulukko sisältää kaksi saraketta, joissa lukee kolmella rivillä sama teksti: *"documented + assessor-verified"*. Ne ovat TRS-pisteen voimassaoloaika ja TRS-moottorin aikakatkaisu.
+Sama taulukko sisältää kaksi saraketta, joissa lukee kolmella rivillä sama teksti: _"documented + assessor-verified"_. Ne ovat TRS-pisteen voimassaoloaika ja TRS-moottorin aikakatkaisu.
 
 Luvut oli kirjoitettu. Ne poistettiin ennen julkaisua.
 
@@ -138,11 +138,11 @@ Lifetime Oy ylläpitää KYA-S1:n referenssitoteutusta osana DWS IQ -alustaa. Ka
 
 Elokuussa 2026 tehty katselmus löysi tästä toteutuksesta kohdan, joka ei pitänyt paikkaansa. **TRS-1** vaatii luottamuspisteeltä dokumentoidut syötteet: IDV-tila, käyttäytymisen etäisyys perustasosta, red-team-asento ja kyvykkyysmanifestin laajuus. Toimitettu kaava pisteytti rikkomusten määrää, estettyjen polkujen yrityksiä ja keskimääräistä vasteaikaa. **Yksikään neljästä vaaditusta syötteestä ei esiintynyt siinä.**
 
-Seuraus oli täsmällinen eikä teoreettinen: ihmisen todennuksen peruutus ei liikuttanut luottamuspistettä lainkaan. Koko §4:n Artikla 14 -kytkentä IDV:n ja TRS:n välillä oli olemassa kaaviossa mutta ei koodissa. Ketju *näytti* katkeavan.
+Seuraus oli täsmällinen eikä teoreettinen: ihmisen todennuksen peruutus ei liikuttanut luottamuspistettä lainkaan. Koko §4:n Artikla 14 -kytkentä IDV:n ja TRS:n välillä oli olemassa kaaviossa mutta ei koodissa. Ketju _näytti_ katkeavan.
 
 **Osittainen korjaus, 7.–8. elokuuta 2026.** IDV-tila on nyt pakollinen syöte ja hard kill: peruutettu, vanhentunut tai tuntematon ihmisprincipal romahduttaa pisteen nollaan riippumatta agentin omasta käytöksestä. Vanhentuminen raportoidaan erillään peruutuksesta, koska ne vaativat eri operaattoritoimen. Syöte tehtiin **pakolliseksi parametriksi** eikä valinnaiseksi — valinnainen parametri olisi antanut kutsujan hiljaa ohittaa juuri sen kontrollin, jota varten syöte on olemassa.
 
-**Kolme neljästä syötteestä puuttuu yhä.** Käyttäytymisen etäisyys perustasosta, red-team-asento ja manifestin *laajuus* eivät vaikuta pisteeseen. Manifestin **voimassaolo** tarkistetaan, sen **laajuus** ei. TRS-1 ei siis ole täytetty.
+**Kolme neljästä syötteestä puuttuu yhä.** Käyttäytymisen etäisyys perustasosta, red-team-asento ja manifestin _laajuus_ eivät vaikuta pisteeseen. Manifestin **voimassaolo** tarkistetaan, sen **laajuus** ei. TRS-1 ei siis ole täytetty.
 
 Siksi: **DWS IQ -alustalle ei myönnetä KYA-S1-attestaatiota itse, eikä mitään tieriä väitetä.** Yllä oleva luettelo domaineista on arkkitehtuurikuvaus, ei attestaatio. Kun riippumaton arvioija allekirjoittaa sellaisen, se sanotaan — arvioijan nimellä ja päivämäärällä, kuten §8 vaatii.
 

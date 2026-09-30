@@ -102,10 +102,10 @@ Tässä on hienovarainen mutta ratkaiseva ero pelkkään lokitukseen. Loki kerto
 
 Rekisteri säilöö kolme kerrosta:
 
-| Kerros           | Mitä                                                     | Kuka kysyy                                    |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------- |
-| **Pistehistoria** | Aikasarja pisteen arvoista sessioittain ja agenteittain  | Operaattori: "milloin tämä alkoi rapautua?"   |
-| **Syötedeltat**  | Mikä syöte muuttui, milloin, minkä tapahtuman johdosta   | Auditoija: "millä perusteella piste laski?"   |
+| Kerros              | Mitä                                                    | Kuka kysyy                                           |
+| ------------------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| **Pistehistoria**   | Aikasarja pisteen arvoista sessioittain ja agenteittain | Operaattori: "milloin tämä alkoi rapautua?"          |
+| **Syötedeltat**     | Mikä syöte muuttui, milloin, minkä tapahtuman johdosta  | Auditoija: "millä perusteella piste laski?"          |
 | **Valtuutushetket** | Mikä piste oli sillä hetkellä kun valtuutus myönnettiin | Vakuutusyhtiö / tuomioistuin: "oliko lupa voimassa?" |
 
 Kolmas rivi on se, jota kukaan ei rakenna ennen kuin sitä tarvitaan. Se ei ole sama asia kuin ensimmäinen rivi. Pistehistoria kertoo, mikä piste oli kello 14.32.10. Valtuutushetki kertoo, mikä piste oli **siinä operaatiossa**, joka teki tilauksen — ja jos nuo kaksi eroavat, järjestelmässä on juuri se aikaikkuna, jonka atominen valtuutustoken on olemassa sulkemaan.
@@ -116,7 +116,7 @@ Kolmas ja raskain: päätöksen toistettavuus.
 
 Vaatimus kuuluu, että mistä tahansa merkityksellisestä päätöksestä on rekonstruoitavissa syötteet, agentin tila, mallin versio ja käytäntöversio **päätöshetkellä**. Kaksi vuotta myöhemmin, auditoijalle.
 
-Tämä on vaikea vaatimus tarkalleen yhdestä syystä: kaikki mainitut asiat muuttuvat. Malli päivittyy. Käytäntö kiristyy. Tietokannassa oleva fakta korjataan. Jos rekisteri säilöö vain *nykyisen* tilan ja *viittaukset* siihen, toisto tuottaa kahden vuoden päästä eri vastauksen — ja näyttää silti onnistuneelta.
+Tämä on vaikea vaatimus tarkalleen yhdestä syystä: kaikki mainitut asiat muuttuvat. Malli päivittyy. Käytäntö kiristyy. Tietokannassa oleva fakta korjataan. Jos rekisteri säilöö vain _nykyisen_ tilan ja _viittaukset_ siihen, toisto tuottaa kahden vuoden päästä eri vastauksen — ja näyttää silti onnistuneelta.
 
 Siksi rekisterin PRV-kerros on **vedosperustainen** eikä viittausperustainen. Päätöksen yhteydessä talletetaan se, mitä agentti sillä hetkellä tiesi, ei osoite paikkaan, jossa tieto silloin oli.
 
@@ -131,7 +131,7 @@ Neljä asiaa kulkee vedoksessa mukana:
 
 Versio 1.3 lisäsi vaatimuksen, joka näyttää pieneltä ja on koko domainin tärkein: **kun toimi ohjataan ihmiselle hyväksyttäväksi, hylättäväksi tai ohitettavaksi, rekisteriin on kirjattava kuka päätti, mitä päätti, millä perusteella, milloin, ja mikä luottamustila aiheutti ohjauksen ihmiselle.**
 
-Syy on tämä. Alkuperäinen toistovaatimus luetteli pelkkää *agentin* tilaa. Kun toimi ohjataan ihmiselle — eli tapahtuu täsmälleen se, mihin koko HIC-valvonta ja EU AI Actin ihmisvalvontavelvoite tähtäävät — mikään kontrolli ei vaatinut säilyttämään tietoa siitä, kuka hyväksyi ja millä perusteella.
+Syy on tämä. Alkuperäinen toistovaatimus luetteli pelkkää _agentin_ tilaa. Kun toimi ohjataan ihmiselle — eli tapahtuu täsmälleen se, mihin koko HIC-valvonta ja EU AI Actin ihmisvalvontavelvoite tähtäävät — mikään kontrolli ei vaatinut säilyttämään tietoa siitä, kuka hyväksyi ja millä perusteella.
 
 Se on se yksi tapahtuma, jonka varaan ihmisvalvonnan velvoite tosiasiassa rakentuu.
 

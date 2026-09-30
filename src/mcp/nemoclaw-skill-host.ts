@@ -606,7 +606,12 @@ export class NemoClawSkillHost {
     _inputHash: string,
     _startTime: number,
     _tier: string,
-    _tierCapabilities: { allowNetwork: boolean; maxMemoryMb: number; maxCpuCores: number; maxExecutionSec: number },
+    _tierCapabilities: {
+      allowNetwork: boolean;
+      maxMemoryMb: number;
+      maxCpuCores: number;
+      maxExecutionSec: number;
+    },
   ): Promise<SkillInvocationResult> {
     // TODO: Add actual OpenShell command execution here
     // For now, return a placeholder indicating OpenShell mode with policy info
@@ -618,7 +623,13 @@ export class NemoClawSkillHost {
     // 5. Collect results and cleanup
     return this.failWithEvidence(
       `OpenShell sandbox not yet fully implemented for skill "${_req.skill}" (tier: ${_tier})`,
-      { req: _req, traceId: _traceId, auditEventId: _auditEventId, inputHash: _inputHash, startTime: _startTime },
+      {
+        req: _req,
+        traceId: _traceId,
+        auditEventId: _auditEventId,
+        inputHash: _inputHash,
+        startTime: _startTime,
+      },
       _tier,
     );
   }

@@ -52,11 +52,11 @@ Ne eivät ole sama kysymys, ja ero paljastui vuoden 2026 alkupuolella kaikille y
 
 Kentällä on kolme kilpailevaa mutta osin päällekkäistä protokollaa. Ne kannattaa erottaa, koska ne ratkaisevat eri osaa ongelmasta:
 
-| Protokolla | Vastuutaho | Mitä se standardoi |
-| ---------- | ---------- | ------------------ |
-| **AP2** — Agent Payments Protocol | Google → luovutettu **FIDO Alliancelle** | Kolme allekirjoitettua **mandaattia** — Intent, Cart, Payment — kukin W3C Verifiable Credential -muodossa. Lisäksi **Human Not Present (HNP)**: ennakkovaltuutettu suoritus ilman ihmistä paikalla, sekä väärentämätön toimintaloki. |
-| **UCP** — Universal Commerce Protocol | Google + Shopify + Walmart, laaja tekninen neuvosto | Koko kaupankäyntipolku: löytäminen → ostoskori → kassa → oston jälkeiset toimet. |
-| **ACP** — Agentic Commerce Protocol | OpenAI + Stripe | Rakenteinen kassavirta agenttipinnan sisällä. |
+| Protokolla                            | Vastuutaho                                          | Mitä se standardoi                                                                                                                                                                                                                   |
+| ------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **AP2** — Agent Payments Protocol     | Google → luovutettu **FIDO Alliancelle**            | Kolme allekirjoitettua **mandaattia** — Intent, Cart, Payment — kukin W3C Verifiable Credential -muodossa. Lisäksi **Human Not Present (HNP)**: ennakkovaltuutettu suoritus ilman ihmistä paikalla, sekä väärentämätön toimintaloki. |
+| **UCP** — Universal Commerce Protocol | Google + Shopify + Walmart, laaja tekninen neuvosto | Koko kaupankäyntipolku: löytäminen → ostoskori → kassa → oston jälkeiset toimet.                                                                                                                                                     |
+| **ACP** — Agentic Commerce Protocol   | OpenAI + Stripe                                     | Rakenteinen kassavirta agenttipinnan sisällä.                                                                                                                                                                                        |
 
 _(Tilatiedot ovat kanonisesta lähteestä ja päivätty 06.07.2026 — tarkistettavien väitteiden listalla, ks. frontmatter.)_
 
@@ -72,12 +72,12 @@ AP2:n HNP-maksut ovat täsmälleen se tilanne, jossa kauppias, kortinmyöntäjä
 
 Sääntö on yksinkertainen: **agentti saa allekirjoittaa tai esittää maksuprotokollan mandaatin vain oman luottamuskaistansa oikeuksien rajoissa.** Valvontapiste on sama esisuorituksen portti kuin polkuoikeuksilla.
 
-| Luottamuspiste | Mandaattioikeudet | Human Not Present | Päätös |
-| -------------- | ----------------- | ----------------- | ------ |
-| **≥ 0,90** | Intent + Cart + Payment | **Sallittu**, kulutusvaltuutuksen kattojen sisällä | GO + transaktio |
-| **0,80–0,89** | Intent + Cart + Payment | Estetty — ihminen vahvistaa tehtäväkohtaisen katon ylittävät | GO (vahvistettuna) |
-| **0,50–0,79** | Vain Intent + Cart — agentti kokoaa, **ihminen allekirjoittaa maksumandaatin** | Estetty | GO (rajoitettu) |
-| **< 0,50** | **Ei mandaatteja lainkaan** | Estetty | NO_GO |
+| Luottamuspiste | Mandaattioikeudet                                                              | Human Not Present                                            | Päätös             |
+| -------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------ | ------------------ |
+| **≥ 0,90**     | Intent + Cart + Payment                                                        | **Sallittu**, kulutusvaltuutuksen kattojen sisällä           | GO + transaktio    |
+| **0,80–0,89**  | Intent + Cart + Payment                                                        | Estetty — ihminen vahvistaa tehtäväkohtaisen katon ylittävät | GO (vahvistettuna) |
+| **0,50–0,79**  | Vain Intent + Cart — agentti kokoaa, **ihminen allekirjoittaa maksumandaatin** | Estetty                                                      | GO (rajoitettu)    |
+| **< 0,50**     | **Ei mandaatteja lainkaan**                                                    | Estetty                                                      | NO_GO              |
 
 Nämä kolme rajaa ovat koodissa vakioina — mandaattilattia 0,5, maksukaista 0,8, HNP-lattia 0,9 — eivätkä konfiguraatiossa. Syy on se, että konfiguroitava lattia ei ole lattia.
 
@@ -102,12 +102,12 @@ Tämä on toteutettu validaattorina eikä ohjeena. Profiili, joka yrittää aset
 
 Sarjan kuudennessa osassa esitettiin sama idea prosessin puolelta: jokaisella tehtävällä on oma vaatimustasonsa, ja se määräytyy **teon seurausvakavuudesta**, ei siitä mitä järjestelmä sattuu tarjoamaan.
 
-| Riskitaso | Vaadittu taso | Valtuutuksen elinaika | Hyväksyntä alle kynnyksen |
-| --------- | ------------- | --------------------- | ------------------------- |
-| Luku, haku, koonti | 60 | 30 s | Ei — jatka lokituksella |
-| Laatukirjaus, erän statuspäivitys | 75 | 15 s | Yksi operaattori |
-| Finanssitransaktio, ERP-kirjaus, tilaus | 85 | 5 s | Operaattori + perustelu |
-| Laitteen ohjaus, linjan pysäytys | 95 | 2 s | Kaksi henkilöä |
+| Riskitaso                               | Vaadittu taso | Valtuutuksen elinaika | Hyväksyntä alle kynnyksen |
+| --------------------------------------- | ------------- | --------------------- | ------------------------- |
+| Luku, haku, koonti                      | 60            | 30 s                  | Ei — jatka lokituksella   |
+| Laatukirjaus, erän statuspäivitys       | 75            | 15 s                  | Yksi operaattori          |
+| Finanssitransaktio, ERP-kirjaus, tilaus | 85            | 5 s                   | Operaattori + perustelu   |
+| Laitteen ohjaus, linjan pysäytys        | 95            | 2 s                   | Kaksi henkilöä            |
 
 _(Nämä luvut ovat **ehdotus ja havainnollistus**, eivät kanonia. Ne merkittiin sellaisiksi jo Osassa 6 ja ne kuuluvat spesifikaatioon, ei blogiin, ensiesiintymänä. Kanonisia lukuja ovat vain edellisen luvun kolme alustalattiaa.)_
 
@@ -149,13 +149,13 @@ Sarjan seitsemäs osa käsitteli virheluokittelua yleisesti. Kaupallisessa konte
 
 Viisi luokkaa, ja mitä kukin tarkoittaa väärän tilauksen kohdalla:
 
-| Luokka | Mitä tapahtui | Kuka tyypillisesti vastaa |
-| ------ | ------------- | ------------------------- |
-| **Mallivika** | Malli tuotti väärän ulostulon — luki hinnan väärin, valitsi väärän tuotteen | Toimittaja / mallin tarjoaja |
-| **Logiikkavika** | Agenttikoodi käsitteli oikean ulostulon väärin — pyöristi väärään suuntaan, käänsi valuutan kahdesti | Toimittaja |
-| **Integraatiovika** | Ylävirran työkalu palautti väärää dataa — vanhentunut hinnasto, väärä varastosaldo | Integraatiokumppani / datalähde |
-| **Operaattorivika** | Todennettu ihminen ohjasi toimen — hyväksyi vahvistusruudussa | Asiakas |
-| **Käytäntövika** | Suojaus oli väärin konfiguroitu — katto asetettu liian korkeaksi, kauppiaskategoria auki | Kumpi tahansa; riippuu kuka konfiguroi |
+| Luokka              | Mitä tapahtui                                                                                        | Kuka tyypillisesti vastaa              |
+| ------------------- | ---------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| **Mallivika**       | Malli tuotti väärän ulostulon — luki hinnan väärin, valitsi väärän tuotteen                          | Toimittaja / mallin tarjoaja           |
+| **Logiikkavika**    | Agenttikoodi käsitteli oikean ulostulon väärin — pyöristi väärään suuntaan, käänsi valuutan kahdesti | Toimittaja                             |
+| **Integraatiovika** | Ylävirran työkalu palautti väärää dataa — vanhentunut hinnasto, väärä varastosaldo                   | Integraatiokumppani / datalähde        |
+| **Operaattorivika** | Todennettu ihminen ohjasi toimen — hyväksyi vahvistusruudussa                                        | Asiakas                                |
+| **Käytäntövika**    | Suojaus oli väärin konfiguroitu — katto asetettu liian korkeaksi, kauppiaskategoria auki             | Kumpi tahansa; riippuu kuka konfiguroi |
 
 Kaksi asiaa tekee tästä toimivan riidassa eikä vain kaaviossa.
 

@@ -3,7 +3,7 @@
 **Task:** Aegis: compile the signed step scope to a GKE Agent Sandbox manifest (Google segment)  
 **Branch:** opencode/aegis-gke-agent-sandbox-policy  
 **Round:** 1/4  
-**Date:** 2026-09-30  
+**Date:** 2026-09-30
 
 ## Summary
 
@@ -11,11 +11,11 @@ Successfully created `src/aegis/pilot/gke-sandbox-policy.ts` and `src/__tests__/
 
 ## Deliverables
 
-| File                          | Purpose                                                                 |
-|-------------------------------|-------------------------------------------------------------------------|
-| `src/aegis/pilot/gke-sandbox-policy.ts` | K8s Sandbox + NetworkPolicy manifest generator from PilotStep           |
+| File                                            | Purpose                                                                                               |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `src/aegis/pilot/gke-sandbox-policy.ts`         | K8s Sandbox + NetworkPolicy manifest generator from PilotStep                                         |
 | `src/__tests__/aegis-pilot-gke-sandbox.test.ts` | Unit tests (11 tests covering core step egress, network step endpoints, gvisor runtime, read-only fs) |
-| `src/aegis/pilot/index.ts` (modified) | Export `stepSandboxManifest`                                             |
+| `src/aegis/pilot/index.ts` (modified)           | Export `stepSandboxManifest`                                                                          |
 
 ## Acceptance Checks (all PASS)
 

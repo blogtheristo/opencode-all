@@ -4,7 +4,7 @@
 
 **Tila:** Kaikki 11 osaa ovat `Status: DRAFT`. Yksikään ei ole julkaistu. Non-Negotiable Rule 13: hyväksyntä annetaan **slug-kohtaisesti**, ei sarjatasolla.
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -27,25 +27,25 @@ Document Status:
 - Classification: INTERNAL — EDITORIAL
 - Document Type: Sarjan hakemisto
 
-***
+---
 
 ## 1. Lukittu kartoitus
 
 Sarjan nimi: **DWS IQ & Lifetime World Model**. Julkaisupaikka: `onelifetime.world`. Kieli: FI.
 
-| Osa    | Slug                                                | Aihe                                                     | Päivä      | Tila  |
-| ------ | --------------------------------------------------- | -------------------------------------------------------- | ---------- | ----- |
-| **1**  | `kya-s1-one-signed-page`                            | Yksi allekirjoitettu sivu — mikä KYA-S1 on ostajalle     | 06.08.2026 | DRAFT |
-| **2**  | `hic-hallintamalli-ja-dws-iq-agentit`               | HIC-hallintamalli ja DWS IQ -agentit                     | 07.08.2026 | DRAFT |
-| **3**  | `teollisuuden-prosessikuvaustavat-ja-tekoalyagentit`| BPMN, VSM, ISA-95, SysML, SIPOC — mihin agentti kiinnittyy | 07.08.2026 | DRAFT |
-| **4**  | `lifetime-world-model-ja-teollisuuden-prosessimallit`| LWM ja teollisuuden prosessimallit                       | 07.08.2026 | DRAFT |
-| **5**  | `kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia`    | Luottamustaso ohjaa prosessia                            | 07.08.2026 | DRAFT |
-| **6**  | `bpmn-xml-trs-portti-riskiluokka-lease-fail-closed` | Atominen Lease Token, fail-closed, rehellinen TRS         | 07.08.2026 | DRAFT |
-| **7**  | `flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen`| FLT 72 h ja PRV-toisto                                  | 08.08.2026 | DRAFT |
-| **8**  | `kya-s1-ekosysteemi-ja-tuotanto-roadmap`            | Tierit Bronze/Silver/Gold ja self-attestation-kielto      | 08.08.2026 | DRAFT |
-| **9**  | `lifetime-world-model-globaalina-tilarekisterina`   | IDV-sidokset, TRS-historia, PRV-vedokset                  | 08.08.2026 | DRAFT |
-| **10** | `agentic-commerce-protokollat-ja-autonomiset-maksut`| Mandate bands, Lease Token, FLT kaupallisissa virheissä   | 08.08.2026 | DRAFT |
-| **11** | `eudi-wallet-eidas2-idv-ankkurointi`                | EUDI Wallet / eIDAS 2.0 ankkuroi IDV-1:n                  | 08.08.2026 | DRAFT |
+| Osa    | Slug                                                   | Aihe                                                       | Päivä      | Tila  |
+| ------ | ------------------------------------------------------ | ---------------------------------------------------------- | ---------- | ----- |
+| **1**  | `kya-s1-one-signed-page`                               | Yksi allekirjoitettu sivu — mikä KYA-S1 on ostajalle       | 06.08.2026 | DRAFT |
+| **2**  | `hic-hallintamalli-ja-dws-iq-agentit`                  | HIC-hallintamalli ja DWS IQ -agentit                       | 07.08.2026 | DRAFT |
+| **3**  | `teollisuuden-prosessikuvaustavat-ja-tekoalyagentit`   | BPMN, VSM, ISA-95, SysML, SIPOC — mihin agentti kiinnittyy | 07.08.2026 | DRAFT |
+| **4**  | `lifetime-world-model-ja-teollisuuden-prosessimallit`  | LWM ja teollisuuden prosessimallit                         | 07.08.2026 | DRAFT |
+| **5**  | `kya-s1-ja-bpmn-2-luottamustaso-ohjaa-prosessia`       | Luottamustaso ohjaa prosessia                              | 07.08.2026 | DRAFT |
+| **6**  | `bpmn-xml-trs-portti-riskiluokka-lease-fail-closed`    | Atominen Lease Token, fail-closed, rehellinen TRS          | 07.08.2026 | DRAFT |
+| **7**  | `flt-72h-virheluokittelu-ja-prv-paatoksen-toistaminen` | FLT 72 h ja PRV-toisto                                     | 08.08.2026 | DRAFT |
+| **8**  | `kya-s1-ekosysteemi-ja-tuotanto-roadmap`               | Tierit Bronze/Silver/Gold ja self-attestation-kielto       | 08.08.2026 | DRAFT |
+| **9**  | `lifetime-world-model-globaalina-tilarekisterina`      | IDV-sidokset, TRS-historia, PRV-vedokset                   | 08.08.2026 | DRAFT |
+| **10** | `agentic-commerce-protokollat-ja-autonomiset-maksut`   | Mandate bands, Lease Token, FLT kaupallisissa virheissä    | 08.08.2026 | DRAFT |
+| **11** | `eudi-wallet-eidas2-idv-ankkurointi`                   | EUDI Wallet / eIDAS 2.0 ankkuroi IDV-1:n                   | 08.08.2026 | DRAFT |
 
 ## 2. Miten osien 1–4 numerointi johdettiin
 
@@ -59,13 +59,13 @@ P3-1 totesi kartoituksen epäselväksi. Se ei ollut mielivaltainen — kolme its
 
 ## 3. Mitä tässä sessiossa muutettiin
 
-| Tiedosto                                             | Muutos                                                                                 |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `kya-s1-ja-bpmn-2-…`                                 | `series: "Blogi 5/7 …"` → `5/11`; leipätekstin allekirjoitusrivi `5/7` → `5/11`         |
-| `bpmn-xml-trs-portti-…`                              | `series: "Blogi 6/7 …"` → `6/11`                                                        |
-| `flt-72h-…`                                          | `series: "Blogi 7/7 … sarjan päätösosa"` → `7/11 … ydinkaaren päätösosa`                |
-| `kya-s1-one-signed-page.fi`, `hic-hallintamalli`, `teollisuuden-prosessikuvaustavat`, `lifetime-world-model-ja-…` | `series`-kenttä lisätty / täsmennetty muotoon `Blogi n/11` |
-| Osat 8–10                                            | Kirjoitettu tässä sessiossa                                                             |
+| Tiedosto                                                                                                          | Muutos                                                                          |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `kya-s1-ja-bpmn-2-…`                                                                                              | `series: "Blogi 5/7 …"` → `5/11`; leipätekstin allekirjoitusrivi `5/7` → `5/11` |
+| `bpmn-xml-trs-portti-…`                                                                                           | `series: "Blogi 6/7 …"` → `6/11`                                                |
+| `flt-72h-…`                                                                                                       | `series: "Blogi 7/7 … sarjan päätösosa"` → `7/11 … ydinkaaren päätösosa`        |
+| `kya-s1-one-signed-page.fi`, `hic-hallintamalli`, `teollisuuden-prosessikuvaustavat`, `lifetime-world-model-ja-…` | `series`-kenttä lisätty / täsmennetty muotoon `Blogi n/11`                      |
+| Osat 8–10                                                                                                         | Kirjoitettu tässä sessiossa                                                     |
 
 **Osan 7 leipäteksti.** Lause _"Tähän päättyy sarjamme KYA-S1-spesifikaatiosta…"_ ja sitä seuraava neljän kohdan yhteenveto **säilytetään sellaisenaan** (Sääntö 12). Ainoastaan kehystävä johtolause täsmennetään: se päättää sarjan ydinkaaren (spesifikaatio → portti → kriisinhallinta), ei koko sarjaa.
 

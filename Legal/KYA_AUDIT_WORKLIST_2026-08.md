@@ -4,7 +4,7 @@
 **Lähde:** `Legal/KYA_S1_REVIEW_v1.3_PROPOSAL.md` Osa A (vendor-standardi) + Osa B (sisäiset standardit ja koodi).
 **Tila:** Osa A on toteutettu (`Legal/KYA_S1_v1.3.md`). Osa B:stä on toteutettu **P0-1, P0-2 ja P0-3** (08.08.2026) — kaikki P0-esteet poistettu. P1–P3 ovat tekemättä.
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -29,20 +29,20 @@ Document Status:
 - Classification: INTERNAL — STANDARDS REVIEW
 - Document Type: Auditlista / korjausvelka
 
-***
+---
 
 ## 0. Yhteenveto
 
-| Prioriteetti  | Kohteita | Kuvaus                                                                 |
-| ------------- | -------- | ---------------------------------------------------------------------- |
-| **P0 (esto)** | 3 (kaikki korjattu)        | Estävät KYA-S1-attestaation. Standardi väittää jotain mitä ei tapahdu. |
-| **P1**        | 5        | Turvallisuus- tai auditointiaukko, ei vielä julkinen väärä väite.      |
-| **P2**        | 5        | Dokumenttivelka, ristiriitainen kanoni, versiotunnisteet.              |
-| **P3**        | 3 (1 korjattu)       | Blogisarjan sisäinen johdonmukaisuus ennen julkaisua.                  |
+| Prioriteetti  | Kohteita            | Kuvaus                                                                 |
+| ------------- | ------------------- | ---------------------------------------------------------------------- |
+| **P0 (esto)** | 3 (kaikki korjattu) | Estävät KYA-S1-attestaation. Standardi väittää jotain mitä ei tapahdu. |
+| **P1**        | 5                   | Turvallisuus- tai auditointiaukko, ei vielä julkinen väärä väite.      |
+| **P2**        | 5                   | Dokumenttivelka, ristiriitainen kanoni, versiotunnisteet.              |
+| **P3**        | 3 (1 korjattu)      | Blogisarjan sisäinen johdonmukaisuus ennen julkaisua.                  |
 
 **Kriittisin havainto:** `KYA_S1.md` §9 väitti, että DWS:n referenssitoteutus tarjoaa TRS-kontrollin. `src/identity/ats-engine.ts` ei toteuttanut yhtään TRS-1:n neljästä vaaditusta syötteestä. Korjattu v1.3:ssa julkaisemalla conformance-note, ja **IDV-jäsen on nyt toteutettu koodissa** (P0-1, 08.08.2026). Kolme neljästä syötteestä puuttuu yhä, joten TRS-1 ei ole täytetty eikä tieriä väitetä.
 
-***
+---
 
 ## 1. P0 — Estävät kohdat
 
@@ -58,7 +58,7 @@ Document Status:
 
 **TOTEUTETTU 08.08.2026.** `IdvState`-tyyppi (`src/identity/types.ts`), IDV hard kill `calculateATS()`:ssä manifest-tarkistuksen rinnalla, `ATSBreakdown` laajennettu kentillä `idvValid` / `idvStatus` / `humanPrincipalId`. `idv` on **pakollinen parametri**, ei valinnainen — valinnainen parametri antaisi kutsujan hiljaa ohittaa juuri sen kontrollin jota varten syöte on olemassa (TRS-5). `unknown`-tila, vanhentunut attestaatio, virheellinen aikaleima ja TTL ≤ 0 kaatuvat kaikki kiinni. Vanhentuminen raportoidaan `expired`-tilana erillään `revoked`:sta, koska IDV-3 ja IDV-4 vaativat eri operaattoritoimen. Testit: `src/__tests__/ats-idv-gate.test.ts`, 8/8 läpi; `mandate-gate` + `verified-done-attestation` 27/27 ennallaan.
 
-**YHÄ AUKI tässä kohdassa:** behavioral baseline distance, red-team posture ja capability manifest **scope** puuttuvat edelleen TRS-1:n syötteistä. Manifestin *voimassaolo* tarkistetaan, sen *laajuus* ei vaikuta pisteeseen. TRS-1 ei siis ole vielä täytetty — vain sen IDV-jäsen.
+**YHÄ AUKI tässä kohdassa:** behavioral baseline distance, red-team posture ja capability manifest **scope** puuttuvat edelleen TRS-1:n syötteistä. Manifestin _voimassaolo_ tarkistetaan, sen _laajuus_ ei vaikuta pisteeseen. TRS-1 ei siis ole vielä täytetty — vain sen IDV-jäsen.
 
 ### P0-2 · `Legal/KYA_STANDARD_v1.md` §3.1 — kanonisessa tiedostossa turvattomaksi todettu kaava ✅ KORJATTU 08.08.2026
 
@@ -90,7 +90,7 @@ Document Status:
 
 **Koodipäätös: A ei tule koodiin.** `src/identity/ats-engine.ts` laskee `ATS_Base`:n vain, ja tämä on nyt dokumentoitu tarkoitukselliseksi kaikissa kolmessa standardissa: turvallisuuspisteytys ei saa olla optimointisuorituksella inflatoitavissa, joten A jää autoresearch-orkestraattorikerrokselle. Koodin `@see`-kommentti korjattu vastaamaan.
 
-***
+---
 
 ## 2. P1 — Turvallisuus- ja auditointiaukot
 
@@ -134,7 +134,7 @@ KYA-S1 REG-2 vaatii päinvastaista: _capabilities outside the manifest must be d
 
 **Korjaus.** Määrittele vanheneminen kielloksi (expiry-to-deny) ilmoituksen kera.
 
-***
+---
 
 ## 3. P2 — Dokumenttivelka ja kanonin ristiriidat
 
@@ -183,7 +183,7 @@ Auditoija ei voi viitata kontrolliin versiolla, kun dokumentti on eri mieltä it
 
 **Korjaus.** Poikkeus formatoijan konfiguraatioon tai jälkitarkistus hookiin. Käsin korjaaminen ei ole korjaus.
 
-***
+---
 
 ## 4. P3 — Blogisarjan johdonmukaisuus ennen julkaisua
 
@@ -211,7 +211,7 @@ _(Päivitetty 08.08.2026: seitsemän → kymmenen. KYA-sarjan osat 8–10 kirjoi
 
 Kaikki `docs/blog-drafts/` -tiedostot ovat `Status: DRAFT`. Non-Negotiable Rule 13: hyväksyntä on annettava **slug-kohtaisesti**, ei yleisenä "julkaise kaikki".
 
-***
+---
 
 ## 5. Tiedostohakemisto
 
@@ -227,7 +227,7 @@ Kaikki `docs/blog-drafts/` -tiedostot ovat `Status: DRAFT`. Non-Negotiable Rule 
 | `docs/blog-drafts/*.md` (7 kpl)  | P3-1, P3-2, P3-3             |
 | `.claude/hooks/` (formatoija)    | P2-5                         |
 
-***
+---
 
 ## 6. Suositeltu järjestys
 
