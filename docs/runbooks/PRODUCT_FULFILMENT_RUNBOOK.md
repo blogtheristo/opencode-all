@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/generate-fulfilment-runbook.mjs | Changes: Generated from dws10.com/config/products.json + config/truth/product-capability-chapters.json + config/truth/product-delivery-templates.json. Do not edit by hand; run the script. HIC 27.09.2026: "universal paid-order steps and one section per chapter listing each SKU exactly once."
+- Version: 1.35 [Latest] | Tool: scripts/truth/generate-fulfilment-runbook.mjs | Changes: Generated from dws10.com/config/products.json + config/truth/product-capability-chapters.json + config/truth/product-delivery-templates.json. Do not edit by hand; run the script. HIC 27.09.2026: "universal paid-order steps and one section per chapter listing each SKU exactly once."
 
 Document Status:
 

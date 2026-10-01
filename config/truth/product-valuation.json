@@ -1,20 +1,20 @@
 {
   "asOf": "2026-09-25",
-  "catalogVersion": "1.34",
+  "catalogVersion": "1.35",
   "products": {
     "offers": 146,
-    "tamEurPerYear": 2526919200,
-    "somYear5Eur": 3426167.166666666,
-    "valueLowEur": 408176.29091669776,
-    "valueCentralEur": 816352.5818333955,
-    "valueHighEur": 1632705.163666791,
+    "tamEurPerYear": 2536394700,
+    "somYear5Eur": 3435642.666666666,
+    "valueLowEur": 408431.4936810914,
+    "valueCentralEur": 816862.9873621828,
+    "valueHighEur": 1633725.9747243656,
     "published": {
       "offers": 81,
-      "tamEurPerYear": 1437324866.6666663,
-      "somYear5Eur": 2336572.833333333,
-      "valueLowEur": 338442.14901259483,
-      "valueCentralEur": 676884.2980251897,
-      "valueHighEur": 1353768.5960503793
+      "tamEurPerYear": 1446800366.6666663,
+      "somYear5Eur": 2346048.333333333,
+      "valueLowEur": 338697.3517769885,
+      "valueCentralEur": 677394.703553977,
+      "valueHighEur": 1354789.407107954
     },
     "unpublished": {
       "offers": 65,
@@ -61,8 +61,8 @@
     },
     "hardware": {
       "products": 11,
-      "tamEurPerYear": 69043500,
-      "valueCentralEur": 3719.084388878863
+      "tamEurPerYear": 78519000,
+      "valueCentralEur": 4229.489917666102
     },
     "infra": {
       "products": 17,
@@ -1417,6 +1417,23 @@
       "valueHighEur": 2691.944098057329
     },
     {
+      "id": "LF-SITROOM-001",
+      "name": "Situation Room — Two Sovereign AI Nodes",
+      "published": true,
+      "family": "hardware",
+      "segment": "EU_EDGE_SITES",
+      "segmentStatus": "estimate",
+      "buyers": 60000,
+      "fit": 0.1,
+      "annualValuePerBuyer": 4004,
+      "annualValueBasis": "one-time / 4 y",
+      "tamEurPerYear": 24024000,
+      "somYear5Eur": 24024,
+      "valueLowEur": 647.0361682013935,
+      "valueCentralEur": 1294.072336402787,
+      "valueHighEur": 2588.144672805574
+    },
+    {
       "id": "claude-code-coaching-project",
       "name": "Claude Code Coaching — Client Project Work",
       "published": true,
@@ -1774,23 +1791,6 @@
       "valueHighEur": 1937.2301659336424
     },
     {
-      "id": "LF-SITROOM-001",
-      "name": "Situation Room — Two Sovereign AI Nodes",
-      "published": true,
-      "family": "hardware",
-      "segment": "EU_EDGE_SITES",
-      "segmentStatus": "estimate",
-      "buyers": 60000,
-      "fit": 0.1,
-      "annualValuePerBuyer": 2899.5,
-      "annualValueBasis": "one-time / 4 y",
-      "tamEurPerYear": 17397000,
-      "somYear5Eur": 17397,
-      "valueLowEur": 468.5517906343507,
-      "valueCentralEur": 937.1035812687014,
-      "valueHighEur": 1874.2071625374028
-    },
-    {
       "id": "LF-K8S-T2",
       "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)",
       "published": true,
@@ -1927,6 +1927,23 @@
       "valueHighEur": 1294.072336402787
     },
     {
+      "id": "LF-DGX-SPARK",
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "published": true,
+      "family": "hardware",
+      "segment": "EU_EDGE_SITES",
+      "segmentStatus": "estimate",
+      "buyers": 60000,
+      "fit": 0.1,
+      "annualValuePerBuyer": 2002,
+      "annualValueBasis": "one-time / 4 y",
+      "tamEurPerYear": 12012000,
+      "somYear5Eur": 12012,
+      "valueLowEur": 323.51808410069674,
+      "valueCentralEur": 647.0361682013935,
+      "valueHighEur": 1294.072336402787
+    },
+    {
       "id": "claude-code-coaching-lecture",
       "name": "Claude Code Coaching — 1-Day Lecture",
       "published": true,
@@ -2044,23 +2061,6 @@
       "valueLowEur": 268.79041619421855,
       "valueCentralEur": 537.5808323884371,
       "valueHighEur": 1075.1616647768742
-    },
-    {
-      "id": "LF-DGX-SPARK",
-      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
-      "published": true,
-      "family": "hardware",
-      "segment": "EU_EDGE_SITES",
-      "segmentStatus": "estimate",
-      "buyers": 60000,
-      "fit": 0.1,
-      "annualValuePerBuyer": 1527.25,
-      "annualValueBasis": "one-time / 4 y",
-      "tamEurPerYear": 9163500,
-      "somYear5Eur": 9163.5,
-      "valueLowEur": 246.7996972741204,
-      "valueCentralEur": 493.5993945482408,
-      "valueHighEur": 987.1987890964816
     },
     {
       "id": "LF-K8S-T3",

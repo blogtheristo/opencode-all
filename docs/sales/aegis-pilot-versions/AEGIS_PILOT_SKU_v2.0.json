@@ -1,0 +1,534 @@
+{
+  "version": "2.0",
+  "date": "2026-10-01",
+  "text": "docs/sales/aegis-pilot-versions/AEGIS_PILOT_FI_v2.0.md",
+  "gate": "NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA); vaiheen 0 harjoitusajo valitulla laitteella",
+  "rules": [
+    "Hinnat vain dws10.com/config/products.json:ssa; uudet SKU:t hinta TBD kunnes HIC päättää ja rivi lisätään products.json + landing-pages-peili samassa commitissa",
+    "Laitteisto ei hyvity ja jää tilaajalle",
+    "Koulutuksen toteutuskustannus Lifetime Oy:llä pilotissa; LWM v2 maksuton pilotissa, tekijänoikeus Lifetime Oy:llä"
+  ],
+  "lines": [
+    {
+      "sku": "DWS-AEGIS-PILOT-001",
+      "name": "DWS IQ Aegis Pilot (3 months)",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "1 Ohjelmisto (toistuva)",
+      "per_customer_rule": "aina 1",
+      "in_pilot_price": "kiinteä 19 990 €, hyvitetään",
+      "source": "Store/PRODUCT_AEGIS_PILOT.md"
+    },
+    {
+      "sku": "LWM-V2-LIC",
+      "name": "Lifetime World Model v2, käyttölisenssi",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "1 Ohjelmisto (toistuva)",
+      "per_customer_rule": "aina 1",
+      "in_pilot_price": "0 € pilotissa",
+      "source": "HIC 01.10.2026"
+    },
+    {
+      "sku": "LF-NIM-STARTER",
+      "name": "NIM Microservices — Starter Profile",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "1 Ohjelmisto (toistuva)",
+      "per_customer_rule": "valinnainen",
+      "in_pilot_price": "ei",
+      "source": "HIC: NIM/CUDA"
+    },
+    {
+      "sku": "LF-NIM-RETRIEVAL",
+      "name": "NIM Microservices — Retrieval & Embedding Profile",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "1 Ohjelmisto (toistuva)",
+      "per_customer_rule": "valinnainen, jos haku tarvitaan",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "DWS-EU-PILOT",
+      "name": "DWS IQ — EU Sovereign Pilot",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "1 Ohjelmisto (toistuva)",
+      "per_customer_rule": "valinnainen synkronointi; ei, jos data ei saa poistua",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LWM-V2-CONF",
+      "name": "LWM v2 asiakaskohtainen konfiguraatio ja sovitus",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "aina 1",
+      "in_pilot_price": "0 € pilotissa (Lifetime kantaa)",
+      "source": "HIC 01.10.2026"
+    },
+    {
+      "sku": "LWM-V2-TRAIN",
+      "name": "LWM v2 koulutusajo asiakasdatalla (LoRA)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "sisältyy LWM-V2-CONF:iin pilotissa",
+      "in_pilot_price": "0 € pilotissa",
+      "source": ""
+    },
+    {
+      "sku": "AEG-TRAIN-OPS",
+      "name": "Käyttöhenkilöstön koulutus (operaattori, työnkulun omistaja)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per koulutettava ryhmä",
+      "in_pilot_price": "0 € pilotissa (Lifetime kantaa)",
+      "source": "HIC 01.10.2026"
+    },
+    {
+      "sku": "LF-NVIDIA-INSTALL",
+      "name": "NVIDIA Model Installation + Full Service",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "1 per laskentasolmu",
+      "in_pilot_price": "ei (laiterivi)",
+      "source": ""
+    },
+    {
+      "sku": "AEG-SENS-BUILD",
+      "name": "Sensorisyötteiden liityntöjen rakentaminen ja yhdistäminen",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per syöteryhmä",
+      "in_pilot_price": "HIC päättää",
+      "source": "HIC 01.10.2026 vastuut"
+    },
+    {
+      "sku": "AEG-INT-OPCUA-RO",
+      "name": "Liitin: OPC UA, vain luku (historian, DCS, Level 2)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per lähdejärjestelmä",
+      "in_pilot_price": "HIC päättää montako sisältyy",
+      "source": ""
+    },
+    {
+      "sku": "AEG-INT-MODBUS-MQTT",
+      "name": "Liitin: Modbus TCP / MQTT, vain luku",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per hub",
+      "in_pilot_price": "HIC päättää",
+      "source": ""
+    },
+    {
+      "sku": "AEG-INT-MES",
+      "name": "Liitin: MES vain luku (Opcenter / SAP DM / AVEVA)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "variantti per MES",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per MES",
+      "in_pilot_price": "HIC päättää",
+      "source": ""
+    },
+    {
+      "sku": "AEG-INT-ERP",
+      "name": "Liitin: ERP vain luku (S/4HANA, IFS, D365)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "per ERP",
+      "in_pilot_price": "HIC päättää",
+      "source": ""
+    },
+    {
+      "sku": "AEG-INT-DCIM",
+      "name": "Liitin: DCIM/BMS vain luku (SNMP/Modbus/REST)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "",
+      "layer": "2 Palvelut (asiakaskohtainen)",
+      "per_customer_rule": "datakeskus",
+      "in_pilot_price": "HIC päättää",
+      "source": ""
+    },
+    {
+      "sku": "edge-node-gn100",
+      "name": "Control Room — Acer Veriton GN100",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "3 Laskenta (NVIDIA CUDA)",
+      "per_customer_rule": "1 solmu, pieni työnkulku",
+      "in_pilot_price": "ei (laiterivi)",
+      "source": ""
+    },
+    {
+      "sku": "LF-DGX-SPARK",
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "3 Laskenta (NVIDIA CUDA)",
+      "per_customer_rule": "1 solmu",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-SITROOM-001",
+      "name": "Situation Room — Two Sovereign AI Nodes",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "3 Laskenta (NVIDIA CUDA)",
+      "per_customer_rule": "2 solmua, 24/7 tai varmennus",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-NODE-X86-NV",
+      "name": "x86-teollisuus-PC + NVIDIA-GPU",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "variantit: -48 Neousys Nuvo-10108GC + RTX 6000 Ada 48 GB; -96 Nuvo-10109GC + RTX PRO 6000 96 GB; -BK Beckhoff, -SI Siemens (malli vaiheessa 0)",
+      "layer": "3 Laskenta (NVIDIA CUDA)",
+      "per_customer_rule": "kun asiakas vaatii rugged/x86 tai oman merkin",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_COMPUTE_NODE_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-IPCMAX-IPC409",
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "sensoriyhdyskäytävä, x86",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-IPCMAX-IPCP68",
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "konenäkö PoE, x86",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-IPCMAX-CINCOZE-DA1200",
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "OT-yhdyskäytävän alusta, x86",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-JETSON-NANO",
+      "name": "Jetson Sensor Node — Orin Nano Super + Install & Service",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "valinnainen reunasensorisolmu (CUDA)",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-JETSON-NX",
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "valinnainen reunasensorisolmu (CUDA)",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-JETSON-AGX",
+      "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "valinnainen reunasensorisolmu (CUDA)",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "LF-SENSHUB",
+      "name": "Sensorihub / etä-I/O",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Advantech ADAM-6017-D + 6050-D (Elkome) / Moxa ioThinx (Movetec)",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-METER-PWR",
+      "name": "Sähköenergiamittari",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Janitza UMG 801 / ABB M4M 30 / Carlo Gavazzi EM540",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-METER-HEAT",
+      "name": "Höyry-/lämpömittari",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "KROHNE OPTISWIRL 4200 (Modbus RS485)",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-METER-GAS",
+      "name": "Kaasuvirtausmittari",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "E+H t-mass F 300 / B 150",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-SENS-VIB",
+      "name": "Värähtely-/lämpösensori",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Treon (FI) / ifm VVB001",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-ENV-RACK",
+      "name": "Räkin T/RH/ilmavirta",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "APC NetBotz 250 / Vertiv RTAFHD3 / Vaisala (FI)",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-PDU-METER",
+      "name": "Mitattu PDU",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Raritan PX3-5190R",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-OT-GW-RO",
+      "name": "OT-yhdyskäytävä vain luku",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Softing uaGate SI (TK Engineering FI)",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-DIODE",
+      "name": "Data-diodi",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Advenica DD1000i (Advenica Oy) / genua cyber-diode",
+      "layer": "4 Syötteet",
+      "per_customer_rule": "työnkulun mukaan",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SENSOR_OT_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-OP-KEY",
+      "name": "Operaattorin laiteavain (OpenPGP/FIDO2 Ed25519)",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "YubiKey 5C NFC / Nitrokey 3C NFC",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "väh. 2 per operaattori (pää + vara)",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-SITE-HSM",
+      "name": "Site-avaimen HSM",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "YubiHSM 2 FIPS (Ed25519)",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "valinnainen, korkea turva",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-OP-WS",
+      "name": "Operaattorin työasema + näyttö",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Advantech MIC-770 V3W + FPM-7211W",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "1 per tilannehuone",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-LEDGER-STORE",
+      "name": "Lokin kestotallennus + WORM-peili",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Micron 7450 PRO PLP + QNAP TS-264",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "1 per solmu",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-NET-SWITCH",
+      "name": "Hallittava teollisuuskytkin",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Westermo Lynx 3510",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "jos asiakas ei tarjoa",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-NET-EDGE-FW",
+      "name": "Palomuuri, deny-all egress",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Stormshield SNi20",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "jos asiakas ei tarjoa",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-TIME-SRC",
+      "name": "NTP/GNSS-aikalähde",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Meinberg LANTIME M250",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "1 per kohde",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-UPS",
+      "name": "UPS 1,5 kVA, NUT",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Eaton 5P 1550iR G2 / Riello SDH 1500",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "1 per kaappi",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "LF-RACK",
+      "name": "Lukittava kaappi + suodatintuuletin",
+      "status": "uusi, hinta TBD (HIC)",
+      "note": "Rittal AX IT 12U",
+      "layer": "5 Turva, verkko, infra",
+      "per_customer_rule": "1 per kohde",
+      "in_pilot_price": "ei",
+      "source": "AEGIS_SECURITY_NETWORK_MARKET_2026-10.md"
+    },
+    {
+      "sku": "DWS-AEGIS-001",
+      "name": "DWS IQ Aegis",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "6 Tuotanto (päivä 91+)",
+      "per_customer_rule": "jatkettaessa",
+      "in_pilot_price": "hyvitys 19 990 € vain DWS-AEGIS-001:stä",
+      "source": ""
+    },
+    {
+      "sku": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "6 Tuotanto (päivä 91+)",
+      "per_customer_rule": "jatkettaessa",
+      "in_pilot_price": "ei",
+      "source": ""
+    },
+    {
+      "sku": "DWS-AEGIS-IMPL-001",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "status": "hinnastossa",
+      "price_ref": "products.json",
+      "layer": "6 Tuotanto (päivä 91+)",
+      "per_customer_rule": "jatkettaessa",
+      "in_pilot_price": "ei",
+      "source": ""
+    }
+  ],
+  "profiles": {
+    "outokumpu": {
+      "workflow": "tuotantohuoneen suositus (Level 2 / historian) tai IP/CBAM-dokumenttityönkulku; vaihe 0 valitsee",
+      "deployment": "Hybrid; synkronointi asiakkaan omaan Azure-tenanttiin, ei DWS-EU-PILOT",
+      "lines": {
+        "DWS-AEGIS-PILOT-001": 1,
+        "LWM-V2-LIC": 1,
+        "LWM-V2-CONF": 1,
+        "AEG-TRAIN-OPS": 1,
+        "LF-SITROOM-001 | LF-NODE-X86-NV-BK": 1,
+        "LF-NVIDIA-INSTALL": 2,
+        "AEG-INT-OPCUA-RO": 1,
+        "LF-OT-GW-RO": 1,
+        "LF-DIODE": "valinnainen",
+        "LF-METER-PWR": "1–2",
+        "LF-SENS-VIB": "vaihe 0",
+        "LF-OP-KEY": 4,
+        "LF-OP-WS": 1,
+        "LF-LEDGER-STORE": 1,
+        "LF-TIME-SRC": 1,
+        "LF-UPS": 1,
+        "LF-RACK": 1,
+        "LF-NET-SWITCH / LF-NET-EDGE-FW": "todennäköisesti asiakkaan (Palo Alto)"
+      },
+      "open": [
+        "historian- ja MES-toimittaja",
+        "Tietoevry-sopimuksen laitesääntö",
+        "Beckhoff-mallin GPU-paikka ja Linux"
+      ]
+    },
+    "kemira": {
+      "workflow": "erätason hiilijalanjälki yhdelle Fiber Essentials -tuotelinjalle",
+      "deployment": "Local/Edge; ei pilvisynkronointia; reseptit rajattu ulos",
+      "lines": {
+        "DWS-AEGIS-PILOT-001": 1,
+        "LWM-V2-LIC": 1,
+        "LWM-V2-CONF": 1,
+        "AEG-TRAIN-OPS": 1,
+        "edge-node-gn100 | LF-NODE-X86-NV-48": 1,
+        "LF-NVIDIA-INSTALL": 1,
+        "LF-SENSHUB": 1,
+        "LF-METER-PWR": "per linja",
+        "LF-METER-HEAT": 1,
+        "LF-METER-GAS": 1,
+        "AEG-INT-MES": 1,
+        "AEG-INT-MODBUS-MQTT": 1,
+        "LF-IPCMAX-IPC409": 1,
+        "LF-OP-KEY": 4,
+        "LF-OP-WS": 1,
+        "LF-LEDGER-STORE": 1,
+        "LF-TIME-SRC": 1,
+        "LF-UPS": 1,
+        "LF-RACK": "1 (Seveso-tila)"
+      },
+      "open": [
+        "ERP, historian, IT-toimittaja, pilvi",
+        "kuka hallinnoi OT/IT-rajan palomuuria",
+        "Track B -vastaus: päätöksen omistaja"
+      ]
+    }
+  }
+}
