@@ -6,13 +6,22 @@ hero: "When an AI agent works in your control room, the record of who decided wh
 visual:
 visual_src:
 visual_alt:
-seo_tags: []
+seo_tags: [aegis, acceptance_test, stop_authority, evidence_bundle]
 demo_agent:
 demo_url:
 target: onelifetime.world/posts/proof-that-outlives-the-vendor.html
 date: 2026-10-01
 author: Risto Anton Päärni
-Status: DRAFT
+version: 1.0
+claims_checked: 2026-10-01
+tracks:
+  - Store/PRODUCT_AEGIS_PILOT.md
+  - Store/PRODUCT_AEGIS.md
+  - docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md
+  - dws10.com/config/products.json#DWS-AEGIS
+tracks_sha256: 3094644f3b008804902661e21d91ea3bb41c1b214791150ab0b31fa373c0ea68
+Status: APPROVED
+Approved_by: HIC (Risto Anton Päärni), 01.10.2026 — EN text v1.0 incl. heading "The question nobody asks in the control room"
 ---
 
 Proof that outlives the vendor

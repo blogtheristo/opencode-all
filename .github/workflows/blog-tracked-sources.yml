@@ -1,0 +1,31 @@
+# Evidence: Tool=Claude Code Model=claude-opus-5-5 Agent=aegis-disclosure-depth Date=2026-10-01
+# Audit trail: git log -- .github/workflows/blog-tracked-sources.yml
+name: Blog tracked-source drift
+
+# HIC 01.10.2026: a post that rests on Aegis product facts must never drift from them.
+# Fails when a source listed in a draft's `tracks:` changes without the post being
+# re-read, version-bumped and re-hashed (scripts/blog/check-tracked-sources.mjs).
+
+on:
+  pull_request:
+    paths:
+      - "Store/**"
+      - "docs/whitepapers/**"
+      - "docs/blog-drafts/**"
+      - "dws10.com/config/products.json"
+      - "scripts/blog/check-tracked-sources.mjs"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  blog-tracked-sources:
+    runs-on: [self-hosted, dgx-spark] # GHA cost (HIC 2026-09-25)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Check tracked sources
+        run: node scripts/blog/check-tracked-sources.mjs
