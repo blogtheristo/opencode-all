@@ -142,13 +142,17 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 **DWS IQ Aegis -pilotti: yksi työnkulku, kolme testiä, kolme kuukautta**
 
-Aegis on ajoympäristö, jossa tekoälyagentti tekee tiukasti johdettua ja valvottua työtä asiakkaan omassa tuotannossa, tuotantohuoneessa dedikoidulla laitteistolla, esimerkiksi datakeskuksessa tai tehtaalla. Agentti suosittelee, ihminen päättää, ja jokaisesta vaiheesta jää allekirjoitettu jälki. Agentti ei ohjaa fyysisiä laitteita. Aegis on ennakkotilauksessa.
+Aegis on ajoympäristö, jossa työnkulun vaatima tekoälyagenttiparvi tekee tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa, tuotantohuoneessa (control room), dedikoidulla laitteistolla: asiakkaan omalla tai erillisellä edge-laitteella. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
 
-Pilotissa yksi työnkulku ajetaan agentilla tuotannossa kolmen kuukauden ajan kiinteään hintaan, 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Verkkoyhteys katkaistaan sovitun ajan, ja testataan kolme asiaa:
+Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen vaatimus on, että työ, loki ja pysäytys toimivat ilman verkkoa, ja siksi se testataan yhteys katkaistuna eikä esitetä tarjouksessa.
+
+Pilotissa yksi työnkulku ajetaan agenteilla tuotannossa kolmen kuukauden ajan kiinteään hintaan, 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Aegis on ennakkotilauksessa, ja pilotti on tapa tarkistaa väite ennen sitoutumista. Verkkoyhteys katkaistaan sovitun ajan, ja testataan kolme asiaa:
 
 1. Työ jatkuu ja valmistuu.
 2. Loki kirjoittuu katkeamatta.
 3. Operaattori pysäyttää käynnissä olevan agentin, ja pysäytys todistetaan allekirjoitetusta lokista, ei agentin omasta raportista.
+
+Kaikkien kolmen on mentävä läpi. Jos testi ei mene läpi, tulos on pätevä ja se raportoidaan: tieto maksoi 19 990 euroa eikä laitehankintaa.
 
 Jokainen päätös tallentuu: kuka päätti, mitä päätettiin, ja hyväksyttiinkö suositus, muutettiinko sitä vai hylättiinkö se. Hylätyt ja keskeytyneet polut säilyvät lokissa, koska myös ne ovat todistusaineistoa.
 
