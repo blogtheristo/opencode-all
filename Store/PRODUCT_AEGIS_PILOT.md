@@ -99,12 +99,12 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 ## Pricing
 
-|              |                                                                                          |
-| ------------ | ---------------------------------------------------------------------------------------- |
-| **Price**    | €19,990 fixed                                                                            |
-| **Duration** | 3 months                                                                                 |
-| **Hardware** | None purchased. Runs on existing customer infrastructure or a compact edge appliance.    |
-| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months |
+|              |                                                                                                                                                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Price**    | €19,990 fixed                                                                                                                                                                                   |
+| **Duration** | 3 months                                                                                                                                                                                        |
+| **Hardware** | Supplied as separate price-list lines on the same order (NVIDIA GB10 nodes: `edge-node-gn100`, `LF-DGX-SPARK`, `LF-SITROOM-001`), or customer-owned 100% DGX-compatible hardware. Not credited. |
+| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months                                                                                                        |
 
 **One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.
 
@@ -142,7 +142,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 **DWS IQ Aegis -pilotti: yksi työnkulku, kolme testiä, kolme kuukautta**
 
-Aegis on ajoympäristö, jossa työnkulun vaatima tekoälyagenttiparvi tekee tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa, tuotantohuoneessa (control room), toimittamallamme dedikoidulla laitteistolla. Laitteisto on hinnastomme NVIDIA GB10 Grace Blackwell -luokkaa: yksi solmu (Control Room, Acer Veriton GN100, `edge-node-gn100`, tai NVIDIA DGX Spark, `LF-DGX-SPARK`) tai kaksi yhdistettyä solmua (Situation Room, `LF-SITROOM-001`), sekä Jetson-sensorisolmut ja iPCMax-yhdyskäytävät syötteille. Pilotti toimitetaan meidän laitteillamme tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla; muuta laitteistoa ei käytetä. Pilotti on kokonaistoimitus: laitteisto, asennus ja käyttöönotto kuuluvat siihen. Laitekaavio: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
+Aegis on ajoympäristö, jossa työnkulun vaatima tekoälyagenttiparvi tekee tiukasti johdettua ja valvottua (tilannehuone, situation room) työtä asiakkaan omissa tuotantotiloissa, tuotantohuoneessa (control room), toimittamallamme dedikoidulla laitteistolla. Laitteisto on hinnastomme NVIDIA GB10 Grace Blackwell -luokkaa: yksi solmu (Control Room, Acer Veriton GN100, `edge-node-gn100`, tai NVIDIA DGX Spark, `LF-DGX-SPARK`) tai kaksi yhdistettyä solmua (Situation Room, `LF-SITROOM-001`), sekä Jetson-sensorisolmut ja iPCMax-yhdyskäytävät syötteille. Pilotti toimitetaan meidän laitteillamme tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla; muuta laitteistoa ei käytetä. Pilotti on kokonaistoimitus yhdellä tilauksella: pilotin kiinteä hinta ja laitteisto hinnaston riveinä (laite, asennus `LF-NVIDIA-INSTALL`). Laitteisto ei sisälly 19 990 euron hyvitykseen. Laitekaavio: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
 
 Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen vaatimus on, että työ, loki ja pysäytys toimivat ilman verkkoa, ja siksi se testataan yhteys katkaistuna eikä esitetä tarjouksessa.
 

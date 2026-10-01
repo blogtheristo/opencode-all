@@ -122,9 +122,10 @@ flowchart TB
 | 8   | Kaappi / seinäteline                  | Lukittava, tuotantohuoneen pöly ja lämpö                                                            | SKU `LF-RACK`                                        |
 | 9   | OT-integraatioyhdyskäytävä, vain luku | PLC/SCADA-data sisään ilman kirjoituspolkua; "ei fyysistä ohjausta" todistetaan laitetasolla        | Cincoze DA-1200 + OPC UA -asiakas, SKU `LF-OT-GW-RO` |
 
-## Ristiriita, joka vaatii HIC:n päätöksen
+## Hinnoittelu (HIC 01.10.2026: vaihtoehto A)
 
-Englanninkielinen Store-sivu sanoo: "Hardware: None purchased. Runs on existing customer infrastructure or a compact edge appliance", ja laitetoimitus on rajattu hyvityksen ulkopuolelle. HIC 01.10.2026: pilotti on kokonaistoimitus. Kaksi vaihtoehtoa:
+Pilotin hinta pysyy hinnaston mukaisena. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella (laite + `LF-NVIDIA-INSTALL`), eikä se sisälly pilotin hyvitykseen. EN Store-sivun hinnoittelutaulukon Hardware-rivi päivitetty vastaavasti. `products.json` ei muuttunut.
 
-- A. Pilotin hinta pysyy, ja laitteisto laskutetaan hinnaston riveinä pilotin rinnalla (kokonaistoimitus yhdellä tilauksella, kaksi hintariviä).
-- B. Pilotin hinta nousee ja sisältää oletuskokoonpanon (DGX Spark + yksi sensorisolmu + yhdyskäytävä + puuttuvat osat 1–3). Vaatii `products.json`-muutoksen ja Store-sivun hinnoittelutaulukon päivityksen.
+## Puuttuvien osien hinnastolisäys (HIC 01.10.2026: kyllä)
+
+Yhdeksän osaa lisätään hinnastoon omina SKU:ina. Lisäys tehdään erillisenä PR:nä, koska jokainen `products.json`-rivi vaatii hinnan, kuvan, tuotesivun, toimitusprofiilin ja hyväksymis-KPI:n (ks. `LF-IPCMAX-IPC409`-rivin kenttäjoukko) ja peilin `landing-pages/dws10-com/config/products.json` samassa commitissa. Hinnat antaa HIC; agentti ei keksi niitä.
