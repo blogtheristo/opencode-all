@@ -211,6 +211,7 @@ Chronological order. Update this table when adding/removing posts.
 | 69  | `eudi-wallet-eidas2-human-identity.fi.html`                    | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/12)                                                                                                                                                                                            | 8 Aug 2026  |
 | 70  | `kya-s1-sanasto-glossary.fi.html`                              | KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto (FI, sarja 12/12)                                                                                                                                                                         | 9 Aug 2026  |
 | 71  | `greg-isenberg-agents-need-a-signature.html`                   | Greg Isenberg Is Right About Agents. The Hard Part Is a Signature. (EN field note; agent infrastructure, KYA as the shared layer, honest limit: credential mints unsigned). **EN on tämän postauksen ground truth** — käännökset johdetaan EN-versiosta. | 24 Jul 2026 |
+| 73  | `proof-that-outlives-the-vendor.html`                          | Proof that outlives the vendor — Aegis: the control-room record stays yours, checkable without the vendor (EN only, v1.0, HIC-approved 01.10.2026; FI/SV/DE/FR not published — each needs its own HIC approval)                                          | 1 Oct 2026  |
 
 ---
 
