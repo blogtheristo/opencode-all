@@ -779,7 +779,17 @@ async function main(): Promise<void> {
     case 'verify-bundle': {
       const bundleDir = need('bundle');
       const result = verifyBundle(bundleDir, a['expect-key-id']);
-      out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 4);
+      // Without a pin the bundle is only checked against the key it carries, so a forged
+      // bundle would verify. ok stays integrity-only; authenticity is stated separately.
+      const keyPinned = a['expect-key-id'] !== undefined && a['expect-key-id'] === result.keyId;
+      const authenticity = keyPinned
+        ? 'established — key id matches the pin'
+        : a['expect-key-id'] !== undefined
+          ? 'NOT established — key id does not match the pin'
+          : 'unpinned — authenticity not established (integrity only); pass --expect-key-id from the signed scope';
+      if (!keyPinned && a['expect-key-id'] === undefined)
+        process.stderr.write(`warning: ${authenticity}\n`);
+      out({ ok: result.ok, command: cmd, ...result, keyPinned, authenticity }, result.ok ? 0 : 4);
       break;
     }
     default:
