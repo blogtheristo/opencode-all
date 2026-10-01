@@ -95,7 +95,7 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 - **We do:** production hardware sizing derived from your measured load, not a vendor spec sheet; deployment mode confirmed or revised against what the test actually showed; before/after report against the baseline; written recommendation and conversion terms.
 - **You do:** decide.
-- **Exit gate:** report delivered and walked through. The credit terms below run from here.
+- **Exit gate:** report delivered, and walked through with you within 14 days of delivery. The credit terms below run from the delivery date; the walk-through date does not move them.
 
 ## Pricing
 
@@ -104,7 +104,7 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 | **Price**    | €19,990 fixed                                                                                                                                                                                                                                                                                                   |
 | **Duration** | 3 months                                                                                                                                                                                                                                                                                                        |
 | **Hardware** | Supplied as separate price-list lines on the same order: an NVIDIA CUDA platform — a GB10 node from our price list (`LF-DGX-SPARK`, `edge-node-gn100`, `LF-SITROOM-001`) or an x86 industrial PC with an NVIDIA GPU, preferably the brand the site already runs. Remains the customer's property. Not credited. |
-| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months                                                                                                                                                                                                                        |
+| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months of report delivery, whatever the acceptance result                                                                                                                                                                     |
 
 **One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.
 
@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.6, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.7, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -148,7 +148,7 @@ _Teksti v2.0.6, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 
 **Miksi testataan eikä luvata.** Tuotantohuoneessa verkkokatko on tuotantotapahtuma. Siksi työn, lokin ja pysäytyksen on toimittava ilman verkkoa, ja se todennetaan katkaisemalla yhteys, ei kirjoittamalla se tarjoukseen.
 
-**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuksesta. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
+**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Aegis-käyttöönotto (`DWS-AEGIS-001`) maksaa 59 990 euroa, ja pilotin hinta hyvitetään siitä kokonaan, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuspäivästä; maksettavaksi jää 40 000 euroa. Ylläpitotilaus alkaa 999 eurosta kuukaudessa. Hyvitys ei riipu hyväksymistestin tuloksesta: jos testi ei mennyt läpi ja jatkatte silti, hyvitys pätee samoin ehdoin. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
 
 **Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
@@ -186,7 +186,7 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 
 **Omistus.** Lifetime World Model v2 ja sen asiakaskohtainen konfiguraatio, agentit, ajoympäristö ja hallintakerros ovat Lifetime Oy:n; asiakas saa niihin käyttölisenssin, eikä tekijänoikeus siirry. LWM v2:n käyttö kuuluu pilottiin maksutta. Asiakkaan oma data, loki ja päätöstapahtumat, sensorisyötteet, hyväksymistestin raportti, arkkitehtuurikuvaus, mittaukset ja laitteisto ovat asiakkaan. Lifetime Oy päivittää mallin ja konfiguraation; pilotissa päivitys kuuluu pilottiin, tuotannossa Aegis-ylläpitotilaukseen. Päivitys asennetaan asiakkaan hyväksynnällä, ja edellinen versio säilyy palautettavana.
 
-**Pilotin päättyessä.** Hyvitysaika on kuusi kuukautta, ja se lasketaan päivästä, jona loppuraportti on luovutettu ja käyty läpi (vaihe 4). Jatko tuotantoon tämän ajan kuluessa: 19 990 euroa hyvitetään Aegis-käyttöönotosta, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana. Ei jatkoa: asiakas pitää datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston, käyttölisenssi malliin päättyy, eikä mitään ole velkaa.
+**Pilotin päättyessä.** Hyvitysaika on kuusi kuukautta loppuraportin luovutuspäivästä. Raportti käydään läpi asiakkaan kanssa viimeistään 14 päivän kuluessa luovutuksesta; läpikäynnin ajankohta ei siirrä hyvitysajan alkua. Jatko tuotantoon hyvitysaikana: 19 990 euroa hyvitetään 59 990 euron Aegis-käyttöönotosta, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana.
 
 **Tarkistettavuus ilman Lifetime Oy:tä.** Pilotin lopussa asiakas saa todistepaketin: lokin, päätöstapahtumat ja pysäytykset operaattorin allekirjoituksineen, hyväksymistestin tuloksen, sinettien tarkistussummat, allekirjoitetun sisällysluettelon sekä kaikki tarkistukseen tarvittavat julkiset avaimet (laitos ja operaattorit roolitietoineen). Lisäksi asiakas saa lokiformaatin jäädytetyn kuvauksen ja testivektorit: pienen esimerkkilokin, jonka tiivisteet ja allekirjoitukset tunnetaan. Niiden avulla kuka tahansa voi toteuttaa tarkistuksen uudelleen millä tahansa ohjelmointikielellä ja todeta sen oikeaksi vuosienkin päästä, ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset).
 
@@ -215,3 +215,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.4, 01.10.2026: Boardyn huomio (auditoitu, pitää): tarkistettavuus ilman Lifetime Oy:tä lisätty. Perusta: `export`/`verify-bundle` (`src/aegis/pilot/bundle.ts`). Lupaus antaa tarkistimen lähdekoodi asiakkaalle odottaa HIC:n lisenssipäätöstä.
 - v2.0.5, 01.10.2026: Boardy: hyvitysikkunan alkupäivä määritelty (loppuraportin luovutus ja läpikäynti, vaihe 4, kuten EN "credit terms run from here"); otsikko "Päivä 91" → "Pilotin päättyessä".
 - v2.0.6, 01.10.2026: Boardy (auditoitu, pitää): avaimet ja jäädytetty formaatti + testivektorit lähdekoodikopion sijaan. **Ehto ennen ensimmäistä asiakastoimitusta:** opencode-tehtävä `.claude/done/opencode/aegis-evidence-ten-year-verify.json` (operaattorin allekirjoitus lokiin, formaattikuvaus, testivektorit, Python-tarkistin); tänään operaattorin allekirjoitus ei ole lokissa eikä paketissa.
+- v2.0.7, 01.10.2026: Boardy: hyvitysaika alkaa loppuraportin luovutuspäivästä (päivätty), läpikäynti viimeistään 14 päivän kuluessa; Aegis-käyttöönoton hinta 59 990 € ja jäävä 40 000 € samaan kappaleeseen; hyvitys pätee myös, jos testi ei mennyt läpi (kuten EN: ei ehtoa). EN-teksti linjattu. 14 päivää ja tulosriippumattomuus odottavat HIC-vahvistusta.
