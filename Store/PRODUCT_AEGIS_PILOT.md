@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.14, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.15, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -160,7 +160,7 @@ _Teksti v2.0.14, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`
 **Vastuut.**
 
 - **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; verkon eristys asiakkaan omalla kytkimellä tai palomuurilla, tai Lifetime Oy:n toimittamalla teollisuuskytkimellä ja palomuurilla, jotka laskutetaan laiteriveinä. Hyväksymistestin aikana eristystä hallinnoi aina asiakas, ei Lifetime Oy eikä Aegis.
-- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa. Pilotin aikana tukipyyntöihin vastataan 48 tunnin kuluessa toimistoaikana (arkipäivisin klo 8–16 Suomen aikaa).
+- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa. Pilotin aikana asiakkaalla on nimetty yhteyshenkilö Lifetime Oy:ssä ja Standard-tason tuki: tukipyyntöön vastataan seuraavana arkipäivänä.
 - **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
 
 **Laitekokoonpano.** Valitaan vaiheen 0 laitekatselmoinnissa ja laskutetaan hinnaston riveinä:
@@ -223,3 +223,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.12, 01.10.2026: Boardy + HIC-merkintä: Defence-tuen 4 h lasketaan tukipyynnön vastaanotosta, ympäri vuorokauden (tuotannon ylläpito); pilotin 48 h toimistoaikana. Standard-vasteaika ja toimistoajan kellonajat auki; Sovereign-tukitason nimen törmäys suvereniteettiluokkaan auki.
 - v2.0.13, 01.10.2026: HIC: Standard-tuen vasteaika seuraava arkipäivä; pilotin toimistoaika arkipäivisin klo 8–16 Suomen aikaa; Sovereign-tukitason nimi pidetään, ja tekstiin lisätty erottelu suvereniteettiluokasta.
 - v2.0.14, 01.10.2026: Boardy (auditoitu, johtopäätös pitää, premissi osin väärin): todistusvoiman rajaus lisätty. Ketju on allekirjoitettu laitoksen avaimella, mutta avain on samassa laatikossa, joten ennen sinetöintiä kirjoitusoikeuden haltija voi kirjoittaa ketjun uudelleen.
+- v2.0.15, 01.10.2026: HIC (Boardyn huomio): pilotin 48 h toimistoaikaa poistettu (vastasi noin kuutta työpäivää ja oli heikompi kuin halvin tuotantotaso). Pilotille nimetty yhteyshenkilö ja Standard-taso: vastaus seuraavana arkipäivänä.
