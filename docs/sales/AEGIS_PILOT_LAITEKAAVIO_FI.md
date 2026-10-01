@@ -42,7 +42,7 @@ flowchart TB
   end
 
   subgraph LASKENTA["Laskentakerros, tuotantohuone"]
-    DGX["NVIDIA DGX Spark<br/>agenttiparvi, paikallinen malli<br/>LF-DGX-SPARK"]
+    DGX["NVIDIA DGX Spark<br/>agentit, paikallinen malli<br/>LF-DGX-SPARK"]
     GN["Acer Veriton GN100<br/>Control Room -solmu<br/>edge-node-gn100"]
     SIT["Situation Room, 2x GN100<br/>kahden solmun varmennus<br/>LF-SITROOM-001"]
     OWN["Asiakkaan oma laitteisto<br/>vain 100 % NVIDIA DGX -yhteensopiva (GB10)"]
@@ -96,7 +96,7 @@ flowchart TB
 
 | Kerros     | Tuote                             | SKU                                    | Rooli pilotissa                                       |
 | ---------- | --------------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| Laskenta   | NVIDIA DGX Spark                  | `LF-DGX-SPARK`                         | Agenttiparvi ja paikallinen malli, oletusvalinta      |
+| Laskenta   | NVIDIA DGX Spark                  | `LF-DGX-SPARK`                         | Agentit ja paikallinen malli, oletusvalinta           |
 | Laskenta   | Acer Veriton GN100 Control Room   | `edge-node-gn100`                      | Pienempi työnkulku tai toinen solmu                   |
 | Laskenta   | Situation Room, kaksi solmua      | `LF-SITROOM-001`                       | Kun tarvitaan kahden solmun varmennus                 |
 | Alusta     | k3s, yksi solmu                   | `LF-K8S-T1`                            | Suorituksen orkestrointi; HA `LF-K8S-T2`              |

@@ -77,3 +77,13 @@ Lisätäänkö kolmen kysymyksen testi `DWS_ROLES_REGISTRY.md` §5:een pysyvän�
 - Ristiriita: EN Store-sivu sanoo "Hardware: None purchased" ja rajaa laitetoimituksen hyvityksen ulkopuolelle. Vaihtoehdot A/B kaaviotiedoston lopussa. Ei ratkaistu tässä PR:ssä; `products.json` ei muutettu.
 - "Ohjaustiedot" kirjoitettu muotoon "ohjaussuositukset", koska "No physical control" on voimassa.
 - HIC: pilotti toimitetaan meidän laitteillamme tai 100 % NVIDIA DGX -yhteensopivalla laitteistolla. Hinnaston 1x (`edge-node-gn100`, `LF-DGX-SPARK`) ja 2x (`LF-SITROOM-001`) GB10-solmut ovat laskentakerros. IGX Orin poistettu kaaviosta, ei DGX-yhteensopiva.
+
+## Boardyn kommentit 01.10.2026 klo 20.02 (HIC välitti)
+
+Sovellettu tekstiin: "yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa"; työnkulku asiakkaan pullonkaulasta, ei katalogista; asiakas ajaa hyväksymistestin itse; hylätty testi on tulos; myyvät luvut = päätöspolun kattavuus ja operaattorin aika per päätös (molemmat jo mitattavia: `journey` coverage/`abandonedShare`, `decision_latency_ms`); compliance on perustelu, ei syy; CIO/CISO saavat uskottavan arkkitehtuurin mutta eivät ole ostaja. "Parvi" poistettu kaikista teksteistä.
+
+Ei sovellettu, odottaa HIC:tä: "ennakkotilaus". Truth-rajoite: Aegis on pre-revenue eikä sitä saa kuvata tuotantokäytössä olevaksi (`Store/PRODUCT_AEGIS.md:27`). Ehdotus korvaavaksi lauseeksi: "Aegis ei ole vielä kenelläkään tuotantokäytössä; pilotti on ensimmäinen toimitus." Kuluttajamainen "ennakkotilaus" pois, totuus säilyy.
+
+GTM-reitti (Boardy): 2–3 rahaston operating partneria, kultakin yksi nimetty portfolio-kontakti, datakeskusoperaattorit ensin. Halvempi kuin 25 kylmää teollisuuskontaktia. Sopii kaistaan B. Ei kirjattu pipelineen ennen HIC:n päätöstä rahastoista.
+
+Toimituslistat Outokumpu (Azure, Hybrid, 2 solmua) ja Kemira (Local/Edge, 1 solmu, IT-infra aukkoina): `docs/sales/AEGIS_PILOT_TOIMITUSLISTA_OUTOKUMPU_KEMIRA_FI.md`.

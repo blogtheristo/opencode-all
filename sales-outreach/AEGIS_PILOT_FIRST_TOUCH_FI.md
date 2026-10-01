@@ -24,15 +24,15 @@ Täytä kolme kohtaa hakasulkeissa. Ensimmäinen lause kertoo, miksi kirjoitat j
 
 ## Viesti
 
-**Aihe:** [Yritys]: yksi työnkulku tekoälyagentille, pysäytys todistettavasti
+**Aihe:** [Yritys]: yksi pullonkaula ratkaistuna tuotantohuoneessa, testin ajatte itse
 
 Hei [Etunimi],
 
 [Yksi lause: miksi juuri [Yritys] ja miksi nyt, esimerkiksi uusi tehdas, kohteen osto tai julkinen hanke.]
 
-Tarjoamme kolmen kuukauden pilottia, jossa yksi [Yritys]n työnkulku ajetaan työnkulun vaatimalla tekoälyagenttiparvella teidän omassa tuotantohuoneessanne toimittamallamme dedikoidulla laitteistolla (yksi tai kaksi NVIDIA GB10 -solmua, Control Room tai Situation Room, sekä sensorisolmut; pilotti on kokonaistoimitus yhdellä tilauksella, laitteisto hinnaston riveinä) tai teidän omalla 100 % NVIDIA DGX -yhteensopivalla laitteistollanne, tiukasti johdettuna ja valvottuna (tilannehuone, situation room). Agentit toimivat teidän määrittelemienne syötteiden ja tulostavoitteiden pohjalta; ne suosittelevat, teidän operaattorinne päättää. Verkkoyhteys katkaistaan sovitun ajan, ja testataan kolme asiaa: työ valmistuu, loki kirjoittuu katkeamatta, ja operaattori pysäyttää agentin niin, että pysäytys näkyy allekirjoitetusta lokista eikä vain agentin omasta kertomuksesta. Agentti ei ohjaa fyysisiä laitteita.
+Tarjoamme kolmen kuukauden pilottia, jossa yksi [Yritys]n kriittinen pullonkaula ratkaistaan tekoälyagenteilla teidän omassa tuotantohuoneessanne ja valvotaan tilannehuoneessa, toimittamallamme dedikoidulla laitteistolla (yksi tai kaksi NVIDIA GB10 -solmua, Control Room tai Situation Room, sekä sensorisolmut; pilotti on kokonaistoimitus yhdellä tilauksella, laitteisto hinnaston riveinä) tai teidän omalla 100 % NVIDIA DGX -yhteensopivalla laitteistollanne, tiukasti johdettuna ja valvottuna. Työnkulku valitaan teidän omasta pullonkaulastanne, ei katalogista. Agentit suosittelevat, teidän operaattorinne päättää. Sopimus on hyväksymistesti, jonka ajatte itse: katkaisette yhteyden omalla menetelmällänne, ja testataan kolme asiaa: työnkulku päättyy silti, lokiin ei jää aukkoa, ja operaattori pysäyttää agentin niin, että pysäytys näkyy allekirjoitetusta lokista eikä vain agentin omasta kertomuksesta. Pilotti tuottaa kaksi lukua: päätöspolun kattavuus ja operaattorin aika per päätös. Agentti ei ohjaa fyysisiä laitteita.
 
-Hinta on kiinteä 19 990 euroa, ja se hyvitetään kokonaan käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Ensimmäiset kaksi viikkoa, jossa rajataan työnkulku ja testin ehdot, eivät maksa mitään. Jos testi ei mene läpi, tieto maksaa 19 990 euroa eikä vasta laitehankinnan jälkeen. Aegis on ennakkotilauksessa, joten pilotti on tapa tarkistaa väite ennen sitoutumista.
+Hinta on kiinteä 19 990 euroa, ja se hyvitetään kokonaan käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Ensimmäiset kaksi viikkoa, jossa rajataan työnkulku ja testin ehdot, eivät maksa mitään. Hylätty testi on käyttökelpoinen tulos: tieto maksaa 19 990 euroa eikä vasta laitehankinnan jälkeen. Teidän ei tarvitse uskoa mitään, kun voitte ajaa testin itse.
 
 Yksi kysymys: kuka teillä päättää tämän tyyppisestä työnkulusta? Sopisiko 30 minuutin keskustelu, jossa katsotaan, onko teillä työnkulku, joka päättyy selvästi määriteltyyn valmis-tilaan? Vain sellaisen voi testata.
 
