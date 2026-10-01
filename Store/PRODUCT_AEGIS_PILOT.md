@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.4, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.5, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -148,7 +148,7 @@ _Teksti v2.0.4, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 
 **Miksi testataan eikä luvata.** Tuotantohuoneessa verkkokatko on tuotantotapahtuma. Siksi työn, lokin ja pysäytyksen on toimittava ilman verkkoa, ja se todennetaan katkaisemalla yhteys, ei kirjoittamalla se tarjoukseen.
 
-**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
+**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuksesta. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
 
 **Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
@@ -186,7 +186,7 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 
 **Omistus.** Lifetime World Model v2 ja sen asiakaskohtainen konfiguraatio, agentit, ajoympäristö ja hallintakerros ovat Lifetime Oy:n; asiakas saa niihin käyttölisenssin, eikä tekijänoikeus siirry. LWM v2:n käyttö kuuluu pilottiin maksutta. Asiakkaan oma data, loki ja päätöstapahtumat, sensorisyötteet, hyväksymistestin raportti, arkkitehtuurikuvaus, mittaukset ja laitteisto ovat asiakkaan. Lifetime Oy päivittää mallin ja konfiguraation; pilotissa päivitys kuuluu pilottiin, tuotannossa Aegis-ylläpitotilaukseen. Päivitys asennetaan asiakkaan hyväksynnällä, ja edellinen versio säilyy palautettavana.
 
-**Päivä 91.** Jatko tuotantoon kuuden kuukauden kuluessa: 19 990 euroa hyvitetään, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana. Ei jatkoa: asiakas pitää datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston, käyttölisenssi malliin päättyy, eikä mitään ole velkaa.
+**Pilotin päättyessä.** Hyvitysaika on kuusi kuukautta, ja se lasketaan päivästä, jona loppuraportti on luovutettu ja käyty läpi (vaihe 4). Jatko tuotantoon tämän ajan kuluessa: 19 990 euroa hyvitetään Aegis-käyttöönotosta, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana. Ei jatkoa: asiakas pitää datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston, käyttölisenssi malliin päättyy, eikä mitään ole velkaa.
 
 **Tarkistettavuus ilman Lifetime Oy:tä.** Pilotin lopussa asiakas saa todistepaketin: lokin, päätöstapahtumat, hyväksymistestin tuloksen, laitoksen julkisen avaimen, sinettien tarkistussummat ja allekirjoitetun sisällysluettelon. Lisäksi asiakas saa lokiformaatin kirjallisen kuvauksen ja tarkistimen lähdekoodin. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset), joten paketin voi tarkistaa vuosien päästä ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä.
 
@@ -213,3 +213,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.2, 01.10.2026: HIC: epäselvä "tai toimittamallamme" tarkennettu: kytkin ja palomuuri laiteriveinä (SKU-ehdotukset `LF-NET-SWITCH`, `LF-NET-EDGE-FW`, hinta TBD); eristystä hallinnoi testissä asiakas.
 - v2.0.3, 01.10.2026: HIC: "laitteiston toimitus" tarkennettu laitekokoonpanoksi SKU-tasolla; hinnastossa olevat rivit nimetty, puuttuvat merkitty "lisätään hinnastoon".
 - v2.0.4, 01.10.2026: Boardyn huomio (auditoitu, pitää): tarkistettavuus ilman Lifetime Oy:tä lisätty. Perusta: `export`/`verify-bundle` (`src/aegis/pilot/bundle.ts`). Lupaus antaa tarkistimen lähdekoodi asiakkaalle odottaa HIC:n lisenssipäätöstä.
+- v2.0.5, 01.10.2026: Boardy: hyvitysikkunan alkupäivä määritelty (loppuraportin luovutus ja läpikäynti, vaihe 4, kuten EN "credit terms run from here"); otsikko "Päivä 91" → "Pilotin päättyessä".
