@@ -96,3 +96,7 @@ Kaksi ristiriitaa, ei ratkaistu tässä:
 
 1. **LWM.** HIC: Lifetime World Model -koulutus asiakasympäristöön kuuluu toimitusvaiheen sopimukseen. EN Store-sivu: "Outside the credit: LWM integration". FI-teksti sanoo nyt HIC:n mukaan; EN-rajausta ei muutettu. HIC päättää, kuuluuko LWM-koulutus 19 990 euron pilottiin vai vasta käyttöönottoon.
 2. **"Parvi".** HIC:n teksti käyttää sanaa "agenttiparven koulutus"; Boardy 01.10.2026 pyysi pudottamaan "parvi"-sanan. Kirjoitettu "agenttien koulutus". HIC päättää.
+
+HIC 01.10.2026: LWM v2 -koulutus asiakasympäristöön kuuluu pilottiin, koska se on joka tapauksessa tehtävä toimitukseen. EN Store-sivun rajaus "LWM integration" poistettu hyvityksen ulkopuolelta ja lisätty "includes"-listaan; sama `products.json`-huomautukseen ja landing-pages-peiliin samassa commitissa. Tuotesivujen HTML generoituu `update-store`-workflowssa mergessä.
+
+HIC 01.10.2026: "ennakkotilaus" poistetaan, kun tuote alkaa olla valmis. FI-teksteissä (Store-osio, ensikontakti) sanaa ei enää ole. `availability: preorder` -kentät (`Store/PRODUCT_AEGIS*.md`, `products.json`) ja EN "Product status: preorder" (`Store/PRODUCT_AEGIS.md:27`) jäävät, kunnes HIC ilmoittaa GA:n; silloin ne vaihdetaan samassa commitissa Truth-säännön mukaan.

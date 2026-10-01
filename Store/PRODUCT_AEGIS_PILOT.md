@@ -10,7 +10,7 @@ image_link: "https://dws10.com/static/images/firehorse-aegis-head.png"
 brand: "DWS IQ"
 storeCategory: "platform"
 type: "one-time"
-priceNote: "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months, leaving €40,000. Credit capped at €19,990; excludes LWM integration, hardware, multi-site rollout and custom ERP/BIM/SCADA integrations."
+priceNote: "€19,990 fixed, 3 months. Credited in full against the €59,990 Aegis onboarding if you proceed within 6 months, leaving €40,000. Credit capped at €19,990; includes Lifetime World Model (LWM v2) training to the customer environment; excludes hardware, multi-site rollout and custom ERP/BIM/SCADA integrations."
 mpn: "DWS-AEGIS-PILOT-2026"
 ---
 
@@ -114,9 +114,9 @@ If you do not proceed, you keep the architecture, the measurements and the evide
 
 **No physical control.** The pilot's agents produce recommendations, decisions and records. They do not control physical equipment: no command reaches a PLC, SCADA system or fieldbus, and the site's own safety functions, including any SIL-rated emergency stop, are not touched. Every recommendation is decided by an operator, and the decision is recorded as a signed event: who decided, what was decided, and whether the recommendation was accepted, changed or rejected.
 
-**The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.
+**The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; Lifetime World Model (LWM v2) training to your environment, since every Aegis delivery needs it; and production hardware sizing derived from measured behaviour on that workload.
 
-**Outside the credit, stated so there is no ambiguity later:** LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
+**Outside the credit, stated so there is no ambiguity later:** any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
 
 ### Commercial summary
 
