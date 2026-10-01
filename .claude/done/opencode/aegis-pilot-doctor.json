@@ -6,16 +6,32 @@
   "maxRounds": 4,
   "checks": [
     {
-      "name": "doctor ok on fresh site",
-      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null && node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s | grep -q '\"ok\": true'"
+      "name": "doctor passes on a fresh site: exit 0, top-level ok, all five named checks present and ok, no key-pinned without --scope",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); rc=$?; [ $rc -eq 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const n=['state-dir-mode','site-key-mode','ledger-local-fs','ledger-verifies','isolation-tool'];const c=j.checks.map(x=>x.check);if(j.ok!==true||!j.checks.every(x=>x.ok===true)||n.some(x=>!c.includes(x))||c.includes('key-pinned'))process.exit(1)\""
     },
     {
-      "name": "doctor flags world-writable state dir",
-      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null; chmod 777 $d/s; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); echo \"$out\" | grep -q '\"check\": \"state-dir-mode\"' && echo \"$out\" | grep -q '\"ok\": false'"
+      "name": "world-writable state dir: exit nonzero, top-level ok false, only state-dir-mode fails",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; chmod 777 $d/s; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); rc=$?; [ $rc -ne 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const bad=j.checks.filter(x=>!x.ok).map(x=>x.check);if(j.ok!==false||bad.length!==1||bad[0]!=='state-dir-mode')process.exit(1)\""
     },
     {
-      "name": "doctor suite passes",
-      "run": "npx vitest run src/__tests__/aegis-pilot-doctor.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+      "name": "group-readable site key (0644): site-key-mode fails, exit nonzero",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; chmod 644 $d/s/site/site.key; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); rc=$?; [ $rc -ne 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const k=j.checks.find(x=>x.check==='site-key-mode');if(j.ok!==false||!k||k.ok!==false)process.exit(1)\""
+    },
+    {
+      "name": "tampered ledger line: ledger-verifies fails, exit nonzero",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; printf \"%s\\n\" '{\"tampered\":true}' >> $d/s/ledger/article12.jsonl; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s); rc=$?; [ $rc -ne 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const k=j.checks.find(x=>x.check==='ledger-verifies');if(j.ok!==false||!k||k.ok!==false)process.exit(1)\""
+    },
+    {
+      "name": "unpinned scope: key-pinned present and fails (missing pin = fail), exit nonzero",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; out=$(node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s --scope config/aegis-pilot/reference-scope.json 2>/dev/null); rc=$?; [ $rc -ne 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const k=j.checks.find(x=>x.check==='key-pinned');if(!k||k.ok!==false)process.exit(1)\""
+    },
+    {
+      "name": "doctor is read-only: state tree byte-identical before and after (files, modes, contents)",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id doc-test >/dev/null || exit 1; h(){ (cd $d/s && find . -type f -o -type d | sort | xargs stat -c \"%n %a %s %Y\" && find . -type f | sort | xargs sha256sum); }; a=$(h); node --import tsx scripts/aegis-pilot.ts doctor --state-dir $d/s >/dev/null; b=$(h); [ \"$a\" = \"$b\" ]"
+    },
+    {
+      "name": "doctor suite passes with at least 6 cases",
+      "run": "out=$(npx vitest run src/__tests__/aegis-pilot-doctor.test.ts --reporter=json 2>/dev/null); echo \"$out\" | node -e \"const t=require('fs').readFileSync(0,'utf8');const j=JSON.parse(t.slice(t.indexOf('{')));if(!j.success||j.numPassedTests<6||j.numFailedTests>0||j.numTodoTests>0)process.exit(1)\""
     }
   ],
   "enabled": false,
