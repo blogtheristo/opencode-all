@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-10-01-aegis-spec-checks-and-unpinned-bundle</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-10-01-aegis-spec-checks-and-unpinned-bundle</h1>
+</header>
+<h1 id="aegis-pilot-day-5-tighter-a1a3-checks-unpinned-bundle-warning">Aegis Pilot Day 5: tighter A1/A3 checks, unpinned bundle warning</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/adoring-noether-7yqv5h | Date: 01.10.2026 | Changes: Created. | Harness: Claude Code + CLAUDE.md</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 01.10.2026</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<h2 id="what-happened">What happened</h2>
+<p>PR <a href="https://github.com/blogtheristo/dws6/pull/2315">#2315</a>.</p>
+<ul>
+<li>The A1 (doctor) and A3 (handler-conformance) task checks matched any <code>&quot;ok&quot;: true</code> in the output and ignored exit codes. A broken top-level result could pass. The HIC asked me to tighten them myself, because the spec lock stops agents editing task specs.</li>
+<li>The new checks parse the JSON and assert exit code and top-level <code>ok</code>, plus negatives (world-writable state dir, 0644 key, tampered ledger, unpinned scope, read-only state tree, abort-ignoring and empty registries).</li>
+<li><code>verify-bundle</code> without <code>--expect-key-id</code> now reports <code>keyPinned: false</code> and <code>authenticity: &quot;unpinned — authenticity not established&quot;</code>, and warns on stderr. <code>ok</code> stays integrity-only.</li>
+</ul>
+<h2 id="insight">Insight</h2>
+<p>The tightened A3 negatives fail on current code: <code>check-handlers</code> ignores <code>--handlers</code> and always uses the reference registry. A customer’s handlers cannot be checked today, which contradicts the A3 spec.</p>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>Fix <code>check-handlers</code> to honour <code>--handlers</code>, tests first.</li>
+<li>Change runbook §6.2 step 12 (stale: “until A2 is merged”); HIC will do it.</li>
+<li>Merge #2315 with <code>--allow-spec-edit</code> on the done gate.</li>
+<li>Set the M4 date.</li>
+</ul>
+<h2 id="decision-for-the-hic">Decision for the HIC</h2>
+<p>Should <code>verify-bundle</code> exit non-zero when unpinned, instead of only warning? A warning keeps existing callers working; a non-zero exit stops an unpinned result being mistaken for “verified”.</p>
+<p>Sales Score: N/A — internal engineering hardening, no buyer signal. KB, Drive export, calendar: N/A — session was spec/CLI hardening; the HIC’s M4 date is still unset, so nothing to calendar.</p>
+</body>
+</html>
