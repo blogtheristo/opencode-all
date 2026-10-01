@@ -36,7 +36,9 @@ The tightened A3 negatives fail on current code: `check-handlers` ignores `--han
 - Merge #2315 with `--allow-spec-edit` on the done gate.
 - Set the M4 date.
 
-## Decision for the HIC
+## Decision (HIC, 01.10.2026: yes)
+
+The HIC chose non-zero. `verify-bundle` without a pin now exits 4; `--allow-unpinned` gives an integrity-only exit 0 and still labels the result unpinned. `check-handlers` now honours `--handlers` (tests first, 2 CLI tests). Status: DECIDED. The old question was:
 
 Should `verify-bundle` exit non-zero when unpinned, instead of only warning? A warning keeps existing callers working; a non-zero exit stops an unpinned result being mistaken for "verified".
 

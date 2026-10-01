@@ -11,6 +11,10 @@
  *   5. Non-network step skips network-errors-typed check
  */
 
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import type { PilotScope, PilotStep } from '../aegis/pilot/scope.js';
 import { NetworkUnavailable } from '../aegis/pilot/workflow-runner.js';
@@ -286,5 +290,50 @@ describe('handler-conformance', () => {
     expect(networkCheck).toBeDefined();
     expect(networkCheck?.ok).toBe(true);
     expect(networkCheck?.detail).toContain('does not require network');
+  });
+
+  describe('check-handlers CLI honours --handlers', () => {
+    const scopePath = 'config/aegis-pilot/reference-scope.json';
+    const names: string[] = JSON.parse(readFileSync(scopePath, 'utf8')).workflow.steps.map(
+      (s: { handler: string }) => s.handler,
+    );
+    const run = (source: string) => {
+      const mod = join(mkdtempSync(join(tmpdir(), 'aegis-ch-')), 'handlers.mjs');
+      writeFileSync(mod, source);
+      const r = spawnSync(
+        'node',
+        [
+          '--import',
+          'tsx',
+          'scripts/aegis-pilot.ts',
+          'check-handlers',
+          '--scope',
+          scopePath,
+          '--handlers',
+          mod,
+        ],
+        { encoding: 'utf8', timeout: 20000 },
+      );
+      return { status: r.status, json: JSON.parse(r.stdout) };
+    };
+
+    it('an empty registry fails registered for every step', () => {
+      const { status, json } = run('export function createRegistry(){return {}}');
+      expect(status).toBe(1);
+      expect(json.ok).toBe(false);
+      for (const s of json.steps)
+        expect(s.checks.find((c: { check: string }) => c.check === 'registered').ok).toBe(false);
+    }, 25000);
+
+    it('a registry that never settles on abort is flagged', () => {
+      const { status, json } = run(
+        `export function createRegistry(){return Object.fromEntries(${JSON.stringify(names)}.map(n=>[n,()=>new Promise(()=>{})]))}`,
+      );
+      expect(status).toBe(1);
+      const failed = json.steps
+        .flatMap((s: { checks: { check: string; ok: boolean }[] }) => s.checks)
+        .filter((c: { check: string; ok: boolean }) => c.check === 'honours-abort' && !c.ok);
+      expect(failed.length).toBeGreaterThan(0);
+    }, 25000);
   });
 });
