@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.8, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.9, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -148,7 +148,7 @@ _Teksti v2.0.8, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 
 **Miksi testataan eikä luvata.** Tuotantohuoneessa verkkokatko on tuotantotapahtuma. Siksi työn, lokin ja pysäytyksen on toimittava ilman verkkoa, ja se todennetaan katkaisemalla yhteys, ei kirjoittamalla se tarjoukseen.
 
-**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Aegis-käyttöönotto (`DWS-AEGIS-001`) maksaa 59 990 euroa, ja pilotin hinta hyvitetään siitä kokonaan, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuspäivästä; maksettavaksi jää 40 000 euroa. Ylläpitotilaus alkaa 999 eurosta kuukaudessa. Hyvitys ei riipu hyväksymistestin tuloksesta: jos testi ei mennyt läpi ja jatkatte silti, hyvitys pätee samoin ehdoin. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
+**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Aegis-käyttöönotto (`DWS-AEGIS-001`) maksaa 59 990 euroa, ja pilotin hinta hyvitetään siitä kokonaan, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuspäivästä; maksettavaksi jää 40 000 euroa. Ylläpitotilaus (`DWS-AEGIS-SUB-001`) kattaa ajoympäristön ja hallintakerroksen päivitykset ja tietoturvakorjaukset, Lifetime World Model v2:n ja asiakaskohtaisen konfiguraation mallipäivitykset asiakkaan hyväksynnällä sekä tuen ja operoinnin: Standard 999 €/kk (vakiotuki), Defence 1 999 €/kk (prioriteettituki, vasteaika 4 tuntia) ja Sovereign 4 999 €/kk (sovittava palvelutaso). Laitteisto ja tilaamattomat integraatiot eivät sisälly. Hyvitys ei riipu hyväksymistestin tuloksesta: jos testi ei mennyt läpi ja jatkatte silti, hyvitys pätee samoin ehdoin. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
 
 **Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
@@ -217,3 +217,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.6, 01.10.2026: Boardy (auditoitu, pitää): avaimet ja jäädytetty formaatti + testivektorit lähdekoodikopion sijaan. **Ehto ennen ensimmäistä asiakastoimitusta:** opencode-tehtävä `.claude/done/opencode/aegis-evidence-ten-year-verify.json` (operaattorin allekirjoitus lokiin, formaattikuvaus, testivektorit, Python-tarkistin); tänään operaattorin allekirjoitus ei ole lokissa eikä paketissa.
 - v2.0.7, 01.10.2026: Boardy: hyvitysaika alkaa loppuraportin luovutuspäivästä (päivätty), läpikäynti viimeistään 14 päivän kuluessa; Aegis-käyttöönoton hinta 59 990 € ja jäävä 40 000 € samaan kappaleeseen; hyvitys pätee myös, jos testi ei mennyt läpi (kuten EN: ei ehtoa). EN-teksti linjattu. 14 päivää ja tulosriippumattomuus odottavat HIC-vahvistusta.
 - v2.0.8, 01.10.2026: Boardyn muotoilu tarkistettu koodia vasten (6/8 osaa toimii tänään; operaattorin allekirjoitus ja formaattikuvaus + testivektorit odottavat opencode-tehtävää `aegis-evidence-ten-year-verify`). Lisätty: formaattikuvaus ja testivektorit luovutetaan jo vaiheessa 0.
+- v2.0.9, 01.10.2026: Boardy: ylläpitotilauksen sisältö lisätty (lähteet: `products.json` DWS-AEGIS-SUB-001 features/exclusions, `Store/PRODUCT_AEGIS.md:187–189` tiers, HIC 01.10.2026 mallipäivitys ylläpidossa). Boardy hyväksyi v2.0.7:n 14 päivän takarajan ja tulosriippumattoman hyvityksen. Standard-tuen vasteaika puuttuu lähteistä.
