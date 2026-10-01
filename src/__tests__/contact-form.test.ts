@@ -119,4 +119,34 @@ describe('dws10 contact form', () => {
     expect(limit).not.toHaveBeenCalled();
     expect(send).not.toHaveBeenCalled();
   });
+
+  it('routes a whitepaper request to the whitepaper inbox', async () => {
+    const limit = vi.fn().mockResolvedValue({ success: true });
+    const send = vi.fn().mockResolvedValue(undefined);
+    const ctx = context({ rateLimiter: { limit }, email: { send } });
+    ctx.request = request({ ...validBody, whitepaper: 'WP13' });
+
+    const response = await onRequestPost(ctx as never);
+
+    expect(response.status).toBe(200);
+    expect(send).toHaveBeenCalledWith(
+      expect.objectContaining({
+        to: 'risto.anton@lifetime.fi',
+        subject: 'Whitepaper request WP13 from Ada Lovelace',
+        text: expect.stringContaining('Whitepaper requested: WP13'),
+      }),
+    );
+  });
+
+  it('rejects an unknown whitepaper id without sending', async () => {
+    const limit = vi.fn().mockResolvedValue({ success: true });
+    const send = vi.fn().mockResolvedValue(undefined);
+    const ctx = context({ rateLimiter: { limit }, email: { send } });
+    ctx.request = request({ ...validBody, whitepaper: 'WP99' });
+
+    const response = await onRequestPost(ctx as never);
+
+    expect(response.status).toBe(400);
+    expect(send).not.toHaveBeenCalled();
+  });
 });

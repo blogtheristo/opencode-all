@@ -1,6 +1,8 @@
-// Evidence: Tool=GitHub-Copilot-CLI Model=GPT-5.6-Sol Agent=remediation Date=2026-09-27
+// Evidence: Tool=Claude Code Model=claude-opus-5-5 Agent=aegis-fi-copy-buyer-definition Date=2026-10-01
 // Audit trail: git log -- functions/api/contact.js
 const MAX_LENGTHS = { name: 120, email: 254, company: 160, phone: 40, message: 4000 };
+// Whitepaper requests (Truth Standard §2J): known ids only; a human sends the paper.
+const WHITEPAPERS = { WP13: 'WP13 When the Link Drops — Aegis acceptance and evidence' };
 const ALLOWED_ORIGINS = new Set(['https://dws10.com', 'https://www.dws10.com']);
 
 function json(body, status) {
@@ -61,12 +63,20 @@ export async function onRequestPost(context) {
     return json({ error: 'Contact rate limiting is not configured.' }, 503);
   if (!rateLimit.allowed) return json({ error: 'Too many requests. Please try again later.' }, 429);
 
+  const whitepaperId = clean(input.whitepaper, 16);
+  if (whitepaperId && !Object.hasOwn(WHITEPAPERS, whitepaperId))
+    return json({ error: 'Unknown whitepaper.' }, 400);
+  const whitepaper = whitepaperId ? WHITEPAPERS[whitepaperId] : '';
+
   const from = context.env.CONTACT_FROM;
-  const to = context.env.CONTACT_TO || 'risto.paarni@lifetime.fi';
+  const to = whitepaper
+    ? context.env.WHITEPAPER_TO || 'risto.anton@lifetime.fi'
+    : context.env.CONTACT_TO || 'risto.paarni@lifetime.fi';
   if (!from || !context.env.CONTACT_EMAIL)
     return json({ error: 'Contact delivery is not configured.' }, 503);
 
   const text = [
+    ...(whitepaper ? [`Whitepaper requested: ${whitepaper}`, ''] : []),
     `Name: ${fields.name}`,
     `Email: ${fields.email}`,
     `Company: ${fields.company}`,
@@ -75,7 +85,10 @@ export async function onRequestPost(context) {
     'Message:',
     fields.message || '(none)',
   ].join('\n');
-  const subject = `Website contact from ${fields.name.replace(/[\r\n]+/g, ' ')}`;
+  const sender = fields.name.replace(/[\r\n]+/g, ' ');
+  const subject = whitepaper
+    ? `Whitepaper request ${whitepaperId} from ${sender}`
+    : `Website contact from ${sender}`;
 
   try {
     await context.env.CONTACT_EMAIL.send({

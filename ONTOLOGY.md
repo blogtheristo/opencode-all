@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.11 [Latest]
+Version: 1.12 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.11 [Latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: Additive **Appendix E.1** — the dictionary `ontologyId` values and the section of this document each one points to. HIC 28.09.2026: every blog SEO term is bound to the ontology (BLOG_STANDARD §16), so the 13 SEO terms that were `none` got ids; two ids are new (`dws_platform`, `process_model`).
+- Version: 1.12 [Latest] | Tool: Claude Code | Session: claude/aegis-disclosure-depth | Date: 01.10.2026 | Changes: Additive **§16.7 Acceptance and evidence vocabulary (Aegis)** — acceptance test, stop authority, seal, evidence bundle, retention lock, whitepaper on request; dictionary ids `agent_auditing` / `kya_governance` (no new id). Detail lives in WP13 (Truth Standard §2J).
+- Version: 1.11 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: Additive **Appendix E.1** — the dictionary `ontologyId` values and the section of this document each one points to. HIC 28.09.2026: every blog SEO term is bound to the ontology (BLOG_STANDARD §16), so the 13 SEO terms that were `none` got ids; two ids are new (`dws_platform`, `process_model`).
 - Version: 1.10 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Additive **Appendix F** — binds ontology vocabulary to the admin documentation that operationally explains it. Appendices D/E answer what a term is called; F answers where it is documented. Adds `scripts/ontology-admin-index.mjs` (deterministic, no model per Rule 5) generating `docs/ontology/admin-term-index.json` from CCP seed terms + `kb/wiki/concepts/` + every heading under `Admin/`, plus `npm run ontology:index` / `ontology:lookup`. Pointers only — `Admin/` stays source-of-truth, nothing is copied. Paired with a new CLAUDE.md resolver rule obliging agents to look up a term before asserting how a system works; written after a session gave the HIC three rounds of wrong Cloudflare Tunnel instructions while the correct runbook sat unread in `Admin/ADMIN_MANUAL.md`.
 - Version: 1.9 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
 - Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
@@ -1973,6 +1974,19 @@ Recorded rather than silently applied, per Rule 12:
    corrected to _Vertrauenswert_ (trust value/score).
 
 ---
+
+### 16.7 Acceptance and evidence vocabulary — Aegis (v1.12, 01.10.2026)
+
+Public pages use these terms at decision level; the implementation is in WP13 _When the Link Drops_ (on request, Truth Standard §2J).
+
+| Term (EN / FI)                               | Meaning                                                                                                      | `ontologyId`     |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------- |
+| Acceptance test / Hyväksymistesti            | Customer-run test with the uplink cut: workflow completes, record has no gap, operator stops a running agent | `agent_auditing` |
+| Stop authority / Pysäytysvalta               | An operator's power to stop a running agent with the operator's own key, verified from the signed record     | `kya_governance` |
+| Seal / Sinetti                               | A fixed checkpoint of the record after which any change is detectable                                        | `agent_auditing` |
+| Evidence bundle / Todistepaketti             | What the customer receives to verify the record without the vendor                                           | `agent_auditing` |
+| Retention lock / Säilytyslukko               | Storage lock that can be extended but never shortened or removed                                             | `agent_auditing` |
+| Whitepaper on request / Whitepaper pyynnöstä | Implementation detail kept off public pages and sent by request                                              | `none`           |
 
 ## Appendix E: DWS Dictionary bind (additive, 2026-09-18)
 
