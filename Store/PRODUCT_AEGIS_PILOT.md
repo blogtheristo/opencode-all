@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.11, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.12, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -148,7 +148,7 @@ _Teksti v2.0.11, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`
 
 **Miksi testataan eikä luvata.** Tuotantohuoneessa verkkokatko on tuotantotapahtuma. Siksi työn, lokin ja pysäytyksen on toimittava ilman verkkoa, ja se todennetaan katkaisemalla yhteys, ei kirjoittamalla se tarjoukseen.
 
-**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Aegis-käyttöönotto (`DWS-AEGIS-001`) maksaa 59 990 euroa, ja pilotin hinta hyvitetään siitä kokonaan, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuspäivästä; maksettavaksi jää 40 000 euroa. Ylläpitotilaus (`DWS-AEGIS-SUB-001`) kattaa ajoympäristön ja hallintakerroksen päivitykset ja tietoturvakorjaukset, Lifetime World Model v2:n ja asiakaskohtaisen konfiguraation mallipäivitykset asiakkaan hyväksynnällä sekä tuen ja operoinnin: Standard 999 €/kk (vakiotuki), Defence 1 999 €/kk (prioriteettituki, vasteaika 4 tuntia) ja Sovereign 4 999 €/kk (sovittava palvelutaso). Laitteisto ei sisälly. Integraatiot, joita Lifetime Oy:llä ei ole valmiina, tilataan erikseen ja toteutetaan tuntityönä; Lifetime Oy:n valmiit integraatiot sisältyvät. Hyvitys ei riipu hyväksymistestin tuloksesta: jos testi ei mennyt läpi ja jatkatte silti, hyvitys pätee samoin ehdoin. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
+**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Aegis-käyttöönotto (`DWS-AEGIS-001`) maksaa 59 990 euroa, ja pilotin hinta hyvitetään siitä kokonaan, jos jatkatte tuotantoon kuuden kuukauden kuluessa loppuraportin luovutuspäivästä; maksettavaksi jää 40 000 euroa. Ylläpitotilaus (`DWS-AEGIS-SUB-001`) kattaa ajoympäristön ja hallintakerroksen päivitykset ja tietoturvakorjaukset, Lifetime World Model v2:n ja asiakaskohtaisen konfiguraation mallipäivitykset asiakkaan hyväksynnällä sekä tuen ja operoinnin: Standard 999 €/kk (vakiotuki), Defence 1 999 €/kk (prioriteettituki, vasteaika 4 tuntia tukipyynnön vastaanotosta, ympäri vuorokauden) ja Sovereign 4 999 €/kk (sovittava palvelutaso). Laitteisto ei sisälly. Integraatiot, joita Lifetime Oy:llä ei ole valmiina, tilataan erikseen ja toteutetaan tuntityönä; Lifetime Oy:n valmiit integraatiot sisältyvät. Hyvitys ei riipu hyväksymistestin tuloksesta: jos testi ei mennyt läpi ja jatkatte silti, hyvitys pätee samoin ehdoin. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
 
 **Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
@@ -160,7 +160,7 @@ _Teksti v2.0.11, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`
 **Vastuut.**
 
 - **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; verkon eristys asiakkaan omalla kytkimellä tai palomuurilla, tai Lifetime Oy:n toimittamalla teollisuuskytkimellä ja palomuurilla, jotka laskutetaan laiteriveinä. Hyväksymistestin aikana eristystä hallinnoi aina asiakas, ei Lifetime Oy eikä Aegis.
-- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa. Pilotin aikana tukipyyntöihin vastataan 48 tunnin kuluessa.
+- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa. Pilotin aikana tukipyyntöihin vastataan 48 tunnin kuluessa toimistoaikana (arkipäivisin).
 - **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
 
 **Laitekokoonpano.** Valitaan vaiheen 0 laitekatselmoinnissa ja laskutetaan hinnaston riveinä:
@@ -220,3 +220,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.9, 01.10.2026: Boardy: ylläpitotilauksen sisältö lisätty (lähteet: `products.json` DWS-AEGIS-SUB-001 features/exclusions, `Store/PRODUCT_AEGIS.md:187–189` tiers, HIC 01.10.2026 mallipäivitys ylläpidossa). Boardy hyväksyi v2.0.7:n 14 päivän takarajan ja tulosriippumattoman hyvityksen. Standard-tuen vasteaika puuttuu lähteistä.
 - v2.0.10, 01.10.2026: HIC: tuen vasteaika pilotin aikana 48 tuntia. Tuotannon Standard-tason vasteaika edelleen auki.
 - v2.0.11, 01.10.2026: HIC-ehdotus: "tilaamattomat integraatiot" → erikseen tilattavat integraatiot tuntityönä, paitsi Lifetime Oy:n valmiit integraatiot. Valmiiden integraatioiden lista ja tuntihinta puuttuvat.
+- v2.0.12, 01.10.2026: Boardy + HIC-merkintä: Defence-tuen 4 h lasketaan tukipyynnön vastaanotosta, ympäri vuorokauden (tuotannon ylläpito); pilotin 48 h toimistoaikana. Standard-vasteaika ja toimistoajan kellonajat auki; Sovereign-tukitason nimen törmäys suvereniteettiluokkaan auki.
