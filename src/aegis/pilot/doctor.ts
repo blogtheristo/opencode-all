@@ -12,11 +12,28 @@ import { spawnSync } from 'node:child_process';
 import { SiteAuthority } from './identity.js';
 import { checkLocalFilesystem } from './acceptance.js';
 import { verifySegments } from './ledger-segments.js';
+import { loadSiteConfig, operatorCopyDirs, type SiteConfig } from './site-config.js';
+
+/**
+ * Can the owner of the state directory write `dir`? The copy directory must be out of the
+ * site key holder's reach (EVIDENCE_FORMAT_v1.md §7). Root owns everything it runs as.
+ */
+export function writableByStateOwner(stateDir: string, dir: string): boolean {
+  const owner = statSync(stateDir);
+  const st = statSync(dir);
+  const mode = st.mode & 0o777;
+  if (owner.uid === 0) return true;
+  if (mode & 0o002) return true;
+  if (st.uid === owner.uid && mode & 0o200) return true;
+  return st.gid === owner.gid && (mode & 0o020) !== 0;
+}
 
 export interface DoctorCheck {
   check: string;
   ok: boolean;
   detail: string;
+  /** A warning is reported with ok: true; it does not fail the doctor. */
+  level?: 'warning';
 }
 
 export interface DoctorResult {
@@ -123,6 +140,49 @@ export function doctor(stateDir: string, pin?: string | null): DoctorResult {
       true,
       `not on Linux; isolation tool check skipped (${process.platform})`,
     );
+  }
+
+  // 7–8. Operator command copies (anchoring level 1): out of the site key holder's reach,
+  // with a named retention lock. Warnings — the lock itself is storage configuration.
+  let config: SiteConfig | null = null;
+  try {
+    config = loadSiteConfig(stateDir);
+  } catch (err) {
+    push('site-config', false, (err as Error).message);
+  }
+  const warn = (check: string, detail: string) =>
+    checks.push({ check, ok: true, level: 'warning', detail });
+  if (config) {
+    const { dir, wormDir } = operatorCopyDirs(config);
+    for (const [name, d] of [
+      ['operator-copies-dir', dir],
+      ['operator-worm-dir', wormDir],
+    ] as const) {
+      try {
+        if (!existsSync(d))
+          warn(name, `${d} does not exist yet (created by the first stop/decide)`);
+        else if (writableByStateOwner(stateDir, d))
+          warn(
+            name,
+            `${d} is writable by the state-dir owner: the site key holder can rewrite the copies`,
+          );
+        else push(name, true, `${d} not writable by the state-dir owner`);
+      } catch (err) {
+        warn(name, `${d}: ${(err as Error).message}`);
+      }
+    }
+    const lock = config.operatorCopies.lock;
+    if (lock)
+      push(
+        'operator-copies-lock',
+        true,
+        `retention lock named: ${lock.target}, ${lock.retention}, held by ${lock.lockHolderRole} (storage configuration; not verified by code)`,
+      );
+    else
+      warn(
+        'operator-copies-lock',
+        'retention lock unverified: site/anchoring.json names no lock (target, retention, lockHolderRole)',
+      );
   }
 
   const ok = checks.every((c) => c.ok);

@@ -16,10 +16,14 @@
  *                   (--operator-credential C --operator-key K | --await-operator [--timeout-s 600])
  *                   [--witness W] [--hold] [--stop-mode hard|cooperative] [--containment worker|openshell [--image I] [--openshell-prover P --expect-prover-sha256 H]] [--handlers M] [--readings R] [--report-dir P] [--sync-url U|none]
  *   stop            --state-dir D --agent ID|'*' --operator-credential C --operator-key K --reason R
+ *                   [--operator-copies-dir DIR] [--worm-dir DIR]   (copy + WORM record of the signed command;
+ *                   defaults from site/anchoring.json, else ~/.aegis-operator/{commands,worm})
  *   decide          --state-dir D --seq N --hash H --verdict accept|modify|reject|defer --reason R
  *                   [--modified-file F (modify: the recommendation as changed)]
  *                   [--capture manual_entry --occurred-at ISO (a decision entered afterwards)]
- *                   --operator-credential C --operator-key K
+ *                   --operator-credential C --operator-key K [--operator-copies-dir DIR] [--worm-dir DIR]
+ *   erase-command-body --state-dir D --digest H --reason-code data-subject-request|retention-ended|data-minimisation|legal-order
+ *                   [--worm-dir DIR]   (erase a command body; records evidence.redacted + WORM tombstone)
  *   drain-decisions --state-dir D            (site side: record queued decisions; a running `run` does this itself)
  *   outcome         --state-dir D --decision-seq N --decision-hash H --result positive|negative|neutral|unknown
  *                   [--metrics '{"eur_estimated":142.5}'] [--evidence-ref REF]
@@ -34,7 +38,7 @@
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
  *   export          --state-dir D --out DIR    copy evidence to DIR, with manifest.json and manifest.sig
- *   verify-bundle   --bundle DIR (--expect-key-id K | --allow-unpinned)   verify evidence bundle
+ *   verify-bundle   --bundle DIR (--expect-key-id K | --allow-unpinned) [--operator-copies DIR]   verify evidence bundle
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
@@ -99,6 +103,16 @@ import {
 } from '../src/aegis/pilot/index.js';
 import { canonicalJSON, sha256 } from '../src/aegis/pilot/crypto.js';
 import { exportBundle, verifyBundle } from '../src/aegis/pilot/bundle.js';
+import {
+  type CommandKind,
+  eraseCommandBody,
+  ledgerHeadForOperator,
+  loadSiteConfig,
+  operatorCopyDirs,
+  writeDefaultSiteConfig,
+  writeOperatorCopies,
+  writeWormTombstone,
+} from '../src/aegis/pilot/index.js';
 
 const { values: a, positionals } = parseArgs({
   allowPositionals: true,
@@ -152,6 +166,11 @@ const { values: a, positionals } = parseArgs({
     'modified-file': { type: 'string' },
     out: { type: 'string' },
     bundle: { type: 'string' },
+    'operator-copies': { type: 'string' },
+    'operator-copies-dir': { type: 'string' },
+    'worm-dir': { type: 'string' },
+    digest: { type: 'string' },
+    'reason-code': { type: 'string' },
   },
 });
 
@@ -309,6 +328,37 @@ function withLedger(site: SiteAuthority, fn: (ledger: EvidenceLedger) => void): 
   }
 }
 
+/**
+ * Operator side, after the command is queued: keep a copy of what was signed outside the
+ * state directory (EVIDENCE_FORMAT_v1.md §7). Never blocks the command: a failure is
+ * reported, the stop or decision stands.
+ */
+function keepOperatorCopies(
+  stateDir: string,
+  kind: CommandKind,
+  command: Record<string, unknown>,
+  credential: ReturnType<typeof loadCredential>,
+  issuedAgainst: ReturnType<typeof ledgerHeadForOperator>,
+): Record<string, unknown> {
+  try {
+    const dirs = operatorCopyDirs(loadSiteConfig(stateDir), {
+      dir: a['operator-copies-dir'],
+      wormDir: a['worm-dir'],
+    });
+    const w = writeOperatorCopies({ kind, command, credential, issuedAgainst, ...dirs });
+    return {
+      written: true,
+      copyPath: w.copyPath,
+      wormPath: w.wormPath,
+      commandDigest: w.worm.command_digest,
+    };
+  } catch (err) {
+    const error = err instanceof Error ? err.message : String(err);
+    process.stderr.write(`warning: operator copy not written: ${error}\n`);
+    return { written: false, error };
+  }
+}
+
 function scopeDigestOf(scope: PilotScope): string {
   return sha256(canonicalJSON(scope));
 }
@@ -318,6 +368,8 @@ async function main(): Promise<void> {
   switch (cmd) {
     case 'init': {
       const site = SiteAuthority.init(need('state-dir'), need('site-id'));
+      // The anchoring schedule is active from install (no pilot-mode exception).
+      writeDefaultSiteConfig(site.stateDir);
       const ledger = EvidenceLedger.open(statePaths(site.stateDir).ledger, {
         siteId: site.manifest.siteId,
         orgId: a['org-id'] ?? site.manifest.siteId,
@@ -520,10 +572,12 @@ async function main(): Promise<void> {
     }
     case 'stop': {
       const stateDir = need('state-dir');
+      const credential = loadCredential(need('operator-credential'));
+      const issuedAgainst = ledgerHeadForOperator(stateDir);
       const command = createStopCommand({
         target: need('agent'),
         reason: need('reason'),
-        operatorCredential: loadCredential(need('operator-credential')),
+        operatorCredential: credential,
         operatorKey: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
       });
       const path = submitStopCommand(stateDir, command);
@@ -533,6 +587,13 @@ async function main(): Promise<void> {
         commandId: command.commandId,
         target: command.target,
         inboxPath: path,
+        operatorCopy: keepOperatorCopies(
+          stateDir,
+          'stop',
+          command as unknown as Record<string, unknown>,
+          credential,
+          issuedAgainst,
+        ),
       });
       break;
     }
@@ -540,6 +601,8 @@ async function main(): Promise<void> {
       // Operator side, like `stop`: sign and drop the command. Never loads the site key —
       // the site process that owns the ledger records it (a running `run`, or `drain-decisions`).
       const stateDir = need('state-dir');
+      const credential = loadCredential(need('operator-credential'));
+      const issuedAgainst = ledgerHeadForOperator(stateDir);
       const command = createDecisionCommand({
         recommendationSeq: intArg('seq'),
         recommendationHash: need('hash'),
@@ -550,10 +613,17 @@ async function main(): Promise<void> {
         modifiedRecommendation: a['modified-file']
           ? JSON.parse(readFileSync(resolve(a['modified-file']), 'utf8'))
           : undefined,
-        operatorCredential: loadCredential(need('operator-credential')),
+        operatorCredential: credential,
         operatorKey: privateKeyFromPem(readFileSync(need('operator-key'), 'utf8')),
       });
       const path = submitDecisionCommand(stateDir, command);
+      const operatorCopy = keepOperatorCopies(
+        stateDir,
+        'decide',
+        command as unknown as Record<string, unknown>,
+        credential,
+        issuedAgainst,
+      );
       out({
         ok: true,
         command: cmd,
@@ -566,7 +636,34 @@ async function main(): Promise<void> {
           Date.parse(command.issuedAt) + DECISION_COMMAND_MAX_AGE_MS,
         ).toISOString(),
         next: 'a running `run` records it within 200 ms; otherwise the site runs `drain-decisions` before recordBy',
+        operatorCopy,
       });
+      break;
+    }
+    case 'erase-command-body': {
+      // Site side: erase one operator command body (its free-text reason with it). The chain
+      // keeps the operator's framed digest signature; evidence.redacted records the erasure.
+      const stateDir = need('state-dir');
+      const site = SiteAuthority.load(stateDir);
+      const ledger = openSiteLedger(site);
+      let tombstone;
+      try {
+        tombstone = eraseCommandBody(stateDir, ledger, need('digest'), need('reason-code'));
+      } finally {
+        ledger.close();
+      }
+      let worm: Record<string, unknown>;
+      try {
+        const { wormDir } = operatorCopyDirs(loadSiteConfig(stateDir), { wormDir: a['worm-dir'] });
+        worm = { written: true, path: writeWormTombstone(wormDir, tombstone) };
+      } catch (err) {
+        worm = { written: false, error: err instanceof Error ? err.message : String(err) };
+      }
+      // The tombstone is printed either way, so it can be placed in the WORM mirror by hand.
+      out(
+        { ok: worm.written === true, command: cmd, tombstone, wormRecord: worm },
+        worm.written === true ? 0 : 1,
+      );
       break;
     }
     case 'drain-decisions': {
@@ -784,7 +881,9 @@ async function main(): Promise<void> {
     }
     case 'verify-bundle': {
       const bundleDir = need('bundle');
-      const result = verifyBundle(bundleDir, a['expect-key-id']);
+      const result = verifyBundle(bundleDir, a['expect-key-id'], new Date(), {
+        operatorCopies: a['operator-copies'],
+      });
       // Without a pin the bundle is only checked against the key it carries, so a forged
       // bundle would verify. ok stays integrity-only; authenticity is stated separately.
       const keyPinned = a['expect-key-id'] !== undefined && a['expect-key-id'] === result.keyId;
@@ -831,6 +930,7 @@ async function main(): Promise<void> {
             'stop',
             'decide',
             'drain-decisions',
+            'erase-command-body',
             'outcome',
             'journey',
             'verify',

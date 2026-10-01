@@ -51,6 +51,7 @@ import {
   type SegmentEvents,
   verifyOperatorEvidence,
 } from './operator-evidence.js';
+import { type OperatorCopiesResult, verifyOperatorCopies } from './operator-copies.js';
 import { docVersion, KIT_ROOT, PROVENANCE_SOURCES, versionAtLeast } from './provenance.js';
 
 /** The auditor guide shipped in every bundle (C6). */
@@ -87,6 +88,8 @@ export interface VerifyResult {
   failures: string[];
   /** Key id computed from the bundled public key (what the pin is compared with). */
   keyId: string | null;
+  /** With `operatorCopies`: what the operator-held copies showed. */
+  operatorCopies?: OperatorCopiesResult;
 }
 
 const toPosix = (p: string) => p.split(sep).join('/');
@@ -203,13 +206,19 @@ export function verifyBundle(
   bundleDir: string,
   expectKeyId?: string,
   now = new Date(),
+  opts: {
+    /** Directory of operator command copies / WORM records (EVIDENCE_FORMAT_v1.md §7). */
+    operatorCopies?: string;
+  } = {},
 ): VerifyResult {
   const root = resolve(bundleDir);
   const failures: string[] = [];
+  let operatorCopies: OperatorCopiesResult | undefined;
   const done = (computed: string | null): VerifyResult => ({
     ok: failures.length === 0,
     failures,
     keyId: computed,
+    ...(operatorCopies ? { operatorCopies } : {}),
   });
 
   let manifest: BundleManifest;
@@ -302,14 +311,19 @@ export function verifyBundle(
     onDisk.filter((r) => r.startsWith('command-bodies/')),
     failures,
   );
-  failures.push(
-    ...verifyOperatorEvidence(bySegment, {
-      site: siteManifest,
-      credentials,
-      bodies,
-      redacted: redactedDigests(bySegment),
-    }),
-  );
+  const operatorCtx = {
+    site: siteManifest,
+    credentials,
+    bodies,
+    redacted: redactedDigests(bySegment),
+  };
+  failures.push(...verifyOperatorEvidence(bySegment, operatorCtx));
+  if (opts.operatorCopies !== undefined) {
+    operatorCopies = verifyOperatorCopies(resolve(opts.operatorCopies), bySegment, operatorCtx, {
+      anyPruned: chain.segments.some((s) => s.pruned),
+    });
+    failures.push(...operatorCopies.failures);
+  }
   for (const e of events)
     if (
       e.event_type === 'acceptance.record' &&
