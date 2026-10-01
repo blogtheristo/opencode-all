@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.16, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.17, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -178,7 +178,7 @@ _Teksti v2.0.16, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`
 2. Lokiin ei jää aukkoa.
 3. Operaattori pysäyttää käynnissä olevan agentin omalla avaimellaan, ja pysäytys todennetaan allekirjoitetusta lokista, ei agentin omasta raportista.
 
-Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, ja se raportoidaan. Lokin ketju sinetöidään testin alussa ja lopussa, ja sinetin tarkistussumma kirjataan asiakkaan omaan rekisteriin, jotta loki voidaan myöhemmin tarkistaa laatikon ulkopuolelta. Tuotannossa ketju sinetöidään jokaisessa vuoronvaihdossa ympärivuorokautisissa kohteissa ja muualla vähintään kerran vuorokaudessa; sinetin tiiviste viedään automaattisesti asiakkaan omaan järjestelmään (esimerkiksi SIEM tai syslog), ja jokaisesta operaattorin allekirjoittamasta komennosta jää kopio operaattorin työasemalle. Näin poistettua tai uudelleen kirjoitettua historiaa ei voi piilottaa sinetöintien välissäkään.
+Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, ja se raportoidaan. Lokin ketju sinetöidään testin alussa ja lopussa, ja sinetin tarkistussumma kirjataan asiakkaan omaan rekisteriin, jotta loki voidaan myöhemmin tarkistaa laatikon ulkopuolelta. Tuotannossa ketju sinetöidään jokaisen operaattorin pysäytyksen ja konfiguraatiomuutoksen jälkeen, jokaisessa vuoronvaihdossa ympärivuorokautisissa kohteissa ja muualla vähintään kerran vuorokaudessa; myöhässä olevasta sinetistä hälytetään. Jokaisesta operaattorin allekirjoittamasta komennosta jää kopio paikkaan, johon laitoksen avaimen haltijalla ei ole kirjoitusoikeutta, ja sinetin tiiviste viedään automaattisesti asiakkaan järjestelmään, jota ylläpitää eri henkilö kuin laatikkoa. Paikat ja ylläpitäjät nimetään vaiheen 0 rajauksessa. Näin poistettua tai uudelleen kirjoitettua historiaa ei voi piilottaa sinetöintien välissäkään.
 
 **Mittarit.** Päätöspolun kattavuus (kuinka moni agentin suositus päätyi kirjattuun ihmisen päätökseen, keskeytyneet polut mukaan lukien) ja operaattorin aika per päätös. Jokaisesta päätöksestä tallentuu, kuka päätti, mitä päätettiin ja hyväksyttiinkö suositus, muutettiinko sitä vai hylättiinkö se; muutos ja hylkäys vaativat perustelun. Hylätyt ja keskeytyneet polut säilyvät, koska myös ne ovat todistusaineistoa. Sääntelyvaatimukset ovat perustelu, eivät syy ostaa.
 
@@ -225,3 +225,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.14, 01.10.2026: Boardy (auditoitu, johtopäätös pitää, premissi osin väärin): todistusvoiman rajaus lisätty. Ketju on allekirjoitettu laitoksen avaimella, mutta avain on samassa laatikossa, joten ennen sinetöintiä kirjoitusoikeuden haltija voi kirjoittaa ketjun uudelleen.
 - v2.0.15, 01.10.2026: HIC (Boardyn huomio): pilotin 48 h toimistoaikaa poistettu (vastasi noin kuutta työpäivää ja oli heikompi kuin halvin tuotantotaso). Pilotille nimetty yhteyshenkilö ja Standard-taso: vastaus seuraavana arkipäivänä.
 - v2.0.16, 01.10.2026: HIC: tuotannon sinetöintiväli (vuoronvaihto 24/7-kohteissa, muuten vähintään vuorokausittain), automaattinen tiivisteen vienti asiakkaan järjestelmään ja operaattorin komentokopiot työasemalle. Vienti ja kopiot toteutetaan opencode-tehtävässä `aegis-evidence-ten-year-verify` (kohdat 8–9).
+- v2.0.17, 01.10.2026: Boardy (auditoitu, pitää): sinetöinti myös pysäytyksen ja konfiguraatiomuutoksen jälkeen; myöhästyneen sinetin hälytys; komentokopiot ja tiivisteen vienti paikkaan, jonka ylläpitäjä on eri kuin laatikon (tehtävien eriyttäminen nimetään vaiheessa 0).

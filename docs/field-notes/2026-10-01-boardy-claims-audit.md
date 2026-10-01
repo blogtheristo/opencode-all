@@ -98,6 +98,9 @@ Boardyn (tai minkä tahansa avustajan) faktaväite kirjataan tähän lokiin tuom
 
 | 39 | Pelkkä SHA-256-ketju ei ole allekirjoitettu; sitovat vain tapahtuman kattava allekirjoitus ja laatikon ulkopuolinen sinetti | **JOHTOPÄÄTÖS PITÄÄ, PREMISSI OSIN VÄÄRIN** | Jokainen `event_hash` on allekirjoitettu laitoksen Ed25519-avaimella (`evidence-ledger.ts:12–13`), mutta avain on samassa laatikossa (`state/site/site.key`, `doctor.ts:51`), joten kirjoitusoikeuden ja avaimen haltija voi kirjoittaa ja allekirjoittaa ketjun uudelleen ennen sinetöintiä. Sinetin ankkuri laatikon ulkopuolella on manuaalinen (`ledger-segments.ts:37–39`). Lisäys: operaattorin allekirjoittaman tapahtuman voi silti poistaa ennen sinetöintiä huomaamatta, ellei operaattorin komennoista ole kopiota laatikon ulkopuolella (ankkurointitaso 1). Rajaus lisätty tekstiin v2.0.14. |
 
+| 40 | Kysymys ei ole allekirjoituksen puute vaan avaimen säilytys: avain samassa laatikossa kuin kirjoitusoikeus ei ole kontrolliraja | **PITÄÄ** | Boardyn korjaus riviin 39. `state/site/site.key` (`doctor.ts:51`). |
+| 41 | Komentokopio ja tiivisteen vienti ovat yhtä vahvoja kuin paikka: jos laatikon ylläpitäjä pääsee kopioon tai SIEMiin, aukko siirtyy; lisäksi hälytys myöhästyneestä sinetistä ja sinetöinti pysäytyksen/konfiguraatiomuutoksen jälkeen | **PITÄÄ (suunnitteluperiaate)** | Ei lähdeväite vaan tehtävien eriyttämisen periaate. Tehtäväkuvaukseen kohta 10; teksti v2.0.17. RFC 3161 -aikaleima: tutkitaan, ei tekstiin. |
+
 ## Ratkaisu ankkurointiin (ehdotus, HIC päättää)
 
 Ongelma: välillä seal → seal ketjun eheys nojaa isäntään, jolla on site-avain ja kirjoitusoikeus.
