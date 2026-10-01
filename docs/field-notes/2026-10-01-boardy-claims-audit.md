@@ -13,9 +13,28 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 01.10.2026
+- Last Modified: 01.10.2026
+- Language: Finnish
+- Languages Available: Suomi
+- Publication Status: ACTIVE
+- Harness: Claude Code (web) + CLAUDE.md
+- HIC-approved-drift: none
 - Status: ACTIVE. Tämä on lähdeloki: tekstiin saa viedä vain rivit, joiden tuomio on PITÄÄ tai OSIN ja korjattu muoto.
 
 ---
+
+- **Date:** 2026-10-01
+- **Author:** Claude Code for risto.paarni@lifetime.fi
+- **Location:** Espoo, FI (remote session)
+- **Context:** Advisor (Boardy) claims on Aegis pilot hardware, ownership, keys and verification
+
+## Ontology Tags
+
+- **Geography:** Europe > Finland, Germany, Austria, Switzerland
+- **Sector:** Industrial automation > edge AI hardware > sovereignty classification
+- **Entities:** Beckhoff, Siemens, Kontron, Ennoconn, ABB, Intel, NVIDIA, Lifetime Oy
+- **Temporal Context:** 2026-10-01
+- **Confidence:** Medium (search snippets; WebFetch blocked)
 
 ## Sääntö tästä eteenpäin (HIC 01.10.2026)
 
@@ -106,3 +125,12 @@ Suositus pilotille: tasot 0, 1 ja 3. Ne vastaavat CISO:n kysymykseen "kuka voi k
 ## HIC-päätös
 
 §3.6 tarvitsee kaksi lausetta ennen kuin Siemensiä, ABB:tä tai Kontronia luokitellaan: (1) miten hajautetusti omistettu listattu eurooppalainen yhtiö luetaan, (2) miten EFTA (CH) ja ei-US-määräysvalta (TW 48 %) luetaan. Kirjoitanko ehdotuksen `DWS_STANDARDS_LIBRARY.md` §3.6:een tilaan PENDING_REVIEW?
+
+## The Insight
+
+An advisor that speaks with confidence was right on most points and wrong on a few that would have reached customer text. A per-claim log with verdict and link is cheaper than a correction after publication.
+
+## Next Steps
+
+1. Every advisor claim enters this log before customer text.
+2. Model-level hardware research per `.claude/handoffs/claude/aegis-next-session-prompt.md`.
