@@ -19,6 +19,8 @@ Document Status:
 
 ## Periaate
 
+**Laitteistosääntö (HIC 01.10.2026).** Pilotti toimitetaan meidän laitteillamme tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla. Hinnastossa on yksi solmu (`edge-node-gn100`, `LF-DGX-SPARK`) ja kaksi solmua (`LF-SITROOM-001`), kaikki NVIDIA GB10 Grace Blackwell -luokkaa (1 PFLOPS FP4, 128 GB). IGX Orin ei ole DGX-yhteensopiva eikä kelpaa laskentasolmuksi.
+
 Pilotin neljä paikallista vaatimusta (suoritus, identiteetti, loki, pysäytys) toteutuvat laitteistolla, joka on tuotantohuoneessa ja toimii ilman verkkoa. Kaavio on jaettu kerroksiin: syötteet, laskenta, operaattori, verkko ja tallennus. Hinnaston tuote on merkitty SKU:lla. Osa, jota hinnastossa ei ole, on merkitty **PUUTTUU**.
 
 ## Kaavio
@@ -42,7 +44,8 @@ flowchart TB
   subgraph LASKENTA["Laskentakerros, tuotantohuone"]
     DGX["NVIDIA DGX Spark<br/>agenttiparvi, paikallinen malli<br/>LF-DGX-SPARK"]
     GN["Acer Veriton GN100<br/>Control Room -solmu<br/>edge-node-gn100"]
-    IGX["IGX Orin, teollisuusluokka<br/>vaihtoehto kovaan ympäristöön<br/>LF-IGX-ORIN"]
+    SIT["Situation Room, 2x GN100<br/>kahden solmun varmennus<br/>LF-SITROOM-001"]
+    OWN["Asiakkaan oma laitteisto<br/>vain 100 % NVIDIA DGX -yhteensopiva (GB10)"]
     K8S["k3s, yksi solmu<br/>LF-K8S-T1 (HA: LF-K8S-T2)"]
     NIM["NIM Starter + Retrieval<br/>LF-NIM-STARTER, LF-NIM-RETRIEVAL"]
     INST["Mallien asennus ja palvelu<br/>LF-NVIDIA-INSTALL"]
@@ -72,7 +75,8 @@ flowchart TB
   GW1 & GW2 & JA & OTGW --> SW
   SW --> DGX
   DGX --- GN
-  DGX --- IGX
+  DGX --- SIT
+  DGX -. tai .- OWN
   K8S --- DGX
   NIM --- DGX
   INST --- DGX
@@ -95,7 +99,6 @@ flowchart TB
 | Laskenta   | NVIDIA DGX Spark                  | `LF-DGX-SPARK`                         | Agenttiparvi ja paikallinen malli, oletusvalinta      |
 | Laskenta   | Acer Veriton GN100 Control Room   | `edge-node-gn100`                      | Pienempi työnkulku tai toinen solmu                   |
 | Laskenta   | Situation Room, kaksi solmua      | `LF-SITROOM-001`                       | Kun tarvitaan kahden solmun varmennus                 |
-| Laskenta   | IGX Orin                          | `LF-IGX-ORIN`                          | Teollisuusluokan vaihtoehto kovaan ympäristöön        |
 | Alusta     | k3s, yksi solmu                   | `LF-K8S-T1`                            | Suorituksen orkestrointi; HA `LF-K8S-T2`              |
 | Alusta     | NIM Starter, NIM Retrieval        | `LF-NIM-STARTER`, `LF-NIM-RETRIEVAL`   | Mallipalvelu ja haku paikallisesti                    |
 | Palvelu    | NVIDIA-mallien asennus ja palvelu | `LF-NVIDIA-INSTALL`                    | Käyttöönotto                                          |

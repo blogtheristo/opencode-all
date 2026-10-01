@@ -76,3 +76,4 @@ Lisätäänkö kolmen kysymyksen testi `DWS_ROLES_REGISTRY.md` §5:een pysyvän�
 - HIC: pilotti on kokonaistoimitus. Laitekaavio hinnaston tuotteista: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Yhdeksän puuttuvaa osaa nimetty (operaattorin laiteavain ja työasema, kestotallennus, kytkin, palomuuri, aikalähde, UPS, teline, vain-luku OT-yhdyskäytävä).
 - Ristiriita: EN Store-sivu sanoo "Hardware: None purchased" ja rajaa laitetoimituksen hyvityksen ulkopuolelle. Vaihtoehdot A/B kaaviotiedoston lopussa. Ei ratkaistu tässä PR:ssä; `products.json` ei muutettu.
 - "Ohjaustiedot" kirjoitettu muotoon "ohjaussuositukset", koska "No physical control" on voimassa.
+- HIC: pilotti toimitetaan meidän laitteillamme tai 100 % NVIDIA DGX -yhteensopivalla laitteistolla. Hinnaston 1x (`edge-node-gn100`, `LF-DGX-SPARK`) ja 2x (`LF-SITROOM-001`) GB10-solmut ovat laskentakerros. IGX Orin poistettu kaaviosta, ei DGX-yhteensopiva.
