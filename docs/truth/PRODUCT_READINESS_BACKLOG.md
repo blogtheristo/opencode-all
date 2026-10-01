@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/product-readiness-backlog.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.34. Do not edit by hand; run the script. HIC 27.09.2026: "generate a roadmap/backlog entry per product for anything not finished" — report-only, never gates a sale.
+- Version: 1.35 [Latest] | Tool: scripts/truth/product-readiness-backlog.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.35. Do not edit by hand; run the script. HIC 27.09.2026: "generate a roadmap/backlog entry per product for anything not finished" — report-only, never gates a sale.
 
 Document Status:
 
@@ -1661,7 +1661,7 @@ Version bucket: next — proposed backlog issues:
 
 Version bucket: current — implemented facts:
 
-- Priced: €6109 EUR (one-time)
+- Priced: €8008 EUR (one-time)
 - 3 documented feature(s)
 - Managed delivery contract in force — checkout: /checkout/?product=LF-DGX-SPARK (self-serve-fallback)
 - Binary acceptance KPI defined
@@ -2141,7 +2141,7 @@ Version bucket: next — proposed backlog issues:
 
 Version bucket: current — implemented facts:
 
-- Priced: €11598 EUR (one-time)
+- Priced: €16016 EUR (one-time)
 - 4 documented feature(s)
 - Managed delivery contract in force — checkout: /checkout/?product=LF-SITROOM-001 (self-serve-fallback)
 - Binary acceptance KPI defined

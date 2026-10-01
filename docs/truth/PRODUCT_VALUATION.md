@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/product-valuation.mjs | Changes: Generated from dws10.com/config/products.json 1.34 and config/truth/product-valuation-model.json (as of 2026-09-25). Do not edit by hand.
+- Version: 1.35 [Latest] | Tool: scripts/truth/product-valuation.mjs | Changes: Generated from dws10.com/config/products.json 1.35 and config/truth/product-valuation-model.json (as of 2026-09-25). Do not edit by hand.
 
 Document Status:
 
@@ -22,13 +22,13 @@ Document Status:
 
 | Measure | Low | Central | High |
 | --- | --- | --- | --- |
-| Published products: present value (81 offers) | €338k | €677k | €1.35M |
+| Published products: present value (81 offers) | €339k | €677k | €1.35M |
 | Unpublished products: present value (65 BLUE offers, probability × 0.5) | €70k | €139k | €279k |
-| **All products** (146 offers) | €408k | €816k | €1.63M |
+| **All products** (146 offers) | €408k | €817k | €1.63M |
 | Repository as product-development environment: AI-assisted rebuild cost | €1.41M | — | €2.35M |
 | Repository: traditional rebuild cost (basic COCOMO, 277 KSLOC, 880 person-months) | — | €7.04M | — |
 
-Sum of product TAMs: €2.53B per year. Year-5 obtainable revenue (SOM): €3.43M. Documented R&D (hours ledger 2018–09/2025): €778k; capitalised on the balance sheet: €594k.
+Sum of product TAMs: €2.54B per year. Year-5 obtainable revenue (SOM): €3.44M. Documented R&D (hours ledger 2018–09/2025): €778k; capitalised on the balance sheet: €594k.
 
 Unpublished products are valued at 0.5 × their family probability: Unpublished offers (BLUE internal or pilot records, and planned products) are part of the valuation (HIC 25.09.2026: "Myös julkaisemattomat tuotteet ovat osa valuation"). They are not on sale yet, so their family probability is halved and they are reported as a separate subtotal. Planned products without a price have no TAM until the HIC prices them.
 
@@ -62,7 +62,7 @@ Unpriced or planned (no TAM yet): firehorse-mobile.
 | firehorse | 9 | 0.10 % | 4x | 0.2 | €106.06M | €23k |
 | data | 4 | 0.30 % | 6x | 0.2 | €226.65M | €220k |
 | services | 18 | 0.05 % | 1x | 0.5 | €461.02M | €31k |
-| hardware | 11 | 0.10 % | 0.5x | 0.4 | €69.04M | €4k |
+| hardware | 11 | 0.10 % | 0.5x | 0.4 | €78.52M | €4k |
 | infra | 17 | 0.10 % | 3x | 0.25 | €294.51M | €59k |
 | agents365 | 56 | 0.10 % | 6x | 0.2 | €727.14M | €118k |
 | land | 9 | 0.10 % | 1.5x | 0.3 | €362.45M | €22k |
@@ -149,28 +149,28 @@ Unpriced or planned (no TAM yet): firehorse-mobile.
 | 76 | `IND-PROM` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €18k (monthly x 12) | €8.99M | €9k | €727 | €1k | €3k |
 | 77 | `IND-BESS` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €18k (monthly x 12) | €8.99M | €9k | €727 | €1k | €3k |
 | 78 | `FH-RPT-001` | yes | dwsiq | EU_CSRD_LARGE | 2,500 | €666 (one-time / 3 y) | €1.67M | €3k | €673 | €1k | €3k |
-| 79 | `claude-code-coaching-project` | yes | services | EU_MIDLARGE* | 2,500 | €8k (one-time, yearly purchase) | €18.75M | €9k | €631 | €1k | €3k |
-| 80 | `MO-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
-| 81 | `SG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
-| 82 | `LOG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
-| 83 | `SOV-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
-| 84 | `conversational-agent` | yes | firehorse | EU_MIDLARGE* | 5,000 | €1k (one-time / 3 y) | €5.83M | €6k | €628 | €1k | €3k |
-| 85 | `LAND-EUAI` | no (BLUE) | land | EU_MIDLARGE* | 500 | €40k (one-time, yearly purchase) | €20.00M | €20k | €606 | €1k | €2k |
-| 86 | `FH-CMS-001` | yes | firehorse | EU_MIDLARGE* | 5,000 | €1000 (one-time / 3 y) | €5.00M | €5k | €538 | €1k | €2k |
-| 87 | `LAND-AIL` | no (BLUE) | land | EU_MIDLARGE* | 500 | €35k (one-time, yearly purchase) | €17.50M | €17k | €530 | €1k | €2k |
-| 88 | `LIFETIME-WEBSTORE-MINI` | yes | sme | FI_SME* | 29,000 | €70 (one-time / 5 y) | €2.03M | €6k | €492 | €984 | €2k |
-| 89 | `LF-IGX-ORIN` | yes | hardware | EU_EDGE_SITES* | 6,000 | €3k (one-time / 4 y) | €17.98M | €18k | €484 | €969 | €2k |
-| 90 | `ED-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 91 | `QG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 92 | `CSAT-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 93 | `LF-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 94 | `SEO-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 95 | `VIA-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 96 | `IND-MARS` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 97 | `IND-HELIOS` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 98 | `IND-CERES` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 99 | `IND-NEPTUN` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
-| 100 | `LF-SITROOM-001` | yes | hardware | EU_EDGE_SITES* | 6,000 | €3k (one-time / 4 y) | €17.40M | €17k | €469 | €937 | €2k |
+| 79 | `LF-SITROOM-001` | yes | hardware | EU_EDGE_SITES* | 6,000 | €4k (one-time / 4 y) | €24.02M | €24k | €647 | €1k | €3k |
+| 80 | `claude-code-coaching-project` | yes | services | EU_MIDLARGE* | 2,500 | €8k (one-time, yearly purchase) | €18.75M | €9k | €631 | €1k | €3k |
+| 81 | `MO-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
+| 82 | `SG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
+| 83 | `LOG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
+| 84 | `SOV-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €16k (monthly x 12) | €7.79M | €8k | €630 | €1k | €3k |
+| 85 | `conversational-agent` | yes | firehorse | EU_MIDLARGE* | 5,000 | €1k (one-time / 3 y) | €5.83M | €6k | €628 | €1k | €3k |
+| 86 | `LAND-EUAI` | no (BLUE) | land | EU_MIDLARGE* | 500 | €40k (one-time, yearly purchase) | €20.00M | €20k | €606 | €1k | €2k |
+| 87 | `FH-CMS-001` | yes | firehorse | EU_MIDLARGE* | 5,000 | €1000 (one-time / 3 y) | €5.00M | €5k | €538 | €1k | €2k |
+| 88 | `LAND-AIL` | no (BLUE) | land | EU_MIDLARGE* | 500 | €35k (one-time, yearly purchase) | €17.50M | €17k | €530 | €1k | €2k |
+| 89 | `LIFETIME-WEBSTORE-MINI` | yes | sme | FI_SME* | 29,000 | €70 (one-time / 5 y) | €2.03M | €6k | €492 | €984 | €2k |
+| 90 | `LF-IGX-ORIN` | yes | hardware | EU_EDGE_SITES* | 6,000 | €3k (one-time / 4 y) | €17.98M | €18k | €484 | €969 | €2k |
+| 91 | `ED-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 92 | `QG-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 93 | `CSAT-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 94 | `LF-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 95 | `SEO-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 96 | `VIA-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 97 | `IND-MARS` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 98 | `IND-HELIOS` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 99 | `IND-CERES` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
+| 100 | `IND-NEPTUN` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €12k (monthly x 12) | €5.99M | €6k | €484 | €969 | €2k |
 | 101 | `LF-K8S-T2` | yes | infra | EU_EDGE_SITES* | 3,000 | €2k (one-time / 3 y) | €4.50M | €5k | €454 | €909 | €2k |
 | 102 | `LAND-HSE` | no (BLUE) | land | EU_MIDLARGE* | 500 | €30k (one-time, yearly purchase) | €14.99M | €15k | €454 | €909 | €2k |
 | 103 | `CS-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €11k (monthly x 12) | €5.39M | €5k | €436 | €872 | €2k |
@@ -179,14 +179,14 @@ Unpriced or planned (no TAM yet): firehorse-mobile.
 | 106 | `lean-project` | yes | services | EU_MIDLARGE* | 2,500 | €5k (one-time, yearly purchase) | €12.40M | €6k | €417 | €835 | €2k |
 | 107 | `DW-T2` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €10k (monthly x 12) | €4.79M | €5k | €387 | €775 | €2k |
 | 108 | `edge-node-gn100` | yes | hardware | EU_EDGE_SITES* | 6,000 | €2k (one-time / 4 y) | €12.01M | €12k | €324 | €647 | €1k |
-| 109 | `claude-code-coaching-lecture` | yes | services | EU_MIDLARGE* | 5,000 | €2k (one-time, yearly purchase) | €9.50M | €5k | €320 | €640 | €1k |
-| 110 | `aws-consultancy` | yes | services | EU_MIDLARGE* | 2,500 | €4k (one-time, yearly purchase) | €9.38M | €5k | €316 | €631 | €1k |
-| 111 | `CSAT-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
-| 112 | `LF-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
-| 113 | `SEO-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
-| 114 | `DW-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
-| 115 | `DWS-SOVEREIGN-DB-001` | yes | dwsiq | EU_INDUSTRIAL* | 4,000 | €166 (one-time / 3 y) | €665k | €1k | €269 | €538 | €1k |
-| 116 | `LF-DGX-SPARK` | yes | hardware | EU_EDGE_SITES* | 6,000 | €2k (one-time / 4 y) | €9.16M | €9k | €247 | €494 | €987 |
+| 109 | `LF-DGX-SPARK` | yes | hardware | EU_EDGE_SITES* | 6,000 | €2k (one-time / 4 y) | €12.01M | €12k | €324 | €647 | €1k |
+| 110 | `claude-code-coaching-lecture` | yes | services | EU_MIDLARGE* | 5,000 | €2k (one-time, yearly purchase) | €9.50M | €5k | €320 | €640 | €1k |
+| 111 | `aws-consultancy` | yes | services | EU_MIDLARGE* | 2,500 | €4k (one-time, yearly purchase) | €9.38M | €5k | €316 | €631 | €1k |
+| 112 | `CSAT-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
+| 113 | `LF-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
+| 114 | `SEO-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
+| 115 | `DW-T1` | no (BLUE) | agents365 | EU_MIDLARGE* | 500 | €7k (monthly x 12) | €3.59M | €4k | €290 | €581 | €1k |
+| 116 | `DWS-SOVEREIGN-DB-001` | yes | dwsiq | EU_INDUSTRIAL* | 4,000 | €166 (one-time / 3 y) | €665k | €1k | €269 | €538 | €1k |
 | 117 | `LF-K8S-T3` | yes | infra | EU_REGULATED* | 900 | €3k (one-time / 3 y) | €2.25M | €2k | €227 | €454 | €909 |
 | 118 | `LF-GOV-READY-SETUP` | yes | infra | EU_REGULATED* | 900 | €3k (one-time / 3 y) | €2.25M | €2k | €227 | €454 | €909 |
 | 119 | `devops-lead` | yes | services | EU_MIDLARGE* | 2,500 | €3k (one-time, yearly purchase) | €6.25M | €3k | €210 | €421 | €842 |
