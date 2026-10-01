@@ -14,8 +14,11 @@
 import { mkdtempSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { createServer, type Server } from 'node:net';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import {
+  anchorExport,
+  anchorStatus,
   CAP_AGENT_STOP,
   CAP_DECISION,
   commandBodiesDir,
@@ -31,7 +34,11 @@ import {
   KillAuthority,
   type LedgerEvent,
   privateKeyFromPem,
+  readAnchorQueue,
   readLedgerEvents,
+  readSeals,
+  runScheduledSeal,
+  sealDue,
   SiteAuthority,
   statePaths,
   verifyBundle,
@@ -298,5 +305,212 @@ describe('operator command copies (anchoring level 1)', () => {
     const r = exportAndVerify('rewritten', f.worm);
     expect(r.ok).toBe(false);
     expect(r.failures.join('\n')).toMatch(/OPERATOR_COPY_HISTORY_MISSING: [0-9a-f]{64}\.json/);
+  });
+});
+
+/** A TCP syslog receiver (RFC 6587 octet counting). Closes each connection after reading. */
+async function syslogServer(): Promise<{ server: Server; port: number; messages: string[] }> {
+  const messages: string[] = [];
+  const server = createServer((sock) => {
+    let buf = '';
+    sock.setEncoding('utf8');
+    sock.on('data', (d) => {
+      buf += d;
+    });
+    sock.on('end', () => {
+      while (buf.length) {
+        const sp = buf.indexOf(' ');
+        const n = Number(buf.slice(0, sp));
+        const bytes = Buffer.from(buf.slice(sp + 1), 'utf8');
+        messages.push(bytes.subarray(0, n).toString('utf8'));
+        buf = bytes.subarray(n).toString('utf8');
+      }
+      sock.end();
+    });
+  });
+  await new Promise<void>((r) => server.listen(0, '127.0.0.1', () => r()));
+  const addr = server.address();
+  return { server, port: typeof addr === 'object' && addr ? addr.port : 0, messages };
+}
+
+/** A port nothing listens on. */
+async function closedPort(): Promise<number> {
+  const { server, port } = await syslogServer();
+  await new Promise((r) => server.close(r));
+  return port;
+}
+
+const schedule = { shiftChanges: ['06:00', '14:00', '22:00'], maxAgeDays: 1 };
+/** Incidents of a kind across every sealed segment and the active one. */
+const incidents = (kind: string) =>
+  [
+    ...readSeals(dir).flatMap((x) => readLedgerEvents(join(dir, 'ledger', 'segments', x.file))),
+    ...readLedgerEvents(statePaths(dir).ledger),
+  ].filter((e) => e.event_type === 'incident' && e.detail.kind === kind);
+
+describe('scheduled seal', () => {
+  it('is not due right after install, and is due after a human.override', () => {
+    tick(60_000);
+    expect(sealDue(dir, schedule, now())).toMatchObject({ due: false, overdue: false });
+    operatorFlow();
+    expect(sealDue(dir, schedule, now()).reasons).toContain('human.override since the last seal');
+  });
+
+  it('is due on a configuration change, on a shift change and at max age; overdue after the grace', () => {
+    const l = openLedger();
+    l.append({ event_type: 'authority.revoke', trace_id: 't', detail: { credential_id: 'x' } });
+    l.close();
+    expect(sealDue(dir, schedule, now()).reasons).toEqual([
+      'configuration change since the last seal',
+    ]);
+    const quiet = { shiftChanges: ['14:00'], maxAgeDays: 1 };
+    const a = join(base, 'a');
+    const s2 = SiteAuthority.init(a, 'anchor-test-b', clock);
+    EvidenceLedger.open(statePaths(a).ledger, {
+      siteId: 'anchor-test-b',
+      orgId: 'o',
+      signer: (h) => s2.sign(h),
+      publicKey: s2.publicKey,
+      now,
+    }).close();
+    expect(sealDue(a, quiet, new Date('2026-10-01T13:59:00Z')).due).toBe(false);
+    expect(sealDue(a, quiet, new Date('2026-10-01T14:00:00Z')).reasons).toEqual([
+      'shift change 14:00 UTC',
+    ]);
+    const day = sealDue(a, { shiftChanges: [], maxAgeDays: 1 }, new Date('2026-10-02T06:00:00Z'));
+    expect(day).toMatchObject({ due: true, overdue: false, reasons: ['max age 1 d'] });
+    expect(
+      sealDue(a, { shiftChanges: [], maxAgeDays: 1 }, new Date('2026-10-02T07:00:01Z')).overdue,
+    ).toBe(true);
+    expect(() => sealDue(a, { shiftChanges: [], maxAgeDays: 30 })).toThrow(/at least daily/);
+  });
+
+  it('a tick seals when due, and the seal reason names the trigger', async () => {
+    operatorFlow();
+    tick();
+    const r = await runScheduledSeal({ stateDir: dir, site, schedule, sinks: {}, now });
+    expect(r.seal?.sealed).toBe(true);
+    expect(readSeals(dir)[0].reason).toMatch(/^scheduled: human\.override since the last seal/);
+    expect(sealDue(dir, schedule, now()).due).toBe(false);
+    expect(r.anchor.queued).toBe(1);
+  });
+
+  it('an overdue seal is an alert and one incident, not one per check', async () => {
+    tick(26 * 3_600_000);
+    // A run holds the ledger: the seal cannot happen, so it is overdue.
+    const l = openLedger();
+    const busy = await runScheduledSeal({ stateDir: dir, site, schedule, sinks: {}, now });
+    expect(busy).toMatchObject({ overdue: true, overdueIncident: 'ledger-busy' });
+    expect(busy.busy).toMatch(/already open in this process/);
+    l.close();
+    const due = sealDue(dir, { shiftChanges: [], maxAgeDays: 1 }, now());
+    expect(due.overdue).toBe(true);
+    const { recordSealOverdue } = await import('../aegis/pilot/index.js');
+    expect(recordSealOverdue(dir, site, due, now)).toBe('written');
+    expect(recordSealOverdue(dir, site, due, now)).toBe('already-recorded');
+    expect(incidents('seal-overdue')).toHaveLength(1);
+  });
+});
+
+describe('anchor export', () => {
+  let server: Server | null = null;
+  afterEach(async () => {
+    if (server) await new Promise((r) => server?.close(r));
+    server = null;
+  });
+
+  it('sends every seal anchor to RFC 5424 syslog over TCP and to an append-only file', async () => {
+    const sys = await syslogServer();
+    server = sys.server;
+    const file = join(base, 'siem', 'anchors.jsonl');
+    const sinks = { file, syslog: { host: '127.0.0.1', port: sys.port, tls: false } };
+    for (let i = 0; i < 2; i++) {
+      tick();
+      const l = openLedger();
+      l.append({ event_type: 'system.heartbeat', trace_id: 't' });
+      l.close();
+      tick();
+      await runScheduledSeal({
+        stateDir: dir,
+        site,
+        schedule: { shiftChanges: [], maxAgeDays: 1 },
+        sinks,
+        now: () => new Date(clock.getTime() + 25 * 3_600_000 * (i + 1)),
+      });
+    }
+    const seals = readSeals(dir);
+    expect(seals).toHaveLength(2);
+    const lines = readFileSync(file, 'utf8')
+      .trim()
+      .split('\n')
+      .map((l) => JSON.parse(l));
+    expect(lines.map((r) => r.index)).toEqual([0, 1]);
+    expect(Object.keys(lines[0]).sort()).toEqual(
+      ['head_hash', 'index', 'seal_digest', 'sealedAt', 'siteId'].sort(),
+    );
+    expect(lines[1]).toMatchObject({ siteId: 'anchor-test', head_hash: seals[1].headHash });
+    expect(sys.messages).toHaveLength(2);
+    expect(sys.messages[0]).toMatch(/^<133>1 \S+ anchor-test aegis-pilot - SEAL_ANCHOR - \uFEFF\{/);
+    expect(JSON.parse(sys.messages[1].split('\uFEFF')[1])).toEqual(lines[1]);
+  });
+
+  it('a failed export is an incident, never blocks the seal, and is backfilled in order with the gap reported', async () => {
+    const down = await closedPort();
+    const file = join(base, 'siem', 'anchors.jsonl');
+    const sinksDown = {
+      file,
+      syslog: { host: '127.0.0.1', port: down, tls: false, timeoutMs: 2000 },
+    };
+    const sealOnce = async (sinks: typeof sinksDown) => {
+      tick();
+      const l = openLedger();
+      l.append({ event_type: 'authority.revoke', trace_id: 't', detail: { credential_id: 'x' } });
+      l.close();
+      tick();
+      return runScheduledSeal({ stateDir: dir, site, schedule, sinks, now });
+    };
+    const first = await sealOnce(sinksDown);
+    expect(first.seal?.sealed).toBe(true);
+    expect(first.anchor.failing).toEqual(['syslog']);
+    const second = await sealOnce(sinksDown);
+    expect(second.seal?.sealed).toBe(true);
+    expect(incidents('anchor-export-failed')).toHaveLength(1);
+    expect(anchorStatus(dir, sinksDown).sinks.find((s) => s.sink === 'syslog')).toMatchObject({
+      pending: 2,
+      exported: 0,
+    });
+    expect(readAnchorQueue(dir).map((r) => r.index)).toEqual([0, 1]);
+
+    const sys = await syslogServer();
+    server = sys.server;
+    tick(60_000);
+    const back = await anchorExport({
+      stateDir: dir,
+      site,
+      sinks: { file, syslog: { host: '127.0.0.1', port: sys.port, tls: false } },
+      now,
+    });
+    expect(back.failing).toEqual([]);
+    expect(sys.messages.map((m) => JSON.parse(m.split('\uFEFF')[1]).index)).toEqual([0, 1]);
+    expect(back.gaps).toEqual([
+      {
+        sink: 'syslog',
+        firstFailedAt: first.anchor.sinks.find((s) => s.sink === 'syslog')?.failingSince,
+        firstSuccessAt: now().toISOString(),
+        backfilled: 2,
+      },
+    ]);
+    expect(incidents('anchor-export-recovered')).toHaveLength(1);
+    // The file sink never failed and holds each anchor once.
+    expect(readFileSync(file, 'utf8').trim().split('\n')).toHaveLength(2);
+    // The gap travels with the evidence bundle, under the signed manifest.
+    const out = join(base, 'bundle');
+    const m = exportBundle(dir, out, now());
+    expect(m.files.map((f) => f.path)).toEqual(
+      expect.arrayContaining(['anchor/queue.jsonl', 'anchor/state.json']),
+    );
+    const st = JSON.parse(readFileSync(join(out, 'anchor', 'state.json'), 'utf8'));
+    expect(st.gaps).toHaveLength(1);
+    expect(verifyBundle(out, site.manifest.keyId, now()).failures).toEqual([]);
   });
 });

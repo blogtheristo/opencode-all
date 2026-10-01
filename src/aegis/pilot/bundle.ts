@@ -15,6 +15,9 @@
  *   acceptance/*.json                      signed acceptance records
  *   credentials/*.json                     issued credentials (public parts)
  *   command-bodies/<sha256>.json           signed operator command bodies (erasable sidecar)
+ *   anchor/queue.jsonl + anchor/state.json seal anchors queued for export, and the export
+ *                                          status: per-sink progress and gaps (first failed
+ *                                          and first successful export time)
  *   manifest.json + manifest.sig           every file's sha256, signed by the site key
  *
  * verifyBundle checks: the manifest's shape and paths; the key id computed from
@@ -42,7 +45,7 @@ import { z } from 'zod';
 import { canonicalJSON, keyId, publicKeyFromPem, sha256, verifyPayload } from './crypto.js';
 import { type Credential, SiteAuthority, type SiteManifest, statePaths } from './identity.js';
 import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
-import { segmentPaths, verifySegments } from './ledger-segments.js';
+import { anchorPaths, segmentPaths, verifySegments } from './ledger-segments.js';
 import {
   commandBodiesDir,
   readCommandBodies,
@@ -59,7 +62,7 @@ export const AUDITOR_GUIDE = 'AUDITOR_GUIDE.md';
 
 /** Paths a bundle may hold (relative, forward slashes). */
 const BUNDLE_PATH =
-  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json|command-bodies\/[0-9a-f]{64}\.json)$/;
+  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json|command-bodies\/[0-9a-f]{64}\.json|anchor\/(queue\.jsonl|state\.json))$/;
 
 const ManifestSchema = z
   .object({
@@ -136,6 +139,7 @@ function evidenceFiles(stateDir: string, referencedBodies: ReadonlySet<string>):
     [p.acceptance, 'acceptance', /\.json$/],
     [p.credentials, 'credentials', /\.json$/],
     [commandBodiesDir(stateDir), 'command-bodies', /^[0-9a-f]{64}\.json$/],
+    [anchorPaths(stateDir).dir, 'anchor', /^(queue\.jsonl|state\.json)$/],
   ];
   const files: string[] = [];
   for (const [dir, prefix, pattern] of picks) {

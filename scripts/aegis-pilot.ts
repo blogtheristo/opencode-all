@@ -34,13 +34,20 @@
  *   status          --state-dir D
  *   doctor          --state-dir D [--scope F]   (read-only preflight checks)
  *   prove           --scope F --openshell-prover P [--expect-prover-sha256 H]   (every step's sandbox policy within its boundary)
- *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]
+ *   seal            --state-dir D [--max-bytes N] [--max-age-days N] [--force]   (then exports queued anchors)
+ *   seal --scheduled --state-dir D   one schedule tick (cron/systemd timer, e.g. every 15 min): seal when
+ *                   due (human.override, configuration change, shift change, max age from
+ *                   site/anchoring.json), record an overdue seal as an incident, export anchors
+ *   seal-status     --state-dir D [--max-age-days N (≤ 1)]   age of the last seal and anchor export status;
+ *                   exit 5 (alert) when the seal is overdue or an export sink is failing
+ *   anchor-export   --state-dir D   retry/backfill queued seal anchors to the configured sinks
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
  *   export          --state-dir D --out DIR    copy evidence to DIR, with manifest.json and manifest.sig
  *   verify-bundle   --bundle DIR (--expect-key-id K | --allow-unpinned) [--operator-copies DIR]   verify evidence bundle
  *
- * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
+ * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed
+ * · 5 alert (seal overdue or anchor export failing).
  */
 
 import {
@@ -104,6 +111,11 @@ import {
 import { canonicalJSON, sha256 } from '../src/aegis/pilot/crypto.js';
 import { exportBundle, verifyBundle } from '../src/aegis/pilot/bundle.js';
 import {
+  anchorExport,
+  anchorStatus,
+  recordSealOverdue,
+  runScheduledSeal,
+  sealDue,
   type CommandKind,
   eraseCommandBody,
   ledgerHeadForOperator,
@@ -129,6 +141,7 @@ const { values: a, positionals } = parseArgs({
     'max-bytes': { type: 'string' },
     'max-age-days': { type: 'string' },
     force: { type: 'boolean' },
+    scheduled: { type: 'boolean' },
     confirm: { type: 'string' },
     'expect-seal': { type: 'string' },
     'operator-credential': { type: 'string' },
@@ -835,14 +848,77 @@ async function main(): Promise<void> {
     }
     case 'seal': {
       const stateDir = need('state-dir');
+      const site = SiteAuthority.load(stateDir);
+      const config = loadSiteConfig(stateDir);
+      if (a.scheduled) {
+        const tick = await runScheduledSeal({
+          stateDir,
+          site,
+          schedule: config.sealSchedule,
+          sinks: config.anchorExport,
+        });
+        const alert = tick.overdue || tick.anchor.failing.length > 0;
+        out({ ok: !alert, command: cmd, scheduled: true, ...tick }, alert ? 5 : 0);
+      }
       const result = sealActiveSegment({
         stateDir,
-        site: SiteAuthority.load(stateDir),
+        site,
         maxBytes: a['max-bytes'] ? Number(a['max-bytes']) : undefined,
         maxAgeDays: a['max-age-days'] ? Number(a['max-age-days']) : undefined,
         force: a.force,
       });
-      out({ ok: true, command: cmd, ...result });
+      // A failed export never fails the seal: it is queued, recorded and retried.
+      const anchor = await anchorExport({ stateDir, site, sinks: config.anchorExport });
+      out({ ok: true, command: cmd, ...result, anchorExport: anchor });
+      break;
+    }
+    case 'seal-status': {
+      const stateDir = need('state-dir');
+      const site = SiteAuthority.load(stateDir);
+      const config = loadSiteConfig(stateDir);
+      const schedule = {
+        ...config.sealSchedule,
+        maxAgeDays: a['max-age-days'] ? Number(a['max-age-days']) : config.sealSchedule.maxAgeDays,
+      };
+      const due = sealDue(stateDir, schedule, new Date());
+      // An overdue seal is evidence too: recorded once per overdue period.
+      const overdueIncident = due.overdue ? recordSealOverdue(stateDir, site, due) : null;
+      const anchor = anchorStatus(stateDir, config.anchorExport);
+      const alert = due.overdue || anchor.failing.length > 0;
+      if (alert)
+        process.stderr.write(
+          `ALERT: ${due.overdue ? 'seal overdue' : ''}${due.overdue && anchor.failing.length ? '; ' : ''}${anchor.failing.length ? `anchor export failing (${anchor.failing.join(', ')})` : ''}\n`,
+        );
+      out(
+        {
+          ok: !alert,
+          command: cmd,
+          lastSealAt: due.lastSealAt,
+          since: due.since,
+          ageHours: Math.round((due.ageMs / 3_600_000) * 10) / 10,
+          maxAgeDays: schedule.maxAgeDays,
+          overdue: due.overdue,
+          due: due.due,
+          dueReasons: due.reasons,
+          overdueIncident,
+          anchor,
+        },
+        alert ? 5 : 0,
+      );
+      break;
+    }
+    case 'anchor-export': {
+      const stateDir = need('state-dir');
+      const site = SiteAuthority.load(stateDir);
+      const result = await anchorExport({
+        stateDir,
+        site,
+        sinks: loadSiteConfig(stateDir).anchorExport,
+      });
+      out(
+        { ok: result.failing.length === 0, command: cmd, ...result },
+        result.failing.length ? 5 : 0,
+      );
       break;
     }
     case 'segments': {
@@ -924,6 +1000,8 @@ async function main(): Promise<void> {
             'probe',
             'prove',
             'seal',
+            'seal-status',
+            'anchor-export',
             'segments',
             'prune',
             'run',

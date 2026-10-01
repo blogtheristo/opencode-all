@@ -11,7 +11,7 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { SiteAuthority } from './identity.js';
 import { checkLocalFilesystem } from './acceptance.js';
-import { verifySegments } from './ledger-segments.js';
+import { anchorStatus, sealDue, verifySegments } from './ledger-segments.js';
 import { loadSiteConfig, operatorCopyDirs, type SiteConfig } from './site-config.js';
 
 /**
@@ -170,6 +170,40 @@ export function doctor(stateDir: string, pin?: string | null): DoctorResult {
       } catch (err) {
         warn(name, `${d}: ${(err as Error).message}`);
       }
+    }
+    // 9. Seal age: a monitored setting. Overdue is an alert (seal-status records the incident).
+    try {
+      const due = sealDue(stateDir, config.sealSchedule, new Date());
+      const hours = (due.ageMs / 3_600_000).toFixed(1);
+      push(
+        'seal-age',
+        !due.overdue,
+        due.overdue
+          ? `last seal ${hours} h old: OVERDUE (max ${config.sealSchedule.maxAgeDays} d); run "seal --scheduled"`
+          : `last seal ${hours} h old (max ${config.sealSchedule.maxAgeDays} d)${due.due ? `; due now: ${due.reasons.join('; ')}` : ''}`,
+      );
+    } catch (err) {
+      push('seal-age', false, (err as Error).message);
+    }
+    // 10. Anchor export: a customer-owned sink, administered by someone other than the box.
+    const ax = config.anchorExport;
+    if (!ax.file && !ax.syslog)
+      warn('anchor-export', 'no anchor sink configured (anchorExport.file / anchorExport.syslog)');
+    else {
+      const st = anchorStatus(stateDir, ax);
+      if (st.failing.length)
+        warn(
+          'anchor-export',
+          `export failing to ${st.failing.join(', ')}; anchors queued, retried by "seal --scheduled"`,
+        );
+      else if (ax.syslog && !ax.syslog.tls)
+        warn('anchor-export', 'syslog sink without TLS: use RFC 5425 TLS outside a loopback test');
+      else if (!ax.administeredBy)
+        warn(
+          'anchor-export',
+          'anchorExport.administeredBy names no role: the sink must be administered by someone other than the box',
+        );
+      else push('anchor-export', true, `sinks configured, administered by ${ax.administeredBy}`);
     }
     const lock = config.operatorCopies.lock;
     if (lock)
