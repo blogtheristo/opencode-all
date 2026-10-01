@@ -99,12 +99,12 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 ## Pricing
 
-|              |                                                                                                                                                                                                                                                                       |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Price**    | €19,990 fixed                                                                                                                                                                                                                                                         |
-| **Duration** | 3 months                                                                                                                                                                                                                                                              |
-| **Hardware** | Supplied as separate price-list lines on the same order: an x86 industrial node (Ubuntu 24.04, discrete GPU), preferably the brand the site already runs; Arm nodes (GB10/DGX Spark, Jetson) are not used in the pilot because the tested stack is x86. Not credited. |
-| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months                                                                                                                                                                              |
+|              |                                                                                                                                                                                                                                                                                                                 |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Price**    | €19,990 fixed                                                                                                                                                                                                                                                                                                   |
+| **Duration** | 3 months                                                                                                                                                                                                                                                                                                        |
+| **Hardware** | Supplied as separate price-list lines on the same order: an NVIDIA CUDA platform — a GB10 node from our price list (`LF-DGX-SPARK`, `edge-node-gn100`, `LF-SITROOM-001`) or an x86 industrial PC with an NVIDIA GPU, preferably the brand the site already runs. Remains the customer's property. Not credited. |
+| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months                                                                                                                                                                                                                        |
 
 **One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.
 
@@ -140,63 +140,48 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v1.12, 01.10.2026. Versiohistoria osion lopussa._
+_Teksti v2.0, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
-Aegis on ajoympäristö, jossa työnkulun vaatimat tekoälyagentit tekevät tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa: työ tehdään tuotantohuoneessa (control room) ja sitä valvotaan tilannehuoneessa (situation room), toimittamallamme dedikoidulla laitteistolla. Laskentasolmu on x86-teollisuustietokone (Ubuntu 24.04 LTS, erillinen GPU), koska testattu pino on x86; Arm-pohjaisia solmuja (NVIDIA GB10 / DGX Spark, Acer GN100, Jetson) ei käytetä pilotissa. Ensisijainen valinta on merkki, jota asiakkaan laitos jo käyttää (esim. Beckhoff tai Siemens), muuten hinnastomme x86-solmu (ehdokkaat `docs/sales/AEGIS_COMPUTE_NODE_MARKET_2026-10.md`); syötteille sensorihubit ja yhdyskäytävät hinnastosta. Laitevalinta vahvistetaan vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä. Pilotti on kokonaistoimitus yhdellä tilauksella: pilotin kiinteä hinta ja laitteisto hinnaston riveinä (laite, asennus). Laitteisto ei sisälly 19 990 euron hyvitykseen. Laitekaavio: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
+**Mikä se on.** Aegis on ajoympäristö, jossa työnkulun vaatimat tekoälyagentit tekevät tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa. Työ tehdään tuotantohuoneessa (control room), ja sitä valvotaan tilannehuoneessa (situation room). Agentti suosittelee, operaattori päättää. Yksikään komento ei mene suoraan tuotantolaitteisiin, eikä laitoksen omiin turvatoimintoihin kosketa. Jokaisesta vaiheesta jää allekirjoitettu jälki.
 
-Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen vaatimus on, että työ, loki ja pysäytys toimivat ilman verkkoa, ja siksi se testataan yhteys katkaistuna eikä esitetä tarjouksessa.
+**Miksi testataan eikä luvata.** Tuotantohuoneessa verkkokatko on tuotantotapahtuma. Siksi työn, lokin ja pysäytyksen on toimittava ilman verkkoa, ja se todennetaan katkaisemalla yhteys, ei kirjoittamalla se tarjoukseen.
 
-Toimitusvaiheen ensimmäinen sisäänkäynti on maksullinen pilotti: kolme kuukautta, kiinteä hinta 19 990 euroa, joka hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Laitteita ei hyvitetä, ja ne jäävät tilaajan omaisuudeksi. Työnkulku valitaan vaiheessa 0 asiakkaan omasta kriittisestä prosessitarpeesta, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksista tai suvereenin tuotannon prosessin pullonkaulasta. Työnkulku on aina asiakaskohtainen, ja se vaatii aloituskatselmoinnin ja pilotointiprojektin asettamisen. Asiakas asettaa projektin johtoon nimetyn henkilön.
+**Pilotti on Aegis-käyttöönoton ensimmäinen vaihe.** Kolme kuukautta, kiinteä hinta 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Laitteisto laskutetaan hinnaston riveinä samalla tilauksella; se ei hyvity ja jää tilaajan omaisuudeksi.
 
-Kyseessä on Aegis-tuotteen käyttöönotto pilottitoimituksena. Sopimus jakautuu kahteen osaan: siihen, mikä toistuu jokaisessa toimituksessa, ja siihen, mikä on asiakaskohtaista. Toinen kauppa on halvempi, koska toistuva osa on jo olemassa.
+**Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
-**Toistuva osa (Aegis-tuote, sama jokaisessa toimituksessa):**
+**Sopimus kahdessa osassa.** Toinen kauppa on halvempi, koska toistuva osa on jo olemassa.
 
-- ajoympäristö: skilled agents -parvi, Lifetime World Model v2, paikallinen mallipalvelu, KYA-identiteetti;
-- hallinto: Art. 12 -loki, allekirjoitetut päätöstapahtumat, operaattorin pysäytysvalta, päätöspolun kattavuus ja operaattorin aika per päätös;
-- hyväksymistesti: kolme ehtoa, asiakas ajaa, eristysmenetelmän portaikko, raportti;
-- vaiheen 0 menetelmä: aloituskatselmointi, kriittisyysluokitus, roolien nimeäminen, laitekatselmointi (solmun saatavuus, takuukanava, avainten säilytys, laitteen eheysominaisuudet kirjataan todettuina tai puuttuvina), allekirjoitettu rajaus;
-- laitteisto hinnaston ehdoilla: x86-solmu ja siihen liitetyt laitteet toimitetaan jälleenmyyjänä valmistajan takuulla ja varaosaehdoilla; Lifetime Oy ei ole laitevalmistaja eikä sillä ole omaa valmistajan huoltosopimusta. Asennus ja käyttöönotto ovat hinnaston palvelurivi; sähkö, jäähdytys, kaapelointi ja telinepaikka ovat asiakkaan valmistelua.
+- **Toistuva osa (Aegis-tuote, sama jokaisessa toimituksessa):** ajoympäristö (skilled agents -parvi, Lifetime World Model v2, paikallinen mallipalvelu, agentti-identiteetti); hallinto (EU AI Act art. 12 -loki, allekirjoitetut päätöstapahtumat, operaattorin pysäytysvalta, kaksi mittaria); hyväksymistesti; vaiheen 0 menetelmä.
+- **Asiakaskohtainen osa:** työnkulku; sensorit ja syötteet, joiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaan; vain lukevat integraatiot (MES, historian, DCS, ERP); tietoliikennekanavat sekä tuotanto- ja tilannehuoneen syötteet; mittarit ja ohjaustasot; koulutus; laitteistokokoonpano.
 
-**Asiakaskohtainen osa (tehdään kerran per asiakas):**
+**Vastuut.**
 
-- työnkulku: valitaan vaiheessa 0 asiakkaan kriittisestä prosessitarpeesta, valmis-tila määritellään asiakkaan sanoin;
-- sensorit ja syötteet: liityntöjen rakentaminen ja yhdistäminen (Lifetime Oy), syötteiden rajat toimialan, standardien ja asiakkaan laatuvaatimusten mukaan;
-- integraatiot: yrityksen infran tietoliikennekanavat, tuotantohuoneen ja tilannehuoneen syötteet, mittarit ja ohjaustasot;
-- koulutus: LWM v2:n sovitus asiakasympäristöön ja asiakkaan käyttöhenkilöstön koulutus. Koulutus on uusi työ, jonka toteutuskustannuksen Lifetime Oy kantaa. Lifetime World Model v2 on Lifetime Oy:n tekijänoikeudella suojattu tuote; sen käyttö kuuluu pilottiin maksutta, ja tekijänoikeus ei siirry asiakkaalle;
-- hyväksynnät: arkkitehtuuri (CIO) ja tietoturva (CISO) asiakkaan toimesta; nimetty projektinjohtaja, operaattori ja työnkulun omistaja.
+- **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; eristys omalla kytkimellä tai palomuurilla tai toimittamallamme.
+- **Lifetime Oy:** laitteiston toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa.
+- **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
 
-Hyväksymistestaus syntyy näiden katselmoinnissa ja on asiakkaan ja Lifetime Oy:n yhteinen.
+**Laitteisto.** NVIDIA CUDA -alusta: hinnastomme GB10-solmu (NVIDIA DGX Spark, Acer GN100, kahden solmun Situation Room) tai x86-teollisuustietokone NVIDIA-näytönohjaimella; ensisijaisesti merkki, jota laitos jo käyttää. Paikallinen mallipalvelu ajaa CUDA:lla. Laitevalinta vahvistetaan vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä.
 
-**Omistus, kahdessa osassa, jotta siitä ei riidellä myöhemmin.**
+**Hyväksymistesti.** Testi mittaa kolmea asiaa: offline-jatkuvuutta, lokin eheyttä ja pysäytysvaltaa. Asiakas ajaa testin itse ja katkaisee yhteyden omalla menetelmällään Aegis-pinon yläpuolelta (kytkin, palomuuri tai hypervisor):
 
-- **Lifetime Oy:n:** Lifetime World Model v2 ja sen asiakaskohtainen konfiguraatio, skilled agents -parvi, ajoympäristö ja hallintakerros. Asiakas saa näihin käyttölisenssin; tekijänoikeus ei siirry.
-- **Asiakkaan:** asiakkaan oma data, Art. 12 -loki ja allekirjoitetut päätöstapahtumat, sensorisyötteet ja niiden rajat, hyväksymistestin raportti, arkkitehtuurikuvaus, mittaukset ja laitteisto.
-- **Mallin päivitys:** Lifetime Oy päivittää LWM v2:n ja asiakaskohtaisen konfiguraation uuteen versioon. Pilotin aikana se kuuluu pilottiin. Tuotannossa se kuuluu Aegis-ylläpitotilaukseen (`DWS-AEGIS-SUB-001`: Standard, Defence tai Sovereign), joka vaaditaan jokaisen Aegis-lisenssin kanssa. Päivitys asennetaan asiakkaan hyväksynnällä, ja edellinen versio säilyy palautettavana.
-
-**Päivä 91.** Pilotin päättyessä asiakkaalla on kolme vaihtoehtoa:
-
-1. **Jatko tuotantoon** kuuden kuukauden kuluessa: 19 990 € hyvitetään Aegis-käyttöönotosta, käyttölisenssi konfiguroituun malliin jatkuu Aegis-lisenssin ja ylläpitotilauksen (`DWS-AEGIS-SUB-001`) osana.
-2. **Ei jatkoa:** asiakas pitää oman datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston. Käyttölisenssi konfiguroituun malliin päättyy, eikä mitään ole velkaa.
-3. **Harkinta-aika:** käyttölisenssi konfiguroituun malliin pilottilaitteistolla kuuden kuukauden hyvitysajan loppuun ylläpitotilauksen Standard-hinnalla (`DWS-AEGIS-SUB-001`), ilman uutta käyttöönottoa. Tilaus päättyy ilmoituksella; jatko tuotantoon lukee hyvityksen.
-
-Tuotannolliset syötteet ja niiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaisina.
-
-**Suvereeniteettiluokka** on toimivalta ja omistusketju (`DWS_STANDARDS_LIBRARY.md` §3.6), ja se ilmoitetaan kerroksittain, ei yhdellä sanalla. Pilotissa: toimittaja Lifetime Oy on EU-omisteinen (Tier 1); data, loki ja pysäytysvalta ovat asiakkaan tiloissa asiakkaan omistamalla laitteella, eikä niihin ulotu kolmannen maan tiedonluovutusvelvoite (datataso Tier 1); laskentalaitteisto on NVIDIA:n suunnittelema (teknologiataso Tier 2), mikä kirjataan riskirekisteriin eikä piiloteta. Suvereeniteettiluokkaa ei mitata verkkokaapelin katkaisulla.
-
-**Hyväksymistesti** mittaa kolmea eri asiaa: pysäytysvaltaa, offline-jatkuvuutta ja lokin eheyttä. Asiakas ajaa testin itse ja katkaisee yhteyden omalla menetelmällään:
-
-1. Työnkulku päättyy silti valmis-tilaan.
+1. Työnkulku päättyy valmis-tilaan.
 2. Lokiin ei jää aukkoa.
-3. Operaattori pysäyttää käynnissä olevan agentin, ja pysäytys todennetaan allekirjoitetusta lokista, ei agentin omasta raportista.
+3. Operaattori pysäyttää käynnissä olevan agentin omalla avaimellaan, ja pysäytys todennetaan allekirjoitetusta lokista, ei agentin omasta raportista.
 
-Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos ja se raportoidaan: tieto maksoi 19 990 euroa eikä laitehankintaa. Ostajan ei tarvitse uskoa mitään, kun hän voi ajaa testin itse.
+Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, ja se raportoidaan. Lokin ketju sinetöidään testin alussa ja lopussa, ja sinetin tarkistussumma kirjataan asiakkaan omaan rekisteriin, jotta loki voidaan myöhemmin tarkistaa laatikon ulkopuolelta.
 
-Kaksi lukua, jotka pilotti tuottaa: päätöspolun kattavuus (kuinka moni agentin suositus päätyi kirjattuun ihmisen päätökseen, keskeytyneet polut mukaan lukien) ja operaattorin aika per päätös. Jokainen päätös tallentuu: kuka päätti, mitä päätettiin, ja hyväksyttiinkö suositus, muutettiinko sitä vai hylättiinkö se. Hylätyt ja keskeytyneet polut säilyvät lokissa, koska myös ne ovat todistusaineistoa. Sääntelyvaatimukset (EU AI Act art. 12) ovat perustelu, eivät syy ostaa.
+**Mittarit.** Päätöspolun kattavuus (kuinka moni agentin suositus päätyi kirjattuun ihmisen päätökseen, keskeytyneet polut mukaan lukien) ja operaattorin aika per päätös. Jokaisesta päätöksestä tallentuu, kuka päätti, mitä päätettiin ja hyväksyttiinkö suositus, muutettiinko sitä vai hylättiinkö se; muutos ja hylkäys vaativat perustelun. Hylätyt ja keskeytyneet polut säilyvät, koska myös ne ovat todistusaineistoa. Sääntelyvaatimukset ovat perustelu, eivät syy ostaa.
 
-**Kenelle.** Pilotin ostaja on se, jolla on päätösvalta pilotoitavaan työnkulkuun ja joka joutuu vastaamaan siihen, miten päätökseen päädyttiin. Titteli riippuu organisaatiosta ja tehtävien jaosta. IT-osasto ja tietoturva hyväksyvät arkkitehtuurin, ja pilotin on annettava CIO:lle ja CISO:lle uskottava arkkitehtuuri, mutta he eivät välttämättä ole ostaja. Pilotin ensimmäisessä vaiheessa (2 viikkoa, ei maksua) nimetään kirjallisesti asiakkaan projektinjohtaja, työnkulun omistaja, operaattori, tekninen yhteyshenkilö ja päätösvastuun kantaja.
+**Suvereniteettiluokka** on toimivalta ja omistusketju, ja se ilmoitetaan kerroksittain, ei yhdellä sanalla. Toimittaja Lifetime Oy on EU-omisteinen; data, loki ja pysäytysvalta ovat asiakkaan tiloissa asiakkaan omistamalla laitteella; laskentalaitteiston näytönohjain on NVIDIA:n, yhdysvaltalaisen yhtiön, suunnittelema, ja se kirjataan riskirekisteriin eikä piiloteta. Suvereniteettiluokkaa ei mitata verkkokaapelin katkaisulla.
+
+**Omistus.** Lifetime World Model v2 ja sen asiakaskohtainen konfiguraatio, agentit, ajoympäristö ja hallintakerros ovat Lifetime Oy:n; asiakas saa niihin käyttölisenssin, eikä tekijänoikeus siirry. LWM v2:n käyttö kuuluu pilottiin maksutta. Asiakkaan oma data, loki ja päätöstapahtumat, sensorisyötteet, hyväksymistestin raportti, arkkitehtuurikuvaus, mittaukset ja laitteisto ovat asiakkaan. Lifetime Oy päivittää mallin ja konfiguraation; pilotissa päivitys kuuluu pilottiin, tuotannossa Aegis-ylläpitotilaukseen. Päivitys asennetaan asiakkaan hyväksynnällä, ja edellinen versio säilyy palautettavana.
+
+**Päivä 91.** Jatko tuotantoon kuuden kuukauden kuluessa: 19 990 euroa hyvitetään, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana. Ei jatkoa: asiakas pitää datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston, käyttölisenssi malliin päättyy, eikä mitään ole velkaa.
+
+**Kenelle.** Ostaja on se, jolla on päätösvalta pilotoitavaan työnkulkuun ja joka joutuu vastaamaan siihen, miten päätökseen päädyttiin. Titteli riippuu organisaatiosta ja tehtävien jaosta. CIO ja CISO hyväksyvät arkkitehtuurin, ja pilotin on annettava heille uskottava arkkitehtuuri, mutta he eivät välttämättä ole ostaja.
 
 **Versiohistoria (FI-osio)**
 
@@ -213,3 +198,5 @@ Kaksi lukua, jotka pilotti tuottaa: päätöspolun kattavuus (kuinka moni agenti
 - v1.10, 01.10.2026: koulutuksen toteutuskustannus Lifetime Oy:llä; LWM v2 Lifetime Oy:n tekijänoikeudella suojattu tuote, pilotissa maksuton, tekijänoikeus ei siirry.
 - v1.11, 01.10.2026: Boardy: omistus kahdessa osassa (Lifetime Oy: LWM v2 + konfiguraatio, käyttölisenssi; asiakas: data, loki, syötteet, raportti, laitteisto); mallin päivitys Lifetime Oy:llä, tuotannossa ylläpitotilauksessa; päivä 91 kolme vaihtoehtoa. Vaihtoehto 3 (harkinta-aika Standard-hinnalla) on ehdotus, odottaa HIC:tä.
 - v1.12, 01.10.2026: HIC: pysy x86:ssa, Arm-pohjainen pino ei päde. GB10/DGX Spark/GN100/Jetson pois pilotin laskentasolmuista; ensisijaisesti asiakkaan jo käyttämä merkki (Beckhoff, Siemens), muuten hinnaston x86-solmu.
+- v1.12, 01.10.2026: (virhe) x86-only; perustui Boardyn ehdotukseen, jonka tulkitsin HIC:n päätökseksi.
+- v2.0, 01.10.2026: kovennettu teksti. Laitteistoportti NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA), x86-only kumottu (HIC). Vaihe 0 omaksi kappaleeksi, harjoitusajo valitulla laitteella. Sinetöinti testin alussa ja lopussa. Päivä 91 -vaihtoehto 3 poistettu (ei HIC-hyväksyntää). Sisäiset tiedostopolut poistettu julkisesta tekstistä. Versiot arkistoitu.

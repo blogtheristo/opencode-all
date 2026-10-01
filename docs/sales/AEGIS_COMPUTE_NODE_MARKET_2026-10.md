@@ -148,7 +148,7 @@ Boardyn 20.30–20.45 väitteet on auditoitu erikseen lähteineen: `docs/field-n
 
 ## 9. Suositus hinnaston SKU-joukoksi
 
-**HIC 01.10.2026: pysy x86:ssa, Arm-pohjainen pino ei päde.** Kohdat 1, 2, 5 ja 6 alla ovat siksi vain kirjausta; pilotin laskentasolmu valitaan kohdista 3, 4 ja §8:n Beckhoff/Siemens-hausta.
+**HIC 01.10.2026 (korjattu): portti on NVIDIA CUDA -alusta.** x86-only oli Boardyn ehdotus, ei HIC:n päätös. Kohdat 1–4 ovat kaikki kelvollisia; 5–6 (Jetson Thor) ovat CUDA-alustoja, mutta niiden pilottikelpoisuus vaatii vaiheen 0 harjoitusajon.
 
 1. **Halvin 1× solmu (Arm, DGX-yhteensopiva):** Lenovo ThinkStation PGX 128 GB/1 TB, ~€4 565 Bechtle DE (verified); sama GB10 ja DGX OS kuin Spark/GN100; vain toimistoympäristö.
 2. **Vaihtoehto:** HP ZGX Nano G1n, DE UVP €3 929 sis. ALV (verified).

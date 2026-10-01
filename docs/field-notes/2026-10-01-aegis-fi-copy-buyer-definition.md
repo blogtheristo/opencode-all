@@ -112,3 +112,7 @@ Kolme väitettä tarkistettu:
 3. **TPM 2.0 / mitattu käynnistysketju.** Väite ei vastaa nykyistä toteutusta: pysäytyksen allekirjoitus nojaa Ed25519-avaimiin, operaattorin avain laitteen ulkopuolella, site-avain tiedostossa `state/site/site.key` (0600, `src/aegis/pilot/doctor.ts:51`). TPM:ää ei käytetä, joten vaiheen 0 portti ei kaadu DGX:n TPM-tukeen. Todellinen aukko on toinen: site-avain on ohjelmistoavain, ei laitteeseen sidottu. DGX Spark / GN100 TPM 2.0 -tuki on edelleen varmistamatta (ei lähdettä repossa). Vaiheen 0 laitekatselmointi kirjaa eheysominaisuudet todettuina tai puuttuvina, ei hyväksymisehtona.
 
 Tekstimuutos: DGX-tuotenimi pois sopimusrivistä ("GB10-luokan solmu"), laitevalinta vaiheen 0 laitekatselmointiin. v1.9.
+
+## Korjaus 01.10.2026: x86-only oli virhe
+
+Tulkitsin kaksi viestiä HIC:n päätöksiksi: "pysy x86:ssa, ARM:lla testattu pino ei päde" (Boardyn linja, ei HIC:n) ja "emme käytä NIM/CUDA:ta, punainen vaate joillekin?" (kysymys, ei kielto). HIC 01.10.2026: "pysymme NIM/CUDA:ssa". Korjattu versiossa v2.0: portti on NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA). Kaikki versiot arkistoitu `docs/sales/aegis-pilot-versions/`. Oppi: viestin, jossa on kysymysmerkki tai toisen henkilön väite, ei saa kirjata päätökseksi ilman vahvistusta.
