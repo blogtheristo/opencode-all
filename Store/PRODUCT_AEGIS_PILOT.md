@@ -146,7 +146,11 @@ Aegis on ajoympäristö, jossa työnkulun vaatimat tekoälyagentit tekevät tiuk
 
 Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen vaatimus on, että työ, loki ja pysäytys toimivat ilman verkkoa, ja siksi se testataan yhteys katkaistuna eikä esitetä tarjouksessa.
 
-Sisäänkäynti on maksullinen pilotti: kolme kuukautta, kiinteä hinta 19 990 euroa, hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Työnkulku valitaan vaiheessa 0 asiakkaan omasta kriittisestä pullonkaulasta, ei katalogista. Sopimus on hyväksymistesti, jonka asiakas ajaa itse: asiakas katkaisee yhteyden omalla menetelmällään, ja testataan kolme asiaa:
+Toimitusvaiheen ensimmäinen sisäänkäynti on maksullinen pilotti: kolme kuukautta, kiinteä hinta 19 990 euroa, joka hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Laitteita ei hyvitetä, ja ne jäävät tilaajan omaisuudeksi. Työnkulku valitaan vaiheessa 0 asiakkaan omasta kriittisestä prosessitarpeesta, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksista tai suvereenin tuotannon prosessin pullonkaulasta. Työnkulku on aina asiakaskohtainen, ja se vaatii aloituskatselmoinnin ja pilotointiprojektin asettamisen.
+
+Toimitusvaiheen sopimukseen kuuluu: arkkitehtuurin hyväksyminen; agenttien ja Lifetime World Model -mallin koulutus asiakasympäristöön; sensorisyötteiden rakentaminen; tuotantohuoneen käyttöönotto; yrityksen infran tietoliikennekanavien sekä tuotantohuoneen ja tilannehuoneen syötteiden asettaminen; mittarien ja ohjaustasojen määrittäminen; ja näiden katselmoinnissa syntyvä asiakkaan hyväksymistestaus. Tuotannolliset syötteet ja niiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaisina.
+
+Suvereeniteetti mitataan hyväksymistestillä, jonka asiakas ajaa itse. Asiakas katkaisee yhteyden omalla menetelmällään, ja testataan kolme asiaa:
 
 1. Työnkulku päättyy silti valmis-tilaan.
 2. Lokiin ei jää aukkoa.

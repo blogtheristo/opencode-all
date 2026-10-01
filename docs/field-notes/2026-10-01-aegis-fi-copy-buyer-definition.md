@@ -87,3 +87,12 @@ Ei sovellettu, odottaa HIC:tä: "ennakkotilaus". Truth-rajoite: Aegis on pre-rev
 GTM-reitti (Boardy): 2–3 rahaston operating partneria, kultakin yksi nimetty portfolio-kontakti, datakeskusoperaattorit ensin. Halvempi kuin 25 kylmää teollisuuskontaktia. Sopii kaistaan B. Ei kirjattu pipelineen ennen HIC:n päätöstä rahastoista.
 
 Toimituslistat Outokumpu (Azure, Hybrid, 2 solmua) ja Kemira (Local/Edge, 1 solmu, IT-infra aukkoina): `docs/sales/AEGIS_PILOT_TOIMITUSLISTA_OUTOKUMPU_KEMIRA_FI.md`.
+
+## HIC 01.10.2026, toimitusvaiheen rajaus
+
+Sovellettu Store-sivun FI-osioon: laitteet eivät hyvity ja jäävät tilaajan omaisuudeksi; työnkulku asiakkaan prosessitarpeesta (erätason hiilijalanjälki, suvereenin tuotannon pullonkaula); aloituskatselmointi ja pilotointiprojektin asettaminen; toimitusvaiheen sopimuksen sisältö; suvereeniteetin mittaus; syötteiden rajat toimialan, standardien ja asiakkaan laatuvaatimusten mukaan.
+
+Kaksi ristiriitaa, ei ratkaistu tässä:
+
+1. **LWM.** HIC: Lifetime World Model -koulutus asiakasympäristöön kuuluu toimitusvaiheen sopimukseen. EN Store-sivu: "Outside the credit: LWM integration". FI-teksti sanoo nyt HIC:n mukaan; EN-rajausta ei muutettu. HIC päättää, kuuluuko LWM-koulutus 19 990 euron pilottiin vai vasta käyttöönottoon.
+2. **"Parvi".** HIC:n teksti käyttää sanaa "agenttiparven koulutus"; Boardy 01.10.2026 pyysi pudottamaan "parvi"-sanan. Kirjoitettu "agenttien koulutus". HIC päättää.
