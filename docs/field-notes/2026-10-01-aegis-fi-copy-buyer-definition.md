@@ -69,3 +69,10 @@ Document Status:
 ## HIC-päätöskysymys
 
 Lisätäänkö kolmen kysymyksen testi `DWS_ROLES_REGISTRY.md` §5:een pysyvänä sääntönä ja Phase 0:n rajaukseen neljänneksi rooliksi "päätösvastuun kantaja"?
+
+## Lisäys 01.10.2026 (sama istunto)
+
+- HIC: agenttiparvi, tuotantohuone (control room), toimittamamme dedikoitu laitteisto, syötteet ja tulostavoitteet. Teksti päivitetty Store-sivun FI-osioon ja ensikontaktiin.
+- HIC: pilotti on kokonaistoimitus. Laitekaavio hinnaston tuotteista: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Yhdeksän puuttuvaa osaa nimetty (operaattorin laiteavain ja työasema, kestotallennus, kytkin, palomuuri, aikalähde, UPS, teline, vain-luku OT-yhdyskäytävä).
+- Ristiriita: EN Store-sivu sanoo "Hardware: None purchased" ja rajaa laitetoimituksen hyvityksen ulkopuolelle. Vaihtoehdot A/B kaaviotiedoston lopussa. Ei ratkaistu tässä PR:ssä; `products.json` ei muutettu.
+- "Ohjaustiedot" kirjoitettu muotoon "ohjaussuositukset", koska "No physical control" on voimassa.
