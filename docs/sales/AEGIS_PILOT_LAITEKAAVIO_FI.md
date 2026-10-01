@@ -19,7 +19,7 @@ Document Status:
 
 ## Periaate
 
-**Laitteistosääntö (HIC 01.10.2026).** Pilotti toimitetaan meidän laitteillamme tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla. Hinnastossa on yksi solmu (`edge-node-gn100`, `LF-DGX-SPARK`) ja kaksi solmua (`LF-SITROOM-001`), kaikki NVIDIA GB10 Grace Blackwell -luokkaa (1 PFLOPS FP4, 128 GB). IGX Orin ei ole DGX-yhteensopiva eikä kelpaa laskentasolmuksi.
+**Laitteistosääntö (HIC 01.10.2026, päivitetty).** Laskentasolmu on x86 (Ubuntu 24.04 LTS, erillinen GPU), koska testattu pino on x86. Arm-solmut (GB10 / DGX Spark / GN100 / Situation Room, Jetson, IGX) eivät kelpaa pilotin laskentasolmuksi. Ensisijaisesti asiakkaan jo käyttämä merkki (Beckhoff, Siemens); muuten x86-ehdokkaat `docs/sales/AEGIS_COMPUTE_NODE_MARKET_2026-10.md`.
 
 Pilotin neljä paikallista vaatimusta (suoritus, identiteetti, loki, pysäytys) toteutuvat laitteistolla, joka on tuotantohuoneessa ja toimii ilman verkkoa. Kaavio on jaettu kerroksiin: syötteet, laskenta, operaattori, verkko ja tallennus. Hinnaston tuote on merkitty SKU:lla. Osa, jota hinnastossa ei ole, on merkitty **PUUTTUU**.
 
@@ -42,12 +42,10 @@ flowchart TB
   end
 
   subgraph LASKENTA["Laskentakerros, tuotantohuone"]
-    DGX["NVIDIA DGX Spark<br/>agentit, paikallinen malli<br/>LF-DGX-SPARK"]
-    GN["Acer Veriton GN100<br/>Control Room -solmu<br/>edge-node-gn100"]
-    SIT["Situation Room, 2x GN100<br/>kahden solmun varmennus<br/>LF-SITROOM-001"]
-    OWN["Asiakkaan oma laitteisto<br/>vain 100 % NVIDIA DGX -yhteensopiva (GB10)"]
+    DGX["x86-laskentasolmu, Ubuntu 24.04, erillinen GPU<br/>agentit, paikallinen malli<br/>LF-NODE-X86-R"]
+    GN["Asiakkaan merkki: Beckhoff / Siemens IPC<br/>jos laitos jo käyttää"]
     K8S["k3s, yksi solmu<br/>LF-K8S-T1 (HA: LF-K8S-T2)"]
-    NIM["NIM Starter + Retrieval<br/>LF-NIM-STARTER, LF-NIM-RETRIEVAL"]
+    SRV["Paikallinen mallipalvelu (Ollama)<br/>osa DWS-AEGIS-PILOT-001"]
     INST["Mallien asennus ja palvelu<br/>LF-NVIDIA-INSTALL"]
   end
 
@@ -74,11 +72,9 @@ flowchart TB
   PLC -. vain luku .-> OTGW
   GW1 & GW2 & JA & OTGW --> SW
   SW --> DGX
-  DGX --- GN
-  DGX --- SIT
-  DGX -. tai .- OWN
+  DGX -. tai .- GN
   K8S --- DGX
-  NIM --- DGX
+  SRV --- DGX
   INST --- DGX
   DGX --> LEDGER
   TIME --> DGX
@@ -94,19 +90,16 @@ flowchart TB
 
 ## Hinnaston tuotteet pilotin kokonaistoimituksessa
 
-| Kerros     | Tuote                             | SKU                                    | Rooli pilotissa                                       |
-| ---------- | --------------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| Laskenta   | NVIDIA DGX Spark                  | `LF-DGX-SPARK`                         | Agentit ja paikallinen malli, oletusvalinta           |
-| Laskenta   | Acer Veriton GN100 Control Room   | `edge-node-gn100`                      | Pienempi työnkulku tai toinen solmu                   |
-| Laskenta   | Situation Room, kaksi solmua      | `LF-SITROOM-001`                       | Kun tarvitaan kahden solmun varmennus                 |
-| Alusta     | k3s, yksi solmu                   | `LF-K8S-T1`                            | Suorituksen orkestrointi; HA `LF-K8S-T2`              |
-| Alusta     | NIM Starter, NIM Retrieval        | `LF-NIM-STARTER`, `LF-NIM-RETRIEVAL`   | Mallipalvelu ja haku paikallisesti                    |
-| Palvelu    | NVIDIA-mallien asennus ja palvelu | `LF-NVIDIA-INSTALL`                    | Käyttöönotto                                          |
-| Syöte      | Jetson Orin Nano Super, NX, AGX   | `LF-JETSON-NANO`, `-NX`, `-AGX`        | Sensorisolmut ja keskitin                             |
-| Syöte      | iPCMax IPC-409, IPC-P68           | `LF-IPCMAX-IPC409`, `LF-IPCMAX-IPCP68` | Sensori- ja konenäköyhdyskäytävät                     |
-| Syöte      | Cincoze DA-1200                   | `LF-IPCMAX-CINCOZE-DA1200`             | Laajennettava reunatietokone, OT-yhdyskäytävän alusta |
-| Pilvi      | DWS IQ EU Sovereign Pilot         | `DWS-EU-PILOT`                         | Valinnainen synkronointi, ei kriittisellä polulla     |
-| Ohjelmisto | DWS IQ Aegis Pilot                | `DWS-AEGIS-PILOT-001`                  | Ajoympäristö, KYA-identiteetti, loki, pysäytys        |
+| Kerros     | Tuote                              | SKU                                    | Rooli pilotissa                                       |
+| ---------- | ---------------------------------- | -------------------------------------- | ----------------------------------------------------- |
+| Laskenta   | x86-teollisuussolmu, erillinen GPU | `LF-NODE-X86-R` (uusi, hinta TBD)      | Agentit ja paikallinen malli; Ubuntu 24.04            |
+| Alusta     | k3s, yksi solmu                    | `LF-K8S-T1`                            | Suorituksen orkestrointi; HA `LF-K8S-T2`              |
+| Palvelu    | NVIDIA-mallien asennus ja palvelu  | `LF-NVIDIA-INSTALL`                    | Käyttöönotto                                          |
+| Syöte      | Jetson Orin Nano Super, NX, AGX    | `LF-JETSON-NANO`, `-NX`, `-AGX`        | Sensorisolmut ja keskitin                             |
+| Syöte      | iPCMax IPC-409, IPC-P68            | `LF-IPCMAX-IPC409`, `LF-IPCMAX-IPCP68` | Sensori- ja konenäköyhdyskäytävät                     |
+| Syöte      | Cincoze DA-1200                    | `LF-IPCMAX-CINCOZE-DA1200`             | Laajennettava reunatietokone, OT-yhdyskäytävän alusta |
+| Pilvi      | DWS IQ EU Sovereign Pilot          | `DWS-EU-PILOT`                         | Valinnainen synkronointi, ei kriittisellä polulla     |
+| Ohjelmisto | DWS IQ Aegis Pilot                 | `DWS-AEGIS-PILOT-001`                  | Ajoympäristö, KYA-identiteetti, loki, pysäytys        |
 
 ## Puuttuvat osat (ei hinnastossa)
 

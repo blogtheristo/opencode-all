@@ -20,16 +20,15 @@ Document Status:
 
 ## Yhteinen runko (molemmat tilit)
 
-| #   | Rivi                              | SKU                                                   | Huomio                                                                                                                                       |
-| --- | --------------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | DWS IQ Aegis Pilot, 3 kk          | `DWS-AEGIS-PILOT-001`                                 | Ajoympäristö, KYA-identiteetti, Art. 12 -loki, pysäytys; hyvitetään                                                                          |
-| 2   | NVIDIA GB10 -laskentasolmu(t)     | `edge-node-gn100` / `LF-DGX-SPARK` / `LF-SITROOM-001` | Valinta tilikohtaisesti alla; tai asiakkaan 100 % DGX-yhteensopiva                                                                           |
-| 3   | NVIDIA-mallien asennus ja palvelu | `LF-NVIDIA-INSTALL`                                   | Yksi per solmu                                                                                                                               |
-| 4   | k3s-orkestrointi                  | `LF-K8S-T1` (2 solmua: `LF-K8S-T2`)                   |                                                                                                                                              |
-| 5   | NIM Starter + Retrieval           | `LF-NIM-STARTER`, `LF-NIM-RETRIEVAL`                  | Paikallinen mallipalvelu ja haku                                                                                                             |
-| 6   | Syöteyhdyskäytävä, vain luku      | `LF-IPCMAX-IPC409` tai `LF-IPCMAX-CINCOZE-DA1200`     | OPC UA / Modbus sisään, ei kirjoituspolkua                                                                                                   |
-| 7   | Sensorisolmut                     | `LF-JETSON-NANO` / `-NX` / `-AGX`                     | Vain jos työnkulku tarvitsee omia sensoreita                                                                                                 |
-| 8   | Puuttuvat osat 1–9                | ei SKU:ta vielä                                       | Laiteavain, työasema, kestotallennus, kytkin, palomuuri, aikalähde, UPS, teline, OT-yhdyskäytävä; `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md` |
+| #   | Rivi                                           | SKU                                               | Huomio                                                                                                                                       |
+| --- | ---------------------------------------------- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | DWS IQ Aegis Pilot, 3 kk                       | `DWS-AEGIS-PILOT-001`                             | Ajoympäristö, KYA-identiteetti, Art. 12 -loki, pysäytys; hyvitetään                                                                          |
+| 2   | x86-laskentasolmu, Ubuntu 24.04, erillinen GPU | `LF-NODE-X86-R` (uusi)                            | Asiakkaan jo käyttämä merkki ensin (Beckhoff, Siemens); Arm (GB10, Jetson) ei kelpaa                                                         |
+| 3   | NVIDIA-mallien asennus ja palvelu              | `LF-NVIDIA-INSTALL`                               | Yksi per solmu                                                                                                                               |
+| 4   | k3s-orkestrointi                               | `LF-K8S-T1` (2 solmua: `LF-K8S-T2`)               |                                                                                                                                              |
+| 6   | Syöteyhdyskäytävä, vain luku                   | `LF-IPCMAX-IPC409` tai `LF-IPCMAX-CINCOZE-DA1200` | OPC UA / Modbus sisään, ei kirjoituspolkua                                                                                                   |
+| 7   | Sensorisolmut                                  | `LF-JETSON-NANO` / `-NX` / `-AGX`                 | Vain jos työnkulku tarvitsee omia sensoreita                                                                                                 |
+| 8   | Puuttuvat osat 1–9                             | ei SKU:ta vielä                                   | Laiteavain, työasema, kestotallennus, kytkin, palomuuri, aikalähde, UPS, teline, OT-yhdyskäytävä; `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md` |
 
 Phase 0 (2 vk, ei maksua) lukitsee: työnkulku, eristysmenetelmä, kolme hyväksymisehtoa, nimetyt roolit (työnkulun omistaja, operaattori, tekninen yhteyshenkilö, päätösvastuun kantaja).
 
@@ -46,17 +45,16 @@ Phase 0 (2 vk, ei maksua) lukitsee: työnkulku, eristysmenetelmä, kolme hyväks
 
 **Toimituslista.**
 
-| Rivi                                       | SKU                                  | Määrä   | Perustelu                                                                                      |
-| ------------------------------------------ | ------------------------------------ | ------- | ---------------------------------------------------------------------------------------------- |
-| Aegis Pilot                                | `DWS-AEGIS-PILOT-001`                | 1       |                                                                                                |
-| Situation Room, 2× GN100                   | `LF-SITROOM-001`                     | 1       | Tornion tuotantohuone 24/7; kahden solmun varmennus; toinen solmu voi palvella Kemiä myöhemmin |
-| NVIDIA-asennus                             | `LF-NVIDIA-INSTALL`                  | 2       | Per solmu                                                                                      |
-| k3s HA                                     | `LF-K8S-T2`                          | 1       | Kaksi solmua                                                                                   |
-| NIM Starter + Retrieval                    | `LF-NIM-STARTER`, `LF-NIM-RETRIEVAL` | 1+1     |                                                                                                |
-| Cincoze DA-1200 OT-yhdyskäytävä, vain luku | `LF-IPCMAX-CINCOZE-DA1200`           | 1       | Historian / Level 2 -tietokanta OPC UA:lla, jos tuotantohuonetyönkulku valitaan                |
-| Sensorisolmut                              | ei                                   | 0       | Olemassa olevat ABB/Nortal-kamerat ja Valmet-kuvantaminen riittävät syötteeksi                 |
-| DWS IQ EU Sovereign Pilot                  | `DWS-EU-PILOT`                       | 0       | Ei tarvita: synkronointi Azureen asiakkaan omaan tenanttiin, ei meidän pilveen                 |
-| Puuttuvat osat 1–9                         | ei SKU:ta                            | 1 setti | Palomuuri/kytkin todennäköisesti asiakkaan (Palo Alto); muut toimitetaan                       |
+| Rivi                                        | SKU                        | Määrä   | Perustelu                                                                                                     |
+| ------------------------------------------- | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| Aegis Pilot                                 | `DWS-AEGIS-PILOT-001`      | 1       |                                                                                                               |
+| x86-solmu, Beckhoff IPC (malli vaiheessa 0) | `LF-NODE-X86-R`            | 1       | Outokumpu käyttää Beckhoffia (HIC 01.10.2026, evidenssi HIC:llä); GPU-paikka ja Linux varmistettava per malli |
+| NVIDIA-asennus                              | `LF-NVIDIA-INSTALL`        | 2       | Per solmu                                                                                                     |
+| k3s HA                                      | `LF-K8S-T2`                | 1       | Kaksi solmua                                                                                                  |
+| Cincoze DA-1200 OT-yhdyskäytävä, vain luku  | `LF-IPCMAX-CINCOZE-DA1200` | 1       | Historian / Level 2 -tietokanta OPC UA:lla, jos tuotantohuonetyönkulku valitaan                               |
+| Sensorisolmut                               | ei                         | 0       | Olemassa olevat ABB/Nortal-kamerat ja Valmet-kuvantaminen riittävät syötteeksi                                |
+| DWS IQ EU Sovereign Pilot                   | `DWS-EU-PILOT`             | 0       | Ei tarvita: synkronointi Azureen asiakkaan omaan tenanttiin, ei meidän pilveen                                |
+| Puuttuvat osat 1–9                          | ei SKU:ta                  | 1 setti | Palomuuri/kytkin todennäköisesti asiakkaan (Palo Alto); muut toimitetaan                                      |
 
 **Työnkulkuehdokas.** IP-disclosure/CBAM-dokumenttityönkulku (R02 IP Director -ovi) tai tuotantohuoneen suositustyönkulku (R11 Plant Director). Ensimmäinen on halvempi eristää (dokumenttivarasto, ei OT-liitäntää); toinen on Aegis-tuotteen ydin. Phase 0 valitsee.
 
@@ -75,17 +73,16 @@ Phase 0 (2 vk, ei maksua) lukitsee: työnkulku, eristysmenetelmä, kolme hyväks
 
 **Toimituslista.**
 
-| Rivi                             | SKU                                  | Määrä   | Perustelu                                                                             |
-| -------------------------------- | ------------------------------------ | ------- | ------------------------------------------------------------------------------------- |
-| Aegis Pilot                      | `DWS-AEGIS-PILOT-001`                | 1       |                                                                                       |
-| Control Room, 1× GN100           | `edge-node-gn100`                    | 1       | Yksi tuotelinja, yksi työnkulku; kustannuspaine (H1/2026) puoltaa yhtä solmua         |
-| NVIDIA-asennus                   | `LF-NVIDIA-INSTALL`                  | 1       |                                                                                       |
-| k3s, yksi solmu                  | `LF-K8S-T1`                          | 1       |                                                                                       |
-| NIM Starter + Retrieval          | `LF-NIM-STARTER`, `LF-NIM-RETRIEVAL` | 1+1     |                                                                                       |
-| iPCMax IPC-409 syöteyhdyskäytävä | `LF-IPCMAX-IPC409`                   | 1       | Modbus/OPC UA energia- ja tuotantodatalle, vain luku                                  |
-| Jetson Orin NX sensorisolmu      | `LF-JETSON-NX`                       | 0–1     | Vain jos energiamittaus puuttuu linjalta; päätetään Phase 0:ssa                       |
-| DWS IQ EU Sovereign Pilot        | `DWS-EU-PILOT`                       | 0       | Prosessidata ei poistu tontilta                                                       |
-| Puuttuvat osat 1–9               | ei SKU:ta                            | 1 setti | Kytkin ja palomuuri todennäköisesti Kemiran; Seveso-laitoksen kaappi ja UPS vaaditaan |
+| Rivi                                                       | SKU                   | Määrä   | Perustelu                                                                             |
+| ---------------------------------------------------------- | --------------------- | ------- | ------------------------------------------------------------------------------------- |
+| Aegis Pilot                                                | `DWS-AEGIS-PILOT-001` | 1       |                                                                                       |
+| x86-solmu, esim. Neousys Nuvo-10108GC + RTX 6000 Ada 48 GB | `LF-NODE-X86-R`       | 1       | Yksi tuotelinja; 32B-luokan malli riittää; OEM Finland Oy                             |
+| NVIDIA-asennus                                             | `LF-NVIDIA-INSTALL`   | 1       |                                                                                       |
+| k3s, yksi solmu                                            | `LF-K8S-T1`           | 1       |                                                                                       |
+| iPCMax IPC-409 syöteyhdyskäytävä                           | `LF-IPCMAX-IPC409`    | 1       | Modbus/OPC UA energia- ja tuotantodatalle, vain luku                                  |
+| Jetson Orin NX sensorisolmu                                | `LF-JETSON-NX`        | 0–1     | Vain jos energiamittaus puuttuu linjalta; päätetään Phase 0:ssa                       |
+| DWS IQ EU Sovereign Pilot                                  | `DWS-EU-PILOT`        | 0       | Prosessidata ei poistu tontilta                                                       |
+| Puuttuvat osat 1–9                                         | ei SKU:ta             | 1 setti | Kytkin ja palomuuri todennäköisesti Kemiran; Seveso-laitoksen kaappi ja UPS vaaditaan |
 
 **Työnkulkuehdokas.** Erätason hiilijalanjälki yhdelle Fiber Essentials -tuotelinjalle: agentti kokoaa luvun, nimetty omistaja hyväksyy, hylkää tai muuttaa; päätös lokiin. Valmis-tila on määritelty (erä laskettu ja kuitattu), joten työnkulku on testattava.
 
