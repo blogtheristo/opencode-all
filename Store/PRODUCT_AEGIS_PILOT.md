@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.21, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.22, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -230,3 +230,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.19, 01.10.2026: Boardy (auditoitu, pitää; Azure-dokumentaatio): lukituksen laajuus (koko tallenne, ei yksittäiset versiot) kirjattu. Asiakas päättää WORM-tallenteen paikan; suositus asiakkaan tilat, koska pilviviennin ankkuri puuttuu verkkokatkon ajalta. Pilvessä puskuri, jälkikäteislähetys ja katkon pituus raporttiin.
 - v2.0.20, 01.10.2026: Boardy (auditoitu, pitää; säädösteksti): lukitusajan oletus kymmenen vuotta Lifetime Oy:n suosituksena, ei velvoitteena (AI Act 18 art. tarjoaja 10 v, 26 art. 6 kohta käyttöönottaja vähintään 6 kk). Horisontti näkyviin: lukko päättyy, ellei pidennetä. Tallenteen koko ja kustannus asiakkaan, vuosikertymä lasketaan vaiheessa 0. Odottaa HIC-vahvistusta (10 v oletus).
 - v2.0.21, 01.10.2026: Boardy (auditoitu, pitää; koodi: pysäytyskomennon `reason` on vapaa tekstikenttä, 200 merkkiä): lukkoon vain tiiviste, allekirjoitus tiivisteen yli, avaimen tunniste ja rooli; sisältö lukon ulkopuolelle. Poistopyynnön hinta kirjattu. Odottaa HIC-vahvistusta.
+- v2.0.22, 01.10.2026: HIC vahvisti v2.0.18–v2.0.21 avoimet kohdat: (1) lukitusajan oletus kymmenen vuotta Lifetime Oy:n suosituksena, (2) asiakas päättää WORM-tallenteen paikan, suositus asiakkaan tilat, (3) lukkoon vain tiiviste, allekirjoitus tiivisteen yli, avaimen tunniste ja rooli. Tekstisisältö ennallaan.
