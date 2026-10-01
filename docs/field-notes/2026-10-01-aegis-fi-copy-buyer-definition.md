@@ -13,11 +13,30 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 01.10.2026
+- Last Modified: 01.10.2026
+- Language: Finnish
+- Languages Available: Suomi
+- Publication Status: ACTIVE
+- Harness: Claude Code (web) + CLAUDE.md
+- HIC-approved-drift: none
 - Status: PENDING_REVIEW
 
 ---
 
-## Mitä tehtiin
+- **Date:** 2026-10-01
+- **Author:** Claude Code for risto.paarni@lifetime.fi
+- **Location:** Espoo, FI (remote session)
+- **Context:** DWS IQ 7 Aegis Pilot (DWS-AEGIS-PILOT-001), Finnish Store copy, buyer definition
+
+## Ontology Tags
+
+- **Geography:** Europe > Finland
+- **Sector:** Manufacturing / data centres > control rooms > governed AI agents
+- **Entities:** Lifetime Oy, DWS IQ 7 Aegis, Outokumpu, Kemira, Beckhoff, NVIDIA, Boardy (advisor)
+- **Temporal Context:** 2026-10-01, pilot pre-revenue
+- **Confidence:** Medium
+
+## The Story — Mitä tehtiin
 
 - `Store/PRODUCT_AEGIS_PILOT.md`: lisätty `## Suomeksi` (kiristetty teksti). Englanninkielinen sisältö ei muuttunut.
 - `sales-outreach/AEGIS_PILOT_FIRST_TOUCH_FI.md`: ensikontaktiluonnos. Ei lähetetty.
@@ -116,3 +135,12 @@ Tekstimuutos: DGX-tuotenimi pois sopimusrivistä ("GB10-luokan solmu"), laiteval
 ## Korjaus 01.10.2026: x86-only oli virhe
 
 Tulkitsin kaksi viestiä HIC:n päätöksiksi: "pysy x86:ssa, ARM:lla testattu pino ei päde" (Boardyn linja, ei HIC:n) ja "emme käytä NIM/CUDA:ta, punainen vaate joillekin?" (kysymys, ei kielto). HIC 01.10.2026: "pysymme NIM/CUDA:ssa". Korjattu versiossa v2.0: portti on NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA). Kaikki versiot arkistoitu `docs/sales/aegis-pilot-versions/`. Oppi: viestin, jossa on kysymysmerkki tai toisen henkilön väite, ei saa kirjata päätökseksi ilman vahvistusta.
+
+## The Insight
+
+A customer text written in one evening went through 30+ versions; every change that touched a claim needed a source, and two misreadings (x86-only, NIM/CUDA) were HIC questions taken as decisions. Versioned snapshots made each step reversible.
+
+## Next Steps
+
+1. HIC approval of the FI text and the EN alignment.
+2. Day-6 prompt: `.claude/handoffs/claude/aegis-pilot-build-day-6-prompt.md`.

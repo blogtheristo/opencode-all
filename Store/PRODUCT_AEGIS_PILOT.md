@@ -20,7 +20,7 @@ mpn: "DWS-AEGIS-PILOT-2026"
 
 ## What it is
 
-A fixed-price, fixed-duration engagement that proves the complete **local-first operational path** for Aegis on infrastructure you already have — or on a compact edge appliance — **before any DGX procurement**.
+A fixed-price, fixed-duration engagement that proves the complete **local-first operational path** for Aegis on a dedicated NVIDIA CUDA node supplied as price-list lines (a GB10 node, or an x86 industrial PC with an NVIDIA GPU, preferably the brand your site already runs) — **before any production rollout**. The hardware stays your property and is not credited.
 
 The pilot exists because the control-room requirement is testable. In manufacturing control rooms, dual-use facilities and air-gapped plants, compliance execution cannot depend on external connectivity. That is either true of a deployment or it is not, and the way to find out is to run it and pull the cable — not to model it in a proposal.
 
@@ -66,7 +66,7 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 **Objective.** Stand up execution, identity, evidence and kill authority on site. Nothing about your workflow yet.
 
-- **We do:** deploy the execution runtime and local model serving on your hardware or a compact edge appliance; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.
+- **We do:** deploy the execution runtime and local model serving on the NVIDIA CUDA node chosen in Phase 0; issue KYA agent identity that resolves locally, with no reachable control plane; stand up the Article 12 log writer against local durable storage; wire the kill path operator → running agent with no network hop.
 - **You do:** hardware placement, power, network segment, operator account provisioning.
 - **Exit gate:** the **four locals** demonstrated in isolation with the uplink already down — an agent runs, is identified, writes a record, and can be stopped.
 - **Why before the workflow.** Proving the substrate first means a Phase 3 failure is a workflow problem, not a platform problem. If identity or kill authority turns out to need a round-trip, that is the pilot's finding and it is reported at week 5, not discovered at week 11.
@@ -114,7 +114,7 @@ If you do not proceed, you keep the architecture, the measurements and the evide
 
 **No physical control.** The pilot's agents produce recommendations, decisions and records. They do not control physical equipment: no command reaches a PLC, SCADA system or fieldbus, and the site's own safety functions, including any SIL-rated emergency stop, are not touched. Every recommendation is decided by an operator, and the decision is recorded as a signed event: who decided, what was decided, and whether the recommendation was accepted, changed or rejected.
 
-**The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; Lifetime World Model (LWM v2) training to your environment, since every Aegis delivery needs it; and production hardware sizing derived from measured behaviour on that workload.
+**The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on the NVIDIA CUDA node chosen in Phase 0 (hardware billed as separate price-list lines); Lifetime World Model (LWM v2) training to your environment, since every Aegis delivery needs it; and production hardware sizing derived from measured behaviour on that workload.
 
 **Outside the credit, stated so there is no ambiguity later:** any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
 
