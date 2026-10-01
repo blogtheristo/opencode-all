@@ -302,7 +302,9 @@ export class KillAuthority {
         // Operator evidence (EVIDENCE_FORMAT_v1.md §5): framed fields, credential id and the
         // operator's signatures, so the stop verifies with the operator's key alone, years
         // later. No body and no free-text reason: those live in the erasable sidecar.
-        ...operatorEventFields('stop', body, cred, signature, digestSignature),
+        ...operatorEventFields('stop', body, cred, digestSignature),
+        // The operator's Ed25519 signature over the command body (verifiable while it exists).
+        operator_signature: signature,
       },
     }).seq;
     // Safe halt: the stop is not complete while the agent could resume under the same grant.

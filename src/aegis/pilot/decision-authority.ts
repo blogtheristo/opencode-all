@@ -509,7 +509,9 @@ export class DecisionAuthority {
         // Operator evidence (EVIDENCE_FORMAT_v1.md §5): framed fields, credential id and the
         // operator's signatures, so the decision verifies with the operator's key alone, years
         // later. No body and no free-text reason: those live in the erasable sidecar.
-        ...operatorEventFields('decide', body, cred, signature, digestSignature),
+        ...operatorEventFields('decide', body, cred, digestSignature),
+        // The operator's Ed25519 signature over the command body (verifiable while it exists).
+        operator_signature: signature,
       },
     });
     const outcome: DecisionOutcome = {

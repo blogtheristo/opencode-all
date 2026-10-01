@@ -143,7 +143,10 @@ export function signCommandFrame(
   return signPayload(commandFrame(kind, body.commandId, body.issuedAt, role, digest), operatorKey);
 }
 
-/** The fields an operator event carries (framed fields, credential id, both signatures). */
+/**
+ * The framed fields and credential id an operator event carries. The caller adds the
+ * operator's body signature as `operator_signature` beside them.
+ */
 export interface OperatorEventFields {
   command_kind: CommandKind;
   command_digest: string;
@@ -151,14 +154,12 @@ export interface OperatorEventFields {
   role: string | null;
   operator_credential_id: string;
   digest_signature: string;
-  operator_signature: string;
 }
 
 export function operatorEventFields(
   kind: CommandKind,
   body: Record<string, unknown>,
   cred: Credential,
-  signature: string,
   digestSignature: string,
 ): OperatorEventFields {
   return {
@@ -168,7 +169,6 @@ export function operatorEventFields(
     role: cred.role ?? null,
     operator_credential_id: cred.credentialId,
     digest_signature: digestSignature,
-    operator_signature: signature,
   };
 }
 
