@@ -8,10 +8,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
 
+- Version: 1.1 | Tool: Claude Code | Session: claude/aegis-disclosure-depth | Date: 01.10.2026 | Changes: Framed digest signature, erasable command body outside the chain, redaction record, scope of the lock (advisor review audited, rows 53–57).
 - Version: 1.0 | Tool: Claude Code | Session: claude/aegis-fi-copy-buyer-definition | Date: 01.10.2026 | Changes: Initial whitepaper (HIC 01.10.2026: move acceptance and evidence detail from the public pages into a whitepaper available on request). Content moved from `Store/PRODUCT_AEGIS_PILOT.md` FI v2.0.22 (Hyväksymistesti, Tarkistettavuus) and the evidence task spec `.claude/done/opencode/aegis-evidence-ten-year-verify.json`; claims audited in `docs/field-notes/2026-10-01-boardy-claims-audit.md`.
 
 Document Status:
@@ -58,7 +59,9 @@ The site key sits in the same box as the write access, so before a seal whoever 
 - **Operator command copies** _(in build)_. Every operator-signed command is copied to a location the site-key holder cannot write. These copies rest on the operator's key, not the site key, so a deleted ledger event shows up as a copy without a matching event.
 - **Default location.** A workstation administered by the operations organisation, with a WORM mirror beside it. The customer decides whether the WORM store is on premises or in the cloud; we recommend on premises.
 - **Lock.** The retention lock covers the whole store and every object written to it, not single versions. It can be extended, never shortened or removed, not even by an administrator. A different role sets the lock than the role that writes the copies. (Cloud example: Azure immutable storage, locked time-based retention.[^az])
-- **Lock content — no personal data.** The lock holds only the command digest, the operator's signature over that digest, the key id and the role. The command body, including the free-text reason, stays outside the lock. An erasure request is met by deleting the body and the key-to-person link; afterwards the lock still proves that a given operator key signed a given command no later than the time it was written, but no longer what the command said or who held the key.
+- **Lock content — no command bodies or names.** For each operator command the lock holds a framed record: domain tag, command id, command kind, role, issue time and the command digest, signed by the operator's key at issue time. Framing keeps the signature bound to its context and makes the id, role and time tamper-evident. The command body, including the free-text reason, is kept outside the hash chain in an erasable store referenced by its digest.
+- **Erasure.** An erasure request deletes the command body and the key-to-person link, and writes a redaction record (digest, date, reason code) to the ledger and the lock. Verification then shows a lawfully erased command as a digest with a redaction record; a digest with neither a body nor a redaction record is reported as missing. Afterwards the lock still proves that a given operator key signed a given command no later than the time it was written, but no longer what the command said or who held the key _(in build)_.
+- **Scope of the lock.** The lock covers operator commands and stops. The integrity of the rest of the event stream rests on the hash chain and the site key before a seal, and on the exported seal digests after it.
 - **Lock length.** Default ten years, extendable. This is Lifetime Oy's recommendation, not the customer's legal obligation: under the AI Act the ten-year retention applies to the provider's documentation (Art. 18); the deployer keeps automatically generated logs for a period appropriate to the intended purpose, at least six months (Art. 26(6)).[^aia] The lock ends after ten years unless extended. Storage size and cost are the customer's; Phase 0 estimates the yearly volume.
 - **Cloud and outages.** A cloud store is cut off exactly when the network fails. The box keeps sealing, but no anchor is created until the link returns; the export is buffered and backfilled, and the length of the gap is stated in the report.
 - **Honest boundary.** The separation is role-based, not technical. If the box administrator also administers the copy location, the boundary does not hold, and that is recorded. On a single-person site the protection is the retention lock, not role separation, and Phase 0 says so.
