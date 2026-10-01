@@ -8,7 +8,8 @@ lang: sv
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-08
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — Godkänd av HIC 09.08.2026 med villkoret att AI-översättningsmärkningen ingår.
 source: Översättning av den HIC-godkända finska texten (know-your-agent-kya-s1.fi.md). Avsnitt för avsnitt, påstående för påstående.
 ai_disclosure: included (mandatory banner below the title)
@@ -16,6 +17,38 @@ note: >-
   Seriens del 1/12. Godkänd av HIC 09.08.2026 med villkoret att AI-översättningsmärkningen ingår. AI-översättningsmärkning krävs vid publicering
   (docs/BLOG_STANDARD.md §3.2.1, EU AI Act art. 50(4)).
   Säkerhetsnivåerna följer Legal/KYA_S1.md v1.5 (KYA-AL1/AL2/AL3).
+claims_checked: 2026-09-30
+sources:
+  - title: "System and Organization Controls (SOC) 2 Type 2"
+    authors: "Microsoft"
+    year: 2026
+    venue: "Microsoft Learn — Compliance offerings"
+    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+    type: industry
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
+  - title: "EU AI Act compliance checklist — Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI)"
+    authors: "Microsoft"
+    year: 2026
+    venue: "microsoft/agent-governance-toolkit (GitHub)"
+    url: https://github.com/microsoft/agent-governance-toolkit/blob/main/docs/compliance/eu-ai-act-checklist.md
+    type: industry
+  - title: "Regulating AI Agents"
+    authors: "Gardhouse, K., Oueslati, A., Kolt, N."
+    year: 2026
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2603.23471
+    type: academic
+  - title: "Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem"
+    authors: "Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J."
+    year: 2023
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2310.02521
+    type: academic
 ---
 
 # Känn din agent (KYA-S1): En signerad sida om den AI i säkerhetspärmen som rör dina data
@@ -26,7 +59,7 @@ Blogg 1/12 · DWS IQ & Lifetime World Model · 8 augusti 2026 · Risto Anton Pä
 
 ## Inledning: AI fattar beslut — men vem bär ansvaret?
 
-I företagens och den offentliga förvaltningens upphandlingspärmar finns i dag en omfattande bunt signerade dokument. På organisationsnivå finns SOC 2 Type 2- och ISO/IEC 27001-certifikat. För data och dataskydd finns GDPR- och CSRD-bevis. För plattformssäkerhet och infrastruktur finns FedRAMP eller ett suveränt molngodkännande att peka på.
+I företagens och den offentliga förvaltningens upphandlingspärmar finns i dag en omfattande bunt signerade dokument. På organisationsnivå finns SOC 2 Type 2-rapporter och ISO/IEC 27001-certifikat [1]. För data och dataskydd finns GDPR- och CSRD-bevis. För plattformssäkerhet och infrastruktur finns FedRAMP eller ett suveränt molngodkännande att peka på.
 
 Ett kritiskt dokument saknas ändå i upphandlingspärmen: en signerad sida för den autonoma AI-agenten.
 
@@ -53,13 +86,13 @@ Den största fallgropen i leverantörsstyrning är självutvärdering (self-atte
 
 > **Regel (§3):** Självutvärdering är inte godtagbart bevis för KYA-S1-överensstämmelse. Papperet är värt exakt så mycket som namnet på dess andra signaturrad.
 
-Som godtagbart bevis duger endast en revisionsrapport från en ackrediterad tredje part (till exempel en SOC 2-revisor eller ett ackrediterat red team-företag) eller kryptografiskt verifierad plattformstelemetri som bevaras i ett oföränderligt loggregister.
+Som godtagbart bevis duger endast en revisionsrapport från en ackrediterad tredje part (till exempel en SOC 2-revisor eller ett ackrediterat red team-företag) eller kryptografiskt verifierad plattformstelemetri som bevaras i ett oföränderligt loggregister [5].
 
 Regeln binder även specifikationens upphovsman: Lifetime Oy utfärdar inget KYA-S1-certifikat till sin egen DWS IQ-plattform förrän en oberoende, extern bedömare har signerat det.
 
 ## KYA-AL-säkerhetsnivåer (Assurance Levels)
 
-Branschens KYA-AL-säkerhetsnivåer definierar revisionsfrekvensen och SLA-responstiden:
+KYA-S1:s egna KYA-AL-säkerhetsnivåer definierar revisionsfrekvensen och SLA-responstiden:
 
 | Säkerhetsnivå          | Revisionsfrekvens      | Krävt bevisdjup                                                | SLA-responstid (IDV & TC4) |
 | ---------------------- | ---------------------- | -------------------------------------------------------------- | -------------------------- |
@@ -69,13 +102,13 @@ Branschens KYA-AL-säkerhetsnivåer definierar revisionsfrekvensen och SLA-respo
 
 ## Direkt koppling till EU:s AI-förordning (§4)
 
-KYA-S1-specifikationen producerar material som är direkt användbart mot skyldigheterna i EU:s AI-förordning:
+KYA-S1-specifikationen producerar material som är direkt användbart mot skyldigheterna i EU:s AI-förordning [2]:
 
 - **Artikel 12 (Loggning):** KYA-S1:s PRV-kontroll ger reproducerbarhet för beslut (PRV-2) och oföränderlig historik.
 - **Artikel 14 (Mänsklig tillsyn / HIC):** KYA-S1:s IDV, TC4, TRS och PRV-4 garanterar människans verkliga befäls- och vetorätt.
 - **Artikel 50 (Transparens):** KYA-S1:s PRV-3 ger en verifierbar ursprungsmärkning för utdata.
 
-**Den ärliga gränsen:** KYA-S1-överensstämmelse är inte i sig överensstämmelse med EU:s AI-förordning. Den ger köparen hårt tekniskt bevis för att agentens beteende vid körning uppfyller lagens bokstav.
+**Den ärliga gränsen:** KYA-S1-överensstämmelse är inte i sig överensstämmelse med EU:s AI-förordning. Den ger köparen hårda tekniska bevis att hålla agentens beteende vid körning mot lagens bokstav. Artiklarna 12 och 14 binder AI-system med hög risk — vilket en agent inte automatiskt är [4] — och för fristående högrisksystem (bilaga III) gäller de från och med den 2 december 2027 [3].
 
 ## Kort sagt
 
@@ -105,3 +138,15 @@ Risto Anton Päärni
 Founder, CEO, Lifetime Oy
 
 Chefredaktör, Lifetime Scope Journal
+
+## Källor
+
+[1] Microsoft (2026). System and Organization Controls (SOC) 2 Type 2. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+
+[2] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[3] Microsoft (2026). EU AI Act compliance checklist — Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI). microsoft/agent-governance-toolkit (GitHub). https://github.com/microsoft/agent-governance-toolkit/blob/main/docs/compliance/eu-ai-act-checklist.md
+
+[4] Gardhouse, K., Oueslati, A., Kolt, N. (2026). Regulating AI Agents. arXiv. https://arxiv.org/abs/2603.23471
+
+[5] Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J. (2023). Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem. arXiv. https://arxiv.org/abs/2310.02521

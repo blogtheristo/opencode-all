@@ -1,9 +1,11 @@
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 Slug: greg-isenberg-agents-need-a-signature
 Title: Greg Isenberg is right about agents. The hard part is a signature.
 Language: en
 Target: onelifetime.world/posts/greg-isenberg-agents-need-a-signature.html
 Date: 2026-07-24 (HIC 10.08.2026: julkaistaan alkuperäisellä päiväyksellä)
+claims_checked: 2026-09-30
 
 Agent Infrastructure · Field Note
 
@@ -25,15 +27,15 @@ Greg's list reads like 21 companies. Read it again and eight of them are the sam
 
 Spend controls. A checkable track record. Proof the agent acts for a real person with authority. Escrow that releases on verified done. Replay. A judge for disputes. Throwaway cards. The liability layer.
 
-Each one needs the same four facts before it can exist: who is this agent, which human stands behind it, what is it allowed to do, and what did it actually do. Build those four once and you have not built one startup. You have built the floor the other twenty stand on.
+Each one needs the same four facts before it can exist: who is this agent, which human stands behind it, what is it allowed to do, and what did it actually do. Today's main agent protocols do not verify the first one at all [4]. Build those four once and you have not built one startup. You have built the floor the other twenty stand on.
 
 We call that floor KYA — Know Your Agent. Four sentences run it: verify the human, sandbox the agent, govern how it optimises itself, and log every action so an auditor can read it later.
 
 ## Why Europe got here first
 
-Greg frames this layer as a market opening. In Europe it is a legal duty.
+Greg frames this layer as a market opening. In Europe, for high-risk systems, it is becoming a legal duty [5].
 
-The EU AI Act already requires record-keeping for high-risk deployments under Article 12, and human oversight under Article 14. That turns "why did my agent do that" from a debugging feature into evidence a deployer must be able to produce. Regulation set our deadline before any customer did.
+The EU AI Act requires record-keeping for high-risk AI systems under Article 12, and human oversight under Article 14 [1]; after the 2026 Digital Omnibus, those duties apply to stand-alone high-risk systems from 2 December 2027 [2]. That turns "why did my agent do that" from a debugging feature into evidence a deployer must be able to produce — deployers keep those logs for at least six months [1]. Regulation set our deadline before any customer did.
 
 ## The CV does die. A credential replaces it.
 
@@ -55,7 +57,7 @@ We have shipped the trust score and its engine, the gate that denies by default,
 
 In production today that credential mints unsigned. Which means it is a claim our database makes, not a proof a stranger can check.
 
-The signing path is written and in review. We reviewed it properly before merging it, and it did not come back clean: the signature covered the credential but not the proof metadata — so the timestamp on an audit record could be changed after signing and the signature would still check out. On an evidence artifact, that is the whole point undone.
+The signing path is written and in review. We reviewed it properly before merging it, and it did not come back clean: the signature covered the credential but not the proof metadata — which the W3C data-integrity algorithm hashes together with the document [3] — so the timestamp on an audit record could be changed after signing and the signature would still check out. On an evidence artifact, that is the whole point undone.
 
 The tests had not caught it. Eight of them passed, because they tampered with the part that was signed and never the part that was not. We fixed the signature, added the four tests that were missing, and then reverted the fix to confirm those tests actually fail without it. A test that passes before and after a fix is telling you nothing.
 
@@ -81,7 +83,7 @@ On a judge for agent disputes. Machine courts will not be neutral startups. They
 
 - Greg Isenberg is right that this decade gets built for machines. We agree.
 - Eight of his twenty-one categories are one layer, not eight companies — identity, authority, track record, and a log. We call it KYA.
-- In Europe that layer is not a market opening. The AI Act makes it a duty, which is why we started early.
+- In Europe that layer is not a market opening. For high-risk systems the AI Act makes it a duty, which is why we started early.
 - The CV does die. What replaces it is a signed credential a stranger can check in seconds.
 - Ours mints unsigned in production today. The signing path is written, reviewed, and one real defect lighter than it was — and still not live. That is the next thing we ship.
 
@@ -95,29 +97,43 @@ On a judge for agent disputes. Machine courts will not be neutral startups. They
 Risto Anton Päärni
 Founder, CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal
 
-***
+## Sources
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Microsoft (2026). EU AI Act compliance checklist — Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI). microsoft/agent-governance-toolkit (GitHub). https://github.com/microsoft/agent-governance-toolkit/blob/main/docs/compliance/eu-ai-act-checklist.md
+
+[3] Sporny, M., et al. (eds.) (2025). Verifiable Credential Data Integrity 1.1 (Editor's Draft). W3C. https://w3c.github.io/vc-data-integrity/
+
+[4] Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv. https://arxiv.org/abs/2603.24775
+
+[5] Gardhouse, K., Oueslati, A., Kolt, N. (2026). Regulating AI Agents. arXiv. https://arxiv.org/abs/2603.23471
+
+---
 
 ## JULKAISUKELPOISUUSARVIO (ei osa postausta — poista ennen julkaisua)
 
 KORJATTU 10.08.2026
-  - "We wrote the standard for the credential" -> "the specification"
-    (KYA-S1 on spesifikaatio, ei standardi; DWS_TRUTH_STANDARD rivi 35).
+
+- "We wrote the standard for the credential" -> "the specification"
+  (KYA-S1 on spesifikaatio, ei standardi; DWS_TRUTH_STANDARD rivi 35).
 
 VAHVAT KOHDAT — nämä puoltavat julkaisua
-  - Rehellisyysosio on poikkeuksellisen hyvä: kerrotaan suoraan että credential
-    mintataan tuotannossa ALLEKIRJOITTAMATTOMANA. Tämä on juuri se, mitä
-    rehellisyysvartijat vaativat, ja se kestää ostajan auditointikysymyksen.
-  - EU AI Act Art. 12 / Art. 14 -väitteet vastaavat kanonia.
-  - Ei ylimyyntiä: "written, reviewed, not shipped" on tarkka.
-  - Allekirjoitus on Sender Identity -säännön mukainen (Päärni umlauteilla).
+
+- Rehellisyysosio on poikkeuksellisen hyvä: kerrotaan suoraan että credential
+  mintataan tuotannossa ALLEKIRJOITTAMATTOMANA. Tämä on juuri se, mitä
+  rehellisyysvartijat vaativat, ja se kestää ostajan auditointikysymyksen.
+- EU AI Act Art. 12 / Art. 14 -väitteet vastaavat kanonia.
+- Ei ylimyyntiä: "written, reviewed, not shipped" on tarkka.
+- Allekirjoitus on Sender Identity -säännön mukainen (Päärni umlauteilla).
 
 LÄHDE VARMENNETTU 10.08.2026 — luvut palautettu
 
-  Ensimmäinen yritys: X.com, nitter, threadreaderapp ja gregisenberg.com ovat
-  kaikki estetty egress-gatewayssa (403 CONNECT); Playwright käyttää samaa
-  verkkopolkua eikä olisi päässyt läpi. Teksti pehmennettiin.
+Ensimmäinen yritys: X.com, nitter, threadreaderapp ja gregisenberg.com ovat
+kaikki estetty egress-gatewayssa (403 CONNECT); Playwright käyttää samaa
+verkkopolkua eikä olisi päässyt läpi. Teksti pehmennettiin.
 
-  Toinen yritys onnistui: lähde on REPOSSA, kahdessa päivätyssä field notessa:
+Toinen yritys onnistui: lähde on REPOSSA, kahdessa päivätyssä field notessa:
 
     docs/field-notes/2026-07-06-greg-isenberg-startups-for-agents-21-answers.md
       "Greg Isenberg (@gregisenberg), via X, circulated 06.07.2026 ... followed
@@ -130,28 +146,29 @@ LÄHDE VARMENNETTU 10.08.2026 — luvut palautettu
       Kohta #11 siteerattuna: "The CV dies and gets replaced by a body of work
        an agent can verify in 4 seconds."
 
-  Kaikki kolme pehmennettyä väitettä (21 / 16 / four seconds) ovat siis
-  dokumentoituja aikalaiskirjauksia. Pehmennys peruttu, tarkat luvut
-  palautettu.
+Kaikki kolme pehmennettyä väitettä (21 / 16 / four seconds) ovat siis
+dokumentoituja aikalaiskirjauksia. Pehmennys peruttu, tarkat luvut
+palautettu.
 
-  JÄLJELLE JÄÄVÄ VARAUMA: molemmat field notet merkitsevät ketjun TARKAN
-  SANAMUODON MEDIUM-luottamustasolle ("thread text supplied by the founder
-  from X; treat exact wording as MEDIUM confidence for external quotation").
-  Luvut ja kategoriajako ovat se, mihin postaus vastaa — ne ovat kunnossa.
-  Jos joku sanamuoto siteerataan lainausmerkeissä, se kannattaa tarkistaa
-  alkuperäisestä ennen kuin siitä tehdään suora sitaatti.
+JÄLJELLE JÄÄVÄ VARAUMA: molemmat field notet merkitsevät ketjun TARKAN
+SANAMUODON MEDIUM-luottamustasolle ("thread text supplied by the founder
+from X; treat exact wording as MEDIUM confidence for external quotation").
+Luvut ja kategoriajako ovat se, mihin postaus vastaa — ne ovat kunnossa.
+Jos joku sanamuoto siteerataan lainausmerkeissä, se kannattaa tarkistaa
+alkuperäisestä ennen kuin siitä tehdään suora sitaatti.
 
-  Postauksen päiväys 24.7.2026 osuu yhteen jälkimmäisen field noten kanssa,
-  joten "this month" oli kirjoitushetkellä oikein.
+Postauksen päiväys 24.7.2026 osuu yhteen jälkimmäisen field noten kanssa,
+joten "this month" oli kirjoitushetkellä oikein.
 
 PÄIVÄYS: HIC 10.08.2026 — julkaistaan ALKUPERÄISELLÄ päiväyksellä 24.7.2026.
 
 KIELIPERIAATE (HIC 10.08.2026)
-  Tässä postauksessa GROUND TRUTH on ENGLANTI. Postaus vastaa
-  englanninkieliseen X-ketjuun, ja sen käsitteet (KYA, credential,
-  verified-done attestation) ovat englanniksi määriteltyjä.
-  Kaikki käännökset johdetaan EN-versiosta, ei toisin päin. Jos EN-teksti
-  muuttuu, käännökset päivitetään sen mukaan — ei koskaan päinvastoin.
+Tässä postauksessa GROUND TRUTH on ENGLANTI. Postaus vastaa
+englanninkieliseen X-ketjuun, ja sen käsitteet (KYA, credential,
+verified-done attestation) ovat englanniksi määriteltyjä.
+Kaikki käännökset johdetaan EN-versiosta, ei toisin päin. Jos EN-teksti
+muuttuu, käännökset päivitetään sen mukaan — ei koskaan päinvastoin.
 
 TEKNINEN TILA
-  - Julkaisu = _DRAFT-pääte pois, rekisteröinti (§3 / §3.1), dual folder -synkka.
+
+- Julkaisu = \_DRAFT-pääte pois, rekisteröinti (§3 / §3.1), dual folder -synkka.

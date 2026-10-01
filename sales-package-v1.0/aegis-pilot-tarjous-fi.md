@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.6 [Latest]
+Version: 1.7 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.6 [Latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: A.1 varatilan rajaus: säiemoodissa ydinvaiheiden verkottomuus ei ole hiekkalaatikon asetus vaan vaatii isännän palomuurisäännön. OpenShell-moodin verkottomuus todennettu oikealla hiekkalaatikolla 29.09.2026. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
+- Version: 1.7 [Latest] | Tool: Claude Code | Session: claude/zealous-ptolemy-n1wzl1 | Date: 30.09.2026 | Changes: HIC 30.9.2026: uusi alakohta 'Teidän kokoonpanonne ja lainkäyttöalueet' (tier-lohko) kohtaan 1; tasot määritellään DWS Standards Libraryn §3.6:ssa, ja pohja viittaa siihen eikä sisällä toista versiota. Vaihe 0 tuottaa lainkäyttöaluekartan asiakkaan toimittaja- ja kokoonpanolistaa vasten; rivimäärää ei rajoiteta, mallin ulkopuoliset kohdat merkitään erikseen, ja lähdelista, lukupäivä ja rajaus kirjataan. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.6 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-implementation-03ist6 | Date: 29.09.2026 | Changes: A.1 varatilan rajaus: säiemoodissa ydinvaiheiden verkottomuus ei ole hiekkalaatikon asetus vaan vaatii isännän palomuurisäännön. OpenShell-moodin verkottomuus todennettu oikealla hiekkalaatikolla 29.09.2026. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.5 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC:n arvio 28.9.2026 (Boardy/Gemini-kierros): (1) ostajan osa lyhyeksi, tekninen liite erikseen; tietue edellä, hiekkalaatikko sen alla; (2) rajattu väite: ei yhtään tapahtumaa pysäytetyltä agentilta eikä yhtään kirjoitusta hallittuun resurssiin pysäytyshetken jälkeen; pysäytyshetki = lopetuksen vahvistavan tapahtuman allekirjoitus; (3) nimetty kuka kirjoittaa pysäytystietueen (isäntäpuolen ajuri, hiekkalaatikon ulkopuolella); (4) pysäytyksen ulottuvuus ja kohteen oma hätä-seis eri kerroksena; (5) myöntöön sidottu valtuustiedoston tiiviste (PR #2229) ja voimassaolon valvonta; (6) TPM-attestaatio, mitattu käynnistys, IMA ja RIM kuvattu kovennusvaiheena, ei pilotin sisältönä. Hylätty totuudenvastaisena: 'kuittaamatta jätetyt TCP-paketit', globaali fsfreeze, 'todistaa matemaattisesti'. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: (1) kärkeen 'pysäytyksen toteutuminen todennetaan lokista, ei agentin omasta ilmoituksesta'; (2) uusi 'Päätösvallan tietue' — kuka piti päätösvallan ja mitä siitä seurasi (toteutus PR #2229, ml. pysäytyksen hautakivi); (3) artiklat 12 ja 26: loki tuottaa todistusaineiston, riittävyyden toteaa tarkastaja; (4) CLOUD Act: mekanismi ja johtopäätös lakiosastolle; avaimen säilytys kerrottu totuudenmukaisesti (ohjelmistoavain, TPM/HSM ei sisälly). Geminin ehdotuksista hylätty totuudenvastaiset: TPM/HSM-allekirjoitus, 'laitteistoloki', 'ydinlokit', 'seuraukset reaalimaailmassa'. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.3 [not latest] | Tool: Claude Code | Session: claude/aegis-pilot-openshell-03ist6 | Date: 28.09.2026 | Changes: HIC 28.9.2026: Sentry on optio muissa lainkäyttöalueissa; EU-suvereeneissa kohteissa oletus on ilman Sentryä (luottamuksen juuri pysyy asiakkaalla). Valinta kirjataan laajuusmäärittelyyn. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
@@ -19,7 +20,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 28.09.2026
-- Last Modified: 28.09.2026
+- Last Modified: 30.09.2026
 - Status: DRAFT — HIC:n hyväksyntä ennen ensimmäistä lähetystä (Approval Request Rule)
 - Language: Finnish
 - Classification: Asiakaskohtainen tarjous (täytä hakasulkeiden kentät)
@@ -59,6 +60,26 @@ Periaate on sama, jolla internetistä tuli turvallinen. Sitä ei tehty turvallis
 
 Hiekkalaatikko, jossa agentti ajetaan, on tämän alla. Käytämme siihen NVIDIAn avoimen lähdekoodin OpenShelliä (liite A). Se, mitä myymme, on tietue.
 
+### Teidän kokoonpanonne ja lainkäyttöalueet
+
+<!-- LÄHDE: DWS_STANDARDS_LIBRARY.md §3.6 (Sovereignty Tier Map). Kopioi tasojen määritelmät sieltä sellaisenaan, äläkä muokkaa niitä tässä. Jos määritelmä muuttuu, muuta ensin kirjastoa. Kirjaa alle kirjaston tarkistuspäivä. Listatun yhtiön omistusosuuden laskentaperuste on avoin kysymys (ks. kenttäohje alla): älä väitä tasoa ennen kuin peruste on päätetty. -->
+
+Suvereniteettitaso määräytyy toimittajan oikeushenkilön ja omistusketjun lainkäyttöalueen mukaan, ei sen mukaan, missä maassa data sijaitsee. Työkuorma arvioidaan ensin ja toimittaja vasta sen jälkeen. Tasot (DWS Standards Library §3.6, tarkistettu [pp.kk.vvvv]):
+
+- **Taso 1, täysin EU-suvereeni:** EU-omisteinen oikeushenkilö ja EU-hallitus, ei yhdysvaltalaista emoa omistusketjussa.
+- **Taso 2, EU-operatiivinen suvereniteetti:** EU-datasijainti, EU-henkilöstö ja EU-eskalaatio, emoyhtiö EU:n ulkopuolella (tyypillisesti USA).
+- **Taso 3, EU-alue, ei-EU-omistus:** data sijaitsee ei-EU-toimittajan eurooppalaisella alueella ilman muuta operatiivista tai oikeudellista suvereniteettia.
+
+Tasoja on kolme. Kohta, joka ei mahdu yhdellekään tasolle, merkitään erikseen eikä sitä sovitella tasolle.
+
+| Yksikkö tai toimittaja | Lainkäyttöalue ja omistus (lähde, lukupäivä) | Taso                         | Perustelu    |
+| ---------------------- | -------------------------------------------- | ---------------------------- | ------------ |
+| [rivi]                 | [maa; omistusketju; lähde; pp.kk.vvvv]       | [1 / 2 / 3 / ei vahvistettu] | [yksi lause] |
+
+Rivejä on niin monta kuin kokoonpanonne vaatii. **Mallin ulkopuolella tai ei vahvistettu:** [luettelo kohdista ja syy, esimerkiksi omistusketjua ei ole vahvistettu rekisteristä].
+
+**Lähdelista ja rajaus.** Tämä yhteenveto on tehty teidän toimittaja- ja kokoonpanolistastanne ([listan nimi ja päiväys]) ja päättyy kohtaan [rajaus]. Teidän oma, syvempi inventaarionne on ensisijainen. Korjatkaa rivit, niin päivitämme luokituksen. Omistustiedon ensisijainen lähde on kaupparekisteri (PRH, Viron e-Business Register tai vastaava) sekä rahastojen ja pörssiyhtiöiden tiedotteet; omistusketjut muuttuvat, joten jokaisella rivillä on lukupäivä.
+
 ## 2. Mitä pilotti todistaa — hyväksyntäehto
 
 Pilotin lopussa ulkoyhteys katkaistaan ennalta sovituksi ajaksi teidän hallinnoimallanne menetelmällä. Ennen testiä ulospäin suuntautuvaa yhteyttä yritetään, ja yrityksen on epäonnistuttava. Tulos on binäärinen:
@@ -96,17 +117,17 @@ Fyysisten laitteiden ohjaus ja kaksoiskäyttötuotanto ovat erillinen sitoumus. 
 
 ## 4. Pilotin vaiheet (3 kk)
 
-| Vaihe                                  | Viikot        | Tulos (porttiehto)                                                                                                                                                              |
-| -------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0 — Rajaus ja lähtötaso                | 0–2, maksuton | Allekirjoitettu laajuusmäärittely: kohde, työnkulku, käyttöönottotapa, eristysmenetelmä ja hyväksyntäehdot teidän omalla kielellänne. Tarkistetaan ydin- ja konttiedellytykset. |
-| 1 — Paikallinen perusta                | 3–5           | Neljä paikallista toimintoa (ajo, tunnistus, loki, pysäytys) todennettu yhteyden ollessa jo poikki                                                                              |
-| 2 — Työnkulun integrointi              | 6–9           | Teidän työnkulkunne valmistuu verkkoyhteydellä, ja päätösloki on täydellinen. Työnkulun omistaja hyväksyy tuloksen.                                                             |
-| 3 — Hyväksyntätesti yhteys katkaistuna | 10–11         | Harjoitusajo ja sen jälkeen todistajan läsnä ollessa tehty hyväksyntäajo. Kaikki kolme ehtoa tai negatiivinen tulos.                                                            |
-| 4 — Mitoitus, raportti ja päätös       | 12–13         | Tuotantolaitteiston mitoitus mitatun kuorman perusteella, raportti ja suositus                                                                                                  |
+| Vaihe                                  | Viikot        | Tulos (porttiehto)                                                                                                                                                                                                                                               |
+| -------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0 — Rajaus ja lähtötaso                | 0–2, maksuton | Allekirjoitettu laajuusmäärittely: kohde, työnkulku, käyttöönottotapa, eristysmenetelmä ja hyväksyntäehdot teidän omalla kielellänne. Tarkistetaan ydin- ja konttiedellytykset. Lainkäyttöaluekartta (kohta 1) teidän toimittaja- ja kokoonpanolistaanne vasten. |
+| 1 — Paikallinen perusta                | 3–5           | Neljä paikallista toimintoa (ajo, tunnistus, loki, pysäytys) todennettu yhteyden ollessa jo poikki                                                                                                                                                               |
+| 2 — Työnkulun integrointi              | 6–9           | Teidän työnkulkunne valmistuu verkkoyhteydellä, ja päätösloki on täydellinen. Työnkulun omistaja hyväksyy tuloksen.                                                                                                                                              |
+| 3 — Hyväksyntätesti yhteys katkaistuna | 10–11         | Harjoitusajo ja sen jälkeen todistajan läsnä ollessa tehty hyväksyntäajo. Kaikki kolme ehtoa tai negatiivinen tulos.                                                                                                                                             |
+| 4 — Mitoitus, raportti ja päätös       | 12–13         | Tuotantolaitteiston mitoitus mitatun kuorman perusteella, raportti ja suositus                                                                                                                                                                                   |
 
 ## 5. Seuraava askel
 
-Maksuton rajauspalaveri (vaihe 0, 60 min). Siinä sovitaan pilotoitava työnkulku, eristysmenetelmä ja hyväksyntäehdot teidän operatiivisella kielellänne. Lakiosastonne on tervetullut mukaan: liitteet A ja B on kirjoitettu heitä ja tarkastajaa varten.
+Maksuton rajauspalaveri (vaihe 0, 60 min). Siinä sovitaan pilotoitava työnkulku, eristysmenetelmä ja hyväksyntäehdot teidän operatiivisella kielellänne. Tuokaa mukaan toimittaja- ja kokoonpanolistanne, jotta voimme palauttaa luokituksen sitä vasten. Lakiosastonne on tervetullut mukaan: liitteet A ja B on kirjoitettu heitä ja tarkastajaa varten.
 
 ---
 

@@ -253,9 +253,21 @@ function writeOpenCodeCommands(entries) {
   return expected.length;
 }
 
+// Prettier re-pads markdown tables (cell padding, dash count in the separator row) on every
+// commit, so an exact match failed right after each sync. Compare content, not padding.
+function normalizeTable(markdown) {
+  return markdown
+    .split('\n')
+    .map((line) =>
+      /^\|[\s:|-]+\|$/.test(line.trim()) ? '|---|' : line.trim().replace(/\s*\|\s*/g, '|'),
+    )
+    .filter((line) => line !== '')
+    .join('\n');
+}
+
 function checkGuideSync(matrixMarkdown) {
   const guide = readFileSync(GUIDE_PATH, 'utf8');
-  return guide.includes(matrixMarkdown);
+  return normalizeTable(guide).includes(normalizeTable(matrixMarkdown));
 }
 
 const manifest = readJson(MANIFEST_PATH);

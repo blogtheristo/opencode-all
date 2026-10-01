@@ -11,11 +11,11 @@
       "price": 4999,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes \u2014 coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.",
+      "description": "Ship signed work that releases money. DWS IQ 6 is the orchestration platform that produces the signed artifact your counterparty accepts \u2014 so a tender, a shipment, an invoice or a grant can move, in days not quarters. A governed skilled-agent fleet runs the loop with KYA/Article-12 traceability across EU industries (Fit for 55, CSRD, EPBD and the rest stay inside the engine, where they make the artifact stand up). MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.",
       "features": [
         "Orchestrates a governed skilled-agent fleet with KYA/Article-12 traceability, MCP-native with CLI access",
-        "Amplify Fit for 55, CSRD & EPBD reporting",
-        "90% reduction in manual compliance hours"
+        "Signed, auditable artifacts that unlock tenders, shipments, invoices and grants",
+        "Days, not quarters, to a signed artifact \u2014 your experts freed from the grunt work"
       ],
       "priceNote": "One-time deployment",
       "revolutLink": "https://checkout.revolut.com/pay/f023d433-0bf4-48fa-98cd-494de448df39",
@@ -10439,6 +10439,7 @@
         "DWS-AEGIS-PILOT-001 reported numbers (HIC decision D7, 28.09.2026): decision-path coverage (primary) and operator time per decision (secondary); energy \u20ac recorded as an outcome, never promised; the first workflow comes from the customer. Operator approval is a signed decision event (C5, merged 29.09.2026). Agent steps sandboxed with NVIDIA OpenShell, verified 28.09.2026; the fee buys the tested, signed acceptance record.",
         "DWS-AEGIS-001 renamed DWS IQ 7 Aegis. Availability corrected from September 2026 to: release candidate 2026, general availability Q1 2027 after the first pilot acceptance record (HIC 28.09.2026, docs/plans/2026_PROOF_YEAR_CRITERIA.md 1.2). Same correction on DWS-AEGIS-SUB-001. Prices unchanged.",
         "SME campaign (Web Starter, Webstore Mini, IT-support hour bank): A5 campaign end date 31.12.2026 in the price note (HIC 29.09.2026, docs/sales/google-business-profile-lifetime-oy.md). Prices unchanged.",
+        "DWS-IQ-006 description and two features rewritten for the signed-work positioning (HIC Q1/Q2, PR #2305, merged to main 30.09.2026 without a version bump; recorded here). Price, currency and type unchanged.",
         "No products added, removed or repriced: 138 records, 72 public, 81 on the list. Effective 2026-09-30; next review and validUntil stay 2026-11-15."
       ]
     },

@@ -379,6 +379,53 @@ describe('local kill authority', () => {
     });
   });
 
+  it('halts in a safe state: a stopped agent is disarmed and the revocation is on record (Art. 14(4)(e))', () => {
+    const ledger = openLedger();
+    const kill = new KillAuthority(dir, site.verifier(), ledger, undefined, {
+      revoke: (id) => site.revoke(id),
+    });
+    const agent = site.issue({
+      kind: 'agent',
+      subjectName: 'a',
+      capabilities: ['step:x'],
+      ttlHours: 1,
+    });
+    kill.register(agent);
+    const op = operator();
+    submitStopCommand(
+      dir,
+      createStopCommand({
+        target: agent.subjectId,
+        reason: 'test',
+        operatorCredential: op.credential,
+        operatorKey: op.key,
+      }),
+    );
+    const [outcome] = kill.drainInbox('t');
+    ledger.close();
+    expect(outcome).toMatchObject({ accepted: true, disarmed: [agent.credentialId] });
+    // The same credential can no longer act: a restart needs a new human grant.
+    expect(site.verifier().check(agent, new Date(), 'step:x')).toEqual({
+      ok: false,
+      reason: 'credential revoked',
+    });
+    const events = readFileSync(statePaths(dir).ledger, 'utf8')
+      .trim()
+      .split('\n')
+      .map((l) => JSON.parse(l));
+    const override = events.findIndex((e) => e.event_type === 'human.override');
+    expect(events.slice(override + 1)).toContainEqual(
+      expect.objectContaining({
+        event_type: 'authority.revoke',
+        operator_id: op.credential.subjectId,
+        detail: expect.objectContaining({
+          credential_id: agent.credentialId,
+          reason: 'operator stop',
+        }),
+      }),
+    );
+  });
+
   it('rejects a command signed by a key other than the one bound in the credential', () => {
     const { ledger, kill, agent, signal } = setup();
     const op = operator();
@@ -716,12 +763,29 @@ describe('severed-uplink acceptance test', () => {
       connector: isolated,
       operator: { mode: 'automated', ...op },
     });
-    expect(signed.record.findings.filter((f) => !f.startsWith('Deferred'))).toEqual([]);
+    // A dirty working tree is reported, never hidden (C6); it depends on the checkout.
+    expect(
+      signed.record.findings.filter(
+        (f) => !f.startsWith('Deferred') && !f.startsWith('The kit had uncommitted changes'),
+      ),
+    ).toEqual([]);
     expect(signed.record.outcome).toBe('PASS');
     expect(signed.record.conditions.operatorStop.ticksAfterStop).toBe(0);
     expect(signed.record.conditions.operatorStop.stopMode).toBe('hard');
     expect(signed.record.conditions.operatorStop.terminationMs).not.toBeNull();
     expect(signed.record.conditions.operatorStop.lateMessages).toBe(0);
+    // C6: the record names what governed it (record shape v2).
+    expect(signed.record.v).toBe(2);
+    expect(signed.record.provenance.standards.kyaS1).toMatch(/^\d+\.\d+/);
+    expect(signed.record.provenance.kit.commit).toMatch(/^[0-9a-f]{40}$/);
+    expect(signed.record.provenance.attestation.rimVersion).toBeNull();
+    // Art. 14(4)(e): the stop leaves the agent terminated, quiescent and disarmed.
+    expect(signed.record.conditions.operatorStop.safeHalt).toEqual({
+      pass: true,
+      terminated: true,
+      quiescent: true,
+      disarmed: true,
+    });
     expect(signed.record.isolation.method).toBe('host-egress-block');
     expect(verifyAcceptanceRecord(signed, site.publicKey)).toBe(true);
     const tampered = {

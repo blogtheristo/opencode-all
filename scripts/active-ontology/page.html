@@ -19,6 +19,12 @@
     --learn: #2f7d5b;
     --whitepaper: #6a4fa3;
     --thesis: #1f6f8b;
+    --investor: #8a6d1f;
+    --customer: #2e6fb4;
+    --partner: #8b3f6f;
+    --materials: #5c6b2e;
+    --legal: #6b4a3a;
+    --compliance: #2f6f6a;
     --concept: #8b98a5;
     --gap: #b3261e;
     --serif: "Source Serif 4", Georgia, serif;
@@ -38,6 +44,18 @@
       --learn: #6cc49b;
       --whitepaper: #a78bdf;
       --thesis: #5fb3cf;
+      --investor: #d8b75a;
+      --customer: #79aee8;
+      --partner: #d98bbd;
+      --materials: #aabf6a;
+      --legal: #c79a84;
+      --compliance: #6cc4bc;
+      --investor: #d8b75a;
+      --customer: #79aee8;
+      --partner: #d98bbd;
+      --materials: #aabf6a;
+      --legal: #c79a84;
+      --compliance: #6cc4bc;
       --concept: #6f7c88;
       --gap: #f08a82;
     }
@@ -54,6 +72,12 @@
     --learn: #6cc49b;
     --whitepaper: #a78bdf;
     --thesis: #5fb3cf;
+    --investor: #d8b75a;
+    --customer: #79aee8;
+    --partner: #d98bbd;
+    --materials: #aabf6a;
+    --legal: #c79a84;
+    --compliance: #6cc4bc;
     --concept: #6f7c88;
     --gap: #f08a82;
   }
@@ -92,6 +116,10 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
+  }
+  .centres {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin-top: 10px;
   }
   .pillar {
     text-align: left;
@@ -250,7 +278,8 @@
     .gaps {
       grid-template-columns: minmax(0, 1fr);
     }
-    .pillars {
+    .pillars,
+    .centres {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .graph svg {
@@ -272,12 +301,19 @@
   <span class="stamp" id="stamp">loading graph…</span>
 </header>
 <p class="lede">
-  The four pillars against the vocabulary we sell with. A square is a piece of work; a circle is an
-  ontology concept. The fuller a square, the more of its contract it meets: for blog posts
-  BLOG_STANDARD §16 + §17, for the rest external sources with at least one academic one.
+  The four pillars, and under them the centres and hubs on dws10.com, against the vocabulary we sell
+  with. A square is a piece of work; a circle is an ontology concept. The fuller a square, the more
+  of its contract it meets: for blog posts BLOG_STANDARD §16 + §17, for the rest external sources
+  with at least one academic one.
 </p>
 
 <div class="pillars" id="pillars" role="group" aria-label="Pillars shown in the graph"></div>
+<div
+  class="pillars centres"
+  id="centres"
+  role="group"
+  aria-label="Centres and hubs shown in the graph"
+></div>
 
 <div class="main">
   <div class="graph" id="graph">
@@ -317,13 +353,23 @@
     { key: "whitepaper", name: "Whitepapers & demos" },
     { key: "thesis", name: "Thesis — master's & PhD" },
   ];
+  // Centres and hubs: live dws10.com pages (scripts/knowledge-centres.mjs), under Thesis.
+  const CENTRES = [
+    { key: "investor", name: "Investor centre" },
+    { key: "customer", name: "Customer centre" },
+    { key: "partner", name: "Partner centre" },
+    { key: "materials", name: "Materials" },
+    { key: "legal", name: "Legal hub" },
+    { key: "compliance", name: "Compliance hub" },
+  ];
+  const GROUPS = [...PILLARS, ...CENTRES];
   const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
   const esc = (s) =>
     String(s ?? "").replace(
       /[&<>"']/g,
       (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
     );
-  let shown = new Set(PILLARS.map((p) => p.key));
+  let shown = new Set(GROUPS.map((p) => p.key));
   try {
     const s = JSON.parse(localStorage.getItem("ao:shown") || "null");
     if (Array.isArray(s) && s.length) shown = new Set(s);
@@ -352,17 +398,19 @@
         : Math.min(0.66, ((w.sources?.external || 0) / 3) * 0.66);
 
   function renderPillars() {
-    const el = document.getElementById("pillars");
-    el.innerHTML = PILLARS.map((p) => {
+    const card = (p) => {
       const s = G.summary.byPillar[p.key] || { items: 0, complete: 0, sourced: 0 };
       const pct = s.items ? Math.round((s.complete / s.items) * 100) : 0;
+      const hidden = G.summary.centres?.withheld?.[p.key];
       return `<button class="pillar" data-k="${p.key}" aria-pressed="${shown.has(p.key)}">
         <span class="name"><span class="swatch" style="background:var(--${p.key})"></span>${p.name}</span>
-        <span class="nums">${s.items} items · ${s.complete} complete · ${s.sourced} sourced</span>
+        <span class="nums">${s.items} ${hidden === undefined ? "items" : "live"} · ${s.complete} complete · ${s.sourced} sourced${hidden ? ` · ${hidden} internal` : ""}</span>
         <span class="bar" title="${pct}% complete"><i style="width:${pct}%;background:var(--${p.key})"></i></span>
       </button>`;
-    }).join("");
-    el.querySelectorAll(".pillar").forEach((b) => {
+    };
+    document.getElementById("pillars").innerHTML = PILLARS.map(card).join("");
+    document.getElementById("centres").innerHTML = CENTRES.map(card).join("");
+    document.querySelectorAll(".pillar").forEach((b) => {
       b.onclick = () => {
         const k = b.dataset.k;
         shown.has(k) ? shown.delete(k) : shown.add(k);
@@ -534,9 +582,10 @@
             .map(([k, v]) => `<span class="chk ${v ? "ok" : "no"}">${v ? "✓" : "✗"} ${k}</span>`)
             .join(" · ")
         : "";
-      side.innerHTML = `<p class="kicker"><span class="swatch" style="display:inline-block;background:var(--${w.pillar})"></span> ${esc(PILLARS.find((p) => p.key === w.pillar).name)} · ${esc(w.status)}</p>
+      side.innerHTML = `<p class="kicker"><span class="swatch" style="display:inline-block;background:var(--${w.pillar})"></span> ${esc(GROUPS.find((p) => p.key === w.pillar).name)} · ${esc(w.status)}</p>
         <h2>${esc(w.label)}</h2>
         <p class="chk muted">${esc(w.file)}</p>
+        ${w.url ? `<p class="chk"><a href="${esc(w.url)}" target="_blank" rel="noopener">Open live ↗</a></p>` : ""}
         ${w.langs ? `<p class="chk">languages: ${w.langs.map((l) => l.toUpperCase()).join(" ")}</p>` : ""}
         ${checks ? `<p>${checks}</p>` : ""}
         <p class="chk">sources: ${w.sources.external} external · ${w.sources.academic} academic${w.sections ? ` · ${w.sections} numbered sections` : ""}</p>
@@ -553,8 +602,9 @@
       side.innerHTML = `<p class="kicker">Concept · ${esc(c.cluster)}</p>
         <h2>${esc(c.label)}</h2>
         ${c.fi ? `<p class="muted">FI: ${esc(c.fi)}</p>` : ""}
-        ${PILLARS.map(
-          (p) => `<p class="kicker">${esc(p.name)} (${by(p.key).length})</p>
+        ${GROUPS.filter((p) => by(p.key).length || PILLARS.includes(p))
+          .map(
+            (p) => `<p class="kicker">${esc(p.name)} (${by(p.key).length})</p>
           <ul>${
             by(p.key)
               .map(
@@ -563,7 +613,8 @@
               )
               .join("") || '<li class="muted">none yet</li>'
           }</ul>`,
-        ).join("")}`;
+          )
+          .join("")}`;
     }
     side.querySelectorAll(".linkish").forEach((b) => (b.onclick = () => select(b.dataset.id)));
   }

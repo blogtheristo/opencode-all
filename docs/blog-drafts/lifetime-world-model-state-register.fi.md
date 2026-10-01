@@ -10,7 +10,8 @@ author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti; osan 9 nimi lukittu
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
@@ -22,6 +23,32 @@ typos_corrected: >-
   korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
 typos_corrected_list:
   - "Sarjaindeksin Osa 5: Miten tekoälyagentit luottamustaso → tekoälyagentin"
+claims_checked: 2026-09-30
+claims_corrected: >-
+  Lähdetarkistus 30.09.2026 (BLOG_STANDARD §17.2). Kaksi väitettä korjattu minimaalisesti; alkuperäinen
+  Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
+claims_corrected_list:
+  - "synkronoivat tilansa LWM-rekisteriin viiveettömästi → seuraavalla synkronoinnilla; viivettä ei ole mitattu (sama rajaus kuin lifetime-world-model-globaalina-tilarekisterina.md unverified_claims 2)"
+  - "vastaten suoraan EU AI Actin artiklan 12 ja 14 tiukimpiin vaatimuksiin → tuottaen todistusaineistoa artiklojen 12 ja 14 vaatimuksiin korkean riskin järjestelmissä (riittävyyden toteaa tarkastaja)"
+sources:
+  - title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 12, 14 and 19"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union, L 2024/1689"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Prakash, S."
+    year: 2026
+    venue: "arXiv"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Bounded Agents: Delegation Security for Multi-Agent AI Systems"
+    authors: "Muruaga, X."
+    year: 2026
+    venue: "arXiv"
+    url: "https://arxiv.org/abs/2608.15888"
+    type: academic
 ---
 
 # Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti
@@ -54,7 +81,7 @@ Prosessimallit ja spesifikaatiot toimivat tässä siltana: ne kääntävät liik
 ```
 
 **1. REG-1 — Reaaliaikainen agenttirekisteri**
-World Model ylläpitää ajantasaista rekisteriä jokaisesta aktiivisesta agentista: mihin ihmiseen se on sidottu (IDV), mikä on sen kyvykkyysmanifesti (REG-2) ja missä IP/Edge-osoitteessa se ajaa koodia. Reuna-alueen laitteet (NVIDIA Jetson / DGX Spark) synkronoivat tilansa LWM-rekisteriin viiveettömästi.
+World Model ylläpitää ajantasaista rekisteriä jokaisesta aktiivisesta agentista: mihin ihmiseen se on sidottu (IDV) [2][3], mikä on sen kyvykkyysmanifesti (REG-2) ja missä IP/Edge-osoitteessa se ajaa koodia. Reuna-alueen laitteet (NVIDIA Jetson / DGX Spark) synkronoivat tilansa LWM-rekisteriin seuraavalla synkronoinnilla; synkronoinnin viivettä ei ole vielä mitattu.
 
 **2. TRS-3 — Luottamustilan muisti**
 World Model ei tallenna vain lopullista päätöstä, vaan se pitää kirjaa TRS-pistemäärän kehityksestä ja poikkeamasakoista (Δ). Jokainen pistemuutos lokitetaan syy-seuraussuhteineen, mikä mahdollistaa proaktiivisen suojaustoiminnan ennen kuin pisteet putoavat kriittisen kynnyksen alle.
@@ -70,7 +97,7 @@ Tämä mahdollistaa aukottoman PRV-2 Replayn: päätöksentekoketju voidaan ajaa
 
 ## Yhteenveto
 
-Ilman maailmanmallia tekoälyagentit ovat siiloutuneita pisteratkaisuja. Lifetime World Model (LWM) antaa DWS IQ -agenteille yhteisen muistin, yhteisen tilannekuvan ja aukottoman auditointiselkärangan — vastaten suoraan EU AI Actin artiklan 12 ja 14 tiukimpiin vaatimuksiin.
+Ilman maailmanmallia tekoälyagentit ovat siiloutuneita pisteratkaisuja. Lifetime World Model (LWM) antaa DWS IQ -agenteille yhteisen muistin, yhteisen tilannekuvan ja aukottoman auditointiselkärangan — tuottaen todistusaineistoa EU AI Actin artiklojen 12 (tapahtumien automaattinen kirjaaminen) ja 14 (ihmisen valvonta) vaatimuksiin korkean riskin järjestelmissä [1]. Riittävyyden toteaa tarkastaja, ei toimittaja.
 
 ## Katso sarjan muut osat
 
@@ -85,6 +112,14 @@ Ilman maailmanmallia tekoälyagentit ovat siiloutuneita pisteratkaisuja. Lifetim
 - **Osa 9:** Lifetime World Model (LWM) — Globaali tilarekisteri ja muisti
 - **Osa 10:** Agentic Commerce -protokollat & Autonomiset Maksut
 - **Osa 11:** Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0
+
+## Lähteet
+
+[1] Euroopan parlamentti ja neuvosto (2024). Asetus (EU) 2024/1689 (tekoälysäädös), artiklat 12, 14 ja 19. Euroopan unionin virallinen lehti. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv. https://arxiv.org/abs/2603.24775
+
+[3] Muruaga, X. (2026). Bounded Agents: Delegation Security for Multi-Agent AI Systems. arXiv. https://arxiv.org/abs/2608.15888
 
 ---
 

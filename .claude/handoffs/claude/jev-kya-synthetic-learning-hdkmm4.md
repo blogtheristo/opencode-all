@@ -12,7 +12,7 @@ PR #2049 ("Session Learning Outcome: Jev-KYA Synthetic Learning + Proxy Validato
 
 Two parallel discoveries carried forward:
 
-1. **Security Fix (Code):** Proxy Trust Validator middleware — validates IPv4-mapped IPv6 trust subnets, prevents IP spoofing. 27 tests ✅, merged. **Still deferred to Saito** for integration point (A/B/C) — code exists but is not wired into the middleware stack yet.
+1. **Security Fix (Code):** Proxy Trust Validator middleware — validates IPv4-mapped IPv6 trust subnets, prevents IP spoofing. **Correction (2026-09-30): already wired in.** `git blame` on `src/app.ts` shows commit `95e33cd` (2026-09-19, part of merged PR #2049) added `app.use(createProxyTrustValidator(subnets))` at line 149, running _before_ `app.set('trust proxy', ...)`, `helmet`, and `cors` — functionally Option A (recommended), just positioned before rather than immediately after helmet/cors, which is the correct order (validate before trusting). 16/16 tests passing (`npx vitest run src/__tests__/proxy-trust-validator.test.ts`). **Decision 1 below is resolved — no Saito action needed**; the prior handoff's "not yet wired in" was stale.
 
 2. **Jev-KYA Synthetic Learning (Breakthrough):** Distilled DeepSeek V4 Flash (157 GB) → 4B classifier. 20× smaller, 22 ms inference, outperforms teacher. Execution plan (4-phase DGX Spark pipeline, 13–18h sequential) is merged and documented. **Still awaiting HIC go/no-go** — no DGX time has been scheduled or spent.
 

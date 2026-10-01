@@ -49,6 +49,26 @@ unverified_claims: |
      Teksti puhuu siksi järjestyksestä ("seuraavalla synkronoinnilla"), ei ajasta.
   3. Kirjoitusmäärät ("jokainen työkalukutsu tuottaa rivin") ovat arkkitehtuuri-
      kuvaus, eivät kapasiteettiväite. Älä lisää volyymilukuja ilman mittausta.
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 12, 14, 19 and 26"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union, L 2024/1689"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Prakash, S."
+    year: 2026
+    venue: "arXiv"
+    url: "https://arxiv.org/abs/2603.24775"
+    type: academic
+  - title: "Bounded Agents: Delegation Security for Multi-Agent AI Systems"
+    authors: "Muruaga, X."
+    year: 2026
+    venue: "arXiv"
+    url: "https://arxiv.org/abs/2608.15888"
+    type: academic
 ---
 
 # Missä agentin luottamus oikeastaan asuu?
@@ -82,7 +102,7 @@ Rekisterin sisältö ei ole vapaavalintainen. Se on johdettavissa suoraan kolmes
 
 ### A. IDV-sidokset — kuka, milloin, mihin asti
 
-Spesifikaatio vaatii, että jokainen autonominen toimi on kryptografisesti jäljitettävissä **todennettuun ihmiseen**. Sidonta ei saa katketa agentilta agentille siirryttäessä.
+Spesifikaatio vaatii, että jokainen autonominen toimi on kryptografisesti jäljitettävissä **todennettuun ihmiseen**. Sidonta ei saa katketa agentilta agentille siirryttäessä. Sama ongelma — todennettava, vain kapeneva delegointiketju — on tuoreen tutkimuksen ydinkysymys [2][3].
 
 Rekisteriin kirjautuu siis sidontatapahtuma, ei tila. Ero on olennainen: "käyttäjä X on todennettu" on tila, joka vanhenee huomaamatta. "Käyttäjä X todennettiin hetkellä T, menetelmällä M, voimassaoloon T+n" on tapahtuma, joka vanhenee **näkyvästi**.
 
@@ -131,7 +151,7 @@ Neljä asiaa kulkee vedoksessa mukana:
 
 Versio 1.3 lisäsi vaatimuksen, joka näyttää pieneltä ja on koko domainin tärkein: **kun toimi ohjataan ihmiselle hyväksyttäväksi, hylättäväksi tai ohitettavaksi, rekisteriin on kirjattava kuka päätti, mitä päätti, millä perusteella, milloin, ja mikä luottamustila aiheutti ohjauksen ihmiselle.**
 
-Syy on tämä. Alkuperäinen toistovaatimus luetteli pelkkää _agentin_ tilaa. Kun toimi ohjataan ihmiselle — eli tapahtuu täsmälleen se, mihin koko HIC-valvonta ja EU AI Actin ihmisvalvontavelvoite tähtäävät — mikään kontrolli ei vaatinut säilyttämään tietoa siitä, kuka hyväksyi ja millä perusteella.
+Syy on tämä. Alkuperäinen toistovaatimus luetteli pelkkää _agentin_ tilaa. Kun toimi ohjataan ihmiselle — eli tapahtuu täsmälleen se, mihin koko HIC-valvonta ja EU AI Actin ihmisvalvontavelvoite [1] tähtäävät — mikään kontrolli ei vaatinut säilyttämään tietoa siitä, kuka hyväksyi ja millä perusteella.
 
 Se on se yksi tapahtuma, jonka varaan ihmisvalvonnan velvoite tosiasiassa rakentuu.
 
@@ -163,7 +183,7 @@ Todisteet talteen ennen kuin ketju vapautetaan. Siinä koko sääntö.
 
 ## 5. Mitä tämä maksaa, ja mitä sillä ostetaan
 
-Rehellisyyden vuoksi: tämä on kallis arkkitehtuuri. Jokainen työkalukutsu tuottaa kirjoituksen. Jokainen päätös tuottaa vedoksen. Vedokset ovat kopioita, eivät osoitteita, eivätkä ne pakkaudu hyvin. Todistusaineiston säilytysvaatimus on vähintään 12 kuukautta kryptografisella eheydellä, ja korkeimmalla attestointitasolla päätöstoiston on oltava saatavilla vuorokaudessa.
+Rehellisyyden vuoksi: tämä on kallis arkkitehtuuri. Jokainen työkalukutsu tuottaa kirjoituksen. Jokainen päätös tuottaa vedoksen. Vedokset ovat kopioita, eivät osoitteita, eivätkä ne pakkaudu hyvin. Spesifikaatiomme todistusaineiston säilytysvaatimus on vähintään 12 kuukautta kryptografisella eheydellä — kaksi kertaa EU AI Actin kuuden kuukauden vähimmäisaika korkean riskin järjestelmän lokeille [1] — ja korkeimmalla attestointitasolla päätöstoiston on oltava saatavilla vuorokaudessa.
 
 En esitä tässä yhtään kustannuslukua, koska meillä ei ole mitattua. Se on itsessään osa vastausta: luku, jota ei ole mitattu, ei kuulu blogiin.
 
@@ -182,6 +202,14 @@ Ilman rekisteriä vastaus on neuvottelu. Rekisterin kanssa vastaus on kysely.
 Ja yksi asia, joka on tässä sanottu ääneen eikä siivottu pois: **termimme on ristiriitainen omassa kanonissamme**, ja se on korjattava ennen kuin tämä teksti julkaistaan. Standardi, joka vaatii toimittajilta täsmällisyyttä nimeämisessä, ei saa olla epätäsmällinen omassaan.
 
 **Seuraavassa osassa (10/11):** agenttikaupan protokollat ja autonomiset maksut — mandaattikaistat, atominen valtuutustoken tuplaveloitusten estäjänä, ja vastuunattribuutio silloin kun virhe maksaa rahaa.
+
+## Lähteet
+
+[1] Euroopan parlamentti ja neuvosto (2024). Asetus (EU) 2024/1689 (tekoälysäädös), artiklat 12, 14, 19 ja 26. Euroopan unionin virallinen lehti. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv. https://arxiv.org/abs/2603.24775
+
+[3] Muruaga, X. (2026). Bounded Agents: Delegation Security for Multi-Agent AI Systems. arXiv. https://arxiv.org/abs/2608.15888
 
 ---
 

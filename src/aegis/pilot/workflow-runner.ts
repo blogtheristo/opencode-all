@@ -158,6 +158,12 @@ function raceAbort<T>(work: Promise<T>, signal: AbortSignal): Promise<T> {
   });
 }
 
+/** Containment evidence a sandbox runtime attached to an error (openshell-handlers.ts). */
+function containmentOf(err: unknown): Record<string, unknown> | undefined {
+  const c = (err as { containment?: unknown } | null)?.containment;
+  return c && typeof c === 'object' ? (c as Record<string, unknown>) : undefined;
+}
+
 function errText(err: unknown): string {
   return (err instanceof Error ? err.message : String(err)).slice(0, 300);
 }
@@ -279,14 +285,20 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
         return finish('failed', `step ${step.id} not authorised: ${auth.reason}`);
       }
 
-      const defer = (why: string) => {
+      const defer = (why: string, containment?: Record<string, unknown>) => {
         rec.status = 'deferred';
         deferred.push(step.id);
         const entryId = randomUUID();
         const logged = ledger.append({
           ...base,
           event_type: 'system.degraded',
-          detail: { step: step.id, action: 'deferred-to-outbox', outbox_entry: entryId, why },
+          detail: {
+            step: step.id,
+            action: 'deferred-to-outbox',
+            outbox_entry: entryId,
+            why,
+            containment,
+          },
         });
         enqueue(
           opts.outboxPath,
@@ -379,7 +391,7 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
               `core step ${step.id} needed the network — reclassify or redesign it (Phase 2 finding)`,
             );
           }
-          defer(`handler reported network unavailable: ${errText(err)}`);
+          defer(`handler reported network unavailable: ${errText(err)}`, containmentOf(err));
           continue;
         }
         rec.status = 'failed';
@@ -393,6 +405,7 @@ export async function runWorkflow(opts: RunOptions): Promise<RunResult> {
             step: step.id,
             criticality: step.criticality,
             error: rec.error,
+            containment: containmentOf(err),
           },
         });
         if (step.criticality === 'core')

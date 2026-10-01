@@ -7,7 +7,7 @@
   "checks": [
     {
       "name": "bundle round-trip verifies and detects tamper",
-      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id bundle-test >/dev/null && node --import tsx scripts/aegis-pilot.ts export --state-dir $d/s --out $d/b >/dev/null && node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b | grep -q '\"ok\": true' && test ! -e $d/b/site/site.key && echo x >> $d/b/ledger/article12.jsonl && ! node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b >/dev/null"
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id bundle-test >/dev/null && node --import tsx scripts/aegis-pilot.ts export --state-dir $d/s --out $d/b >/dev/null && node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b --allow-unpinned | grep -q '\"ok\": true' && test ! -e $d/b/site/site.key && echo x >> $d/b/ledger/article12.jsonl && ! node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b --allow-unpinned >/dev/null"
     },
     {
       "name": "bundle suite passes",

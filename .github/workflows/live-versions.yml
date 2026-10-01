@@ -1,0 +1,42 @@
+# Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-30
+# Audit trail: git log -- .github/workflows/live-versions.yml
+name: Live-site document versions
+
+# HIC 30.09.2026: when a newer version of a document exists, no live site may offer the old one.
+# Blocking: fails when a public-site file references <name>_vX.Y.<ext> while the repo holds a
+# higher version, or a registered published copy is behind its source.
+
+on:
+  pull_request:
+    paths:
+      - "dws10.com/**"
+      - "dws6.com/**"
+      - "onelifetime.world/**"
+      - "lifetime.fi/**"
+      - "landing-pages/**"
+      - "Learn/**"
+      - "Legal/**"
+      - "docs/**"
+      - "config/truth/published-artifacts.json"
+      - "scripts/check-live-versions.mjs"
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: live-versions-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  live-versions:
+    runs-on: [self-hosted, dgx-spark] # GHA cost (HIC 2026-09-25)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: No site offers an older document version
+        run: node scripts/check-live-versions.mjs | tee -a "$GITHUB_STEP_SUMMARY"

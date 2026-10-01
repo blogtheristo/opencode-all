@@ -1,17 +1,19 @@
-Status: APPROVED — founder approved 2026-07-30 ("is good with little improvements" for the original text; a separately-proposed rewrite with unverified claims — Admiral tier, "50+ IT companies" consortium, "6 paying enterprise customers | 100% retention" — was explicitly rejected: "should not be published at all"). The text below (matching the currently-live article) is what publishes. Footer merge-conflict resolved via re-running scripts/inject-blog-nav.cjs (Bundle card + "18+ AI agents" wording); article body untouched.
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 Slug: liquidity-engine-captain-seats
 Title: The Liquidity Engine: Why the VC Exit Model Is Broken and What Replaced It
 Language: en
 Target: onelifetime.world/posts/liquidity-engine-captain-seats.html
 Date: 2026-03-28
+claims_checked: 2026-09-30
 
 Investor Intelligence · 28 March 2026
 
 The Liquidity Engine: Why the VC Exit Model Is Broken and What Replaced It
 
-$106 billion in secondary transactions in 2025. The binary exit model is dead. Here's what replaced it — and why we built it into our SAFE.
+$106 billion in US venture secondary transactions in 2025. The binary exit model is dead. Here's what replaced it — and why we built it into our SAFE.
 
-[Market data: $106B Secondary Market 2025 · $120B IPO Market 2025 · $140B M&A Market 2025]
+[Market data, US venture-backed companies: $106B secondaries 2025 · $120B IPO exits 2025 · $140B M&A exits 2025]
 
 The Old Playbook Is Dead
 
@@ -37,7 +39,7 @@ The New Way:
 
 The Third Pillar of Private Capital
 
-$106 billion in secondary transactions in 2025. Almost as large as the entire IPO market. The secondary market didn't just grow — it became the third pillar of private capital.
+$106 billion in US venture secondary transactions in 2025. Almost as large as the entire value of US venture-backed IPOs. The secondary market didn't just grow — it became the third pillar of private capital.
 
 Tender offers. Continuation vehicles. GP-led restructurings. Investors stopped waiting for the harvest and started selling at the farmers market.
 
@@ -49,7 +51,7 @@ Tender offers. Continuation vehicles. GP-led restructurings. Investors stopped w
 
 Why This Is Structural, Not Cyclical
 
-This isn't a band-aid. It's a permanent shift:
+This isn't a band-aid. In our reading, it's a permanent shift:
 
 - Companies don't need to go public. Private funding is abundant.
 - The 10-year fund lifecycle is broken. Companies need 15+ years now.
@@ -73,6 +75,8 @@ Invest into a live EU compliance platform with two enterprise pilots contracted 
 [CTA: DWS IQ 6 launches publicly at Arctic 15 — Helsinki, June 15, 2026. 8 captain seats available. €50K each. €3.8M cap.]
 
 ---
+
+AGENT NOTE — SOURCES PENDING (not part of the published text, 2026-09-30): BLOG_STANDARD §17.2 source minimum NOT met. No external source could be opened from the checking environment (PitchBook, Jefferies, Evercore, SEC and all finance hosts blocked). Search-result summaries attribute $106.3B / $119.6B / $140.7B to PitchBook's 2025 Annual US VC Secondary Market Watch (US venture only; total global secondaries were ~$226–240B per Jefferies/Evercore), so the text was scoped to "US venture" rather than left as a global figure. Before the next publish: open the PitchBook report, add it plus one academic source on fund life/secondaries and one Sarbanes-Oxley source, then add a Sources section.
 
 AGENT NOTE (not part of the published text): the phrase "traction, retention" under Captain Seat Model is a soft, non-numeric reference — no specific retention rate is asserted, so it's less exposed than the dispatch-time claim in the other post, but "retention" without qualification could still read as implying a measured rate we don't have. Your call on whether to soften it (e.g. "traction and a clear path to Series A" without "retention") or leave as-is since it doesn't assert a number.
 

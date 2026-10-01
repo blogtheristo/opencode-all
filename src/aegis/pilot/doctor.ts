@@ -1,4 +1,4 @@
-// Evidence: Tool=opencode Model=ollama-local/qwen3-coder-next:latest Agent=opencode Date=2026-09-29
+// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=aegis-pilot-doctor Date=2026-09-30
 // Audit trail: git log -- src/aegis/pilot/doctor.ts
 /**
  * Aegis Pilot — preflight doctor command.
@@ -8,7 +8,7 @@
 
 import { existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { SiteAuthority } from './identity.js';
 import { checkLocalFilesystem } from './acceptance.js';
 import { verifySegments } from './ledger-segments.js';
@@ -24,7 +24,11 @@ export interface DoctorResult {
   checks: DoctorCheck[];
 }
 
-export function doctor(stateDir: string, expectKeyId?: string): DoctorResult {
+/**
+ * @param pin the scope's `site.keyId`: undefined when no scope was given (check not run),
+ *   null when a scope was given without a pin (check fails).
+ */
+export function doctor(stateDir: string, pin?: string | null): DoctorResult {
   const checks: DoctorCheck[] = [];
   const push = (check: string, ok: boolean, detail: string) => checks.push({ check, ok, detail });
 
@@ -87,31 +91,32 @@ export function doctor(stateDir: string, expectKeyId?: string): DoctorResult {
   }
 
   // 5. key-pinned — only with --scope: scope.site.keyId equals site keyId; missing pin = fail
-  if (expectKeyId !== undefined) {
+  if (pin === null) {
+    push('key-pinned', false, 'scope has no site.keyId pin');
+  } else if (pin !== undefined) {
     try {
       const site = SiteAuthority.load(stateDir);
-      const ok = expectKeyId === site.manifest.keyId;
+      const ok = pin === site.manifest.keyId;
       const detail = ok
         ? `site keyId ${site.manifest.keyId} matches the pin`
-        : `site keyId ${site.manifest.keyId} does not match the pin ${expectKeyId}`;
+        : `site keyId ${site.manifest.keyId} does not match the pin ${pin}`;
       push('key-pinned', ok, detail);
     } catch (err) {
       push('key-pinned', false, `key pin check failed: ${(err as Error).message}`);
     }
-  } else {
-    push('key-pinned', false, 'key pin check requires --scope option');
   }
 
-  // 6. isolation-tool — unshare available on Linux; warn-only, ok:true with detail on other OS
+  // 6. isolation-tool — unshare required on Linux; warn-only, ok:true with detail on other OS
   if (process.platform === 'linux') {
-    try {
-      execSync('unshare --help > /dev/null 2>&1', {
-        stdio: ['ignore', 'ignore', 'ignore'],
-      });
-      push('isolation-tool', true, 'unshare available on Linux');
-    } catch {
-      push('isolation-tool', true, 'unshare not found on Linux (isolation check may fail)');
-    }
+    const r = spawnSync('unshare', ['--help'], { stdio: 'ignore' });
+    const ok = !r.error && r.status === 0;
+    push(
+      'isolation-tool',
+      ok,
+      ok
+        ? 'unshare available on Linux'
+        : 'unshare not found on Linux; isolated rehearsal cannot run',
+    );
   } else {
     push(
       'isolation-tool',

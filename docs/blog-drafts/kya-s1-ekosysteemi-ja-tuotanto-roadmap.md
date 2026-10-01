@@ -43,6 +43,38 @@ open_decisions: |
      kokonaan ja koko kirjoituksen argumentti romahtaa.
   2. Tuotanto-roadmapin aikataulu. Luku 7 kuvaa JÄRJESTYKSEN (mikä ennen mitä) muttei
      päivämääriä. Päivämäärät vaativat P1–P3-työn resursoinnin, jota ei ole tehty.
+claims_checked: 2026-09-30
+sources:
+  - title: "System and Organization Controls (SOC) 2 Type 2"
+    authors: "Microsoft"
+    year: 2026
+    venue: "Microsoft Learn — Compliance offerings"
+    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+    type: industry
+  - title: "Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem"
+    authors: "Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J."
+    year: 2023
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2310.02521
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Prakash, S."
+    year: 2026
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2603.24775
+    type: academic
+  - title: "The Balkanization of Execution-Security Research for AI Coding Agents: Isolation, Access Control, and Time-of-Check-to-Time-of-Use Vulnerabilities"
+    authors: "Rashidi, M."
+    year: 2026
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2607.05743
+    type: academic
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
 ---
 
 # Bronze, Silver, Gold — ja miksi emme myönnä itsellemme yhtäkään
@@ -103,11 +135,11 @@ Luvut tulevat taulukkoon, kun referenssitoteutus on mitattu. Ei ennen.
 
 Spesifikaation §3 on yksi lause: **oma vakuutus ei kelpaa todistusaineistoksi KYA-S1:n alla.**
 
-Se kuulostaa itsestäänselvyydeltä, kunnes katsoo, miten tietoturva-attestaatiot käytännössä täytetään. Tavallinen kuvio on kyselylomake, jonka toimittaja täyttää itse, ja jonka ostaja arkistoi. Kukaan ei koskaan avaa lokia. Väite "meillä on tunnistautuminen" ja väite "tunnistautumisen peruutus etenee 60 sekunnissa" käsitellään samassa sarakkeessa, vaikka toinen on markkinointia ja toinen on mitattava tosiasia.
+Se kuulostaa itsestäänselvyydeltä, kunnes katsoo, miten tietoturva-attestaatiot käytännössä täytetään. Tavallinen kuvio on kokemuksemme mukaan kyselylomake, jonka toimittaja täyttää itse, ja jonka ostaja arkistoi; agenttien välisissä protokollissa identiteetti on usein vain itse ilmoitettu [3]. Kukaan ei koskaan avaa lokia. Väite "meillä on tunnistautuminen" ja väite "tunnistautumisen peruutus etenee 60 sekunnissa" käsitellään samassa sarakkeessa, vaikka toinen on markkinointia ja toinen on mitattava tosiasia [2].
 
 §3 vaatii jokaisesta seitsemästä domainista **vähintään yhden** neljästä:
 
-1. **Riippumattoman, pätevän arvioijan auditointiraportti** — SOC 2 -auditoija, IDV-toimittaja, akkreditoitu red-team-yritys tai vastaava.
+1. **Riippumattoman, pätevän arvioijan auditointiraportti** — SOC 2 -auditoija, IDV-toimittaja, akkreditoitu red-team-yritys tai vastaava [1].
 2. **Alustan tuottama telemetria**, säilytysaika vähintään 12 kuukautta, kryptografisella eheydellä — allekirjoitettu tapahtumaloki tai append-only-ledger.
 3. **Arkkitehtuuridokumentaatio**, jonka riippumaton pätevä arvioija on katselmoinut ja allekirjoittanut.
 4. **Sopimuksellinen SLA-sitoumus**, jossa on määritelty mittausmenetelmä ja ulkoisesti todennettava rikkomusraportointi.
@@ -128,7 +160,7 @@ Tämä on myös syy siihen, miksi §3 nimeää nimenomaan **neljä** vaihtoehtoi
 
 ### Yksi rehellinen aukko
 
-Muodollista akkreditointipolkua "KYA-S1-arvioijalle" ei ole olemassa. §3 nimeää esimerkkejä pätevästä arvioijasta muttei rekisteriä, josta sellaisen löytäisi. Tämä on standardin nykyversion aito heikkous, ja se on parempi sanoa ääneen kuin peittää: ostajan on toistaiseksi arvioitava arvioijansa itse. Kommenttikausi on auki tästä syystä.
+Muodollista akkreditointipolkua "KYA-S1-arvioijalle" ei ole olemassa. Sama aukko koskee algoritmiauditointia laajemminkin: arvioijien akkreditointia vasta ehdotetaan [2]. §3 nimeää esimerkkejä pätevästä arvioijasta muttei rekisteriä, josta sellaisen löytäisi. Tämä on standardin nykyversion aito heikkous, ja se on parempi sanoa ääneen kuin peittää: ostajan on toistaiseksi arvioitava arvioijansa itse. Kommenttikausi on auki tästä syystä.
 
 ## 5. Miksi emme myönnä itsellemme yhtään tieriä
 
@@ -138,7 +170,7 @@ Lifetime Oy ylläpitää KYA-S1:n referenssitoteutusta osana DWS IQ -alustaa. Ka
 
 Elokuussa 2026 tehty katselmus löysi tästä toteutuksesta kohdan, joka ei pitänyt paikkaansa. **TRS-1** vaatii luottamuspisteeltä dokumentoidut syötteet: IDV-tila, käyttäytymisen etäisyys perustasosta, red-team-asento ja kyvykkyysmanifestin laajuus. Toimitettu kaava pisteytti rikkomusten määrää, estettyjen polkujen yrityksiä ja keskimääräistä vasteaikaa. **Yksikään neljästä vaaditusta syötteestä ei esiintynyt siinä.**
 
-Seuraus oli täsmällinen eikä teoreettinen: ihmisen todennuksen peruutus ei liikuttanut luottamuspistettä lainkaan. Koko §4:n Artikla 14 -kytkentä IDV:n ja TRS:n välillä oli olemassa kaaviossa mutta ei koodissa. Ketju _näytti_ katkeavan.
+Seuraus oli täsmällinen eikä teoreettinen: ihmisen todennuksen peruutus ei liikuttanut luottamuspistettä lainkaan. Koko §4:n Artikla 14 -kytkentä [5] IDV:n ja TRS:n välillä oli olemassa kaaviossa mutta ei koodissa. Ketju _näytti_ katkeavan.
 
 **Osittainen korjaus, 7.–8. elokuuta 2026.** IDV-tila on nyt pakollinen syöte ja hard kill: peruutettu, vanhentunut tai tuntematon ihmisprincipal romahduttaa pisteen nollaan riippumatta agentin omasta käytöksestä. Vanhentuminen raportoidaan erillään peruutuksesta, koska ne vaativat eri operaattoritoimen. Syöte tehtiin **pakolliseksi parametriksi** eikä valinnaiseksi — valinnainen parametri olisi antanut kutsujan hiljaa ohittaa juuri sen kontrollin, jota varten syöte on olemassa.
 
@@ -160,7 +192,7 @@ Järjestys on tässä tärkeämpi kuin aikataulu, koska kohdat riippuvat toisist
 
 **3. Rikkomuslaskurille aikaikkuna, vaimennus ja rehabilitaatio.** Rikkomusten määrä on nyt laskuri ilman ikkunaa: kutsuja valitsee telemetriajakson, eikä valintaa ole dokumentoitu missään. Sessiokohtainen telemetria antaa yhden luvun, 12 kuukauden telemetria toisen — samasta agentista. Ilman puoliintumisaikaa neljä rikkomusta jäädyttää agentin pysyvästi, eikä mikään dokumentti kerro, miten nollaan pudonnut agentti palaa käyttöön tai kuka sen valtuuttaa. Kaikki kolme ovat edellytyksiä sille, että TRS-1:n "dokumentoidut syötteet" -väitteen voi ylipäänsä esittää.
 
-**4. Lease Tokenin dokumentointi ennen TRS-4:n toteutusta.** Allekirjoitettu, aikaan sidottu manifestin hard kill on jo koodissa, ja se on lähin olemassa oleva vastine TRS-4:n atomiselle valtuutustokenille. Se on myös näkymätön kaikissa kolmessa sisäisessä standardissa. Kontrollia, jota mikään dokumentti ei nimeä, ei voi attestoida — §3 vaatii arkkitehtuuridokumentaatiota tai telemetriaa, eikä kumpikaan kuvaa mekanismia jota ei ole kirjoitettu mihinkään.
+**4. Lease Tokenin dokumentointi ennen TRS-4:n toteutusta.** Allekirjoitettu, aikaan sidottu manifestin hard kill on jo koodissa, ja se on lähin olemassa oleva vastine TRS-4:n atomiselle valtuutustokenille, joka sulkee tarkistuksen ja käytön välisen (TOCTOU) aukon [4]. Se on myös näkymätön kaikissa kolmessa sisäisessä standardissa. Kontrollia, jota mikään dokumentti ei nimeä, ei voi attestoida — §3 vaatii arkkitehtuuridokumentaatiota tai telemetriaa, eikä kumpikaan kuvaa mekanismia jota ei ole kirjoitettu mihinkään.
 
 **5. Vasta tämän jälkeen: mittaus, ja mitatut luvut §8:n kahteen tyhjään sarakkeeseen.**
 
@@ -187,3 +219,15 @@ Standardin arvo mitataan siinä, mitä se kieltää sen julkaisijalta. KYA-S1 ki
 **Risto Anton Päärni**
 _Perustaja & toimitusjohtaja, Lifetime Oy_
 _Päätoimittaja, Lifetime Scope Journal_
+
+## Lähteet
+
+[1] Microsoft (2026). System and Organization Controls (SOC) 2 Type 2. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+
+[2] Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J. (2023). Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem. arXiv. https://arxiv.org/abs/2310.02521
+
+[3] Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv. https://arxiv.org/abs/2603.24775
+
+[4] Rashidi, M. (2026). The Balkanization of Execution-Security Research for AI Coding Agents: Isolation, Access Control, and Time-of-Check-to-Time-of-Use Vulnerabilities. arXiv. https://arxiv.org/abs/2607.05743
+
+[5] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj

@@ -56,9 +56,10 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 - **We do:** site, workflow and deployment-mode selection workshop; read-only audit of the source systems; **criticality classification** — every step in the workflow marked core (must survive an outage) or non-core; first draft of the degradation and reconciliation spec; baseline measurement of current-state behaviour.
 - **You do:** nominate the technical contact, the workflow owner, and the operator who will exercise kill authority; grant read-only access; agree the outage window, its date, and **the isolation method**.
-- **Exit gate:** a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in *your* operational language, not ours.
+- **Exit gate:** a one-page signed scope — site, workflow, deployment mode, isolation method, and the three acceptance conditions written in _your_ operational language, not ours.
 
 **On the isolation method.** Continuously-operating sites cannot usually permit a physical cable pull, and a pilot that assumes one arrives at the acceptance test with no test. So the method is chosen in Phase 0 from a ranked ladder — physical disconnect, deny-all egress at the edge router, VLAN isolation of the Aegis segment, or host-level egress block — and recorded with what it does and does not demonstrate. Two rules make the choice safe: the block must be **enforced above the stack** (at your router, switch or hypervisor, administered by you — a system asked to disconnect itself has not been tested), and **egress must be attempted and shown to fail** before the run starts. The weaker methods prove less about the network boundary and exactly as much about the workload; the acceptance record names which was used, so a reader in three years knows what was demonstrated.
+
 - **This phase fails if** the workflow cannot be described as a terminating sequence with a defined "complete" state. If there is no completion, there is nothing to test, and we say so before you have spent anything.
 
 ### Phase 1 — Local substrate · weeks 3–5
@@ -98,12 +99,12 @@ Five phases. The ordering is deliberate: the substrate is proven before the work
 
 ## Pricing
 
-| | |
-| --- | --- |
-| **Price** | €19,990 fixed |
-| **Duration** | 3 months |
-| **Hardware** | None purchased. Runs on existing customer infrastructure or a compact edge appliance. |
-| **Credit** | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months |
+|              |                                                                                          |
+| ------------ | ---------------------------------------------------------------------------------------- |
+| **Price**    | €19,990 fixed                                                                            |
+| **Duration** | 3 months                                                                                 |
+| **Hardware** | None purchased. Runs on existing customer infrastructure or a compact edge appliance.    |
+| **Credit**   | **Credited in full against the €59,990 Aegis onboarding** if you proceed within 6 months |
 
 **One net price, not two.** The pilot is a staged first payment toward Aegis, not a separate fee on top of it. Proceed after the pilot and your total cost to production is the standard €59,990 onboarding — the €19,990 already paid comes off it, leaving €40,000. The pilot lowers the risk of the platform decision; it does not add to its cost.
 
@@ -111,17 +112,19 @@ If you do not proceed, you keep the architecture, the measurements and the evide
 
 ### Exactly what is in scope
 
+**No physical control.** The pilot's agents produce recommendations, decisions and records. They do not control physical equipment: no command reaches a PLC, SCADA system or fieldbus, and the site's own safety functions, including any SIL-rated emergency stop, are not touched. Every recommendation is decided by an operator, and the decision is recorded as a signed event: who decided, what was decided, and whether the recommendation was accepted, changed or rejected.
+
 **The €19,990 includes:** one site, one control-room workflow, and one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on your existing hardware or a compact edge appliance; and production hardware sizing derived from measured behaviour on that workload.
 
 **Outside the credit, stated so there is no ambiguity later:** LWM integration; any hardware procurement or appliance supply; multi-site rollout; industries beyond the one piloted; custom ERP, BIM or SCADA integrations; and the separate **DWS IQ Aegis Implementation Programme** (`DWS-AEGIS-IMPL-001`, €45,000, additive and not credited). The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if you do not proceed within 6 months.
 
 ### Commercial summary
 
-| Stage | Fee | Credit applied | Balance due at production rollout |
-| --- | --- | --- | --- |
-| Aegis 3-month pilot | €19,990 | €19,990 (100%) | €40,000 of the €59,990 onboarding |
-| Proceed to production | €40,000 | — | €0 — onboarding settled; licence from €999/mo begins |
-| **Total cost to production** | **€59,990** | | Unchanged by taking the pilot |
+| Stage                        | Fee         | Credit applied | Balance due at production rollout                    |
+| ---------------------------- | ----------- | -------------- | ---------------------------------------------------- |
+| Aegis 3-month pilot          | €19,990     | €19,990 (100%) | €40,000 of the €59,990 onboarding                    |
+| Proceed to production        | €40,000     | —              | €0 — onboarding settled; licence from €999/mo begins |
+| **Total cost to production** | **€59,990** |                | Unchanged by taking the pilot                        |
 
 **Why the scope is written this tightly.** A pilot priced at a large fraction of the product stops being a pilot and becomes the product under a lower-commitment name. €19,990 is a bounded subset of onboarding, which is what makes crediting it in full defensible rather than a discount in disguise.
 

@@ -8,13 +8,40 @@ lang: en
 site: onelifetime.world
 author: Risto Anton Päärni
 date: 2026-08-19
-Status: APPROVED
-approved_by: 
-source: 
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
+approved_by:
+source:
 note: >-
   Second in a 3-part series on sovereign AI for regulated industrial workflows.
   This post builds on the first part and incorporates feedback from Boardy audit.
 approved: 2026-09-28 (HIC, Blog editor)
+claims_checked: 2026-09-30
+sources:
+  - title: "How Is ChatGPT's Behavior Changing over Time?"
+    authors: "Lingjiao Chen, Matei Zaharia, James Zou"
+    year: 2023
+    venue: "arXiv preprint arXiv:2307.09009"
+    url: "https://arxiv.org/abs/2307.09009"
+    type: academic
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act), Articles 12 and 14"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
+  - title: "Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing"
+    authors: "Inioluwa Deborah Raji, Andrew Smart, Rebecca N. White, Margaret Mitchell, Timnit Gebru, Ben Hutchinson, Jamila Smith-Loud, Daniel Theron, Parker Barnes"
+    year: 2020
+    venue: "Proceedings of the Conference on Fairness, Accountability, and Transparency (FAT* '20), ACM"
+    url: "https://doi.org/10.1145/3351095.3372873"
+    type: academic
+  - title: "Auditable Agents"
+    authors: "Aojie Yuan, Haiyue Zhang, Jiate Li, Li Li, Xiyang Hu, Hua Wei, Xiongye Xiao, Chaowei Xiao, Yue Zhao"
+    year: 2026
+    venue: "arXiv preprint arXiv:2604.05485"
+    url: "https://arxiv.org/abs/2604.05485"
+    type: academic
 ---
 
 # How to Govern AI Workflows Once They Reach the Factory
@@ -23,7 +50,7 @@ In part one, I described the problem of AI vendor dependency in regulated indust
 
 The architecture is only useful if the organisation can govern what happens inside it.
 
-A regulated industrial AI workflow needs clear answers to five questions:
+A regulated industrial AI workflow needs clear answers to six questions:
 
 1. Who is allowed to use it?
 2. What is the system allowed to do?
@@ -35,9 +62,9 @@ A regulated industrial AI workflow needs clear answers to five questions:
 ## Identity comes first
 
 Every relevant user, administrator, service and agent have a defined identity.
- Access should be granted according to role and limited to the permissions required for the task.
+Access should be granted according to role and limited to the permissions required for the task.
 
-Depending on the deployment, identity management may use the customer's existing identity provider or an approved local identity service. 
+Depending on the deployment, identity management may use the customer's existing identity provider or an approved local identity service.
 
 The design should cover authentication, role assignment, service accounts, credential rotation, access logging and revocation.
 
@@ -51,7 +78,7 @@ The workflow should define which tools the agent may call, which data sources it
 
 ## Human approval remains part of the system
 
-Human oversight is not a decorative step at the end of an AI workflow. It should be connected to the points where judgement, accountability or operational impact matter.
+Human oversight is not a decorative step at the end of an AI workflow [2]. It should be connected to the points where judgement, accountability or operational impact matter.
 
 The required approval may differ for a draft report, a procurement recommendation, a production change or an action affecting a critical system. The workflow should make that difference explicit.
 
@@ -59,21 +86,21 @@ The required approval may differ for a draft report, a procurement recommendatio
 
 Generated results need a defined verification method. Depending on the use case, this may include source checks, deterministic calculations, schema validation, domain review, comparison against reference data or a second control step.
 
-A log showing that a model produced an answer is not the same as evidence that the answer was correct. Good governance keeps those claims separate.
+A log showing that a model produced an answer is not the same as evidence that the answer was correct [4]. Good governance keeps those claims separate.
 
-The organisation should be able to reconstruct what happened: which identity initiated the task, which data was used, which model and tools were involved, what decision rules applied, whether a human approved the result and what was delivered to the next system.
+The organisation should be able to reconstruct what happened [2][3]: which identity initiated the task, which data was used, which model and tools were involved, what decision rules applied, whether a human approved the result and what was delivered to the next system.
 
 ## Updates without losing control
 
 Local models, cloud services, software packages and policies all change. A production workflow therefore needs a controlled update process.
 
-Updates should be tested in the appropriate environment, approved before release and capable of being rolled back when required. Model changes should not silently alter the permissions, data flows or acceptance criteria of the workflow.
+Updates should be tested in the appropriate environment, approved before release and capable of being rolled back when required. Model changes should not silently alter the permissions, data flows or acceptance criteria of the workflow [1].
 
 The same applies to disconnected environments. If an air-gapped system cannot use an internet connection, the organisation needs an approved process for importing model weights, patches, configuration changes and security updates.
 
 ## Operational responsibility
 
-Technology does not remove responsibility from the customer or provider. Before production use, the parties need to agree who owns the data, who maintains the infrastructure, who approves changes, who monitors failures, who can stop the workflow and how incidents are handled.
+Technology does not remove responsibility from the customer or provider. Before production use, the parties need to agree who owns the data, who maintains the infrastructure, who approves changes, who monitors failures, who can stop the workflow [2] and how incidents are handled.
 
 This is where deployment documentation becomes practical. The architecture, identity model, data flows, model boundaries, verification steps, support scope and acceptance criteria should be written down before the system is treated as operational.
 
@@ -84,3 +111,13 @@ The aim is modest and useful: give the customer a workflow that can be understoo
 No architecture removes every risk. A good architecture makes the important risks visible, limits unnecessary exposure and gives the people responsible for the operation a practical way to act.
 
 That is the standard we are working toward for regulated European industry.
+
+## Sources
+
+[1] Chen, L., Zaharia, M., & Zou, J. (2023). How Is ChatGPT's Behavior Changing over Time? arXiv preprint arXiv:2307.09009. <https://arxiv.org/abs/2307.09009>
+
+[2] European Parliament and Council (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 12 Record-keeping and Art. 14 Human oversight. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>
+
+[3] Raji, I. D., Smart, A., White, R. N., Mitchell, M., Gebru, T., Hutchinson, B., Smith-Loud, J., Theron, D., & Barnes, P. (2020). Closing the AI Accountability Gap: Defining an End-to-End Framework for Internal Algorithmic Auditing. FAT\* '20, ACM. <https://doi.org/10.1145/3351095.3372873>
+
+[4] Yuan, A., Zhang, H., Li, J., Li, L., Hu, X., Wei, H., Xiao, X., Xiao, C., & Zhao, Y. (2026). Auditable Agents. arXiv preprint arXiv:2604.05485. <https://arxiv.org/abs/2604.05485>

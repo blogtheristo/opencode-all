@@ -1,7 +1,7 @@
 # Sales Opportunities Pipeline — PhD Market Signals
 
 **Document ID:** DWS-SALES-PIPELINE-2026-001
-**Version:** 2.0 | **Date:** 2026-09-30
+**Version:** 2.1 | **Date:** 2026-09-30
 **Owner:** Risto Anton Päärni, Lifetime Oy
 **Source:** `docs/PHD_FIREHORSE_EN.md` §14.18–§14.53 (35 market-signal sections) + §14.55 (added 2026-09-28), scored per CLAUDE.md "Market Signal → Sales Pipeline Rule"
 **Classification:** Internal — Sales Engineering
@@ -305,6 +305,8 @@ Source: `docs/sales/2026-09-28-aegis-pilot-market-research.md` (market research,
 
 **Agent reliability gap (★★☆☆☆, 2026-09-30, from blog `done-is-evidence-not-a-claim`, BLOG_STANDARD §17.3):** Ko et al. 2026 (arXiv:2608.19741, ThinkingBox-Bench): the strongest model passes 65 % of stateful business tasks first time, 91 % at least once in 20 attempts, but only 25 % in all 20. Buyer pain: agents that report success without the backend change. Product: done-gate / KYA-S1 evidence layer. Segment: enterprises moving agents from pilot to production workflows. No named account yet. Next action: use the three numbers in the Aegis Pilot and KYA-S1 pitch material.
 
+**Negative decision evidence (★★☆☆☆, 2026-09-30, PhD §14.58, source: HIC exchange with Boardy):** founders' ontologies are almost always data-layer (semantic layer, knowledge graph, agent memory); the negative side of decisions (rejected, modified, deferred, abandoned recommendations with evidence strength) is almost never kept. Single qualitative source, no count. Product: Aegis Pilot decision events (`human.decide`, C5) and KYA-S1 PRV-4. Buyer: accountable operators (R11/R12) and oversight owners (R06/R15) who must show oversight was real. Next action: take up Boardy's offer to identify the few founders closest to decision-layer evidence (partner / competitor scan, not outbound), and use the rubber-stamp signal as a proof point in the Aegis Pilot conversation. No named account.
+
 ## ★☆☆☆☆ — PhD-Only (No Sales Routing)
 
 14.18, 14.24, 14.27, 14.30, 14.33, 14.37, 14.39, 14.41, 14.42, 14.50, 14.51 — pure scientific/standards/historical framing, no product tie. `Sales Score: N/A — thematic/research only, no buyer or budget line identified.`
@@ -330,3 +332,4 @@ Reviewed at the same cadence as `/retro` and PhD thesis lockstep updates (CLAUDE
 | 1.8     | 2026-09-30 | Aegis Pilot three-industry rows (market research 2026-09-28, PR #2232) merged after main's decision-path section                                                                                                                                                                                                                                                                                                                                                                                                | Claude Code       |
 | 1.9     | 2026-09-30 | Wave 3: website-driven outreach, 8 drafts with booking link (pointer to staging file; merged from #2233)                                                                                                                                                                                                                                                                                                                                                                                                        | Claude Code       |
 | 2.0     | 2026-09-30 | Account Opportunities section; Myyntimahdollisuus 1 — Kemira batch-level PCF owner (merged from `claude/sales-outreach-2-7uro90`)                                                                                                                                                                                                                                                                                                                                                                               | Claude Code       |
+| 2.1     | 2026-09-30 | PhD §14.58 negative decision evidence (Boardy exchange) scored ★★☆☆☆; next action: founder scan via Boardy, rubber-stamp signal as Aegis proof point                                                                                                                                                                                                                                                                                                                                                            |

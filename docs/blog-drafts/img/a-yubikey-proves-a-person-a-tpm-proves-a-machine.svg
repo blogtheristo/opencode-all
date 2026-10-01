@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="t d">
+  <title id="t">A YubiKey proves a person. A TPM proves a machine.</title>
+  <desc id="d">Two panels. Left: a security key signs the stop command and proves which person was present. Right: a TPM signs the machine's boot state and proves which machine and software ran. Below: in the Aegis Pilot record today, the stop signature is present and hardware attestation reads not used.</desc>
+  <rect width="1200" height="630" fill="#f7f8fa"/>
+  <text x="600" y="62" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#14202b">Two questions in every audit</text>
+
+  <rect x="60" y="100" width="520" height="320" rx="14" fill="#ffffff" stroke="#c9d2da" stroke-width="2"/>
+  <text x="90" y="150" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="2" fill="#0d6b73">WHO STOPPED IT?</text>
+  <text x="90" y="205" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#14202b">Security key</text>
+  <text x="90" y="245" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#3a4a58">for example a YubiKey</text>
+  <text x="90" y="305" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#14202b">Signs the stop command.</text>
+  <text x="90" y="345" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#14202b">Proves a person was there.</text>
+  <text x="90" y="392" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#56616c">Sits with the operator</text>
+
+  <rect x="620" y="100" width="520" height="320" rx="14" fill="#ffffff" stroke="#c9d2da" stroke-width="2"/>
+  <text x="650" y="150" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="2" fill="#0d6b73">WHERE DID IT RUN?</text>
+  <text x="650" y="205" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#14202b">TPM</text>
+  <text x="650" y="245" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" fill="#3a4a58">a chip on the machine's motherboard</text>
+  <text x="650" y="305" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#14202b">Signs what the machine booted.</text>
+  <text x="650" y="345" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" fill="#14202b">Proves which machine and software.</text>
+  <text x="650" y="392" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#56616c">Sits in the site's server</text>
+
+  <text x="600" y="475" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="2" fill="#56616c">THE AEGIS PILOT RECORD TODAY</text>
+  <rect x="60" y="495" width="520" height="90" rx="12" fill="#e6f4ea" stroke="#5aa46f" stroke-width="2"/>
+  <text x="90" y="533" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#14202b">Stop signature: present</text>
+  <text x="90" y="565" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#3a4a58">software key, checked without a network</text>
+  <rect x="620" y="495" width="520" height="90" rx="12" fill="#fff3d6" stroke="#d1a233" stroke-width="2"/>
+  <text x="650" y="533" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#14202b">Hardware attestation: not used</text>
+  <text x="650" y="565" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#3a4a58">the record says so, in its own field</text>
+</svg>

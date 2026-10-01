@@ -14,6 +14,40 @@ kind: hub
 note: "Visual not yet made — the SVG is a to-do."
 translation_of: sovereignty-reading-path.md
 ai_translated: true
+claims_checked: 2026-09-30
+sources:
+  - title: "Securing Elliptic Curve Cryptocurrencies against Quantum Vulnerabilities: Resource Estimates and Mitigations"
+    authors: "Ryan Babbush, Adam Zalcman, Craig Gidney, Michael Broughton, Tanuj Khattar, Hartmut Neven, Thiago Bergamaschi, Justin Drake, Dan Boneh"
+    year: 2026
+    venue: "arXiv preprint arXiv:2603.28846"
+    url: "https://arxiv.org/abs/2603.28846"
+    type: academic
+  - title: "Brexit analysis"
+    authors: "Office for Budget Responsibility"
+    year: 2024
+    venue: "OBR, Forecasts in depth"
+    url: "https://obr.uk/forecasts-in-depth/the-economy-forecast/brexit-analysis/"
+    type: primary
+    note: "read via WebSearch extract only; full text blocked by egress proxy on 2026-09-30 — re-read before publish"
+  - title: "The Economic Impact of Brexit"
+    authors: "Nicholas Bloom, Philip Bunn, Paul Mizen, Pawel Smietanka, Gregory Thwaites"
+    year: 2025
+    venue: "NBER Working Paper 34459"
+    url: "https://www.nber.org/papers/w34459"
+    type: academic
+    note: "read via WebSearch extract only; full text blocked by egress proxy on 2026-09-30 — re-read before publish"
+  - title: "18 U.S.C. § 2713 — Required preservation and disclosure of communications and records (CLOUD Act, Pub. L. 115–141, div. V, § 103)"
+    authors: "United States Congress"
+    year: 2018
+    venue: "United States Code"
+    url: "https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section2713"
+    type: regulation
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act), Articles 12 and 14"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+    type: regulation
 ---
 
 # La souveraineté, dans l’ordre — un parcours de lecture en cinq articles
@@ -26,7 +60,7 @@ Commencez par le modèle, car les quatre autres en reprennent le vocabulaire. Li
 
 ## 1. [Sovereignty Field Note #2 — The Three Pillars Every Global Enterprise Needs](https://onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html) (en anglais)
 
-Les fondations. Toute entreprise mondiale a besoin de trois piliers — souveraineté des données, souveraineté technologique et souveraineté opérationnelle — et son origine en fixe l’accent : l’UE mise d’abord sur les données, les États-Unis sur la technologie et l’opérationnel, Singapour sur la neutralité opérationnelle. L’article ne fait pas du quantique un quatrième pilier, mais une dimension qui modifie le prix des trois (« une souveraineté sans crypto-agilité est une souveraineté avec une date de péremption »). Il relie aussi les piliers aux parcours de conformité KYA, de sorte qu’une revendication de souveraineté devient un triplet mesurable pour chaque compétence juridictionnelle.
+Les fondations. Toute entreprise mondiale a besoin de trois piliers — souveraineté des données, souveraineté technologique et souveraineté opérationnelle — et son origine en fixe l’accent : l’UE mise d’abord sur les données, les États-Unis sur la technologie et l’opérationnel, Singapour sur la neutralité opérationnelle. L’article ne fait pas du quantique un quatrième pilier, mais une dimension qui modifie le prix des trois (« une souveraineté sans crypto-agilité est une souveraineté avec une date de péremption ») [1]. Il relie aussi les piliers aux parcours de conformité KYA, de sorte qu’une revendication de souveraineté devient un triplet mesurable pour chaque compétence juridictionnelle.
 
 ## 2. [The Moats Are Yours, Not Ours — Sovereignty vs. Interdependence, in Nineteen Places](https://onelifetime.world/posts/the-moats-we-hand-you.html) (en anglais)
 
@@ -34,11 +68,11 @@ La prise de position. Une douve qui ne protège que le fournisseur est un piège
 
 ## 3. [What the US and the EU Can Learn from Brexit — Interdependence Is the Moat](https://onelifetime.world/posts/brexit-interdependence-moat-us-eu.html) (en anglais)
 
-Le cas d’école. Le Brexit posait une question légitime — qui décide ? — et l’a payée d’environ 4 à 6 % du PIB, une fourchette que l’article présente comme une estimation, non comme un relevé de compteur. La leçon : la souveraineté est un curseur, pas un interrupteur ; gardez le socle commun et possédez la couche de gouvernance — les données, les clés, le droit. La Suisse, Singapour et les pays nordiques montrent l’autre voie : souverains à la périphérie, connectés au cœur.
+Le cas d’école. Le Brexit posait une question légitime — qui décide ? — et l’a payée d’environ 4 à 8 % du PIB [2][3], une fourchette que l’article présente comme une estimation, non comme un relevé de compteur. La leçon : la souveraineté est un curseur, pas un interrupteur ; gardez le socle commun et possédez la couche de gouvernance — les données, les clés, le droit. La Suisse, Singapour et les pays nordiques montrent l’autre voie : souverains à la périphérie, connectés au cœur.
 
 ## 4. [NVIDIA Vera Rubin — The AI Factory Grows Up. The Sovereign Edge Is Still a Box.](https://onelifetime.world/posts/nvidia-vera-rubin-ai-factory.html) (en anglais)
 
-La couche d’infrastructure. La plateforme Vera Rubin de NVIDIA, à l’échelle du POD, est une bonne nouvelle pour tout l’aval, et l’article l’applaudit. Mais une usine partagée plus rapide ne règle ni le CLOUD Act, ni le RGPD, ni NIS2, ni l’Article 12 de l’AI Act de l’UE ; ce sont la compétence juridictionnelle et la propriété qui y répondent. La répartition des rôles est nette : l’usine entraîne et actualise, la périphérie réglementée exécute le résultat sur un boîtier qui appartient au client.
+La couche d’infrastructure. La plateforme Vera Rubin de NVIDIA, à l’échelle du POD, est une bonne nouvelle pour tout l’aval, et l’article l’applaudit. Mais une usine partagée plus rapide ne règle ni le CLOUD Act [4], ni le RGPD, ni NIS2, ni l’Article 12 de l’AI Act de l’UE [5] ; ce sont la compétence juridictionnelle et la propriété qui y répondent. La répartition des rôles est nette : l’usine entraîne et actualise, la périphérie réglementée exécute le résultat sur un boîtier qui appartient au client.
 
 ## 5. La souveraineté est l’axe de segmentation primaire — pas le seul (à paraître)
 
@@ -52,3 +86,15 @@ Si vous n’avez le temps de lire qu’un article, lisez les trois piliers. Si v
 
 Risto Anton Päärni
 Fondateur & PDG, Lifetime Oy · Rédacteur en chef, Lifetime Scope Journal
+
+## Sources
+
+[1] Babbush, R., Zalcman, A., Gidney, C., Broughton, M., Khattar, T., Neven, H., Bergamaschi, T., Drake, J., & Boneh, D. (2026). Securing Elliptic Curve Cryptocurrencies against Quantum Vulnerabilities: Resource Estimates and Mitigations. arXiv preprint arXiv:2603.28846. <https://arxiv.org/abs/2603.28846>
+
+[2] Office for Budget Responsibility (2024). Brexit analysis. OBR, Forecasts in depth. <https://obr.uk/forecasts-in-depth/the-economy-forecast/brexit-analysis/>
+
+[3] Bloom, N., Bunn, P., Mizen, P., Smietanka, P., & Thwaites, G. (2025). The Economic Impact of Brexit. NBER Working Paper 34459. <https://www.nber.org/papers/w34459>
+
+[4] United States Congress (2018). 18 U.S.C. § 2713 — Required preservation and disclosure of communications and records (CLOUD Act, Pub. L. 115–141, div. V, § 103). United States Code. <https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section2713>
+
+[5] European Parliament and Council (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 12 Record-keeping and Art. 14 Human oversight. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>

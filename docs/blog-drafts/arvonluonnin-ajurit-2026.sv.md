@@ -1,9 +1,11 @@
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 Slug: arvonluonnin-ajurit-2026
 Title: Värdeskapande drivkrafter — sex huvuddimensioner, och forskningen bakom dem
 Language: sv
 Target: onelifetime.world/posts/arvonluonnin-ajurit-2026.sv.html
 Date: 2026-08-06
+claims_checked: 2026-09-30
 Hero image: onelifetime.world/static/images/blog/arvonluonnin-ajurit-infographic-en.png
 Note: Rewritten per HIC-supplied Swedish source text (session 2026-08-06) — follows the handbook's §2.1/§2.2 wording and structure directly rather than a free translation of the EN post. No Swedish-language infographic exists yet — reuses the EN graphic (content-identical to Sales/IMG_6896.png on main). Sales/IMG_6895.png (FI) and Sales/IMG_6896.png (EN) on main confirmed byte-identical to the two hero images already in use.
 
@@ -23,7 +25,7 @@ Detta avsnitt kartlägger sex centrala och mångfacetterade drivkrafter utformad
 
 ### 2. Reglering & Efterlevnad (Compliance)
 
-**Nuvarande omfattning:** 15 000+ EU-dokument indexerade, Artikel 12 (EU AI Act) helt integrerad i produktion, över 25 branscher.
+**Nuvarande omfattning:** 15 000+ EU-dokument indexerade, Artikel 12 (EU AI Act) helt integrerad i produktion [1], över 25 branscher.
 
 **Operativ räckvidd:** Djupgående automatiserad compliance som integrerar kraven på dokumentation, granskningsbarhet (spårbarhet) och teknisk loggning direkt i aktiva arbetsflöden. Detta tvärsektoriella ramverk minskar proaktivt juridiska och regulatoriska risker på hårt reglerade europeiska marknader.
 
@@ -41,22 +43,22 @@ Detta avsnitt kartlägger sex centrala och mångfacetterade drivkrafter utformad
 
 ### 5. Kulturell differentiering
 
-**Nuvarande omfattning:** Kompromisslös ärlighet, fullständig datasuveränitet (noll exponering mot US CLOUD Act), människocentrerad styrning.
+**Nuvarande omfattning:** Kompromisslös ärlighet, datasuveränitet (data stannar i EU, ingen USA-baserad molnleverantör i datavägen — vårt designsvar på exponering mot US CLOUD Act), människocentrerad styrning.
 
-**Operativ räckvidd:** Strikt efterlevnad av europeisk datasuveränitetslagstiftning som garanterar tekniskt skydd mot utomjurisdiktionella databegäranden. Förankring av teknisk utveckling i etiska, transparenta och human-in-the-loop-designprinciper.
+**Operativ räckvidd:** Strikt efterlevnad av europeisk datasuveränitetslagstiftning, med en arkitektur utformad för att minimera exponeringen för utomjurisdiktionella databegäranden. Förankring av teknisk utveckling i etiska, transparenta och human-in-the-loop-designprinciper [3].
 
 ### 6. Kontinuerligt lärande
 
-**Nuvarande omfattning:** Lifetime World Model (LWM) Loop, retrospektiva återkopplingsslingor, fullständigt uppfyllande av Artikel 14 i EU AI Act.
+**Nuvarande omfattning:** Lifetime World Model (LWM) Loop, retrospektiva återkopplingsslingor, ett HIC-protokoll byggt kring kraven i Artikel 14 i EU AI Act (som formellt gäller AI-system med hög risk) [1][2].
 
-**Operativ räckvidd:** Kontinuerlig övervakning efter marknadsintroduktion och modellanpassning i realtid. Efterlevnad av Artikel 14 garanterar robusta mekanismer för mänsklig tillsyn, kontinuerlig hantering av återkoppling och systemisk resiliens.
+**Operativ räckvidd:** Kontinuerlig övervakning efter marknadsintroduktion och modellanpassning i realtid. Protokollet byggt kring Artikel 14 ger robusta mekanismer för mänsklig tillsyn, kontinuerlig hantering av återkoppling och systemisk resiliens.
 
 ## Regulatoriska tidslinjer & Kommersiella villkor (Uppdaterat Q2–Q3 2026)
 
-- **CBAM-tidsfrist (Q3 2026):** Kritisk sista dag för efterlevnad av EU:s mekanism för koldioxidjustering vid gränserna (CBAM), vilket kräver fullständig transparens gällande koldioxidavtryck för importerade varor.
-- **EU AI Act Artikel 50 träder i kraft (2 augusti 2026):** Obligatoriskt genomförande av krav på transparens, vattenmärkning och redovisningsprotokoll för generativa och syntetiska AI-modeller.
+- **CBAM (definitiv period från 1 januari 2026; första årliga CBAM-deklarationen senast 30 september 2027):** Kritiska datum för efterlevnad av EU:s mekanism för koldioxidjustering vid gränserna (CBAM), vilket kräver fullständig transparens gällande koldioxidavtryck för importerade varor.
+- **EU AI Act Artikel 50 träder i kraft (2 augusti 2026):** Obligatoriskt genomförande av krav på transparens, vattenmärkning och redovisningsprotokoll för generativa och syntetiska AI-modeller [1].
 - **KYA-S1 fönster för offentligt samråd (4 augusti 2026 – 4 november 2026):** Öppet samrådsfönster för standardiserade specifikationsramverk för Know Your AI / säkerhet.
-- **ETS2-start (januari 2027):** Formellt ikraftträdande av EU:s utökade utsläppshandelssystem som omfattar uppvärmning av byggnader och vägtransporter.
+- **ETS2-start (januari 2028, uppskjuten ett år från januari 2027):** Formellt ikraftträdande av EU:s utökade utsläppshandelssystem som omfattar uppvärmning av byggnader och vägtransporter.
 - **Prisstruktur för Climate IQ:**
   - Ibruktagande & Setup: 4 990 € engångsavgift
   - Löpande licens: 2 999 € / månad
@@ -86,5 +88,13 @@ Att KTH:s TECoSA-grupp i Stockholm står för säkerhetsvalideringen är inte en
 ---
 
 Värdeskapande är en grundläggande strategisk utmaning för varje modern organisation.
+
+## Källor
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Articles 12, 14 and 50. Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Gardhouse, K., Oueslati, A. & Kolt, N. (2026). Regulating AI Agents. arXiv:2603.23471. https://arxiv.org/abs/2603.23471
+
+[3] Natarajan, S., Mathur, S., Sidheekh, S., Stammer, W. & Kersting, K. (2024). Human-in-the-loop or AI-in-the-loop? Automate or Collaborate? arXiv:2412.14232. https://arxiv.org/abs/2412.14232
 
 _Risto Anton Päärni är grundare och vd för Lifetime Oy._
