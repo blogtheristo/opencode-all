@@ -14,6 +14,7 @@
  *   site/site.json                         site public key (never site.key)
  *   acceptance/*.json                      signed acceptance records
  *   credentials/*.json                     issued credentials (public parts)
+ *   command-bodies/<sha256>.json           signed operator command bodies (erasable sidecar)
  *   manifest.json + manifest.sig           every file's sha256, signed by the site key
  *
  * verifyBundle checks: the manifest's shape and paths; the key id computed from
@@ -42,7 +43,14 @@ import { canonicalJSON, keyId, publicKeyFromPem, sha256, verifyPayload } from '.
 import { type Credential, SiteAuthority, type SiteManifest, statePaths } from './identity.js';
 import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
 import { segmentPaths, verifySegments } from './ledger-segments.js';
-import { verifyOperatorEvidence } from './operator-evidence.js';
+import {
+  commandBodiesDir,
+  readCommandBodies,
+  redactedDigests,
+  referencedDigests,
+  type SegmentEvents,
+  verifyOperatorEvidence,
+} from './operator-evidence.js';
 import { docVersion, KIT_ROOT, PROVENANCE_SOURCES, versionAtLeast } from './provenance.js';
 
 /** The auditor guide shipped in every bundle (C6). */
@@ -50,7 +58,7 @@ export const AUDITOR_GUIDE = 'AUDITOR_GUIDE.md';
 
 /** Paths a bundle may hold (relative, forward slashes). */
 const BUNDLE_PATH =
-  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json)$/;
+  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json|command-bodies\/[0-9a-f]{64}\.json)$/;
 
 const ManifestSchema = z
   .object({
@@ -99,8 +107,24 @@ function walk(root: string, onOther: (rel: string) => void): string[] {
   return out;
 }
 
+/** Events of every present sealed segment and the active segment, labelled. */
+function chainSegments(root: string, chain: ReturnType<typeof verifySegments>): SegmentEvents[] {
+  const out: Array<{ label: string; events: LedgerEvent[] }> = [];
+  for (const s of chain.segments) {
+    const file = segmentPaths(root).file(s.index);
+    if (s.present && existsSync(file))
+      out.push({
+        label: `segment ${String(s.index).padStart(6, '0')}`,
+        events: readLedgerEvents(file),
+      });
+  }
+  if (existsSync(statePaths(root).ledger))
+    out.push({ label: 'active', events: readLedgerEvents(statePaths(root).ledger) });
+  return out;
+}
+
 /** State-directory files that belong in a bundle. */
-function evidenceFiles(stateDir: string): string[] {
+function evidenceFiles(stateDir: string, referencedBodies: ReadonlySet<string>): string[] {
   const p = statePaths(stateDir);
   const picks: Array<[string, string, RegExp]> = [
     [dirname(p.ledger), 'ledger', /^article12\.jsonl$/],
@@ -108,12 +132,15 @@ function evidenceFiles(stateDir: string): string[] {
     [p.siteDir, 'site', /^site\.json$/],
     [p.acceptance, 'acceptance', /\.json$/],
     [p.credentials, 'credentials', /\.json$/],
+    [commandBodiesDir(stateDir), 'command-bodies', /^[0-9a-f]{64}\.json$/],
   ];
   const files: string[] = [];
   for (const [dir, prefix, pattern] of picks) {
     if (!existsSync(dir)) continue;
     for (const name of readdirSync(dir).sort()) {
       if (!pattern.test(name)) continue;
+      // Only bodies an event references: a leftover from a crash before its event is not evidence.
+      if (prefix === 'command-bodies' && !referencedBodies.has(name.slice(0, 64))) continue;
       const rel = `${prefix}/${name}`;
       if (!lstatSync(join(dir, name)).isFile())
         throw new Error(`refusing to export ${rel}: not a regular file`);
@@ -134,7 +161,7 @@ export function exportBundle(stateDir: string, outDir: string, now = new Date())
   const chain = verifySegments(state, site, now);
   if (!chain.valid) throw new Error(`evidence chain does not verify: ${chain.reason}`);
 
-  const files = evidenceFiles(state).map((rel) => {
+  const files = evidenceFiles(state, referencedDigests(chainSegments(state, chain))).map((rel) => {
     const raw = readFileSync(join(state, rel));
     return { path: rel, sha256: sha256(raw), bytes: raw.length };
   });
@@ -254,17 +281,7 @@ export function verifyBundle(
 
   // Acceptance records: signed by this site and recorded in the ledger under their digest.
   const recorded = new Map<string, string>();
-  const bySegment: Array<{ label: string; events: LedgerEvent[] }> = [];
-  for (const s of chain.segments) {
-    const file = segmentPaths(root).file(s.index);
-    if (s.present && existsSync(file))
-      bySegment.push({
-        label: `segment ${String(s.index).padStart(6, '0')}`,
-        events: readLedgerEvents(file),
-      });
-  }
-  if (existsSync(statePaths(root).ledger))
-    bySegment.push({ label: 'active', events: readLedgerEvents(statePaths(root).ledger) });
+  const bySegment = chainSegments(root, chain);
   const events = bySegment.flatMap((s) => s.events);
 
   // Operator evidence: every stop and decision re-verified with the operator's own key and
@@ -280,7 +297,19 @@ export function verifyBundle(
       failures.push(`credential ${rel} unreadable`);
     }
   }
-  failures.push(...verifyOperatorEvidence(bySegment, { site: siteManifest, credentials }));
+  const bodies = readCommandBodies(
+    root,
+    onDisk.filter((r) => r.startsWith('command-bodies/')),
+    failures,
+  );
+  failures.push(
+    ...verifyOperatorEvidence(bySegment, {
+      site: siteManifest,
+      credentials,
+      bodies,
+      redacted: redactedDigests(bySegment),
+    }),
+  );
   for (const e of events)
     if (
       e.event_type === 'acceptance.record' &&

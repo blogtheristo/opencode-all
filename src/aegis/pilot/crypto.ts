@@ -93,27 +93,3 @@ export function verifyPayload(payload: unknown, signature: string, publicKey: Ke
     return false;
   }
 }
-
-/**
- * Ed25519 signature (base64url) over the 32 raw bytes of a hex sha256 digest — not over
- * its hex text and not over canonical JSON. Used for the operator's digest-only WORM
- * record (EVIDENCE_FORMAT_v1.md §7), so the locked mirror never holds the command body.
- */
-export function signDigest(hexDigest: string, privateKey: KeyObject): string {
-  if (!/^[0-9a-f]{64}$/.test(hexDigest)) throw new Error('digest must be 64 lowercase hex chars');
-  return cryptoSign(null, Buffer.from(hexDigest, 'hex'), privateKey).toString('base64url');
-}
-
-export function verifyDigest(hexDigest: string, signature: string, publicKey: KeyObject): boolean {
-  if (!/^[0-9a-f]{64}$/.test(hexDigest)) return false;
-  try {
-    return cryptoVerify(
-      null,
-      Buffer.from(hexDigest, 'hex'),
-      publicKey,
-      Buffer.from(signature, 'base64url'),
-    );
-  } catch {
-    return false;
-  }
-}
