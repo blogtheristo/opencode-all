@@ -61,6 +61,7 @@ import {
   readLedgerEvents,
   readVerifiedLedger,
 } from './evidence-ledger.js';
+import { commandDigestOf } from './kill-authority.js';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const HASH = /^[0-9a-f]{64}$/;
@@ -324,7 +325,13 @@ export class DecisionAuthority {
         event_type: 'incident',
         trace_id: traceId,
         operator_id: operatorId,
-        detail: { kind: 'decision-command-rejected', command_id: outcome.commandId, reason },
+        detail: {
+          kind: 'decision-command-rejected',
+          command_id: outcome.commandId,
+          reason,
+          // Lets a digest-only operator copy match its rejection (EVIDENCE_FORMAT_v1.md §7).
+          command_digest: commandDigestOf(command),
+        },
       }).seq;
       this.outcomes.push(outcome);
       return outcome;
@@ -459,6 +466,12 @@ export class DecisionAuthority {
           : 'none: manual entry, response time not machine-observed',
         // Queue delay between signing and recording; > 0 after a drain.
         recorded_lag_ms: Math.max(0, t.getTime() - issued),
+        // The operator's own signed command, so an auditor can verify this decision with the
+        // operator's public key alone, years later (EVIDENCE_FORMAT_v1.md §5). Public parts only.
+        signed_at: command.issuedAt,
+        operator_credential_id: cred.credentialId,
+        command: body,
+        operator_signature: signature,
       },
     });
     const outcome: DecisionOutcome = {

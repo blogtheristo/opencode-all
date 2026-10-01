@@ -22,7 +22,9 @@
  * (no missing, extra or non-regular files); the whole segment chain
  * (verifySegments: seals, links, hashes, retention); the ledger head; and that
  * every acceptance record is signed by the site key and was recorded in the
- * ledger under its digest.
+ * ledger under its digest; and that every stop and decision carries the operator's
+ * own signed command, bound field by field to the event (operator-evidence.ts).
+ * The bundle format is frozen in docs/aegis/EVIDENCE_FORMAT_v1.md.
  */
 
 import {
@@ -37,9 +39,10 @@ import {
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { z } from 'zod';
 import { canonicalJSON, keyId, publicKeyFromPem, sha256, verifyPayload } from './crypto.js';
-import { SiteAuthority, type SiteManifest, statePaths } from './identity.js';
+import { type Credential, SiteAuthority, type SiteManifest, statePaths } from './identity.js';
 import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
 import { segmentPaths, verifySegments } from './ledger-segments.js';
+import { verifyOperatorEvidence } from './operator-evidence.js';
 import { docVersion, KIT_ROOT, PROVENANCE_SOURCES, versionAtLeast } from './provenance.js';
 
 /** The auditor guide shipped in every bundle (C6). */
@@ -251,13 +254,33 @@ export function verifyBundle(
 
   // Acceptance records: signed by this site and recorded in the ledger under their digest.
   const recorded = new Map<string, string>();
-  const events: LedgerEvent[] = [];
+  const bySegment: Array<{ label: string; events: LedgerEvent[] }> = [];
   for (const s of chain.segments) {
     const file = segmentPaths(root).file(s.index);
-    if (s.present && existsSync(file)) events.push(...readLedgerEvents(file));
+    if (s.present && existsSync(file))
+      bySegment.push({
+        label: `segment ${String(s.index).padStart(6, '0')}`,
+        events: readLedgerEvents(file),
+      });
   }
   if (existsSync(statePaths(root).ledger))
-    events.push(...readLedgerEvents(statePaths(root).ledger));
+    bySegment.push({ label: 'active', events: readLedgerEvents(statePaths(root).ledger) });
+  const events = bySegment.flatMap((s) => s.events);
+
+  // Operator evidence: every stop and decision re-verified with the operator's own key and
+  // bound to its event (EVIDENCE_FORMAT_v1.md §5). Credentials come from the bundle only.
+  const credentials = new Map<string, Credential>();
+  for (const rel of onDisk.filter((r) => r.startsWith('credentials/'))) {
+    try {
+      credentials.set(
+        rel.slice('credentials/'.length, -'.json'.length),
+        readJson(join(root, rel)) as Credential,
+      );
+    } catch {
+      failures.push(`credential ${rel} unreadable`);
+    }
+  }
+  failures.push(...verifyOperatorEvidence(bySegment, { site: siteManifest, credentials }));
   for (const e of events)
     if (
       e.event_type === 'acceptance.record' &&

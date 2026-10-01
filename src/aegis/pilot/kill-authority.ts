@@ -36,7 +36,14 @@ import {
 } from 'node:fs';
 import { join } from 'node:path';
 import { type KeyObject, randomUUID } from 'node:crypto';
-import { publicKeyFromPem, publicPemOf, signPayload, verifyPayload } from './crypto.js';
+import {
+  canonicalJSON,
+  publicKeyFromPem,
+  publicPemOf,
+  sha256,
+  signPayload,
+  verifyPayload,
+} from './crypto.js';
 import {
   CAP_AGENT_STOP,
   CLOCK_SKEW_MS,
@@ -174,7 +181,13 @@ export class KillAuthority {
         event_type: 'incident',
         trace_id: traceId,
         operator_id: operatorId,
-        detail: { kind: 'stop-command-rejected', command_id: outcome.commandId, reason },
+        detail: {
+          kind: 'stop-command-rejected',
+          command_id: outcome.commandId,
+          reason,
+          // Lets a digest-only operator copy match its rejection (EVIDENCE_FORMAT_v1.md §7).
+          command_digest: commandDigestOf(command),
+        },
       }).seq;
       this.outcomes.push(outcome);
       return outcome;
@@ -249,6 +262,12 @@ export class KillAuthority {
         agents_stopped: targets,
         latency_ms: outcome.latencyMs,
         note: targets.length === 0 ? 'no matching running agent' : undefined,
+        // The operator's own signed command, so an auditor can verify this stop with the
+        // operator's public key alone, years later (EVIDENCE_FORMAT_v1.md §5). Public parts only.
+        issued_at: command.issuedAt,
+        operator_credential_id: cred.credentialId,
+        command: body,
+        operator_signature: signature,
       },
     }).seq;
     // Safe halt: the stop is not complete while the agent could resume under the same grant.
@@ -306,6 +325,16 @@ export class KillAuthority {
     timer.unref?.();
     return () => clearInterval(timer);
   }
+}
+
+/**
+ * sha256 of the canonical JSON of a command body (signature removed), or undefined when
+ * the input is not an object. A digest only — never attacker-chosen text in the ledger.
+ */
+export function commandDigestOf(command: unknown): string | undefined {
+  if (!command || typeof command !== 'object' || Array.isArray(command)) return undefined;
+  const { signature: _signature, ...body } = command as Record<string, unknown>;
+  return sha256(canonicalJSON(body));
 }
 
 export class StopRequested extends Error {
