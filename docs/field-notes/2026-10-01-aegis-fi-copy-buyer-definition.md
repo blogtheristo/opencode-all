@@ -100,3 +100,5 @@ Kaksi ristiriitaa, ei ratkaistu tässä:
 HIC 01.10.2026: LWM v2 -koulutus asiakasympäristöön kuuluu pilottiin, koska se on joka tapauksessa tehtävä toimitukseen. EN Store-sivun rajaus "LWM integration" poistettu hyvityksen ulkopuolelta ja lisätty "includes"-listaan; sama `products.json`-huomautukseen ja landing-pages-peiliin samassa commitissa. Tuotesivujen HTML generoituu `update-store`-workflowssa mergessä.
 
 HIC 01.10.2026: "ennakkotilaus" poistetaan, kun tuote alkaa olla valmis. FI-teksteissä (Store-osio, ensikontakti) sanaa ei enää ole. `availability: preorder` -kentät (`Store/PRODUCT_AEGIS*.md`, `products.json`) ja EN "Product status: preorder" (`Store/PRODUCT_AEGIS.md:27`) jäävät, kunnes HIC ilmoittaa GA:n; silloin ne vaihdetaan samassa commitissa Truth-säännön mukaan.
+
+HIC 01.10.2026: toimitusvaiheen vastuut jaettu (asiakas: CIO/CISO-hyväksynnät, projektinjohtaja; Lifetime: agenttien, LWM v2:n ja käyttöhenkilöstön koulutus, sensoriliitynnät, DGX-laitteiston toimitus/asennus/käyttöönotto). HIC käytti sanaa "skilled agents -parvi" Boardyn huomautuksen jälkeen; tulkittu HIC:n päätökseksi, "parvi" palautettu tähän kohtaan.

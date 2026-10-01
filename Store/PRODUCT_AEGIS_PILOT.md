@@ -148,7 +148,13 @@ Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen va
 
 Toimitusvaiheen ensimmäinen sisäänkäynti on maksullinen pilotti: kolme kuukautta, kiinteä hinta 19 990 euroa, joka hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Laitteita ei hyvitetä, ja ne jäävät tilaajan omaisuudeksi. Työnkulku valitaan vaiheessa 0 asiakkaan omasta kriittisestä prosessitarpeesta, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksista tai suvereenin tuotannon prosessin pullonkaulasta. Työnkulku on aina asiakaskohtainen, ja se vaatii aloituskatselmoinnin ja pilotointiprojektin asettamisen. Asiakas asettaa projektin johtoon nimetyn henkilön.
 
-Toimitusvaiheen sopimukseen kuuluu: arkkitehtuurin hyväksyminen; agenttien ja Lifetime World Model -mallin koulutus asiakasympäristöön; sensorisyötteiden rakentaminen; tuotantohuoneen käyttöönotto; yrityksen infran tietoliikennekanavien sekä tuotantohuoneen ja tilannehuoneen syötteiden asettaminen; mittarien ja ohjaustasojen määrittäminen; ja näiden katselmoinnissa syntyvä asiakkaan hyväksymistestaus. Tuotannolliset syötteet ja niiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaisina.
+Toimitusvaiheen sopimukseen kuuluu, vastuut nimettynä:
+
+- **Asiakas:** arkkitehtuurin hyväksyminen (CIO) ja tietoturvan hyväksyminen (CISO); nimetty projektinjohtaja; operaattori ja työnkulun omistaja.
+- **Lifetime Oy:** skilled agents -parven ja Lifetime World Model v2 -mallin koulutus asiakasympäristöön sekä asiakkaan käyttöhenkilöstön koulutus; sensorisyötteiden liityntöjen rakentaminen ja yhdistäminen; NVIDIA DGX -laitteiston ja siihen liitettyjen laitteiden toimittaminen, asentaminen ja käyttöönotto tuotantohuoneeseen; yrityksen infran tietoliikennekanavien sekä tuotantohuoneen ja tilannehuoneen syötteiden asettaminen; mittarien ja ohjaustasojen määrittäminen.
+- **Yhdessä:** näiden katselmoinnissa syntyvä asiakkaan hyväksymistestaus.
+
+Tuotannolliset syötteet ja niiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaisina.
 
 Suvereeniteetti mitataan hyväksymistestillä, jonka asiakas ajaa itse. Asiakas katkaisee yhteyden omalla menetelmällään, ja testataan kolme asiaa:
 
