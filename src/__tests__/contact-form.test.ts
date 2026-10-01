@@ -120,7 +120,7 @@ describe('dws10 contact form', () => {
     expect(send).not.toHaveBeenCalled();
   });
 
-  it('routes a whitepaper request to the whitepaper inbox', async () => {
+  it('marks a whitepaper request in subject and body', async () => {
     const limit = vi.fn().mockResolvedValue({ success: true });
     const send = vi.fn().mockResolvedValue(undefined);
     const ctx = context({ rateLimiter: { limit }, email: { send } });
@@ -131,7 +131,7 @@ describe('dws10 contact form', () => {
     expect(response.status).toBe(200);
     expect(send).toHaveBeenCalledWith(
       expect.objectContaining({
-        to: 'risto.anton@lifetime.fi',
+        to: 'risto.paarni@lifetime.fi',
         subject: 'Whitepaper request WP13 from Ada Lovelace',
         text: expect.stringContaining('Whitepaper requested: WP13'),
       }),

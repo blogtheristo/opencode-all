@@ -69,9 +69,7 @@ export async function onRequestPost(context) {
   const whitepaper = whitepaperId ? WHITEPAPERS[whitepaperId] : '';
 
   const from = context.env.CONTACT_FROM;
-  const to = whitepaper
-    ? context.env.WHITEPAPER_TO || 'risto.anton@lifetime.fi'
-    : context.env.CONTACT_TO || 'risto.paarni@lifetime.fi';
+  const to = context.env.CONTACT_TO || 'risto.paarni@lifetime.fi';
   if (!from || !context.env.CONTACT_EMAIL)
     return json({ error: 'Contact delivery is not configured.' }, 503);
 
