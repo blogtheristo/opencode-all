@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.2, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.3, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -160,8 +160,15 @@ _Teksti v2.0.2, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 **Vastuut.**
 
 - **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; verkon eristys asiakkaan omalla kytkimellä tai palomuurilla, tai Lifetime Oy:n toimittamalla teollisuuskytkimellä ja palomuurilla, jotka laskutetaan laiteriveinä. Hyväksymistestin aikana eristystä hallinnoi aina asiakas, ei Lifetime Oy eikä Aegis.
-- **Lifetime Oy:** laitteiston toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa.
+- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa.
 - **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
+
+**Laitekokoonpano.** Valitaan vaiheen 0 laitekatselmoinnissa ja laskutetaan hinnaston riveinä:
+
+- **Laskentasolmu (NVIDIA CUDA):** `edge-node-gn100` (Control Room, yksi solmu), `LF-DGX-SPARK` (yksi solmu) tai `LF-SITROOM-001` (Situation Room, kaksi solmua); vaihtoehtona x86-teollisuustietokone NVIDIA-näytönohjaimella (rivi lisätään hinnastoon).
+- **Asennus ja mallien käyttöönotto:** `LF-NVIDIA-INSTALL`, yksi per solmu.
+- **Syötteet:** sensoriyhdyskäytävä `LF-IPCMAX-IPC409`, konenäköyhdyskäytävä `LF-IPCMAX-IPCP68`, OT-yhdyskäytävän alusta `LF-IPCMAX-CINCOZE-DA1200`; reunasensorisolmut `LF-JETSON-NANO`, `LF-JETSON-NX`, `LF-JETSON-AGX`. Energia- ja virtausmittarit sekä sensorihubit lisätään hinnastoon.
+- **Turva ja infrastruktuuri:** operaattorin laiteavaimet, operaattorin työasema, lokin kestotallennus, teollisuuskytkin, palomuuri, aikalähde, UPS ja lukittava kaappi lisätään hinnastoon.
 
 **Laitteisto.** NVIDIA CUDA -alusta: hinnastomme GB10-solmu (NVIDIA DGX Spark, Acer GN100, kahden solmun Situation Room) tai x86-teollisuustietokone NVIDIA-näytönohjaimella; ensisijaisesti merkki, jota laitos jo käyttää. Paikallinen mallipalvelu ajaa CUDA:lla. Laitevalinta vahvistetaan vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä.
 
@@ -202,3 +209,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0, 01.10.2026: kovennettu teksti. Laitteistoportti NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA), x86-only kumottu (HIC). Vaihe 0 omaksi kappaleeksi, harjoitusajo valitulla laitteella. Sinetöinti testin alussa ja lopussa. Päivä 91 -vaihtoehto 3 poistettu (ei HIC-hyväksyntää). Sisäiset tiedostopolut poistettu julkisesta tekstistä. Versiot arkistoitu.
 - v2.0.1, 01.10.2026: HIC: epäselvä lause "toinen kauppa on halvempi…" korvattu muodolla "Tuote sisältää kaksi osatoimitusta: 1. … 2. …".
 - v2.0.2, 01.10.2026: HIC: epäselvä "tai toimittamallamme" tarkennettu: kytkin ja palomuuri laiteriveinä (SKU-ehdotukset `LF-NET-SWITCH`, `LF-NET-EDGE-FW`, hinta TBD); eristystä hallinnoi testissä asiakas.
+- v2.0.3, 01.10.2026: HIC: "laitteiston toimitus" tarkennettu laitekokoonpanoksi SKU-tasolla; hinnastossa olevat rivit nimetty, puuttuvat merkitty "lisätään hinnastoon".
