@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.5, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.6, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -188,7 +188,7 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 
 **Pilotin päättyessä.** Hyvitysaika on kuusi kuukautta, ja se lasketaan päivästä, jona loppuraportti on luovutettu ja käyty läpi (vaihe 4). Jatko tuotantoon tämän ajan kuluessa: 19 990 euroa hyvitetään Aegis-käyttöönotosta, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana. Ei jatkoa: asiakas pitää datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston, käyttölisenssi malliin päättyy, eikä mitään ole velkaa.
 
-**Tarkistettavuus ilman Lifetime Oy:tä.** Pilotin lopussa asiakas saa todistepaketin: lokin, päätöstapahtumat, hyväksymistestin tuloksen, laitoksen julkisen avaimen, sinettien tarkistussummat ja allekirjoitetun sisällysluettelon. Lisäksi asiakas saa lokiformaatin kirjallisen kuvauksen ja tarkistimen lähdekoodin. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset), joten paketin voi tarkistaa vuosien päästä ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä.
+**Tarkistettavuus ilman Lifetime Oy:tä.** Pilotin lopussa asiakas saa todistepaketin: lokin, päätöstapahtumat ja pysäytykset operaattorin allekirjoituksineen, hyväksymistestin tuloksen, sinettien tarkistussummat, allekirjoitetun sisällysluettelon sekä kaikki tarkistukseen tarvittavat julkiset avaimet (laitos ja operaattorit roolitietoineen). Lisäksi asiakas saa lokiformaatin jäädytetyn kuvauksen ja testivektorit: pienen esimerkkilokin, jonka tiivisteet ja allekirjoitukset tunnetaan. Niiden avulla kuka tahansa voi toteuttaa tarkistuksen uudelleen millä tahansa ohjelmointikielellä ja todeta sen oikeaksi vuosienkin päästä, ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset).
 
 **Kenelle.** Ostaja on se, jolla on päätösvalta pilotoitavaan työnkulkuun ja joka joutuu vastaamaan siihen, miten päätökseen päädyttiin. Titteli riippuu organisaatiosta ja tehtävien jaosta. CIO ja CISO hyväksyvät arkkitehtuurin, ja pilotin on annettava heille uskottava arkkitehtuuri, mutta he eivät välttämättä ole ostaja.
 
@@ -214,3 +214,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.3, 01.10.2026: HIC: "laitteiston toimitus" tarkennettu laitekokoonpanoksi SKU-tasolla; hinnastossa olevat rivit nimetty, puuttuvat merkitty "lisätään hinnastoon".
 - v2.0.4, 01.10.2026: Boardyn huomio (auditoitu, pitää): tarkistettavuus ilman Lifetime Oy:tä lisätty. Perusta: `export`/`verify-bundle` (`src/aegis/pilot/bundle.ts`). Lupaus antaa tarkistimen lähdekoodi asiakkaalle odottaa HIC:n lisenssipäätöstä.
 - v2.0.5, 01.10.2026: Boardy: hyvitysikkunan alkupäivä määritelty (loppuraportin luovutus ja läpikäynti, vaihe 4, kuten EN "credit terms run from here"); otsikko "Päivä 91" → "Pilotin päättyessä".
+- v2.0.6, 01.10.2026: Boardy (auditoitu, pitää): avaimet ja jäädytetty formaatti + testivektorit lähdekoodikopion sijaan. **Ehto ennen ensimmäistä asiakastoimitusta:** opencode-tehtävä `.claude/done/opencode/aegis-evidence-ten-year-verify.json` (operaattorin allekirjoitus lokiin, formaattikuvaus, testivektorit, Python-tarkistin); tänään operaattorin allekirjoitus ei ole lokissa eikä paketissa.

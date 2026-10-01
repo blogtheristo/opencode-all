@@ -1,0 +1,33 @@
+{
+  "task": "Aegis pilot evidence bundle: ten-year independent verifiability (operator signatures in ledger, frozen format spec, test vectors)",
+  "prompt": "Read src/aegis/pilot/{crypto,evidence-ledger,kill-authority,decision-authority,bundle,identity}.ts and docs/field-notes/2026-10-01-boardy-claims-audit.md rows 36-38 first. Goal: an auditor in ten years can verify every stop and decision from the export bundle alone, with any language, without Lifetime code. (1) In kill-authority.ts the 'human.override' ledger event must carry the operator's signed command: add detail.operator_credential_id, detail.command (the signed body without signature) and detail.operator_signature (base64url Ed25519 over canonicalJSON(body)). Do the same in decision-authority.ts for 'human.decide'. Keep existing fields; never write private keys. (2) bundle.ts: verifyBundle must re-verify each operator signature against credentials/<id>.json subjectPublicKeyPem and the credential's site signature; fail with a named failure when missing or invalid. Keep the kill/ exclusion. (3) Write docs/aegis/EVIDENCE_FORMAT_v1.md: frozen spec — UTF-8, one JSON object per line, LF; canonical JSON = recursively sorted keys by UTF-16 code units, no whitespace, undefined dropped, strings/numbers as ECMAScript JSON.stringify (state whether this equals RFC 8785 JCS and where it differs); event_hash = hex(sha256(prev_hash + canonical_event_json)) with exact field list; signature encoding; seal and manifest formats; which public keys a verifier needs (site key from site/site.json, operator keys and roles from credentials/*.json). (4) Test vectors under docs/aegis/evidence-test-vectors/: fixed test-only site and operator key pairs (labelled), a 6-event ledger with one human.override and one human.decide, a seal, a manifest, and expected.json listing every canonical string, event_hash and signature; generated deterministically by scripts/aegis-evidence-test-vectors.mjs. (5) Independent reference verifier tools/aegis-verify-py/verify.py (Python stdlib + 'cryptography' for Ed25519) that verifies the test-vector bundle and a real export bundle. (6) src/__tests__/aegis-evidence-vectors.test.ts: TS verifier reproduces expected.json byte-for-byte and rejects a one-byte change. No new npm dependency.",
+  "base": "main",
+  "order": 100,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "operator signature in stop event",
+      "run": "grep -q operator_signature src/aegis/pilot/kill-authority.ts"
+    },
+    {
+      "name": "operator signature in decision event",
+      "run": "grep -q operator_signature src/aegis/pilot/decision-authority.ts"
+    },
+    {
+      "name": "format spec exists",
+      "run": "test -f docs/aegis/EVIDENCE_FORMAT_v1.md"
+    },
+    {
+      "name": "test vectors exist",
+      "run": "test -f docs/aegis/evidence-test-vectors/expected.json"
+    },
+    {
+      "name": "python verifier exists",
+      "run": "test -f tools/aegis-verify-py/verify.py"
+    },
+    {
+      "name": "vector suite passes",
+      "run": "npx vitest run src/__tests__/aegis-evidence-vectors.test.ts"
+    }
+  ]
+}
