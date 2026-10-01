@@ -137,3 +137,19 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 - **DWS IQ Aegis** — the full platform (`DWS-AEGIS-001`), €59,990 onboarding + from €999/mo.
 - **DWS IQ Aegis Implementation Programme** — the three-phase engagement (`DWS-AEGIS-IMPL-001`), €45,000, additive and not credited.
 - Deployment architecture, modes and the control-room requirement: see the Aegis product page.
+
+## Suomeksi
+
+**DWS IQ Aegis -pilotti: yksi työnkulku, kolme testiä, kolme kuukautta**
+
+Aegis on ajoympäristö, jossa tekoälyagentti tekee työtä asiakkaan omassa tuotannossa, esimerkiksi datakeskuksessa tai tehtaalla. Agentti suosittelee, ihminen päättää, ja jokaisesta vaiheesta jää allekirjoitettu jälki. Agentti ei ohjaa fyysisiä laitteita. Aegis on ennakkotilauksessa.
+
+Pilotissa yksi työnkulku ajetaan agentilla tuotannossa kolmen kuukauden ajan kiinteään hintaan, 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Verkkoyhteys katkaistaan sovitun ajan, ja testataan kolme asiaa:
+
+1. Työ jatkuu ja valmistuu.
+2. Loki kirjoittuu katkeamatta.
+3. Operaattori pysäyttää käynnissä olevan agentin, ja pysäytys todistetaan allekirjoitetusta lokista, ei agentin omasta raportista.
+
+Jokainen päätös tallentuu: kuka päätti, mitä päätettiin, ja hyväksyttiinkö suositus, muutettiinko sitä vai hylättiinkö se. Hylätyt ja keskeytyneet polut säilyvät lokissa, koska myös ne ovat todistusaineistoa.
+
+**Kenelle.** Pilotin ostaja on se, jolla on päätösvalta pilotoitavaan työnkulkuun ja joka joutuu vastaamaan siihen, miten päätökseen päädyttiin. Titteli riippuu organisaatiosta ja tehtävien jaosta. IT-osasto hyväksyy tekniset ratkaisut mutta ei välttämättä ole ostaja. Pilotin ensimmäisessä vaiheessa (2 viikkoa, ei maksua) nimetään kirjallisesti työnkulun omistaja, operaattori ja tekninen yhteyshenkilö.

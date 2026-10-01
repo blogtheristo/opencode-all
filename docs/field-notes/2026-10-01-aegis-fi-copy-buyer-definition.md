@@ -1,0 +1,71 @@
+# Aegis-pilotti suomeksi ja ostajan määrittely
+
+---
+
+# VERSION AND AGENT HISTORY
+
+Version: 1.0 [Latest]
+
+Sessions & Modifications:
+
+- Version: 1.0 [Latest] | Tool: Claude Code (web) | Date: 01.10.2026 | Changes: FI-osio Store-sivulle, ensikontaktiluonnos, ostajan määrittelyehdotus. | Harness: Claude Code + CLAUDE.md
+
+Document Status:
+
+- Created: 01.10.2026
+- Status: PENDING_REVIEW
+
+---
+
+## Mitä tehtiin
+
+- `Store/PRODUCT_AEGIS_PILOT.md`: lisätty `## Suomeksi` (kiristetty teksti). Englanninkielinen sisältö ei muuttunut.
+- `sales-outreach/AEGIS_PILOT_FIRST_TOUCH_FI.md`: ensikontaktiluonnos. Ei lähetetty.
+- Truth lint: 0 fail, 0 warn kummallekin tiedostolle.
+
+## Korjaukset HIC:n alkuperäiseen tekstiin (vastaan oikeaan lähteeseen)
+
+| Alkuperäinen väite                                  | Korjaus                                                                                                                                                                                                                | Lähde                                                                                                                           |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| "Yksi tuote on myynnissä"                           | Aegis on ennakkotilauksessa (preorder, pre-revenue). Coaching ja Climate Intelligence ovat `in_stock`.                                                                                                                 | `Store/PRODUCT_AEGIS.md:6,27`; `Store/PRODUCT_CLAUDE_CODE_COACHING.md:6`                                                        |
+| "Agentti tekee töitä tuotannossa"                   | Lisätty: agentti suosittelee, ihminen päättää, ei fyysistä ohjausta.                                                                                                                                                   | `Store/PRODUCT_AEGIS_PILOT.md` "No physical control"                                                                            |
+| "Ostaja ei ole IT-osasto"                           | Korvattu funktiolla. Datakeskus-kaistalla ostaja voi olla CISO tai CTO, joten kategorinen väite ei pidä.                                                                                                               | `DWS_ROLES_REGISTRY.md` §4; `docs/sales/2026-09-28-aegis-pilot-market-research.md:141`                                          |
+| "Pysäytys todistetaan lokista"                      | Tuettu: operaattori allekirjoittaa komennon, avain ei ole tilahakemistossa, `authority` johdetaan vain allekirjoitetusta lokista.                                                                                      | `scripts/aegis-pilot.ts` (`stop`, `authority`); `aegis-pilot` SKILL.md hard rules                                               |
+| "Päätöshistoria säilyttää hylätyt ja keskeytyneet"  | Tuettu pilottipaketissa (`human.decide` accept/reject/modify/defer, `abandonedShare`). Laajempi `decision_journey`-skeema (migraatio 094) on kirjoitettu mutta ei sovellettu (RED). Teksti puhuu vain pilotin lokista. | `docs/field-notes/2026-09-29-aegis-c5-operator-decision-event.md`; `docs/plans/2026-09-24-decision-journey-outcome-evidence.md` |
+| "Reititys ongelmasta seuraavaan oikeaan päätökseen" | Jätetty pois asiakastekstistä. Vain speksi (`PATH_TRANSFERRED`), ei todennettu toimivaksi. Lisätään, kun on ajettu tapaus.                                                                                             | decision-journey §2.2                                                                                                           |
+| "DWS IQ 7 Aegis"                                    | Käytetty `DWS IQ Aegis`. "DWS IQ 7" on alustasukupolven nimi (`DWS7_ROADMAP.md`), ei tuotenimi Truth Standardissa.                                                                                                     | `DWS_TRUTH_STANDARD.md`                                                                                                         |
+
+## Ehdotus: ostaja määräytyy tehtävästä, ei tittelistä
+
+**Ongelma.** Päätöksentekijä on oikea termi, mutta kuka se on, riippuu organisaatiosta, tittelistä ja tehtävien jaosta. Kiinteä titteli ("tehtaanjohtaja", "ei IT") on joillekin kohteille väärä.
+
+**Periaate.** Roolirekisteri sanoo jo: sovita rooli toimintaan, ei organisaatiokaavioon, ja johda siitä, jolla on vipu tulokseen (`DWS_ROLES_REGISTRY.md` §5 "Lead with the revenue lever"). Decision Journey -speksi määrittelee ostajan samoin: se, joka kantaa vastuun ja vastaa kysymykseen "miten tähän päätökseen päädyttiin" (§2.1).
+
+**Kolmen kysymyksen testi** (esitetään ensikontaktissa ja Phase 0:ssa):
+
+1. Kenen nimissä tämän työnkulun päätökset tehdään?
+2. Kuka vastaa jälkikäteen kysymykseen "miten tähän päädyttiin"?
+3. Kenen tuloksesta tai budjetista työnkulun häiriö maksaa?
+
+- Sama henkilö kaikissa kolmessa: hän on ostaja.
+- Eri henkilöt: ostaja on kohdan 2 henkilö. Kohdan 1 henkilö on työnkulun omistaja ja puolustaja, IT ja tietoturva ovat teknisiä hyväksyjiä (R13–R16), talous ja hankinta allekirjoittavat (R20–R23).
+
+**Lähtöoletus per kaista** (hypoteesi, ei fakta; varmistetaan ensimmäisessä keskustelussa):
+
+| Kaista         | Todennäköinen ostaja                            | Lähde                                              |
+| -------------- | ----------------------------------------------- | -------------------------------------------------- |
+| A, valmistus   | R11 Plant Director tai R12 Operations Director  | Roolirekisteri §4; market research                 |
+| B, datakeskus  | R15 CISO, pienemmissä R04 CTO                   | Roolirekisteri §4 (Data centres); research, Glesys |
+| C, kaksikäyttö | R11 projektijohtaja, rinnalla R16 OT-tietoturva | Market research, Forcit                            |
+
+**Mekanismi, ei vain sanamuoto.** Phase 0:n allekirjoitettu rajaus nimeää jo työnkulun omistajan, operaattorin ja teknisen yhteyshenkilön. Lisäys: nimetään myös päätösvastuun kantaja. Julkinen teksti puhuu funktiosta, tittelit näkyvät vain kaistakohtaisessa viestinnässä.
+
+## Ohitetut vaiheet
+
+- KB, Learn-HTML, Drive-vienti: N/A. Luonnosvaihe, ei hyväksyttyä lopputulosta vielä.
+- Kalenteri: N/A. Ei päivättyjä sitoumuksia.
+- Roolirekisterin päivitys: ei tehty. Ehdotus odottaa HIC:n päätöstä (Status: PENDING_REVIEW).
+
+## HIC-päätöskysymys
+
+Lisätäänkö kolmen kysymyksen testi `DWS_ROLES_REGISTRY.md` §5:een pysyvänä sääntönä ja Phase 0:n rajaukseen neljänneksi rooliksi "päätösvastuun kantaja"?
