@@ -76,8 +76,10 @@ const tryGit = (cwd, ...a) => {
 };
 
 // Primary checkout = parent of the shared .git dir, wherever this is started from.
+// Started outside any checkout (e.g. `opencode-loop` run from ~)? Fall back to this script's own repo.
 const PRIMARY = dirname(
-  git(process.cwd(), 'rev-parse', '--path-format=absolute', '--git-common-dir'),
+  tryGit(process.cwd(), 'rev-parse', '--path-format=absolute', '--git-common-dir') ??
+    git(import.meta.dirname, 'rev-parse', '--path-format=absolute', '--git-common-dir'),
 );
 const SPEC_DIR = join(PRIMARY, '.claude', 'done');
 const GATE = join(PRIMARY, 'scripts', 'agent-done-gate.mjs');
