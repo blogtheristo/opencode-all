@@ -19,7 +19,7 @@ Proof that outlives the vendor
 
 An AI agent can now do real work in a production control room. It reads the process, suggests the next move, and waits. A person decides. That part is easy to promise. The hard part comes later.
 
-The question nobody asks at the pilot
+The question nobody asks in the control room
 
 Picture an inspector, a court or your own board, three years after a production incident. They ask a simple question: who stopped the agent, when, and what did the operator decide? The answer sits in a log. The log sits on a machine your vendor configured. The tool that reads it belongs to the vendor too.
 
