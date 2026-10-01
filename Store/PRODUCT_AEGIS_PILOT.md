@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v1.9, 01.10.2026. Versiohistoria osion lopussa._
+_Teksti v1.10, 01.10.2026. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -165,7 +165,7 @@ Kyseessä on Aegis-tuotteen käyttöönotto pilottitoimituksena. Sopimus jakautu
 - työnkulku: valitaan vaiheessa 0 asiakkaan kriittisestä prosessitarpeesta, valmis-tila määritellään asiakkaan sanoin;
 - sensorit ja syötteet: liityntöjen rakentaminen ja yhdistäminen (Lifetime Oy), syötteiden rajat toimialan, standardien ja asiakkaan laatuvaatimusten mukaan;
 - integraatiot: yrityksen infran tietoliikennekanavat, tuotantohuoneen ja tilannehuoneen syötteet, mittarit ja ohjaustasot;
-- koulutus: LWM v2:n sovitus asiakasympäristöön ja asiakkaan käyttöhenkilöstön koulutus;
+- koulutus: LWM v2:n sovitus asiakasympäristöön ja asiakkaan käyttöhenkilöstön koulutus. Koulutus on uusi työ, jonka toteutuskustannuksen Lifetime Oy kantaa. Lifetime World Model v2 on Lifetime Oy:n tekijänoikeudella suojattu tuote; sen käyttö kuuluu pilottiin maksutta, ja tekijänoikeus ei siirry asiakkaalle;
 - hyväksynnät: arkkitehtuuri (CIO) ja tietoturva (CISO) asiakkaan toimesta; nimetty projektinjohtaja, operaattori ja työnkulun omistaja.
 
 Hyväksymistestaus syntyy näiden katselmoinnissa ja on asiakkaan ja Lifetime Oy:n yhteinen.
@@ -198,3 +198,4 @@ Kaksi lukua, jotka pilotti tuottaa: päätöspolun kattavuus (kuinka moni agenti
 - v1.7, 01.10.2026: suvereeniteettiluokka (§3.6, toimivalta ja omistusketju) erotettu hyväksymistestistä, joka mittaa pysäytysvaltaa, offline-jatkuvuutta ja lokin eheyttä.
 - v1.8, 01.10.2026: sopimus jaettu toistuvaan osaan (ajoympäristö, hallinto, hyväksymistesti, vaiheen 0 menetelmä, laitteisto) ja asiakaskohtaiseen osaan (työnkulku, sensorit, integraatiot, koulutus, hyväksynnät). Pilotti = Aegis-tuotteen käyttöönotto pilottitoimituksena.
 - v1.9, 01.10.2026: Boardy: laitetoimitus jälleenmyyjänä valmistajan takuulla; ei omaa NVIDIA-huoltosopimusta; asennus hinnaston palvelurivinä, sitepreparaatio asiakkaalla; laitevalinta vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä.
+- v1.10, 01.10.2026: koulutuksen toteutuskustannus Lifetime Oy:llä; LWM v2 Lifetime Oy:n tekijänoikeudella suojattu tuote, pilotissa maksuton, tekijänoikeus ei siirry.
