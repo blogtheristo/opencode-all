@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.1, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.2, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -159,7 +159,7 @@ _Teksti v2.0.1, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 
 **Vastuut.**
 
-- **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; eristys omalla kytkimellä tai palomuurilla tai toimittamallamme.
+- **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; verkon eristys asiakkaan omalla kytkimellä tai palomuurilla, tai Lifetime Oy:n toimittamalla teollisuuskytkimellä ja palomuurilla, jotka laskutetaan laiteriveinä. Hyväksymistestin aikana eristystä hallinnoi aina asiakas, ei Lifetime Oy eikä Aegis.
 - **Lifetime Oy:** laitteiston toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa.
 - **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
 
@@ -201,3 +201,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v1.12, 01.10.2026: (virhe) x86-only; perustui Boardyn ehdotukseen, jonka tulkitsin HIC:n päätökseksi.
 - v2.0, 01.10.2026: kovennettu teksti. Laitteistoportti NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA), x86-only kumottu (HIC). Vaihe 0 omaksi kappaleeksi, harjoitusajo valitulla laitteella. Sinetöinti testin alussa ja lopussa. Päivä 91 -vaihtoehto 3 poistettu (ei HIC-hyväksyntää). Sisäiset tiedostopolut poistettu julkisesta tekstistä. Versiot arkistoitu.
 - v2.0.1, 01.10.2026: HIC: epäselvä lause "toinen kauppa on halvempi…" korvattu muodolla "Tuote sisältää kaksi osatoimitusta: 1. … 2. …".
+- v2.0.2, 01.10.2026: HIC: epäselvä "tai toimittamallamme" tarkennettu: kytkin ja palomuuri laiteriveinä (SKU-ehdotukset `LF-NET-SWITCH`, `LF-NET-EDGE-FW`, hinta TBD); eristystä hallinnoi testissä asiakas.
