@@ -33,8 +33,7 @@ const S = {
     ],
     tocH: 'Contents',
     formH: 'Request the whitepaper',
-    formIntro:
-      'The paper is sent by email on request. Risto Anton Päärni sends it personally.',
+    formIntro: 'The paper is sent by email on request. Risto Anton Päärni sends it personally.',
     name: 'Name',
     email: 'Work email',
     company: 'Company',
