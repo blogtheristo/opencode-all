@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=aegis-pilot-doctor Date=2026-09-30
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/doctor.ts
 /**
  * Aegis Pilot — preflight doctor command.
@@ -11,12 +11,29 @@ import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { SiteAuthority } from './identity.js';
 import { checkLocalFilesystem } from './acceptance.js';
-import { verifySegments } from './ledger-segments.js';
+import { anchorStatus, sealDue, verifySegments } from './ledger-segments.js';
+import { loadSiteConfig, operatorCopyDirs, type SiteConfig } from './site-config.js';
+
+/**
+ * Can the owner of the state directory write `dir`? The copy directory must be out of the
+ * site key holder's reach (EVIDENCE_FORMAT_v1.md §7). Root owns everything it runs as.
+ */
+export function writableByStateOwner(stateDir: string, dir: string): boolean {
+  const owner = statSync(stateDir);
+  const st = statSync(dir);
+  const mode = st.mode & 0o777;
+  if (owner.uid === 0) return true;
+  if (mode & 0o002) return true;
+  if (st.uid === owner.uid && mode & 0o200) return true;
+  return st.gid === owner.gid && (mode & 0o020) !== 0;
+}
 
 export interface DoctorCheck {
   check: string;
   ok: boolean;
   detail: string;
+  /** A warning is reported with ok: true; it does not fail the doctor. */
+  level?: 'warning';
 }
 
 export interface DoctorResult {
@@ -123,6 +140,83 @@ export function doctor(stateDir: string, pin?: string | null): DoctorResult {
       true,
       `not on Linux; isolation tool check skipped (${process.platform})`,
     );
+  }
+
+  // 7–8. Operator command copies (anchoring level 1): out of the site key holder's reach,
+  // with a named retention lock. Warnings — the lock itself is storage configuration.
+  let config: SiteConfig | null = null;
+  try {
+    config = loadSiteConfig(stateDir);
+  } catch (err) {
+    push('site-config', false, (err as Error).message);
+  }
+  const warn = (check: string, detail: string) =>
+    checks.push({ check, ok: true, level: 'warning', detail });
+  if (config) {
+    const { dir, wormDir } = operatorCopyDirs(config);
+    for (const [name, d] of [
+      ['operator-copies-dir', dir],
+      ['operator-worm-dir', wormDir],
+    ] as const) {
+      try {
+        if (!existsSync(d))
+          warn(name, `${d} does not exist yet (created by the first stop/decide)`);
+        else if (writableByStateOwner(stateDir, d))
+          warn(
+            name,
+            `${d} is writable by the state-dir owner: the site key holder can rewrite the copies`,
+          );
+        else push(name, true, `${d} not writable by the state-dir owner`);
+      } catch (err) {
+        warn(name, `${d}: ${(err as Error).message}`);
+      }
+    }
+    // 9. Seal age: a monitored setting. Overdue is an alert (seal-status records the incident).
+    try {
+      const due = sealDue(stateDir, config.sealSchedule, new Date());
+      const hours = (due.ageMs / 3_600_000).toFixed(1);
+      push(
+        'seal-age',
+        !due.overdue,
+        due.overdue
+          ? `last seal ${hours} h old: OVERDUE (max ${config.sealSchedule.maxAgeDays} d); run "seal --scheduled"`
+          : `last seal ${hours} h old (max ${config.sealSchedule.maxAgeDays} d)${due.due ? `; due now: ${due.reasons.join('; ')}` : ''}`,
+      );
+    } catch (err) {
+      push('seal-age', false, (err as Error).message);
+    }
+    // 10. Anchor export: a customer-owned sink, administered by someone other than the box.
+    const ax = config.anchorExport;
+    if (!ax.file && !ax.syslog)
+      warn('anchor-export', 'no anchor sink configured (anchorExport.file / anchorExport.syslog)');
+    else {
+      const st = anchorStatus(stateDir, ax);
+      if (st.failing.length)
+        warn(
+          'anchor-export',
+          `export failing to ${st.failing.join(', ')}; anchors queued, retried by "seal --scheduled"`,
+        );
+      else if (ax.syslog && !ax.syslog.tls)
+        warn('anchor-export', 'syslog sink without TLS: use RFC 5425 TLS outside a loopback test');
+      else if (!ax.administeredBy)
+        warn(
+          'anchor-export',
+          'anchorExport.administeredBy names no role: the sink must be administered by someone other than the box',
+        );
+      else push('anchor-export', true, `sinks configured, administered by ${ax.administeredBy}`);
+    }
+    const lock = config.operatorCopies.lock;
+    if (lock)
+      push(
+        'operator-copies-lock',
+        true,
+        `retention lock named: ${lock.target}, ${lock.retention}, held by ${lock.lockHolderRole} (storage configuration; not verified by code)`,
+      );
+    else
+      warn(
+        'operator-copies-lock',
+        'retention lock unverified: site/anchoring.json names no lock (target, retention, lockHolderRole)',
+      );
   }
 
   const ok = checks.every((c) => c.ok);

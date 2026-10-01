@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/authority.ts
 /**
  * Aegis Pilot — the decision-authority record: who held authority, and what
@@ -36,6 +36,7 @@ import {
   statePaths,
 } from './identity.js';
 import type { PilotScope } from './scope.js';
+import { readCommandBody } from './operator-evidence.js';
 
 /** Record that authority was granted. Written when a credential is issued for use on this site. */
 export function recordGrant(
@@ -274,7 +275,13 @@ export function buildAuthorityRecord(
             operatorId: String(stopEv.operator_id),
             operatorName: names.get(String(stopEv.operator_id)) ?? null,
             commandId: String(stopEv.detail.command_id),
-            reason: String(stopEv.detail.reason ?? ''),
+            // The free-text reason lives in the erasable command body, not in the chain;
+            // empty once erased. (Ledgers before 01.10.2026 kept it in the event.)
+            reason: String(
+              readCommandBody(stateDir, stopEv.detail.command_digest)?.reason ??
+                stopEv.detail.reason ??
+                '',
+            ),
             latencyMs:
               typeof stopEv.detail.latency_ms === 'number' ? stopEv.detail.latency_ms : null,
           }

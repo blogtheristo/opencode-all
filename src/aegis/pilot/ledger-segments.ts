@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/ledger-segments.ts
 /**
  * Aegis Pilot — ledger segments and retention (AEGIS_PILOT_95_READINESS_PLAN.md, item C2).
@@ -37,6 +37,15 @@
  * older one over the active file). Only an anchor held outside the state
  * directory catches that: copy the `anchor` that `seal` prints to the
  * customer's records and verify with `expectSealDigest`.
+ *
+ * Scheduled seal and anchor export (EVIDENCE_FORMAT_v1.md §8–§9, HIC 01.10.2026):
+ * `sealDue` says when the active segment must be sealed — after any human.override or
+ * configuration change, on a shift change, and at least daily — and `runScheduledSeal`
+ * seals it. After every seal the anchor {siteId, index, head_hash, seal_digest,
+ * sealedAt} is queued (persisted, in order) and `anchorExport` sends it to the
+ * customer-owned sinks: an append-only file for SIEM pickup and RFC 5424 syslog over
+ * TCP/TLS. A failed export never blocks a seal: it is an incident, the queue is kept and
+ * backfilled in order when the link returns, and the gap is reported.
  */
 
 import {
@@ -53,9 +62,12 @@ import {
   statSync,
   unlinkSync,
   writeFileSync,
+  writeSync,
 } from 'node:fs';
-import { basename, dirname, join } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { connect as netConnect, type Socket } from 'node:net';
+import { connect as tlsConnect } from 'node:tls';
 import { canonicalJSON, sha256, verifyPayload } from './crypto.js';
 import {
   EvidenceLedger,
@@ -226,6 +238,8 @@ export interface SealOptions {
   maxAgeDays?: number;
   /** Seal regardless of size and age. */
   force?: boolean;
+  /** With `force`: the reason recorded in the seal (e.g. the schedule trigger). */
+  reason?: string;
   now?: () => Date;
 }
 
@@ -261,6 +275,20 @@ type LedgerOpenOptions = Parameters<typeof EvidenceLedger.open>[1];
  * interrupted roll before anything else.
  */
 export function sealActiveSegment(opts: SealOptions): SealResult {
+  const r = sealActiveSegmentLocked(opts);
+  // Queue the anchor for export. Never blocks the seal: anchorExport rebuilds a missing
+  // queue entry from the seal files before it exports.
+  if (r.sealed) {
+    try {
+      enqueueAnchors(opts.stateDir, opts.site.manifest.siteId);
+    } catch {
+      // recovered by the next anchorExport
+    }
+  }
+  return r;
+}
+
+function sealActiveSegmentLocked(opts: SealOptions): SealResult {
   const now = opts.now ?? (() => new Date());
   for (const [name, v] of [
     ['maxBytes', opts.maxBytes],
@@ -330,7 +358,7 @@ export function sealActiveSegment(opts: SealOptions): SealResult {
     const maxAgeMs = (opts.maxAgeDays ?? DEFAULT_MAX_SEGMENT_AGE_DAYS) * 86_400_000;
     const ageMs = firstTimestamp ? now().getTime() - Date.parse(firstTimestamp) : 0;
     let reason: string;
-    if (opts.force) reason = 'forced';
+    if (opts.force) reason = (opts.reason ?? 'forced').slice(0, 200);
     else if (bytes >= maxBytes) reason = `size ${bytes} >= ${maxBytes} bytes`;
     else if (ageMs >= maxAgeMs) reason = `age ${Math.floor(ageMs / 86_400_000)} d`;
     else return { sealed: false, reason: 'below size and age limits', bytes, firstTimestamp };
@@ -628,4 +656,546 @@ export function pruneExpiredSegments(opts: {
   }
   const after = verifySegments(opts.stateDir, opts.site, at);
   return { confirmed: true, ...base, verifiedAfter: after.valid };
+}
+// ---------------------------------------------------------------------------
+// Scheduled seal (EVIDENCE_FORMAT_v1.md §8)
+// ---------------------------------------------------------------------------
+
+/** A seal older than max age plus this grace is overdue: an alert and an incident. */
+export const SEAL_OVERDUE_GRACE_MS = 60 * 60 * 1000;
+
+/** Configuration change events: each makes a seal due. */
+export const CONFIG_CHANGE_EVENTS: ReadonlySet<string> = new Set([
+  'authority.grant',
+  'authority.revoke',
+]);
+
+export interface SealSchedule {
+  /** Shift changes, UTC "HH:MM". */
+  shiftChanges: readonly string[];
+  /** At least daily: at most 1. */
+  maxAgeDays: number;
+}
+
+export interface SealDue {
+  due: boolean;
+  reasons: string[];
+  /** sealedAt of the newest seal; null before the first seal. */
+  lastSealAt: string | null;
+  /** What the age is measured from: the newest seal, else the active segment's first event. */
+  since: string | null;
+  ageMs: number;
+  maxAgeMs: number;
+  /** Older than max age plus SEAL_OVERDUE_GRACE_MS. */
+  overdue: boolean;
+}
+
+/** The newest shift change in (fromMs, toMs], as "HH:MM", or null. */
+function shiftCrossed(fromMs: number, toMs: number, shifts: readonly string[]): string | null {
+  let best: { t: number; s: string } | null = null;
+  const day = 86_400_000;
+  for (let d = Math.floor(fromMs / day) * day; d <= toMs; d += day) {
+    for (const s of shifts) {
+      const [h, m] = s.split(':').map(Number);
+      const t = d + (h * 60 + m) * 60_000;
+      if (t > fromMs && t <= toMs && (!best || t > best.t)) best = { t, s };
+    }
+  }
+  return best?.s ?? null;
+}
+
+export function sealDue(stateDir: string, schedule: SealSchedule, now: Date = new Date()): SealDue {
+  if (!(schedule.maxAgeDays > 0 && schedule.maxAgeDays <= 1)) {
+    throw new Error('seal schedule maxAgeDays must be in (0, 1]: at least daily');
+  }
+  const last = readSealFiles(stateDir)
+    .map((f) => f.seal)
+    .filter((x): x is SegmentSeal => !!x)
+    .at(-1);
+  const active = statePaths(stateDir).ledger;
+  const events = existsSync(active) ? readEvents(active) : [];
+  const lastSealAt = last?.sealedAt ?? null;
+  const since = lastSealAt ?? events[0]?.timestamp ?? null;
+  const t = now.getTime();
+  const sinceMs = since ? Date.parse(since) : t;
+  const ageMs = Math.max(0, t - sinceMs);
+  const maxAgeMs = schedule.maxAgeDays * 86_400_000;
+  const reasons: string[] = [];
+  if (events.some((e) => e.event_type === 'human.override'))
+    reasons.push('human.override since the last seal');
+  if (events.some((e) => CONFIG_CHANGE_EVENTS.has(e.event_type)))
+    reasons.push('configuration change since the last seal');
+  const shift = shiftCrossed(sinceMs, t, schedule.shiftChanges);
+  if (shift) reasons.push(`shift change ${shift} UTC`);
+  if (ageMs >= maxAgeMs) reasons.push(`max age ${schedule.maxAgeDays} d`);
+  return {
+    due: reasons.length > 0,
+    reasons,
+    lastSealAt,
+    since,
+    ageMs,
+    maxAgeMs,
+    overdue: ageMs > maxAgeMs + SEAL_OVERDUE_GRACE_MS,
+  };
+}
+
+const LEDGER_BUSY = /locked by running process|already open in this process/;
+
+/** Open the active ledger for one append outside a run (keeps the genesis org id). */
+function withActiveLedger<T>(
+  stateDir: string,
+  site: SiteAuthority,
+  now: () => Date,
+  fn: (l: EvidenceLedger) => T,
+): T {
+  const path = statePaths(stateDir).ledger;
+  const first = existsSync(path) ? readEvents(path)[0] : undefined;
+  const ledger = EvidenceLedger.open(path, {
+    siteId: site.manifest.siteId,
+    orgId: String(first?.detail.org_id ?? first?.org_id ?? site.manifest.siteId),
+    signer: (h) => site.sign(h),
+    publicKey: site.publicKey,
+    now,
+  });
+  try {
+    return fn(ledger);
+  } finally {
+    ledger.close();
+  }
+}
+
+/**
+ * Record an overdue seal as an incident, once per overdue period (not on every check).
+ * 'written', 'already-recorded', or 'ledger-busy' when a run holds the ledger.
+ */
+export function recordSealOverdue(
+  stateDir: string,
+  site: SiteAuthority,
+  due: SealDue,
+  now: () => Date = () => new Date(),
+): 'written' | 'already-recorded' | 'ledger-busy' {
+  const active = statePaths(stateDir).ledger;
+  if (
+    existsSync(active) &&
+    readEvents(active).some((e) => e.event_type === 'incident' && e.detail.kind === 'seal-overdue')
+  )
+    return 'already-recorded';
+  try {
+    withActiveLedger(stateDir, site, now, (l) =>
+      l.append({
+        event_type: 'incident',
+        trace_id: randomUUID(),
+        detail: {
+          kind: 'seal-overdue',
+          last_seal_at: due.lastSealAt,
+          age_ms: due.ageMs,
+          max_age_ms: due.maxAgeMs,
+        },
+      }),
+    );
+    return 'written';
+  } catch (err) {
+    if (LEDGER_BUSY.test((err as Error).message)) return 'ledger-busy';
+    throw err;
+  }
+}
+
+export interface ScheduledSealResult {
+  due: SealDue;
+  seal: SealResult | null;
+  /** Set when a seal was due but a run holds the ledger; the next tick retries. */
+  busy: string | null;
+  /** Overdue after this tick (alert). */
+  overdue: boolean;
+  overdueIncident: 'written' | 'already-recorded' | 'ledger-busy' | null;
+  anchor: AnchorExportResult;
+}
+
+/**
+ * One tick of the seal schedule (cron/systemd timer: `aegis-pilot seal --scheduled`).
+ * Seals when due, records an overdue seal as an incident, then exports every queued anchor.
+ */
+export async function runScheduledSeal(opts: {
+  stateDir: string;
+  site: SiteAuthority;
+  schedule: SealSchedule;
+  sinks: AnchorSinks;
+  now?: () => Date;
+}): Promise<ScheduledSealResult> {
+  const now = opts.now ?? (() => new Date());
+  const due = sealDue(opts.stateDir, opts.schedule, now());
+  let seal: SealResult | null = null;
+  let busy: string | null = null;
+  if (due.due) {
+    try {
+      seal = sealActiveSegment({
+        stateDir: opts.stateDir,
+        site: opts.site,
+        force: true,
+        reason: `scheduled: ${due.reasons.join('; ')}`,
+        now,
+      });
+    } catch (err) {
+      const message = (err as Error).message;
+      if (!LEDGER_BUSY.test(message)) throw err;
+      busy = message;
+    }
+  }
+  const after = seal?.sealed ? sealDue(opts.stateDir, opts.schedule, now()) : due;
+  const overdueIncident = after.overdue
+    ? recordSealOverdue(opts.stateDir, opts.site, after, now)
+    : null;
+  const anchor = await anchorExport({
+    stateDir: opts.stateDir,
+    site: opts.site,
+    sinks: opts.sinks,
+    now,
+  });
+  return { due, seal, busy, overdue: after.overdue, overdueIncident, anchor };
+}
+
+// ---------------------------------------------------------------------------
+// Anchor export (EVIDENCE_FORMAT_v1.md §9)
+// ---------------------------------------------------------------------------
+
+/** What leaves the box after every seal. No personal data: ids, hashes, a time. */
+export interface AnchorRecord {
+  siteId: string;
+  index: number;
+  head_hash: string;
+  seal_digest: string;
+  sealedAt: string;
+}
+
+export interface AnchorSinks {
+  /** Append-only local file for SIEM pickup. */
+  file?: string | null;
+  /** RFC 5424 over TCP (octet-counted framing, RFC 6587), TLS per RFC 5425. */
+  syslog?: {
+    host: string;
+    port: number;
+    tls: boolean;
+    caFile?: string;
+    servername?: string;
+    timeoutMs?: number;
+  } | null;
+}
+
+export type AnchorSinkName = 'file' | 'syslog';
+
+interface SinkState {
+  /**
+   * The destination the progress below belongs to (`file:<absolute path>`,
+   * `syslog:<host>:<port>:tls|tcp`). A changed destination starts again from the first
+   * anchor: the new sink has received nothing.
+   */
+  destination: string | null;
+  /** Queue entries exported to this destination (a prefix of the queue). */
+  exported: number;
+  lastSuccessAt: string | null;
+  lastError: string | null;
+  /** First failed export of the current outage; null when the sink is healthy. */
+  failingSince: string | null;
+}
+
+export interface AnchorGap {
+  sink: AnchorSinkName;
+  firstFailedAt: string;
+  firstSuccessAt: string;
+  /** Records sent in order when the link returned. */
+  backfilled: number;
+}
+
+interface AnchorState {
+  v: 1;
+  sinks: Partial<Record<AnchorSinkName, SinkState>>;
+  gaps: AnchorGap[];
+  /** Incidents that could not be written yet (a run held the ledger). */
+  pendingIncidents: Array<Record<string, unknown>>;
+}
+
+export interface AnchorSinkStatus extends SinkState {
+  sink: AnchorSinkName;
+  pending: number;
+}
+
+export interface AnchorExportResult {
+  queued: number;
+  exportedNow: number;
+  sinks: AnchorSinkStatus[];
+  /** Closed gaps: first failed and first successful export time, per sink. */
+  gaps: AnchorGap[];
+  /** Sinks failing now. */
+  failing: AnchorSinkName[];
+  pendingIncidents: number;
+}
+
+export function anchorPaths(stateDir: string) {
+  const dir = join(stateDir, 'anchor');
+  return {
+    dir,
+    queue: join(dir, 'queue.jsonl'),
+    state: join(dir, 'state.json'),
+  };
+}
+
+export function readAnchorQueue(stateDir: string): AnchorRecord[] {
+  const { queue } = anchorPaths(stateDir);
+  return existsSync(queue) ? (readEvents(queue) as unknown as AnchorRecord[]) : [];
+}
+
+function readAnchorState(stateDir: string): AnchorState {
+  const { state } = anchorPaths(stateDir);
+  if (!existsSync(state)) return { v: 1, sinks: {}, gaps: [], pendingIncidents: [] };
+  return JSON.parse(readFileSync(state, 'utf8')) as AnchorState;
+}
+
+const emptySink = (destination: string | null = null): SinkState => ({
+  destination,
+  exported: 0,
+  lastSuccessAt: null,
+  lastError: null,
+  failingSince: null,
+});
+
+/** Append every seal not yet queued, in index order. Idempotent. */
+export function enqueueAnchors(stateDir: string, siteId: string): AnchorRecord[] {
+  const { dir, queue } = anchorPaths(stateDir);
+  const have = new Set(readAnchorQueue(stateDir).map((r) => r.index));
+  const add: AnchorRecord[] = readSeals(stateDir)
+    .filter((s) => !have.has(s.index))
+    .map((s) => ({
+      siteId,
+      index: s.index,
+      head_hash: s.headHash,
+      seal_digest: sealDigest(s),
+      sealedAt: s.sealedAt,
+    }));
+  if (add.length) {
+    mkdirSync(dir, { recursive: true, mode: 0o700 });
+    appendLines(queue, add, 0o600);
+  }
+  return readAnchorQueue(stateDir);
+}
+
+function appendLines(path: string, records: readonly AnchorRecord[], mode: number): void {
+  const fd = openSync(path, 'a', mode);
+  try {
+    for (const r of records) writeSync(fd, `${canonicalJSON(r)}\n`);
+    fsyncSync(fd);
+  } finally {
+    closeSync(fd);
+  }
+}
+
+/** Identity of a sink's destination: progress is kept per destination, not per sink name. */
+export function sinkDestination(name: AnchorSinkName, sinks: AnchorSinks): string | null {
+  if (name === 'file') return sinks.file ? `file:${resolve(sinks.file)}` : null;
+  const sl = sinks.syslog;
+  return sl ? `syslog:${sl.host}:${sl.port}:${sl.tls ? 'tls' : 'tcp'}` : null;
+}
+
+/**
+ * The sink's state for its current destination. Progress recorded for another destination
+ * (or before destinations were recorded) does not carry over.
+ */
+function sinkStateFor(
+  state: AnchorState,
+  name: AnchorSinkName,
+  destination: string | null,
+): { st: SinkState; changedFrom: string | null } {
+  const prev = state.sinks[name];
+  if (prev && prev.destination === destination) return { st: prev, changedFrom: null };
+  return {
+    st: emptySink(destination),
+    changedFrom: prev ? (prev.destination ?? 'unrecorded') : null,
+  };
+}
+
+const BOM = '\uFEFF';
+
+/** RFC 5424 message with RFC 6587 octet-counting framing. MSG is UTF-8 with BOM. */
+export function syslogFrame(record: AnchorRecord, at: Date): string {
+  const msg = `<133>1 ${at.toISOString()} ${record.siteId} aegis-pilot - SEAL_ANCHOR - ${BOM}${canonicalJSON(record)}`;
+  return `${Buffer.byteLength(msg, 'utf8')} ${msg}`;
+}
+
+function sendSyslog(cfg: NonNullable<AnchorSinks['syslog']>, payload: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const sock: Socket = cfg.tls
+      ? tlsConnect({
+          host: cfg.host,
+          port: cfg.port,
+          servername: cfg.servername ?? cfg.host,
+          ca: cfg.caFile ? readFileSync(cfg.caFile) : undefined,
+        })
+      : netConnect({ host: cfg.host, port: cfg.port });
+    const timer = setTimeout(() => {
+      sock.destroy();
+      finish(new Error(`syslog ${cfg.host}:${cfg.port}: timeout`));
+    }, cfg.timeoutMs ?? 10_000);
+    function finish(err?: Error) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      if (err) reject(err);
+      else resolve();
+    }
+    sock.once(cfg.tls ? 'secureConnect' : 'connect', () => sock.end(payload));
+    sock.once('error', (err) => finish(err));
+    // Delivered when the receiver closed its side after reading everything we sent.
+    sock.once('close', (hadError) => {
+      if (!hadError) finish();
+    });
+  });
+}
+
+/**
+ * Export every queued anchor not yet delivered, per sink, in queue order. A failure is
+ * recorded as an incident (once per outage) and kept in the queue; the recovery closes
+ * the gap and is recorded too. Never throws on a sink failure.
+ */
+export async function anchorExport(opts: {
+  stateDir: string;
+  site?: SiteAuthority;
+  sinks: AnchorSinks;
+  now?: () => Date;
+  /** Record an incident; defaults to appending to the active ledger with the site key. */
+  recordIncident?: (detail: Record<string, unknown>) => void;
+}): Promise<AnchorExportResult> {
+  const now = opts.now ?? (() => new Date());
+  const siteId =
+    opts.site?.manifest.siteId ?? readAnchorQueue(opts.stateDir)[0]?.siteId ?? 'unknown';
+  const queue = enqueueAnchors(opts.stateDir, siteId);
+  const state = readAnchorState(opts.stateDir);
+  const site = opts.site;
+  const record =
+    opts.recordIncident ??
+    (site
+      ? (detail: Record<string, unknown>) =>
+          withActiveLedger(opts.stateDir, site, now, (l) =>
+            l.append({
+              event_type: 'incident',
+              trace_id: randomUUID(),
+              detail,
+            }),
+          )
+      : null);
+
+  let exportedNow = 0;
+  const sinks: AnchorSinkStatus[] = [];
+  const configured: Array<[AnchorSinkName, (rs: AnchorRecord[]) => Promise<void>]> = [];
+  const filePath = opts.sinks.file;
+  if (filePath)
+    configured.push([
+      'file',
+      async (rs) => {
+        mkdirSync(dirname(filePath), { recursive: true });
+        appendLines(filePath, rs, 0o644);
+      },
+    ]);
+  const syslog = opts.sinks.syslog;
+  if (syslog)
+    configured.push([
+      'syslog',
+      (rs) => sendSyslog(syslog, rs.map((r) => syslogFrame(r, now())).join('')),
+    ]);
+  for (const [name, send] of configured) {
+    const { st, changedFrom } = sinkStateFor(state, name, sinkDestination(name, opts.sinks));
+    if (changedFrom !== null)
+      // Recorded without the destinations themselves (a path or host is configuration,
+      // not evidence); the new destination is backfilled from the first anchor.
+      state.pendingIncidents.push({
+        kind: 'anchor-sink-changed',
+        sink: name,
+        backfill: queue.length,
+      });
+    const pending = queue.slice(st.exported);
+    if (pending.length) {
+      try {
+        await send(pending);
+        st.exported = queue.length;
+        exportedNow += pending.length;
+        st.lastSuccessAt = now().toISOString();
+        if (st.failingSince) {
+          const gap: AnchorGap = {
+            sink: name,
+            firstFailedAt: st.failingSince,
+            firstSuccessAt: st.lastSuccessAt,
+            backfilled: pending.length,
+          };
+          state.gaps.push(gap);
+          state.pendingIncidents.push({
+            kind: 'anchor-export-recovered',
+            sink: name,
+            first_failed_at: gap.firstFailedAt,
+            first_success_at: gap.firstSuccessAt,
+            backfilled: gap.backfilled,
+          });
+        }
+        st.failingSince = null;
+        st.lastError = null;
+      } catch (err) {
+        st.lastError = String((err as Error)?.message ?? err).slice(0, 200);
+        if (!st.failingSince) {
+          st.failingSince = now().toISOString();
+          state.pendingIncidents.push({
+            kind: 'anchor-export-failed',
+            sink: name,
+            error: st.lastError,
+            pending: pending.length,
+          });
+        }
+      }
+    }
+    state.sinks[name] = st;
+    sinks.push({ sink: name, ...st, pending: queue.length - st.exported });
+  }
+  // Incidents in order; one that cannot be written (a run holds the ledger) waits.
+  if (record) {
+    while (state.pendingIncidents.length) {
+      try {
+        record(state.pendingIncidents[0]);
+      } catch {
+        break;
+      }
+      state.pendingIncidents.shift();
+    }
+  }
+  const { dir, state: statePath } = anchorPaths(opts.stateDir);
+  mkdirSync(dir, { recursive: true, mode: 0o700 });
+  writeDurable(statePath, `${JSON.stringify(state, null, 2)}\n`);
+  return {
+    queued: queue.length,
+    exportedNow,
+    sinks,
+    gaps: state.gaps,
+    failing: sinks.filter((s) => s.failingSince).map((s) => s.sink),
+    pendingIncidents: state.pendingIncidents.length,
+  };
+}
+
+/** Read-only anchor export status (seal-status, doctor). */
+export function anchorStatus(stateDir: string, sinks: AnchorSinks): AnchorExportResult {
+  const queue = readAnchorQueue(stateDir);
+  const sealed = readSealFiles(stateDir).length;
+  const state = readAnchorState(stateDir);
+  // Seals not yet queued (a crash between seal and enqueue) are pending too.
+  const total = Math.max(queue.length, sealed);
+  const names: AnchorSinkName[] = [];
+  if (sinks.file) names.push('file');
+  if (sinks.syslog) names.push('syslog');
+  const status = names.map((sink) => {
+    const { st } = sinkStateFor(state, sink, sinkDestination(sink, sinks));
+    return { sink, ...st, pending: total - st.exported };
+  });
+  return {
+    queued: total,
+    exportedNow: 0,
+    sinks: status,
+    gaps: state.gaps,
+    failing: status.filter((s) => s.failingSince).map((s) => s.sink),
+    pendingIncidents: state.pendingIncidents.length,
+  };
 }

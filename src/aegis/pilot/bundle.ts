@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/bundle.ts
 /**
  * Aegis Pilot — auditor evidence bundle: export and offline verification
@@ -14,6 +14,10 @@
  *   site/site.json                         site public key (never site.key)
  *   acceptance/*.json                      signed acceptance records
  *   credentials/*.json                     issued credentials (public parts)
+ *   command-bodies/<sha256>.json           signed operator command bodies (erasable sidecar)
+ *   anchor/queue.jsonl + anchor/state.json seal anchors queued for export, and the export
+ *                                          status: per-sink progress and gaps (first failed
+ *                                          and first successful export time)
  *   manifest.json + manifest.sig           every file's sha256, signed by the site key
  *
  * verifyBundle checks: the manifest's shape and paths; the key id computed from
@@ -22,7 +26,9 @@
  * (no missing, extra or non-regular files); the whole segment chain
  * (verifySegments: seals, links, hashes, retention); the ledger head; and that
  * every acceptance record is signed by the site key and was recorded in the
- * ledger under its digest.
+ * ledger under its digest; and that every stop and decision carries the operator's
+ * own signed command, bound field by field to the event (operator-evidence.ts).
+ * The bundle format is frozen in docs/aegis/EVIDENCE_FORMAT_v1.md.
  */
 
 import {
@@ -37,9 +43,18 @@ import {
 import { dirname, join, relative, resolve, sep } from 'node:path';
 import { z } from 'zod';
 import { canonicalJSON, keyId, publicKeyFromPem, sha256, verifyPayload } from './crypto.js';
-import { SiteAuthority, type SiteManifest, statePaths } from './identity.js';
+import { type Credential, SiteAuthority, type SiteManifest, statePaths } from './identity.js';
 import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
-import { segmentPaths, verifySegments } from './ledger-segments.js';
+import { anchorPaths, segmentPaths, verifySegments } from './ledger-segments.js';
+import {
+  commandBodiesDir,
+  readCommandBodies,
+  redactedDigests,
+  referencedDigests,
+  type SegmentEvents,
+  verifyOperatorEvidence,
+} from './operator-evidence.js';
+import { type OperatorCopiesResult, verifyOperatorCopies } from './operator-copies.js';
 import { docVersion, KIT_ROOT, PROVENANCE_SOURCES, versionAtLeast } from './provenance.js';
 
 /** The auditor guide shipped in every bundle (C6). */
@@ -47,7 +62,7 @@ export const AUDITOR_GUIDE = 'AUDITOR_GUIDE.md';
 
 /** Paths a bundle may hold (relative, forward slashes). */
 const BUNDLE_PATH =
-  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json)$/;
+  /^(AUDITOR_GUIDE\.md|ledger\/article12\.jsonl|ledger\/segments\/\d{6}\.(jsonl|seal\.json)|site\/site\.json|acceptance\/[A-Za-z0-9._-]{1,128}\.json|credentials\/[A-Za-z0-9._-]{1,128}\.json|command-bodies\/[0-9a-f]{64}\.json|anchor\/(queue\.jsonl|state\.json))$/;
 
 const ManifestSchema = z
   .object({
@@ -76,6 +91,8 @@ export interface VerifyResult {
   failures: string[];
   /** Key id computed from the bundled public key (what the pin is compared with). */
   keyId: string | null;
+  /** With `operatorCopies`: what the operator-held copies showed. */
+  operatorCopies?: OperatorCopiesResult;
 }
 
 const toPosix = (p: string) => p.split(sep).join('/');
@@ -96,8 +113,29 @@ function walk(root: string, onOther: (rel: string) => void): string[] {
   return out;
 }
 
+/** Events of every present sealed segment and the active segment, labelled. */
+function chainSegments(root: string, chain: ReturnType<typeof verifySegments>): SegmentEvents[] {
+  const out: Array<{ label: string; index: number; events: LedgerEvent[] }> = [];
+  for (const s of chain.segments) {
+    const file = segmentPaths(root).file(s.index);
+    if (s.present && existsSync(file))
+      out.push({
+        label: `segment ${String(s.index).padStart(6, '0')}`,
+        index: s.index,
+        events: readLedgerEvents(file),
+      });
+  }
+  if (existsSync(statePaths(root).ledger))
+    out.push({
+      label: 'active',
+      index: chain.segments.length,
+      events: readLedgerEvents(statePaths(root).ledger),
+    });
+  return out;
+}
+
 /** State-directory files that belong in a bundle. */
-function evidenceFiles(stateDir: string): string[] {
+function evidenceFiles(stateDir: string, referencedBodies: ReadonlySet<string>): string[] {
   const p = statePaths(stateDir);
   const picks: Array<[string, string, RegExp]> = [
     [dirname(p.ledger), 'ledger', /^article12\.jsonl$/],
@@ -105,12 +143,16 @@ function evidenceFiles(stateDir: string): string[] {
     [p.siteDir, 'site', /^site\.json$/],
     [p.acceptance, 'acceptance', /\.json$/],
     [p.credentials, 'credentials', /\.json$/],
+    [commandBodiesDir(stateDir), 'command-bodies', /^[0-9a-f]{64}\.json$/],
+    [anchorPaths(stateDir).dir, 'anchor', /^(queue\.jsonl|state\.json)$/],
   ];
   const files: string[] = [];
   for (const [dir, prefix, pattern] of picks) {
     if (!existsSync(dir)) continue;
     for (const name of readdirSync(dir).sort()) {
       if (!pattern.test(name)) continue;
+      // Only bodies an event references: a leftover from a crash before its event is not evidence.
+      if (prefix === 'command-bodies' && !referencedBodies.has(name.slice(0, 64))) continue;
       const rel = `${prefix}/${name}`;
       if (!lstatSync(join(dir, name)).isFile())
         throw new Error(`refusing to export ${rel}: not a regular file`);
@@ -131,7 +173,7 @@ export function exportBundle(stateDir: string, outDir: string, now = new Date())
   const chain = verifySegments(state, site, now);
   if (!chain.valid) throw new Error(`evidence chain does not verify: ${chain.reason}`);
 
-  const files = evidenceFiles(state).map((rel) => {
+  const files = evidenceFiles(state, referencedDigests(chainSegments(state, chain))).map((rel) => {
     const raw = readFileSync(join(state, rel));
     return { path: rel, sha256: sha256(raw), bytes: raw.length };
   });
@@ -173,13 +215,19 @@ export function verifyBundle(
   bundleDir: string,
   expectKeyId?: string,
   now = new Date(),
+  opts: {
+    /** Directory of operator command copies / WORM records (EVIDENCE_FORMAT_v1.md §7). */
+    operatorCopies?: string;
+  } = {},
 ): VerifyResult {
   const root = resolve(bundleDir);
   const failures: string[] = [];
+  let operatorCopies: OperatorCopiesResult | undefined;
   const done = (computed: string | null): VerifyResult => ({
     ok: failures.length === 0,
     failures,
     keyId: computed,
+    ...(operatorCopies ? { operatorCopies } : {}),
   });
 
   let manifest: BundleManifest;
@@ -251,13 +299,40 @@ export function verifyBundle(
 
   // Acceptance records: signed by this site and recorded in the ledger under their digest.
   const recorded = new Map<string, string>();
-  const events: LedgerEvent[] = [];
-  for (const s of chain.segments) {
-    const file = segmentPaths(root).file(s.index);
-    if (s.present && existsSync(file)) events.push(...readLedgerEvents(file));
+  const bySegment = chainSegments(root, chain);
+  const events = bySegment.flatMap((s) => s.events);
+
+  // Operator evidence: every stop and decision re-verified with the operator's own key and
+  // bound to its event (EVIDENCE_FORMAT_v1.md §5). Credentials come from the bundle only.
+  const credentials = new Map<string, Credential>();
+  for (const rel of onDisk.filter((r) => r.startsWith('credentials/'))) {
+    try {
+      credentials.set(
+        rel.slice('credentials/'.length, -'.json'.length),
+        readJson(join(root, rel)) as Credential,
+      );
+    } catch {
+      failures.push(`credential ${rel} unreadable`);
+    }
   }
-  if (existsSync(statePaths(root).ledger))
-    events.push(...readLedgerEvents(statePaths(root).ledger));
+  const bodies = readCommandBodies(
+    root,
+    onDisk.filter((r) => r.startsWith('command-bodies/')),
+    failures,
+  );
+  const operatorCtx = {
+    site: siteManifest,
+    credentials,
+    bodies,
+    redacted: redactedDigests(bySegment),
+  };
+  failures.push(...verifyOperatorEvidence(bySegment, operatorCtx));
+  if (opts.operatorCopies !== undefined) {
+    operatorCopies = verifyOperatorCopies(resolve(opts.operatorCopies), bySegment, operatorCtx, {
+      prunedSegments: new Set(chain.segments.filter((s) => s.pruned).map((s) => s.index)),
+    });
+    failures.push(...operatorCopies.failures);
+  }
   for (const e of events)
     if (
       e.event_type === 'acceptance.record' &&

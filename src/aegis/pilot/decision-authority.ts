@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-30
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/decision-authority.ts
 /**
  * Aegis Pilot — operator decisions on agent recommendations (readiness plan C5,
@@ -61,6 +61,15 @@ import {
   readLedgerEvents,
   readVerifiedLedger,
 } from './evidence-ledger.js';
+import {
+  commandDigest,
+  commandDigestOf,
+  commandFrame,
+  operatorEventFields,
+  signCommandFrame,
+  splitCommand,
+  storeCommandBody,
+} from './operator-evidence.js';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 const HASH = /^[0-9a-f]{64}$/;
@@ -180,6 +189,8 @@ function bodyProblem(b: DecisionCommandBody): string | null {
 
 export interface DecisionCommand extends DecisionCommandBody {
   signature: string;
+  /** Framed digest signature (operator-evidence.ts, EVIDENCE_FORMAT_v1.md §5.1). */
+  digestSignature: string;
 }
 
 export interface DecisionOutcome {
@@ -247,7 +258,16 @@ export function createDecisionCommand(
   };
   const problem = bodyProblem(body);
   if (problem) throw new Error(problem);
-  return { ...body, signature: signPayload(body, params.operatorKey) };
+  return {
+    ...body,
+    signature: signPayload(body, params.operatorKey),
+    digestSignature: signCommandFrame(
+      'decide',
+      body,
+      params.operatorCredential.role ?? null,
+      params.operatorKey,
+    ),
+  };
 }
 
 export function decisionInbox(stateDir: string): string {
@@ -324,7 +344,13 @@ export class DecisionAuthority {
         event_type: 'incident',
         trace_id: traceId,
         operator_id: operatorId,
-        detail: { kind: 'decision-command-rejected', command_id: outcome.commandId, reason },
+        detail: {
+          kind: 'decision-command-rejected',
+          command_id: outcome.commandId,
+          reason,
+          // Lets a digest-only operator copy match its rejection (EVIDENCE_FORMAT_v1.md §7).
+          command_digest: commandDigestOf(command),
+        },
       }).seq;
       this.outcomes.push(outcome);
       return outcome;
@@ -369,9 +395,28 @@ export class DecisionAuthority {
     if (typeof cred.role !== 'string' || !ROLE_PATTERN.test(cred.role)) {
       return reject('operator credential carries no decision role', cred.subjectId);
     }
-    const { signature, ...body } = command;
-    if (!verifyPayload(body, signature, publicKeyFromPem(cred.subjectPublicKeyPem))) {
+    const { body, signature, digestSignature } = splitCommand(
+      command as unknown as Record<string, unknown>,
+    );
+    const operatorKey = publicKeyFromPem(cred.subjectPublicKeyPem);
+    if (typeof signature !== 'string' || !verifyPayload(body, signature, operatorKey)) {
       return reject('command signature does not match operator key', cred.subjectId);
+    }
+    const frame = commandFrame(
+      'decide',
+      command.commandId,
+      command.issuedAt,
+      cred.role,
+      commandDigest(body),
+    );
+    if (
+      typeof digestSignature !== 'string' ||
+      !verifyPayload(frame, digestSignature, operatorKey)
+    ) {
+      return reject(
+        'command digest signature missing or does not match operator key',
+        cred.subjectId,
+      );
     }
     const issued = Date.parse(command.issuedAt);
     if (Number.isNaN(issued) || issued - CLOCK_SKEW_MS > t.getTime()) {
@@ -427,6 +472,8 @@ export class DecisionAuthority {
       Math.round(EVIDENCE_WEIGHT[quality] * captureLagFactor(captureLagMs) * 100) / 100;
 
     this.seen.add(command.commandId);
+    // The body (with its free-text reason) goes to the erasable sidecar, never into the chain.
+    storeCommandBody(this.stateDir, body, signature);
     const event = this.ledger.append({
       event_type: 'human.decide',
       trace_id: rec.trace_id,
@@ -442,7 +489,6 @@ export class DecisionAuthority {
         recommendation_seq: rec.seq,
         recommendation_hash: rec.event_hash,
         recommended_by: rec.agent_id,
-        reason: command.reason,
         modified: command.verdict === 'modify' ? true : undefined,
         modification_digest: command.modificationDigest,
         // occurred_at of the response. Live: the moment the operator signed it, not the
@@ -459,6 +505,13 @@ export class DecisionAuthority {
           : 'none: manual entry, response time not machine-observed',
         // Queue delay between signing and recording; > 0 after a drain.
         recorded_lag_ms: Math.max(0, t.getTime() - issued),
+        signed_at: command.issuedAt,
+        // Operator evidence (EVIDENCE_FORMAT_v1.md §5): framed fields, credential id and the
+        // operator's signatures, so the decision verifies with the operator's key alone, years
+        // later. No body and no free-text reason: those live in the erasable sidecar.
+        ...operatorEventFields('decide', body, cred, digestSignature),
+        // The operator's Ed25519 signature over the command body (verifiable while it exists).
+        operator_signature: signature,
       },
     });
     const outcome: DecisionOutcome = {

@@ -68,7 +68,10 @@ export type LedgerEventType =
   // Decision journey (decision-authority.ts): the operator's signed decision on a
   // recommendation, and the measured outcome of an accepted one.
   | 'human.decide'
-  | 'outcome.record';
+  | 'outcome.record'
+  // Erasure of an operator command body (operator-evidence.ts): digest, time and reason
+  // code only. The chain keeps the operator's framed digest signature.
+  | 'evidence.redacted';
 
 export interface LedgerEventInput {
   event_type: LedgerEventType;

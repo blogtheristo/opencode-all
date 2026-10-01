@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/kill-authority.ts
 /**
  * Aegis Pilot — local kill authority (PRODUCT_AEGIS_PILOT.md, requirement 2
@@ -46,6 +46,15 @@ import {
   statePaths,
 } from './identity.js';
 import type { EvidenceLedger } from './evidence-ledger.js';
+import {
+  commandDigest,
+  commandDigestOf,
+  commandFrame,
+  operatorEventFields,
+  signCommandFrame,
+  splitCommand,
+  storeCommandBody,
+} from './operator-evidence.js';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
@@ -64,6 +73,12 @@ export interface StopCommandBody {
 
 export interface StopCommand extends StopCommandBody {
   signature: string;
+  /**
+   * Operator's Ed25519 signature over the framed digest message (operator-evidence.ts,
+   * EVIDENCE_FORMAT_v1.md §5.1). Made at issue time beside `signature`; it is what the
+   * ledger keeps after the body is erased.
+   */
+  digestSignature: string;
 }
 
 export interface StopOutcome {
@@ -105,7 +120,16 @@ export function createStopCommand(
     issuedAt: now.toISOString(),
     operatorCredentialId: params.operatorCredential.credentialId,
   };
-  return { ...body, signature: signPayload(body, params.operatorKey) };
+  return {
+    ...body,
+    signature: signPayload(body, params.operatorKey),
+    digestSignature: signCommandFrame(
+      'stop',
+      body,
+      params.operatorCredential.role ?? null,
+      params.operatorKey,
+    ),
+  };
 }
 
 /** Operator side: drop a signed command into the site's local kill inbox (atomic rename). */
@@ -174,7 +198,13 @@ export class KillAuthority {
         event_type: 'incident',
         trace_id: traceId,
         operator_id: operatorId,
-        detail: { kind: 'stop-command-rejected', command_id: outcome.commandId, reason },
+        detail: {
+          kind: 'stop-command-rejected',
+          command_id: outcome.commandId,
+          reason,
+          // Lets a digest-only operator copy match its rejection (EVIDENCE_FORMAT_v1.md §7).
+          command_digest: commandDigestOf(command),
+        },
       }).seq;
       this.outcomes.push(outcome);
       return outcome;
@@ -206,9 +236,28 @@ export class KillAuthority {
     if (cred.kind !== 'operator' || !cred.subjectPublicKeyPem) {
       return reject('credential is not an operator credential', cred.subjectId);
     }
-    const { signature, ...body } = command;
-    if (!verifyPayload(body, signature, publicKeyFromPem(cred.subjectPublicKeyPem))) {
+    const { body, signature, digestSignature } = splitCommand(
+      command as unknown as Record<string, unknown>,
+    );
+    const operatorKey = publicKeyFromPem(cred.subjectPublicKeyPem);
+    if (typeof signature !== 'string' || !verifyPayload(body, signature, operatorKey)) {
       return reject('command signature does not match operator key', cred.subjectId);
+    }
+    const frame = commandFrame(
+      'stop',
+      command.commandId,
+      String(command.issuedAt),
+      cred.role ?? null,
+      commandDigest(body),
+    );
+    if (
+      typeof digestSignature !== 'string' ||
+      !verifyPayload(frame, digestSignature, operatorKey)
+    ) {
+      return reject(
+        'command digest signature missing or does not match operator key',
+        cred.subjectId,
+      );
     }
     const issued = Date.parse(command.issuedAt);
     if (Number.isNaN(issued) || issued - CLOCK_SKEW_MS > t.getTime()) {
@@ -219,6 +268,8 @@ export class KillAuthority {
     }
 
     this.seen.add(command.commandId);
+    // The body (with its free-text reason) goes to the erasable sidecar, never into the chain.
+    storeCommandBody(this.stateDir, body, signature);
     const targets =
       command.target === '*'
         ? [...this.running.keys()]
@@ -245,10 +296,15 @@ export class KillAuthority {
         action: 'agent.stop',
         command_id: command.commandId,
         target: command.target,
-        reason: command.reason,
         agents_stopped: targets,
         latency_ms: outcome.latencyMs,
         note: targets.length === 0 ? 'no matching running agent' : undefined,
+        // Operator evidence (EVIDENCE_FORMAT_v1.md §5): framed fields, credential id and the
+        // operator's signatures, so the stop verifies with the operator's key alone, years
+        // later. No body and no free-text reason: those live in the erasable sidecar.
+        ...operatorEventFields('stop', body, cred, digestSignature),
+        // The operator's Ed25519 signature over the command body (verifiable while it exists).
+        operator_signature: signature,
       },
     }).seq;
     // Safe halt: the stop is not complete while the agent could resume under the same grant.
