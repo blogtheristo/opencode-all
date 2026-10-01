@@ -172,6 +172,11 @@
       "expect": "OPERATOR_SIGNATURE_INVALID"
     },
     {
+      "name": "replayed-stop",
+      "ledger": "negative/replayed-stop.jsonl",
+      "expect": "OPERATOR_COMMAND_REPLAYED"
+    },
+    {
       "name": "swapped-credential",
       "ledger": "negative/swapped-credential.jsonl",
       "expect": "OPERATOR_BINDING_MISMATCH:operator_credential_id"
@@ -193,6 +198,24 @@
         "03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405"
       ],
       "expect": "COMMAND_BODY_MISSING"
+    }
+  ],
+  "copy_cases": [
+    {
+      "name": "history-missing-retained-segment",
+      "copies": "negative-copies/history-missing-retained-segment",
+      "pruned_segments": [
+        5
+      ],
+      "expect": "OPERATOR_COPY_HISTORY_MISSING"
+    },
+    {
+      "name": "history-in-pruned-segment",
+      "copies": "negative-copies/history-in-pruned-segment",
+      "pruned_segments": [
+        5
+      ],
+      "expect": "UNVERIFIABLE"
     }
   ]
 }

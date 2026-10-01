@@ -402,13 +402,25 @@ def operator_event_failure(e, segment_events, ctx, body_override=None) -> str | 
 def verify_operator_evidence(segments, ctx) -> list[str]:
     failures = []
     referenced = set()
-    for label, events in segments:
+    seen = {}  # a command is executed once (§5.3 step 0)
+    for label, events, _ in segments:
         for e in events:
             if e.get("event_type") not in OPERATOR_EVENT_TYPES:
                 continue
-            dg = (e.get("detail") or {}).get("command_digest")
+            d = e.get("detail") or {}
+            dg = d.get("command_digest")
             if isinstance(dg, str):
                 referenced.add(dg)
+            where = f"{label} seq {e.get('seq')}"
+            keys = [f"{e.get('event_type')}:{k}" for k in (d.get("command_id"), dg) if isinstance(k, str)]
+            first = next((seen[k] for k in keys if k in seen), None)
+            if first:
+                failures.append(
+                    f"OPERATOR_COMMAND_REPLAYED: {where} {e.get('event_type')}: command already recorded at {first}"
+                )
+                continue
+            for k in keys:
+                seen[k] = where
             f = operator_event_failure(e, events, ctx)
             if f:
                 code, _, rest = f.partition(": ")
@@ -422,7 +434,7 @@ def verify_operator_evidence(segments, ctx) -> list[str]:
 def redacted_digests(segments) -> set:
     return {
         (e.get("detail") or {}).get("command_digest")
-        for _, events in segments
+        for _, events, _ in segments
         for e in events
         if e.get("event_type") == "evidence.redacted"
     }
@@ -451,15 +463,16 @@ def load_bodies(directory, failures, names=None) -> dict:
 # --- §7 operator copies --------------------------------------------------------------------------
 
 
-def verify_operator_copies(directory, segments, ctx, any_pruned) -> dict:
+def verify_operator_copies(directory, segments, ctx, pruned_segments) -> dict:
+    """pruned_segments: indices of sealed segments whose file is gone (retention ended)."""
     res = {"checked": 0, "matched": 0, "rejected": [], "unverifiable": [], "failures": []}
     if not os.path.isdir(directory):
         res["failures"].append(f"OPERATOR_COPY_INVALID: operator copies directory {directory} not found")
         return res
     by_digest, rejected, redactions, hashes = {}, set(), [], {}
-    for _, events in segments:
+    for _, events, index in segments:
         for e in events:
-            hashes[e["event_hash"]] = e["seq"]
+            hashes[e["event_hash"]] = (index, e["seq"])
             d = e.get("detail") or {}
             if e.get("event_type") in OPERATOR_EVENT_TYPES and isinstance(d.get("command_digest"), str):
                 by_digest[d["command_digest"]] = (e, events)
@@ -468,15 +481,19 @@ def verify_operator_copies(directory, segments, ctx, any_pruned) -> dict:
             if e.get("event_type") == "evidence.redacted":
                 redactions.append(d)
 
-    def history(name, seq, h):
+    def history(name, segment, seq, h):
+        # Checked in the segment the copy names; unverifiable only when that segment was
+        # pruned. A copy naming no segment is never downgraded.
         if h is None:
             return None
-        if hashes.get(h) == seq:
+        at = hashes.get(h)
+        named = isinstance(segment, int) and not isinstance(segment, bool)
+        if at is not None and at[1] == seq and (not named or at[0] is None or at[0] == segment):
             return None
-        if any_pruned:
+        if named and segment in pruned_segments:
             res["unverifiable"].append(name)
             return None
-        return f"OPERATOR_COPY_HISTORY_MISSING: {name}: the ledger head it was issued against (seq {seq}) is not in the chain"
+        return f"OPERATOR_COPY_HISTORY_MISSING: {name}: the ledger head it was issued against (segment {segment} seq {seq}) is not in the chain"
 
     for name in sorted(n for n in os.listdir(directory) if n.endswith(".json")):
         res["checked"] += 1
@@ -518,7 +535,7 @@ def verify_operator_copies(directory, segments, ctx, any_pruned) -> dict:
                 res["failures"].append(f"OPERATOR_COPY_DIFFERS: {name}: digest signature differs from the event")
                 continue
             ia = doc.get("issued_against") if isinstance(doc.get("issued_against"), dict) else None
-            h = history(name, ia.get("seq"), ia.get("event_hash")) if ia else None
+            h = history(name, ia.get("segment"), ia.get("seq"), ia.get("event_hash")) if ia else None
             if h:
                 res["failures"].append(h)
             else:
@@ -551,7 +568,7 @@ def verify_operator_copies(directory, segments, ctx, any_pruned) -> dict:
             if key is None or not verify_payload(fr, doc["digest_signature"], key):
                 res["failures"].append(f"OPERATOR_COPY_SIGNATURE_INVALID: {name}: digest signature does not verify under the operator key")
                 continue
-            h = history(name, doc.get("ledger_seq"), doc.get("event_hash"))
+            h = history(name, doc.get("ledger_segment"), doc.get("ledger_seq"), doc.get("event_hash"))
             if h:
                 res["failures"].append(h)
             else:
@@ -661,7 +678,7 @@ def verify_bundle(root, expect_key_id=None, now=None, operator_copies=None) -> d
     # Segments and seals (§4.4)
     seg_dir = os.path.join(root, "ledger", "segments")
     seal_names = sorted(n for n in os.listdir(seg_dir) if re.match(r"^\d{6}\.seal\.json$", n)) if os.path.isdir(seg_dir) else []
-    seals, segments, chain_reason, any_pruned = [], [], None, False
+    seals, segments, chain_reason, pruned = [], [], None, set()
     for i, name in enumerate(seal_names):
         idx = int(name[:6])
         if idx != i:
@@ -703,13 +720,13 @@ def verify_bundle(root, expect_key_id=None, now=None, operator_copies=None) -> d
                 chain_reason = chain_reason or f"segment {idx}: does not end in its seal event"
             if prev and not link_matches(link_of(events[0] if events else None), prev):
                 chain_reason = chain_reason or f"segment {idx}: genesis does not link to the previous segment"
-            segments.append((f"segment {idx:06d}", events))
+            segments.append((f"segment {idx:06d}", events, idx))
         else:
             until = parse_time((s.get("retention") or {}).get("retainUntil"))
             if until is None or until > now:
                 chain_reason = chain_reason or f"segment {idx}: file missing before its retention ends"
             else:
-                any_pruned = True
+                pruned.add(idx)
     active_path = os.path.join(root, "ledger", "article12.jsonl")
     active = []
     if os.path.exists(active_path):
@@ -725,7 +742,7 @@ def verify_bundle(root, expect_key_id=None, now=None, operator_copies=None) -> d
             chain_reason = chain_reason or "active segment genesis does not link to the last sealed segment"
         elif not seals and link:
             chain_reason = chain_reason or "active segment links to a sealed segment, but no seals exist"
-        segments.append(("active", active))
+        segments.append(("active", active, len(seal_names)))
     if chain_reason:
         failures.append(f"ledger chain does not verify: {chain_reason}")
     head = active[-1]["event_hash"] if active else GENESIS_HASH
@@ -739,7 +756,7 @@ def verify_bundle(root, expect_key_id=None, now=None, operator_copies=None) -> d
     guide = os.path.join(root, "AUDITOR_GUIDE.md")
     if not os.path.isfile(guide) or not re.search(r"^Version:\s*\d+(\.\d+)*", open(guide, encoding="utf-8").read(), re.M):
         failures.append("AUDITOR_GUIDE.md missing from the bundle or unversioned")
-    all_events = [e for _, evs in segments for e in evs]
+    all_events = [e for _, evs, _ in segments for e in evs]
     recorded = {
         e["detail"]["record_id"]: e.get("output_digest")
         for e in all_events
@@ -774,7 +791,7 @@ def verify_bundle(root, expect_key_id=None, now=None, operator_copies=None) -> d
     ctx = {"site": site, "site_key": site_key, "credentials": credentials, "bodies": bodies, "redacted": redacted_digests(segments)}
     failures.extend(verify_operator_evidence(segments, ctx))
     if operator_copies is not None:
-        oc = verify_operator_copies(operator_copies, segments, ctx, any_pruned)
+        oc = verify_operator_copies(operator_copies, segments, ctx, pruned)
         result["operatorCopies"] = oc
         failures.extend(oc["failures"])
 
@@ -804,7 +821,7 @@ def verify_ledger_case(ledger, bundle, extra_bodies=None, omit=()) -> list[str]:
     bodies = {k: v for k, v in bodies.items() if k not in omit and k in referenced}
     cdir = os.path.join(bundle, "credentials")
     credentials = {n[:-5]: read_json(os.path.join(cdir, n)) for n in os.listdir(cdir) if n.endswith(".json")}
-    segments = [("000000", events)]
+    segments = [("000000", events, 0)]
     ctx = {"site": site, "site_key": site_key, "credentials": credentials, "bodies": bodies, "redacted": redacted_digests(segments)}
     return failures + verify_operator_evidence(segments, ctx)
 
@@ -886,6 +903,27 @@ def verify_vectors(directory) -> dict:
         cases.append({"name": c["name"], "expect": c["expect"], "got": code, "ok": ok})
         if not ok:
             failures.append(f"case {c['name']}: expected {c['expect']}, got {got}")
+    site = read_json(os.path.join(bundle, "site", "site.json"))
+    site_key = public_key(site["publicKeyPem"])
+    cdir = os.path.join(bundle, "credentials")
+    ctx = {
+        "site": site,
+        "site_key": site_key,
+        "credentials": {n[:-5]: read_json(os.path.join(cdir, n)) for n in os.listdir(cdir) if n.endswith(".json")},
+        "bodies": load_bodies(os.path.join(bundle, "command-bodies"), failures),
+        "redacted": set(),
+    }
+    segs = [("000000", events["000000"], 0), ("active", events["active"], 1)]
+    for c in exp.get("copy_cases", []):
+        r = verify_operator_copies(os.path.join(directory, c["copies"]), segs, ctx, set(c["pruned_segments"]))
+        if c["expect"] == "UNVERIFIABLE":
+            code = "UNVERIFIABLE" if not r["failures"] and len(r["unverifiable"]) == 1 else str(r["failures"])
+        else:
+            code = r["failures"][0].split(": ")[0] if len(r["failures"]) == 1 else str(r["failures"])
+        ok = code == c["expect"]
+        cases.append({"name": c["name"], "expect": c["expect"], "got": code, "ok": ok})
+        if not ok:
+            failures.append(f"copy case {c['name']}: expected {c['expect']}, got {code}")
     return {"ok": not failures, "failures": failures, "bundle": b, "cases": cases}
 
 

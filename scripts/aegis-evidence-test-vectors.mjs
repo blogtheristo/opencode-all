@@ -417,6 +417,7 @@ const worm = (c, against) => ({
   issued_at: c.body.issuedAt,
   operator_credential_id: c.cred.credentialId,
   digest_signature: c.digestSignature,
+  ledger_segment: 0,
   ledger_seq: against.seq,
   event_hash: against.event_hash,
 });
@@ -484,10 +485,41 @@ const negatives = {
   },
   // The stop body is gone and nothing records its erasure (unchanged ledger, body omitted).
   'missing-body': (i) => i,
+  // The site key holder records the same signed stop a second time.
+  'replayed-stop': (i) => {
+    const at = i.findIndex((x) => x.event_type === 'human.override');
+    i.splice(at + 1, 0, structuredClone(i[at]));
+    return i;
+  },
 };
 for (const [name, mutate] of Object.entries(negatives))
   write(`negative/${name}.jsonl`, jsonl(segmentInputs({ ...base, mutate })));
 write(`negative/changed-reason.bodies/${forged.digest}.json`, bodyFile(forged));
+
+// Operator-copy history (§7): the head a WORM record names is checked in the segment it
+// names. A missing head in a retained segment fails even when another segment was pruned;
+// only a head in a pruned segment is unverifiable. Each case is one copy in its own dir.
+const missingHead = {
+  ...worm(decideCmd, segment[1]),
+  event_hash: sha256('TEST-ONLY: a head that is not in the chain'),
+};
+const copyCases = [
+  {
+    name: 'history-missing-retained-segment',
+    copies: 'negative-copies/history-missing-retained-segment',
+    record: { ...missingHead, ledger_segment: 0 },
+    pruned_segments: [5],
+    expect: 'OPERATOR_COPY_HISTORY_MISSING',
+  },
+  {
+    name: 'history-in-pruned-segment',
+    copies: 'negative-copies/history-in-pruned-segment',
+    record: { ...missingHead, ledger_segment: 5 },
+    pruned_segments: [5],
+    expect: 'UNVERIFIABLE',
+  },
+];
+for (const c of copyCases) write(`${c.copies}/${decideCmd.digest}.json`, pretty(c.record));
 
 const cases = [
   {
@@ -511,6 +543,11 @@ const cases = [
     ledger: 'negative/changed-reason.jsonl',
     extra_bodies: 'negative/changed-reason.bodies',
     expect: 'OPERATOR_SIGNATURE_INVALID',
+  },
+  {
+    name: 'replayed-stop',
+    ledger: 'negative/replayed-stop.jsonl',
+    expect: 'OPERATOR_COMMAND_REPLAYED',
   },
   {
     name: 'swapped-credential',
@@ -597,6 +634,7 @@ const expected = {
   ],
   manifest: { canonical: canonical(manifest), sig: manifestSig },
   cases,
+  copy_cases: copyCases.map(({ record: _r, ...c }) => c),
 };
 write('expected.json', pretty(expected));
 process.stdout.write(

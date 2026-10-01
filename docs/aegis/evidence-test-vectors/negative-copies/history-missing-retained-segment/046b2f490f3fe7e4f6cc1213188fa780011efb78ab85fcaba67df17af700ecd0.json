@@ -1,0 +1,12 @@
+{
+  "command_digest": "046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0",
+  "command_id": "00000000-0000-4000-8000-000000000401",
+  "command_kind": "decide",
+  "role": "shift-supervisor",
+  "issued_at": "2026-10-01T06:00:02.000Z",
+  "operator_credential_id": "00000000-0000-4000-8000-000000000101",
+  "digest_signature": "V6HqdvdUdgfEBlky-BIIrFbTEocxlsHtIJADc8DHoYZOkm1BSumQuUquhwr4VDW5pGikhsELsoVvsxUx1CBIDg",
+  "ledger_segment": 0,
+  "ledger_seq": 1,
+  "event_hash": "1b7e62ec745cd72ce8531057ae2cc5f6671b868b004388b8f8cbd85efc37e08d"
+}

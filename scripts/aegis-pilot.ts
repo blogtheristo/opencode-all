@@ -23,7 +23,8 @@
  *                   [--capture manual_entry --occurred-at ISO (a decision entered afterwards)]
  *                   --operator-credential C --operator-key K [--operator-copies-dir DIR] [--worm-dir DIR]
  *   erase-command-body --state-dir D --digest H --reason-code data-subject-request|retention-ended|data-minimisation|legal-order
- *                   [--worm-dir DIR]   (erase a command body; records evidence.redacted + WORM tombstone)
+ *                   [--worm-dir DIR]   (tombstone to the WORM mirror first, then evidence.redacted and the
+ *                   body is deleted; exit 3 = staged in <state>/redaction-outbox, nothing erased yet)
  *   drain-decisions --state-dir D            (site side: record queued decisions; a running `run` does this itself)
  *   outcome         --state-dir D --decision-seq N --decision-hash H --result positive|negative|neutral|unknown
  *                   [--metrics '{"eur_estimated":142.5}'] [--evidence-ref REF]
@@ -117,13 +118,12 @@ import {
   runScheduledSeal,
   sealDue,
   type CommandKind,
-  eraseCommandBody,
+  eraseWithWormHandoff,
   ledgerHeadForOperator,
   loadSiteConfig,
   operatorCopyDirs,
   writeDefaultSiteConfig,
   writeOperatorCopies,
-  writeWormTombstone,
 } from '../src/aegis/pilot/index.js';
 
 const { values: a, positionals } = parseArgs({
@@ -656,26 +656,38 @@ async function main(): Promise<void> {
     case 'erase-command-body': {
       // Site side: erase one operator command body (its free-text reason with it). The chain
       // keeps the operator's framed digest signature; evidence.redacted records the erasure.
+      // The tombstone reaches the WORM mirror BEFORE anything is erased (EVIDENCE_FORMAT_v1.md
+      // §5.5): when this process cannot write the mirror, it stages the tombstone, exits 3, and
+      // erases on the next run, once the mirror's holder has copied the staged file in.
       const stateDir = need('state-dir');
       const site = SiteAuthority.load(stateDir);
-      const ledger = openSiteLedger(site);
-      let tombstone;
-      try {
-        tombstone = eraseCommandBody(stateDir, ledger, need('digest'), need('reason-code'));
-      } finally {
-        ledger.close();
-      }
-      let worm: Record<string, unknown>;
-      try {
-        const { wormDir } = operatorCopyDirs(loadSiteConfig(stateDir), { wormDir: a['worm-dir'] });
-        worm = { written: true, path: writeWormTombstone(wormDir, tombstone) };
-      } catch (err) {
-        worm = { written: false, error: err instanceof Error ? err.message : String(err) };
-      }
-      // The tombstone is printed either way, so it can be placed in the WORM mirror by hand.
+      const { wormDir } = operatorCopyDirs(loadSiteConfig(stateDir), { wormDir: a['worm-dir'] });
+      const r = eraseWithWormHandoff({
+        stateDir,
+        digest: need('digest'),
+        reasonCode: need('reason-code'),
+        wormDir,
+        withLedger: (fn) => {
+          const ledger = openSiteLedger(site);
+          try {
+            fn(ledger);
+          } finally {
+            ledger.close();
+          }
+        },
+      });
+      if (r.status === 'erased') out({ ok: true, command: cmd, ...r });
+      process.stderr.write(
+        `pending: nothing erased. The WORM mirror holder copies ${r.outboxPath} to ${r.wormPath}; then run this command again.\n`,
+      );
       out(
-        { ok: worm.written === true, command: cmd, tombstone, wormRecord: worm },
-        worm.written === true ? 0 : 1,
+        {
+          ok: false,
+          command: cmd,
+          ...r,
+          next: `copy ${r.outboxPath} to ${r.wormPath} (WORM holder), then re-run erase-command-body`,
+        },
+        3,
       );
       break;
     }

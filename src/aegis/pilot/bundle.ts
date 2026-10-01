@@ -115,17 +115,22 @@ function walk(root: string, onOther: (rel: string) => void): string[] {
 
 /** Events of every present sealed segment and the active segment, labelled. */
 function chainSegments(root: string, chain: ReturnType<typeof verifySegments>): SegmentEvents[] {
-  const out: Array<{ label: string; events: LedgerEvent[] }> = [];
+  const out: Array<{ label: string; index: number; events: LedgerEvent[] }> = [];
   for (const s of chain.segments) {
     const file = segmentPaths(root).file(s.index);
     if (s.present && existsSync(file))
       out.push({
         label: `segment ${String(s.index).padStart(6, '0')}`,
+        index: s.index,
         events: readLedgerEvents(file),
       });
   }
   if (existsSync(statePaths(root).ledger))
-    out.push({ label: 'active', events: readLedgerEvents(statePaths(root).ledger) });
+    out.push({
+      label: 'active',
+      index: chain.segments.length,
+      events: readLedgerEvents(statePaths(root).ledger),
+    });
   return out;
 }
 
@@ -324,7 +329,7 @@ export function verifyBundle(
   failures.push(...verifyOperatorEvidence(bySegment, operatorCtx));
   if (opts.operatorCopies !== undefined) {
     operatorCopies = verifyOperatorCopies(resolve(opts.operatorCopies), bySegment, operatorCtx, {
-      anyPruned: chain.segments.some((s) => s.pruned),
+      prunedSegments: new Set(chain.segments.filter((s) => s.pruned).map((s) => s.index)),
     });
     failures.push(...operatorCopies.failures);
   }

@@ -6,6 +6,7 @@
   "issued_at": "2026-10-01T06:00:02.000Z",
   "operator_credential_id": "00000000-0000-4000-8000-000000000101",
   "digest_signature": "V6HqdvdUdgfEBlky-BIIrFbTEocxlsHtIJADc8DHoYZOkm1BSumQuUquhwr4VDW5pGikhsELsoVvsxUx1CBIDg",
+  "ledger_segment": 0,
   "ledger_seq": 1,
   "event_hash": "447e50e9c59d4075c253987eb55ca2c6945beaa0a985601e320f7b150be23fdc"
 }

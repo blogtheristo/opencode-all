@@ -27,14 +27,18 @@
  */
 
 import {
+  closeSync,
   existsSync,
+  fsyncSync,
+  linkSync,
   mkdirSync,
+  openSync,
   readFileSync,
   renameSync,
   unlinkSync,
   writeFileSync,
 } from 'node:fs';
-import { basename, join } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 import { type KeyObject, randomUUID } from 'node:crypto';
 import {
   canonicalJSON,
@@ -51,7 +55,7 @@ import {
   type Credential,
   type SiteManifest,
 } from './identity.js';
-import type { EvidenceLedger, LedgerEvent } from './evidence-ledger.js';
+import { type EvidenceLedger, type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
 
 export const COMMAND_FRAME_DOMAIN = 'dws.aegis.operator-command.v1';
 export type CommandKind = 'stop' | 'decide';
@@ -80,6 +84,7 @@ export const OPERATOR_FAILURE = {
   signature: 'OPERATOR_SIGNATURE_INVALID',
   binding: 'OPERATOR_BINDING_MISMATCH',
   bodyMissing: 'COMMAND_BODY_MISSING',
+  replayed: 'OPERATOR_COMMAND_REPLAYED',
   bodyInvalid: 'COMMAND_BODY_INVALID',
 } as const;
 
@@ -172,6 +177,43 @@ export function operatorEventFields(
   };
 }
 
+function fsyncPath(path: string): void {
+  const fd = openSync(path, 'r');
+  try {
+    fsyncSync(fd);
+  } finally {
+    closeSync(fd);
+  }
+}
+
+/** fsync a directory, so a rename, link or unlink in it survives a power loss. */
+export function fsyncDir(dir: string): void {
+  fsyncPath(dir);
+}
+
+/**
+ * Durable write (same discipline as ledger-segments.ts writeDurable): temp file, fsync,
+ * then rename — or, with `exclusive`, hard-link (fails if the target exists, never
+ * overwrites) — then fsync the directory. The target is either absent or complete.
+ */
+export function writeFileDurable(
+  path: string,
+  content: string,
+  opts: { mode: number; exclusive?: boolean },
+): void {
+  const dir = dirname(path);
+  const tmp = join(dir, `.tmp-${randomUUID()}`);
+  writeFileSync(tmp, content, { mode: opts.mode, flag: 'wx' });
+  try {
+    fsyncPath(tmp);
+    if (opts.exclusive) linkSync(tmp, path);
+    else renameSync(tmp, path);
+  } finally {
+    if (existsSync(tmp)) unlinkSync(tmp);
+  }
+  fsyncDir(dir);
+}
+
 export function commandBodiesDir(stateDir: string): string {
   return join(stateDir, 'command-bodies');
 }
@@ -190,9 +232,7 @@ export function storeCommandBody(
   mkdirSync(dir, { recursive: true, mode: 0o700 });
   const final = join(dir, `${digest}.json`);
   if (existsSync(final)) return digest;
-  const tmp = join(dir, `.tmp-${randomUUID()}`);
-  writeFileSync(tmp, `${JSON.stringify({ ...body, signature })}\n`, { mode: 0o600, flag: 'wx' });
-  renameSync(tmp, final);
+  writeFileDurable(final, `${JSON.stringify({ ...body, signature })}\n`, { mode: 0o600 });
   return digest;
 }
 
@@ -215,38 +255,83 @@ export interface RedactionTombstone {
   reason_code: RedactionReasonCode;
 }
 
+export function redactionOutboxDir(stateDir: string): string {
+  return join(stateDir, 'redaction-outbox');
+}
+
 /**
- * Erase one command body: append `evidence.redacted` (digest, time, reason code — no
- * free text, no key-to-person link), then delete the sidecar. A crash between the two
- * leaves a redacted event with the body still present, which verifies. Returns the
- * tombstone, which the caller also writes to the WORM mirror.
+ * Erasure step 1 (EVIDENCE_FORMAT_v1.md §5.5): stage the tombstone in
+ * <stateDir>/redaction-outbox/<digest>.redacted.json. Nothing irreversible happens here.
+ * Idempotent: a staged tombstone for the digest is returned as it is (its erased_at is
+ * the time the erasure was decided), so the WORM copy and the ledger event match.
  */
-export function eraseCommandBody(
+export function planRedaction(
   stateDir: string,
-  ledger: EvidenceLedger,
   digest: string,
   reasonCode: string,
   now: Date = new Date(),
-): RedactionTombstone {
+): { tombstone: RedactionTombstone; outboxPath: string } {
   if (!HEX64.test(digest)) throw new Error('digest must be 64 lowercase hex chars');
   if (!REDACTION_REASON_CODES.includes(reasonCode as RedactionReasonCode)) {
     throw new Error(`reason code must be one of ${REDACTION_REASON_CODES.join(', ')}`);
   }
-  const path = join(commandBodiesDir(stateDir), `${digest}.json`);
-  if (!existsSync(path))
+  const dir = redactionOutboxDir(stateDir);
+  const outboxPath = join(dir, `${digest}.redacted.json`);
+  if (existsSync(outboxPath)) {
+    const staged = JSON.parse(readFileSync(outboxPath, 'utf8')) as RedactionTombstone;
+    if (staged.command_digest !== digest || staged.reason_code !== reasonCode)
+      throw new Error(`a different erasure of ${digest} is already staged at ${outboxPath}`);
+    return { tombstone: staged, outboxPath };
+  }
+  if (!existsSync(join(commandBodiesDir(stateDir), `${digest}.json`)))
     throw new Error(`no command body ${digest} in ${commandBodiesDir(stateDir)}`);
   const tombstone: RedactionTombstone = {
     command_digest: digest,
     erased_at: now.toISOString(),
     reason_code: reasonCode as RedactionReasonCode,
   };
-  ledger.append({
-    event_type: 'evidence.redacted',
-    trace_id: randomUUID(),
-    detail: { ...tombstone },
+  mkdirSync(dir, { recursive: true, mode: 0o700 });
+  writeFileDurable(outboxPath, `${JSON.stringify(tombstone, null, 2)}\n`, {
+    mode: 0o644,
+    exclusive: true,
   });
-  unlinkSync(path);
-  return tombstone;
+  return { tombstone, outboxPath };
+}
+
+/**
+ * Erasure step 3 — call only once the WORM mirror holds the tombstone
+ * (operator-copies.ts eraseWithWormHandoff). Appends `evidence.redacted` (digest, time,
+ * reason code — no free text, no key-to-person link), then deletes the body and the staged
+ * tombstone, durably. Safe to repeat after a crash: the event is appended once.
+ */
+export function eraseCommandBody(
+  stateDir: string,
+  ledger: EvidenceLedger,
+  tombstone: RedactionTombstone,
+): void {
+  const digest = tombstone.command_digest;
+  const recorded = readLedgerEvents(ledger.path).some(
+    (e) => e.event_type === 'evidence.redacted' && e.detail?.command_digest === digest,
+  );
+  if (!recorded)
+    ledger.append({
+      event_type: 'evidence.redacted',
+      trace_id: randomUUID(),
+      detail: {
+        command_digest: digest,
+        erased_at: tombstone.erased_at,
+        reason_code: tombstone.reason_code,
+      },
+    });
+  for (const path of [
+    join(commandBodiesDir(stateDir), `${digest}.json`),
+    join(redactionOutboxDir(stateDir), `${digest}.redacted.json`),
+  ]) {
+    if (existsSync(path)) {
+      unlinkSync(path);
+      fsyncDir(dirname(path));
+    }
+  }
 }
 
 export interface OperatorEvidenceContext {
@@ -404,6 +489,8 @@ export function operatorEventFailure(
 
 export interface SegmentEvents {
   label: string;
+  /** Segment index (the active segment's is the number of seals); absent when unknown. */
+  index?: number | null;
   events: readonly LedgerEvent[];
 }
 
@@ -439,9 +526,24 @@ export function verifyOperatorEvidence(
   } catch {
     return [`${OPERATOR_FAILURE.credentialInvalid}: site public key unreadable`];
   }
+  // A command is executed once: a second event with the same command id or digest is a
+  // replay, however well its signatures verify (EVIDENCE_FORMAT_v1.md §5.3 step 0).
+  const seen = new Map<string, string>();
   for (const { label, events } of segments) {
     for (const e of events) {
       if (!OPERATOR_EVENT_TYPES.has(e.event_type)) continue;
+      const where = `${label} seq ${e.seq}`;
+      const keys = [e.detail?.command_id, e.detail?.command_digest]
+        .filter((k): k is string => typeof k === 'string')
+        .map((k) => `${e.event_type}:${k}`);
+      const first = keys.map((k) => seen.get(k)).find(Boolean);
+      if (first) {
+        failures.push(
+          `${OPERATOR_FAILURE.replayed}: ${where} ${e.event_type}: command already recorded at ${first}`,
+        );
+        continue;
+      }
+      for (const k of keys) seen.set(k, where);
       const f = operatorEventFailure(e, events, ctx, sitePublicKey);
       if (f) {
         const [code, ...rest] = f.split(': ');

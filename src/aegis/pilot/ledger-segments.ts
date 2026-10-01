@@ -64,7 +64,7 @@ import {
   writeFileSync,
   writeSync,
 } from 'node:fs';
-import { basename, dirname, join } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { connect as netConnect, type Socket } from 'node:net';
 import { connect as tlsConnect } from 'node:tls';
@@ -884,7 +884,13 @@ export interface AnchorSinks {
 export type AnchorSinkName = 'file' | 'syslog';
 
 interface SinkState {
-  /** Queue entries exported to this sink (a prefix of the queue). */
+  /**
+   * The destination the progress below belongs to (`file:<absolute path>`,
+   * `syslog:<host>:<port>:tls|tcp`). A changed destination starts again from the first
+   * anchor: the new sink has received nothing.
+   */
+  destination: string | null;
+  /** Queue entries exported to this destination (a prefix of the queue). */
   exported: number;
   lastSuccessAt: string | null;
   lastError: string | null;
@@ -944,7 +950,8 @@ function readAnchorState(stateDir: string): AnchorState {
   return JSON.parse(readFileSync(state, 'utf8')) as AnchorState;
 }
 
-const emptySink = (): SinkState => ({
+const emptySink = (destination: string | null = null): SinkState => ({
+  destination,
   exported: 0,
   lastSuccessAt: null,
   lastError: null,
@@ -979,6 +986,30 @@ function appendLines(path: string, records: readonly AnchorRecord[], mode: numbe
   } finally {
     closeSync(fd);
   }
+}
+
+/** Identity of a sink's destination: progress is kept per destination, not per sink name. */
+export function sinkDestination(name: AnchorSinkName, sinks: AnchorSinks): string | null {
+  if (name === 'file') return sinks.file ? `file:${resolve(sinks.file)}` : null;
+  const sl = sinks.syslog;
+  return sl ? `syslog:${sl.host}:${sl.port}:${sl.tls ? 'tls' : 'tcp'}` : null;
+}
+
+/**
+ * The sink's state for its current destination. Progress recorded for another destination
+ * (or before destinations were recorded) does not carry over.
+ */
+function sinkStateFor(
+  state: AnchorState,
+  name: AnchorSinkName,
+  destination: string | null,
+): { st: SinkState; changedFrom: string | null } {
+  const prev = state.sinks[name];
+  if (prev && prev.destination === destination) return { st: prev, changedFrom: null };
+  return {
+    st: emptySink(destination),
+    changedFrom: prev ? (prev.destination ?? 'unrecorded') : null,
+  };
 }
 
 const BOM = '\uFEFF';
@@ -1071,7 +1102,15 @@ export async function anchorExport(opts: {
       (rs) => sendSyslog(syslog, rs.map((r) => syslogFrame(r, now())).join('')),
     ]);
   for (const [name, send] of configured) {
-    const st = state.sinks[name] ?? emptySink();
+    const { st, changedFrom } = sinkStateFor(state, name, sinkDestination(name, opts.sinks));
+    if (changedFrom !== null)
+      // Recorded without the destinations themselves (a path or host is configuration,
+      // not evidence); the new destination is backfilled from the first anchor.
+      state.pendingIncidents.push({
+        kind: 'anchor-sink-changed',
+        sink: name,
+        backfill: queue.length,
+      });
     const pending = queue.slice(st.exported);
     if (pending.length) {
       try {
@@ -1148,7 +1187,7 @@ export function anchorStatus(stateDir: string, sinks: AnchorSinks): AnchorExport
   if (sinks.file) names.push('file');
   if (sinks.syslog) names.push('syslog');
   const status = names.map((sink) => {
-    const st = state.sinks[sink] ?? emptySink();
+    const { st } = sinkStateFor(state, sink, sinkDestination(sink, sinks));
     return { sink, ...st, pending: total - st.exported };
   });
   return {

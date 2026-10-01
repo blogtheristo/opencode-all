@@ -36,6 +36,7 @@ import {
   splitCommand,
   verifyBundle,
   verifyLedger,
+  verifyOperatorCopies,
   verifyOperatorEvidence,
 } from '../aegis/pilot/index.js';
 
@@ -52,6 +53,7 @@ const expected = JSON.parse(expectedText) as {
     omit_bodies?: string[];
     extra_bodies?: string;
   }>;
+  copy_cases: Array<{ name: string; copies: string; pruned_segments: number[]; expect: string }>;
 };
 const tmp = mkdtempSync(join(tmpdir(), 'aegis-vectors-'));
 afterAll(() => rmSync(tmp, { recursive: true, force: true }));
@@ -199,6 +201,7 @@ describe('evidence format v1 test vectors', () => {
       ],
       manifest: { canonical: canonicalJSON(manifest), sig: signPayload(manifest, siteKey) },
       cases: expected.cases,
+      copy_cases: expected.copy_cases,
     };
     const site = bundleJson<SiteManifest>('site/site.json');
     expect(site.keyId).toBe(keyId(keys.site.pem));
@@ -247,7 +250,52 @@ describe('evidence format v1 test vectors', () => {
     const out = JSON.parse(r.stdout) as { ok: boolean; failures: string[]; cases: unknown[] };
     expect(out.failures).toEqual([]);
     expect(r.status).toBe(0);
-    expect(out.cases).toHaveLength(expected.cases.length);
+    expect(out.cases).toHaveLength(expected.cases.length + expected.copy_cases.length);
+  });
+
+  describe('copy cases: the issued-against head is checked in the segment the copy names', () => {
+    const site = bundleJson<SiteManifest>('site/site.json');
+    const credentials = new Map(
+      readdirSync(join(BUNDLE, 'credentials')).map((f) => [
+        f.replace(/\.json$/, ''),
+        bundleJson<Credential>(`credentials/${f}`),
+      ]),
+    );
+    const segments = [
+      {
+        label: '000000',
+        index: 0,
+        events: readLedgerEvents(join(BUNDLE, 'ledger/segments/000000.jsonl')),
+      },
+      {
+        label: 'active',
+        index: 1,
+        events: readLedgerEvents(join(BUNDLE, 'ledger/article12.jsonl')),
+      },
+    ];
+    const bodies = new Map(
+      readdirSync(join(BUNDLE, 'command-bodies')).map((f) => [
+        f.replace(/\.json$/, ''),
+        bundleJson<Record<string, unknown>>(`command-bodies/${f}`),
+      ]),
+    );
+    for (const c of expected.copy_cases) {
+      it(`${c.name}: ${c.expect}`, () => {
+        const r = verifyOperatorCopies(
+          join(VECTORS, c.copies),
+          segments,
+          { site, credentials, bodies, redacted: new Set() },
+          { prunedSegments: new Set(c.pruned_segments) },
+        );
+        if (c.expect === 'UNVERIFIABLE') {
+          expect(r.failures).toEqual([]);
+          expect(r.unverifiable).toHaveLength(1);
+        } else {
+          expect(r.failures).toHaveLength(1);
+          expect(r.failures[0].split(': ')[0]).toBe(c.expect);
+        }
+      });
+    }
   });
 
   describe('cases: a ledger re-signed with the site key after a forgery', () => {
@@ -281,7 +329,7 @@ describe('evidence format v1 test vectors', () => {
             .filter((e) => e.event_type === 'evidence.redacted')
             .map((e) => String(e.detail.command_digest)),
         );
-        const failures = verifyOperatorEvidence([{ label: '000000', events }], {
+        const failures = verifyOperatorEvidence([{ label: '000000', index: 0, events }], {
           site,
           credentials,
           bodies,

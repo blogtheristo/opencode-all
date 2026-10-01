@@ -11,7 +11,17 @@
  *     export is an incident, never blocks the seal, and is backfilled in order.
  */
 
-import { mkdtempSync, readdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  unlinkSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createServer, type Server } from 'node:net';
@@ -26,7 +36,7 @@ import {
   createStopCommand,
   type Credential,
   DecisionAuthority,
-  eraseCommandBody,
+  eraseWithWormHandoff,
   EvidenceLedger,
   exportBundle,
   generateEd25519,
@@ -188,6 +198,27 @@ function exportAndVerify(name: string, operatorCopies?: string) {
   return verifyBundle(out, site.manifest.keyId, now(), { operatorCopies });
 }
 
+function erase(digest: string, wormDir: string) {
+  return eraseWithWormHandoff({
+    stateDir: dir,
+    digest,
+    reasonCode: 'data-subject-request',
+    wormDir,
+    now: now(),
+    withLedger: (fn) => {
+      const l = openLedger();
+      try {
+        fn(l);
+      } finally {
+        l.close();
+      }
+    },
+  });
+}
+
+const redactions = () =>
+  readLedgerEvents(statePaths(dir).ledger).filter((e) => e.event_type === 'evidence.redacted');
+
 beforeEach(() => {
   base = mkdtempSync(join(tmpdir(), 'aegis-anchor-'));
   clock = new Date('2026-10-01T06:00:00.000Z');
@@ -224,21 +255,10 @@ describe('operator evidence in the ledger (framed signature, erasable body)', ()
 
   it('an erased body verifies with its evidence.redacted record; a deleted body without one fails', () => {
     const f = operatorFlow();
-    const ledger = openLedger();
-    try {
-      tick();
-      const tomb = eraseCommandBody(
-        dir,
-        ledger,
-        String(f.stopEvent.detail.command_digest),
-        'data-subject-request',
-        now(),
-      );
-      expect(Object.keys(tomb).sort()).toEqual(['command_digest', 'erased_at', 'reason_code']);
-      writeWormTombstone(f.worm, tomb);
-    } finally {
-      ledger.close();
-    }
+    tick();
+    const r = erase(String(f.stopEvent.detail.command_digest), f.worm);
+    expect(r.status).toBe('erased');
+    expect(Object.keys(r.tombstone).sort()).toEqual(['command_digest', 'erased_at', 'reason_code']);
     const ok = exportAndVerify('redacted', f.worm);
     expect(ok.failures).toEqual([]);
     expect(ok.operatorCopies?.matched).toBe(3);
@@ -247,6 +267,67 @@ describe('operator evidence in the ledger (framed signature, erasable body)', ()
     const bad = exportAndVerify('missing');
     expect(bad.ok).toBe(false);
     expect(bad.failures.join('\n')).toMatch(/^COMMAND_BODY_MISSING: active seq \d+ human\.decide/m);
+  });
+});
+
+describe('erasure: the WORM tombstone first, then the irreversible part (review #2324)', () => {
+  it('with an unwritable WORM mirror nothing is erased; after the handoff the erasure completes', () => {
+    const f = operatorFlow();
+    const digest = String(f.stopEvent.detail.command_digest);
+    const body = join(commandBodiesDir(dir), `${digest}.json`);
+    // A WORM mirror this process cannot write (here: its path is a regular file).
+    const blocked = join(base, 'worm-blocked');
+    writeFileSync(blocked, 'not a directory');
+    tick();
+    const first = erase(digest, blocked);
+    expect(first.status).toBe('pending-handoff');
+    expect(existsSync(body)).toBe(true);
+    expect(redactions()).toHaveLength(0);
+    if (first.status !== 'pending-handoff') return;
+    // The mirror's holder copies the staged tombstone into the real mirror, unchanged.
+    mkdirSync(f.worm, { recursive: true });
+    copyFileSync(first.outboxPath, join(f.worm, `${digest}.redacted.json`));
+    tick(60_000);
+    const second = erase(digest, f.worm);
+    expect(second.status).toBe('erased');
+    expect(second.tombstone).toEqual(first.tombstone);
+    expect(existsSync(body)).toBe(false);
+    expect(existsSync(first.outboxPath)).toBe(false);
+    expect(redactions().map((e) => e.detail)).toEqual([first.tombstone]);
+    const v = exportAndVerify('handoff', f.worm);
+    expect(v.failures).toEqual([]);
+  });
+
+  it('refuses to erase when the mirror holds a different tombstone for the digest', () => {
+    const f = operatorFlow();
+    const digest = String(f.stopEvent.detail.command_digest);
+    writeWormTombstone(f.worm, {
+      command_digest: digest,
+      erased_at: '2020-01-01T00:00:00.000Z',
+      reason_code: 'legal-order',
+    });
+    expect(() => erase(digest, f.worm)).toThrow(/different tombstone/);
+    expect(existsSync(join(commandBodiesDir(dir), `${digest}.json`))).toBe(true);
+  });
+
+  it('operator copies and bodies are written durably: no temp files left, never overwritten', () => {
+    const f = operatorFlow();
+    for (const d of [f.copies, f.worm, commandBodiesDir(dir)])
+      expect(readdirSync(d).filter((n) => n.startsWith('.tmp-'))).toEqual([]);
+    const name = readdirSync(f.worm)[0];
+    const before = readFileSync(join(f.worm, name), 'utf8');
+    const rec = JSON.parse(before);
+    expect(() =>
+      writeWormTombstone(f.worm, { ...rec, command_digest: name.slice(0, 64), erased_at: 'x' }),
+    ).not.toThrow(); // a different file name (.redacted.json)
+    expect(() =>
+      writeWormTombstone(f.worm, {
+        command_digest: name.slice(0, 64),
+        erased_at: 'y',
+        reason_code: 'legal-order',
+      }),
+    ).toThrow(/EEXIST/);
+    expect(readFileSync(join(f.worm, name), 'utf8')).toBe(before);
   });
 });
 
@@ -272,6 +353,7 @@ describe('operator command copies (anchoring level 1)', () => {
           'digest_signature',
           'event_hash',
           'issued_at',
+          'ledger_segment',
           'ledger_seq',
           'operator_credential_id',
           'role',
@@ -309,7 +391,9 @@ describe('operator command copies (anchoring level 1)', () => {
 });
 
 /** A TCP syslog receiver (RFC 6587 octet counting). Closes each connection after reading. */
-async function syslogServer(): Promise<{ server: Server; port: number; messages: string[] }> {
+async function syslogServer(
+  port = 0,
+): Promise<{ server: Server; port: number; messages: string[] }> {
   const messages: string[] = [];
   const server = createServer((sock) => {
     let buf = '';
@@ -328,7 +412,7 @@ async function syslogServer(): Promise<{ server: Server; port: number; messages:
       sock.end();
     });
   });
-  await new Promise<void>((r) => server.listen(0, '127.0.0.1', () => r()));
+  await new Promise<void>((r) => server.listen(port, '127.0.0.1', () => r()));
   const addr = server.address();
   return { server, port: typeof addr === 'object' && addr ? addr.port : 0, messages };
 }
@@ -454,6 +538,32 @@ describe('anchor export', () => {
     expect(JSON.parse(sys.messages[1].split('\uFEFF')[1])).toEqual(lines[1]);
   });
 
+  it('a changed sink destination starts again from the first anchor (no inherited progress)', async () => {
+    const a = join(base, 'siem', 'a.jsonl');
+    const b = join(base, 'siem', 'b.jsonl');
+    for (let i = 0; i < 2; i++) {
+      tick();
+      const l = openLedger();
+      l.append({ event_type: 'authority.revoke', trace_id: 't', detail: { credential_id: 'x' } });
+      l.close();
+      tick();
+      await runScheduledSeal({ stateDir: dir, site, schedule, sinks: { file: a }, now });
+    }
+    expect(readFileSync(a, 'utf8').trim().split('\n')).toHaveLength(2);
+    expect(anchorStatus(dir, { file: b }).sinks[0]).toMatchObject({ pending: 2, exported: 0 });
+    tick();
+    const r = await anchorExport({ stateDir: dir, site, sinks: { file: b }, now });
+    expect(r.exportedNow).toBe(2);
+    expect(
+      readFileSync(b, 'utf8')
+        .trim()
+        .split('\n')
+        .map((x) => JSON.parse(x).index),
+    ).toEqual([0, 1]);
+    expect(r.sinks[0].destination).toBe(`file:${b}`);
+    expect(incidents('anchor-sink-changed')).toHaveLength(1);
+  });
+
   it('a failed export is an incident, never blocks the seal, and is backfilled in order with the gap reported', async () => {
     const down = await closedPort();
     const file = join(base, 'siem', 'anchors.jsonl');
@@ -481,13 +591,13 @@ describe('anchor export', () => {
     });
     expect(readAnchorQueue(dir).map((r) => r.index)).toEqual([0, 1]);
 
-    const sys = await syslogServer();
+    const sys = await syslogServer(down);
     server = sys.server;
     tick(60_000);
     const back = await anchorExport({
       stateDir: dir,
       site,
-      sinks: { file, syslog: { host: '127.0.0.1', port: sys.port, tls: false } },
+      sinks: { file, syslog: { host: '127.0.0.1', port: down, tls: false } },
       now,
     });
     expect(back.failing).toEqual([]);

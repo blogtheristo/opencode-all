@@ -1,20 +1,27 @@
 # Aegis Pilot — Evidence Format v1 (frozen)
 
-# VERSION AND AGENT HISTORY
-
 ---
 
-Version: 1.0 [Latest]
+# VERSION AND AGENT HISTORY
+
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 [Latest] | Tool: Claude Code | Session: claude/aegis-evidence-impl | Date: 01.10.2026 | Changes: Created. Frozen description of the Aegis pilot evidence bundle so an auditor can verify every stop and decision in ten years, in any language, without Lifetime code (field note 2026-10-01-boardy-claims-audit.md rows 36–39; task aegis-evidence-ten-year-verify; spec amendment A–D, HIC thread 01.10.2026). | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: claude/aegis-evidence-impl | Date: 01.10.2026 | Changes: Pre-publication corrections from Copilot review #2324, before any v1 bundle shipped: replayed command is a named failure (§5.3 step 0); erasure writes the WORM tombstone before anything irreversible (§5.5); WORM records name the segment of their issued-against head, and only a head in a pruned segment is unverifiable (§7); anchor export progress is kept per destination (§9); header block per DWS_DOCUMENT_STANDARD §2.1. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.0 [not latest] | Tool: Claude Code | Session: claude/aegis-evidence-impl | Date: 01.10.2026 | Changes: Created. Frozen description of the Aegis pilot evidence bundle so an auditor can verify every stop and decision in ten years, in any language, without Lifetime code (field note 2026-10-01-boardy-claims-audit.md rows 36–39; task aegis-evidence-ten-year-verify; spec amendment A–D, HIC thread 01.10.2026). | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+
+Session Links & References:
+
+- Claude Code (claude/aegis-evidence-impl): https://github.com/blogtheristo/dws6/tree/claude/aegis-evidence-impl
+- View on GitHub: https://github.com/blogtheristo/dws6/blob/main/docs/aegis/EVIDENCE_FORMAT_v1.md
 
 Document Status:
 
 - Created: 01.10.2026
 - Last Modified: 01.10.2026
 - Language: English
+- Languages Available: English
 - Publication Status: ACTIVE — FROZEN (changes only by a new major version, `EVIDENCE_FORMAT_v2.md`)
 - Classification: CUSTOMER-FACING — format specification for auditors and independent verifiers
 - Owner: Lifetime Oy — Aegis & KYA Team
@@ -163,6 +170,7 @@ The signed body (body plus `signature`) is stored outside the chain as `command-
 
 A verifier reports the **first** failure, with its code. Codes are part of the format.
 
+0. **Replay.** Across the whole bundle, in segment order, a second operator event of the same type with the same `command_id` or `command_digest` as an earlier one is `OPERATOR_COMMAND_REPLAYED` (a command is executed once, however well its signatures verify); the remaining steps are not run for it.
 1. `detail` has `command_digest` (64 hex), `command_id`, `command_kind`, `issued_at`, `role` (string or null), `operator_credential_id`, `digest_signature`, `operator_signature` — else `OPERATOR_EVIDENCE_MISSING`.
 2. `command_kind` is `stop` for `human.override`, `decide` for `human.decide` — else `OPERATOR_BINDING_MISMATCH:command_kind`.
 3. If the body is present: it hashes to `command_digest` (else `COMMAND_BODY_INVALID`), and its `operatorCredentialId` equals `operator_credential_id` (else `OPERATOR_BINDING_MISMATCH:operator_credential_id`).
@@ -183,7 +191,11 @@ Reported as `CODE: <segment label> seq <n> <event_type>: <message>`. Why the bin
 
 ### 5.5 Erasure
 
-Erasing a body deletes `command-bodies/<digest>.json` and appends `evidence.redacted` with `detail = {command_digest, erased_at, reason_code}`, `reason_code` one of `data-subject-request`, `retention-ended`, `data-minimisation`, `legal-order` — no free text, no link from key to person. The same tombstone is written to the operator's WORM mirror (§7). After erasure the stop or decision still verifies by its frame (§5.3 steps 1–10); what can no longer be verified is the body itself — the target or verdict as the operator wrote it and the reason.
+Erasing a body deletes `command-bodies/<digest>.json` and appends `evidence.redacted` with `detail = {command_digest, erased_at, reason_code}`, `reason_code` one of `data-subject-request`, `retention-ended`, `data-minimisation`, `legal-order` — no free text, no link from key to person. The same tombstone is in the operator's WORM mirror (§7) **before** anything irreversible happens (`erase-command-body`):
+
+1. **Stage.** The tombstone is written durably to `<state>/redaction-outbox/<digest>.redacted.json`; `erased_at` is the time the erasure is decided and never changes on a retry.
+2. **Hand off.** It is written to `<wormDir>/<digest>.redacted.json`. In a correctly isolated deployment the site-key holder cannot write the mirror: the command then stops with exit 3 and nothing erased, and the mirror's holder copies the staged file in unchanged. A mirror holding a different tombstone for the digest is refused.
+3. **Erase.** Run again: once the mirror holds exactly the staged tombstone, `evidence.redacted` is appended (once, even after a crash) and the body and staged file are deleted durably. After erasure the stop or decision still verifies by its frame (§5.3 steps 1–10); what can no longer be verified is the body itself — the target or verdict as the operator wrote it and the reason.
 
 ## 6. Manifest and bundle checks
 
@@ -204,18 +216,18 @@ A verifier MUST check: every manifest path matches the layout of §1; the key id
 The site key is in the box; the operator's key is not. The operator CLI keeps what it signed, outside the state directory, in a place the site-key holder cannot write (configured per site in `site/anchoring.json` → `operatorCopies`; default `~/.aegis-operator/commands/` and `~/.aegis-operator/worm/` of the operator). Copies carry no site signature.
 
 - **Full copy** `<commandId>.json`: `{format: "aegis-operator-copy/1", command_kind, command: <body + signature + digestSignature>, issued_against: {segment, seq, event_hash}}` — the active ledger head the operator saw when signing.
-- **WORM record** `<command_digest>.json` (for the locked mirror; personal-data safe): exactly `{command_digest, command_id, command_kind, role, issued_at, operator_credential_id, digest_signature, ledger_seq, event_hash}` — never the body or reason. `ledger_seq`/`event_hash` are the issued-against head.
+- **WORM record** `<command_digest>.json` (for the locked mirror; personal-data safe): exactly `{command_digest, command_id, command_kind, role, issued_at, operator_credential_id, digest_signature, ledger_segment, ledger_seq, event_hash}` — never the body or reason. `ledger_segment`/`ledger_seq`/`event_hash` are the issued-against head (`seq` counts within a segment).
 - **Tombstone** `<command_digest>.redacted.json`: `{command_digest, erased_at, reason_code}`.
 
 `verify-bundle --operator-copies DIR` (and `verify.py bundle --operator-copies DIR`) checks every `*.json` in DIR against the verified bundle:
 
-| Code                              | When                                                                                                                                                                                                              |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `OPERATOR_COPY_UNMATCHED`         | no operator event carries the copy's digest (deleted history), or no `evidence.redacted` matches a tombstone. A copy whose digest appears in a `*-command-rejected` incident is listed as `rejected`, not failed. |
-| `OPERATOR_COPY_DIFFERS`           | the event differs from the copy (full copy: §5.3 run with the copy's body; WORM: any framed field)                                                                                                                |
-| `OPERATOR_COPY_SIGNATURE_INVALID` | a WORM `digest_signature` does not verify under the credential's key                                                                                                                                              |
-| `OPERATOR_COPY_HISTORY_MISSING`   | the issued-against `event_hash` is not in the chain at that `seq` (history before the command was rewritten); reported as unverifiable instead when a segment has been pruned                                     |
-| `OPERATOR_COPY_INVALID`           | unreadable or unrecognised file                                                                                                                                                                                   |
+| Code                              | When                                                                                                                                                                                                                                                                                                                                         |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `OPERATOR_COPY_UNMATCHED`         | no operator event carries the copy's digest (deleted history), or no `evidence.redacted` matches a tombstone. A copy whose digest appears in a `*-command-rejected` incident is listed as `rejected`, not failed.                                                                                                                            |
+| `OPERATOR_COPY_DIFFERS`           | the event differs from the copy (full copy: §5.3 run with the copy's body; WORM: any framed field)                                                                                                                                                                                                                                           |
+| `OPERATOR_COPY_SIGNATURE_INVALID` | a WORM `digest_signature` does not verify under the credential's key                                                                                                                                                                                                                                                                         |
+| `OPERATOR_COPY_HISTORY_MISSING`   | the issued-against `event_hash` is not in the chain at that segment and `seq` (history before the command was rewritten). Reported as unverifiable instead **only when the segment the copy names was pruned** (§4.4); a missing head in a retained segment fails whatever else was pruned, and a copy naming no segment is never downgraded |
+| `OPERATOR_COPY_INVALID`           | unreadable or unrecognised file                                                                                                                                                                                                                                                                                                              |
 
 The retention lock of the WORM mirror is storage configuration, not code: `doctor` reports it as unverified unless `operatorCopies.lock` names `{target, retention, lockHolderRole}`, and warns when the copy directory is writable by the state-directory owner.
 
@@ -236,7 +248,7 @@ After every seal the anchor `{siteId, index, head_hash, seal_digest, sealedAt}` 
 - an **append-only file** for SIEM pickup: one canonical anchor per line;
 - **RFC 5424 syslog over TCP**, TLS per RFC 5425 (plain TCP only for a loopback test sink; `doctor` warns), octet-counted framing (RFC 6587): `<133>1 <export time> <siteId> aegis-pilot - SEAL_ANCHOR - <BOM><canonical anchor>`.
 
-The sinks MUST be administered by a different person than the box (`anchorExport.administeredBy`, a role; `doctor` warns when absent). A failed export never blocks a seal: it is recorded as an `incident` `{kind: "anchor-export-failed"}` at the start of an outage and `{kind: "anchor-export-recovered", first_failed_at, first_success_at, backfilled}` when the link returns; the queue is persisted and backfilled in order (at-least-once: a sink deduplicates by `siteId` + `index`). `anchor/state.json` holds per-sink progress and the closed gaps `{sink, firstFailedAt, firstSuccessAt, backfilled}`; it travels in the bundle and `seal-status` reports it (exit 5 while a sink is failing).
+The sinks MUST be administered by a different person than the box (`anchorExport.administeredBy`, a role; `doctor` warns when absent). A failed export never blocks a seal: it is recorded as an `incident` `{kind: "anchor-export-failed"}` at the start of an outage and `{kind: "anchor-export-recovered", first_failed_at, first_success_at, backfilled}` when the link returns; the queue is persisted and backfilled in order (at-least-once: a sink deduplicates by `siteId` + `index`). Progress is kept per **destination** (`file:<absolute path>`, `syslog:<host>:<port>:tls|tcp`), not per sink name: a changed destination starts again from the first anchor and is recorded as `incident {kind: "anchor-sink-changed", sink, backfill}`. `anchor/state.json` holds per-sink progress and the closed gaps `{sink, firstFailedAt, firstSuccessAt, backfilled}`; it travels in the bundle and `seal-status` reports it (exit 5 while a sink is failing).
 
 An auditor compares the sink's anchors with the bundle: every `seal_digest` in the sink must be a seal in the bundle (`segments --expect-seal DIGEST` for one anchor). A missing or different seal means segments were rolled back or rewritten after export.
 
@@ -256,7 +268,8 @@ An auditor compares the sink's anchors with the bundle: every `seal_digest` in t
 | `bundle/`                           | site `vector-site`; operator A (role `shift-supervisor`, decides) and B (no role, stops); sealed segment `000000` of 6 events — genesis, recommendation, `human.decide`, `human.override`, `authority.revoke`, `system.segment_seal` — its seal, an active segment, both command bodies, manifest |
 | `operator-copies/`                  | full copies and WORM records of both commands                                                                                                                                                                                                                                                     |
 | `variants/redacted-stop-body.jsonl` | the segment with `evidence.redacted` for the stop body; verifies with that body absent                                                                                                                                                                                                            |
-| `negative/*.jsonl`                  | the segment re-signed with the site key after a forgery: `changed-target`, `changed-verdict`, `changed-reason` (+ `changed-reason.bodies/`), `swapped-credential`, `framed-role-swap`, `framed-command-id-swap`, `missing-body`                                                                   |
+| `negative/*.jsonl`                  | the segment re-signed with the site key after a forgery: `changed-target`, `changed-verdict`, `changed-reason` (+ `changed-reason.bodies/`), `replayed-stop`, `swapped-credential`, `framed-role-swap`, `framed-command-id-swap`, `missing-body`                                                  |
+| `negative-copies/*/`                | one WORM record each, naming a head that is not in the chain: in retained segment 0 (fails although segment 5 is pruned) and in pruned segment 5 (unverifiable) — `expected.json` → `copy_cases`                                                                                                  |
 | `expected.json`                     | keys, canonicalization vectors, every credential, command, frame, event, seal and manifest canonical string with its hash and signature, and `cases`: each case's ledger, bodies to omit/add, and the expected first failure code (or `PASS`)                                                     |
 
 A case is verified with the bundle's `site/site.json`, `credentials/` and `command-bodies/` (minus `omit_bodies`, plus `extra_bodies`, restricted to bodies the case ledger references): the chain MUST verify (the forgery is well-formed) and §5.3 MUST report exactly the expected code.

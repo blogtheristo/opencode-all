@@ -25,24 +25,27 @@
  * ledger head the command was issued against is no longer in the chain (rewritten history).
  */
 
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { KeyObject } from 'node:crypto';
 import { canonicalJSON, publicKeyFromPem, verifyPayload } from './crypto.js';
 import { type Credential, statePaths } from './identity.js';
-import { type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
+import { type EvidenceLedger, type LedgerEvent, readLedgerEvents } from './evidence-ledger.js';
 import { readSealFiles } from './ledger-segments.js';
 import {
   commandDigest,
   commandFrame,
   type CommandKind,
   credentialProblem,
+  eraseCommandBody,
   OPERATOR_EVENT_TYPES,
   operatorEventFailure,
   type OperatorEvidenceContext,
+  planRedaction,
   type RedactionTombstone,
   type SegmentEvents,
   splitCommand,
+  writeFileDurable,
 } from './operator-evidence.js';
 
 export const OPERATOR_COPY_FAILURE = {
@@ -77,6 +80,8 @@ export interface WormCommandRecord {
   issued_at: string;
   operator_credential_id: string;
   digest_signature: string;
+  /** Segment of the issued-against head (seq is per segment). */
+  ledger_segment: number | null;
   ledger_seq: number | null;
   event_hash: string | null;
 }
@@ -90,8 +95,9 @@ export function ledgerHeadForOperator(stateDir: string): IssuedAgainst | null {
   return { segment: readSealFiles(stateDir).length, seq: last.seq, event_hash: last.event_hash };
 }
 
+/** Durable and never overwriting: an operator copy is written once. */
 function writeOnce(path: string, doc: unknown, mode: number): void {
-  writeFileSync(path, `${JSON.stringify(doc, null, 2)}\n`, { mode, flag: 'wx' });
+  writeFileDurable(path, `${JSON.stringify(doc, null, 2)}\n`, { mode, exclusive: true });
 }
 
 /** Operator side: write the full copy and the WORM record of one signed command. */
@@ -114,6 +120,7 @@ export function writeOperatorCopies(params: {
     issued_at: String(body.issuedAt),
     operator_credential_id: params.credential.credentialId,
     digest_signature: digestSignature,
+    ledger_segment: params.issuedAgainst?.segment ?? null,
     ledger_seq: params.issuedAgainst?.seq ?? null,
     event_hash: params.issuedAgainst?.event_hash ?? null,
   };
@@ -132,12 +139,83 @@ export function writeOperatorCopies(params: {
   return { copyPath, wormPath, worm };
 }
 
-/** Write the erasure tombstone to the WORM mirror. */
+export function wormTombstonePath(wormDir: string, digest: string): string {
+  return join(wormDir, `${digest}.redacted.json`);
+}
+
+/** Write the erasure tombstone to the WORM mirror (never overwrites). */
 export function writeWormTombstone(wormDir: string, tombstone: RedactionTombstone): string {
   mkdirSync(wormDir, { recursive: true, mode: 0o700 });
-  const path = join(wormDir, `${tombstone.command_digest}.redacted.json`);
+  const path = wormTombstonePath(wormDir, tombstone.command_digest);
   writeOnce(path, tombstone, 0o444);
   return path;
+}
+
+/** True when the WORM mirror holds exactly this tombstone; throws when it holds another. */
+export function wormHoldsTombstone(wormDir: string, tombstone: RedactionTombstone): boolean {
+  const path = wormTombstonePath(wormDir, tombstone.command_digest);
+  if (!existsSync(path)) return false;
+  const held: unknown = JSON.parse(readFileSync(path, 'utf8'));
+  if (canonicalJSON(held) !== canonicalJSON(tombstone))
+    throw new Error(`${path} holds a different tombstone for this digest; refusing to erase`);
+  return true;
+}
+
+export type ErasureResult =
+  | { status: 'erased'; tombstone: RedactionTombstone; wormPath: string }
+  | {
+      status: 'pending-handoff';
+      tombstone: RedactionTombstone;
+      outboxPath: string;
+      wormPath: string;
+      error: string;
+    };
+
+/**
+ * Erase a command body only after its tombstone is in the WORM mirror (EVIDENCE_FORMAT_v1.md
+ * §5.5, Copilot review #2324). Step 1 stages the tombstone; step 2 writes it to the mirror —
+ * directly when this process may write there, otherwise the mirror's holder copies the staged
+ * file in and the command is run again; step 3 records `evidence.redacted` and deletes the
+ * body. If the mirror cannot be written, nothing irreversible has happened.
+ */
+export function eraseWithWormHandoff(params: {
+  stateDir: string;
+  digest: string;
+  reasonCode: string;
+  wormDir: string;
+  withLedger: (fn: (ledger: EvidenceLedger) => void) => void;
+  now?: Date;
+}): ErasureResult {
+  const { tombstone, outboxPath } = planRedaction(
+    params.stateDir,
+    params.digest,
+    params.reasonCode,
+    params.now,
+  );
+  const wormPath = wormTombstonePath(params.wormDir, params.digest);
+  if (!wormHoldsTombstone(params.wormDir, tombstone)) {
+    try {
+      writeWormTombstone(params.wormDir, tombstone);
+    } catch (err) {
+      return {
+        status: 'pending-handoff',
+        tombstone,
+        outboxPath,
+        wormPath,
+        error: (err as Error).message,
+      };
+    }
+    if (!wormHoldsTombstone(params.wormDir, tombstone))
+      return {
+        status: 'pending-handoff',
+        tombstone,
+        outboxPath,
+        wormPath,
+        error: 'tombstone not readable back',
+      };
+  }
+  params.withLedger((ledger) => eraseCommandBody(params.stateDir, ledger, tombstone));
+  return { status: 'erased', tombstone, wormPath };
 }
 
 export interface OperatorCopiesResult {
@@ -155,13 +233,14 @@ const isObject = (v: unknown): v is Record<string, unknown> =>
 
 /**
  * Check every copy in `dir` (full copies, WORM records and tombstones; not recursive)
- * against a verified chain. `anyPruned`: some sealed segment file is gone.
+ * against a verified chain. `prunedSegments`: indices of sealed segments whose file is gone
+ * (retention ended) — only a head recorded in one of those is reported as unverifiable.
  */
 export function verifyOperatorCopies(
   dir: string,
   segments: readonly SegmentEvents[],
   ctx: OperatorEvidenceContext,
-  opts: { anyPruned: boolean },
+  opts: { prunedSegments: ReadonlySet<number> },
 ): OperatorCopiesResult {
   const F = OPERATOR_COPY_FAILURE;
   const result: OperatorCopiesResult = {
@@ -178,10 +257,10 @@ export function verifyOperatorCopies(
   const byDigest = new Map<string, { e: LedgerEvent; events: readonly LedgerEvent[] }>();
   const rejected = new Set<string>();
   const redactions: LedgerEvent[] = [];
-  const hashes = new Map<string, number>();
+  const hashes = new Map<string, { segment: number | null; seq: number }>();
   for (const s of segments)
     for (const e of s.events) {
-      hashes.set(e.event_hash, e.seq);
+      hashes.set(e.event_hash, { segment: s.index ?? null, seq: e.seq });
       const d = e.detail ?? {};
       if (OPERATOR_EVENT_TYPES.has(e.event_type) && typeof d.command_digest === 'string')
         byDigest.set(d.command_digest, { e, events: s.events });
@@ -201,14 +280,20 @@ export function verifyOperatorCopies(
     return result;
   }
 
-  const history = (name: string, seq: unknown, hash: unknown) => {
+  // The head the command was issued against must be in the chain, in the segment the copy
+  // names. Only when that very segment was pruned is it unverifiable; a missing head in a
+  // retained segment is rewritten history, whatever else was pruned. A copy that names no
+  // segment (older WORM record) is never downgraded.
+  const history = (name: string, segment: unknown, seq: unknown, hash: unknown) => {
     if (hash === null || hash === undefined) return null;
-    if (hashes.get(String(hash)) === seq) return null;
-    if (opts.anyPruned) {
+    const at = hashes.get(String(hash));
+    const segOk = typeof segment !== 'number' || at?.segment === null || at?.segment === segment;
+    if (at && at.seq === seq && segOk) return null;
+    if (typeof segment === 'number' && opts.prunedSegments.has(segment)) {
       result.unverifiable.push(name);
       return null;
     }
-    return `${F.history}: ${name}: the ledger head it was issued against (seq ${String(seq)}) is not in the chain`;
+    return `${F.history}: ${name}: the ledger head it was issued against (segment ${String(segment)} seq ${String(seq)}) is not in the chain`;
   };
   const operatorKeyOf = (credId: unknown): KeyObject | null => {
     const cred = typeof credId === 'string' ? ctx.credentials.get(credId) : undefined;
@@ -276,7 +361,7 @@ export function verifyOperatorCopies(
         continue;
       }
       const ia = isObject(doc.issued_against) ? doc.issued_against : null;
-      const h = ia ? history(name, ia.seq, ia.event_hash) : null;
+      const h = ia ? history(name, ia.segment, ia.seq, ia.event_hash) : null;
       if (h) result.failures.push(h);
       else result.matched++;
       continue;
@@ -322,7 +407,7 @@ export function verifyOperatorCopies(
         );
         continue;
       }
-      const h = history(name, doc.ledger_seq, doc.event_hash);
+      const h = history(name, doc.ledger_segment, doc.ledger_seq, doc.event_hash);
       if (h) result.failures.push(h);
       else result.matched++;
       continue;
