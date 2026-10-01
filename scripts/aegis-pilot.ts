@@ -34,7 +34,7 @@
  *   segments        --state-dir D [--expect-seal DIGEST]   (anchor from an earlier 'seal' output)
  *   prune           --state-dir D [--confirm TOKEN]   (without it: lists expired segments and the token)
  *   export          --state-dir D --out DIR    copy evidence to DIR, with manifest.json and manifest.sig
- *   verify-bundle   --bundle DIR [--expect-key-id K]   verify evidence bundle
+ *   verify-bundle   --bundle DIR (--expect-key-id K | --allow-unpinned)   verify evidence bundle
  *
  * Exit codes: 0 ok/PASS · 1 error · 2 NEGATIVE_RESULT · 3 NOT_TAKEN or INVALID · 4 verification failed.
  */
@@ -123,6 +123,7 @@ const { values: a, positionals } = parseArgs({
     'timeout-s': { type: 'string' },
     witness: { type: 'string' },
     hold: { type: 'boolean' },
+    'allow-unpinned': { type: 'boolean' },
     handlers: { type: 'string' },
     readings: { type: 'string' },
     'report-dir': { type: 'string' },
@@ -411,7 +412,12 @@ async function main(): Promise<void> {
         syncUrl: a['sync-url'] ?? 'http://127.0.0.1:9/sync',
       };
       mkdirSync(registryOptions.reportDir, { recursive: true });
-      const registry = createReferenceRegistry(registryOptions);
+      // --handlers: check the customer's module (same loading as 'run', in-process: the
+      // conformance check calls handlers directly against a temp dir). Without it, the
+      // reference registry.
+      const registry = a.handlers
+        ? await loadRegistry(stateDir, scope, 'cooperative')
+        : createReferenceRegistry(registryOptions);
       const options = {
         reportDir: registryOptions.reportDir,
       };
@@ -779,7 +785,31 @@ async function main(): Promise<void> {
     case 'verify-bundle': {
       const bundleDir = need('bundle');
       const result = verifyBundle(bundleDir, a['expect-key-id']);
-      out({ ok: result.ok, command: cmd, ...result }, result.ok ? 0 : 4);
+      // Without a pin the bundle is only checked against the key it carries, so a forged
+      // bundle would verify. ok stays integrity-only; authenticity is stated separately.
+      const keyPinned = a['expect-key-id'] !== undefined && a['expect-key-id'] === result.keyId;
+      const authenticity = keyPinned
+        ? 'established — key id matches the pin'
+        : a['expect-key-id'] !== undefined
+          ? 'NOT established — key id does not match the pin'
+          : 'unpinned — authenticity not established (integrity only); pass --expect-key-id from the signed scope';
+      if (!keyPinned && a['expect-key-id'] === undefined)
+        process.stderr.write(`warning: ${authenticity}\n`);
+      // HIC 01.10.2026: an unpinned result is not "verified" — exit 4 unless the caller says
+      // integrity is all they want (--allow-unpinned).
+      const unpinnedOk = a['allow-unpinned'] === true;
+      const unpinned = a['expect-key-id'] === undefined;
+      const exit = !result.ok || (unpinned && !unpinnedOk) ? 4 : 0;
+      out(
+        {
+          command: cmd,
+          ...result,
+          ok: result.ok && (!unpinned || unpinnedOk),
+          keyPinned,
+          authenticity,
+        },
+        exit,
+      );
       break;
     }
     default:
