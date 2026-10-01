@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/product-lifecycle.mjs | Changes: Generated from dws10.com/config/products.json 1.34, git history through 4f0ae8e93 and the HIC decision ledger. Do not edit by hand; add decisions to config/truth/product-lifecycle-ledger.json and run the script.
+- Version: 1.35 [Latest] | Tool: scripts/truth/product-lifecycle.mjs | Changes: Generated from dws10.com/config/products.json 1.35, git history through 4f0ae8e93 and the HIC decision ledger. Do not edit by hand; add decisions to config/truth/product-lifecycle-ledger.json and run the script.
 
 Document Status:
 

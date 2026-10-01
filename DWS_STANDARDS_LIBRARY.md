@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.24
+Version: 1.25
 
 Sessions & Modifications:
 
+- Version: 1.25 | Tool: Claude Code (web) | Session: claude/aegis-fi-copy-buyer-definition | Date: 01.10.2026 | Changes: Added §3.6.1 (PENDING_REVIEW, HIC requested the draft 01.10.2026): how to read listed European companies, EFTA/EEA companies, non-US controlling shareholders, and the box-vs-chip split. Draft only; not binding until HIC approval. Evidence: `docs/field-notes/2026-10-01-boardy-claims-audit.md` rows 4, 12–15.
 - Version: 1.24 | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: §3.3 KYA-S1 row bumped to v1.6 (TC4-6 halt in a safe state, HIC approval 30.09.2026).
 - Version: 1.23 | Tool: Claude Code (Sonnet 5) | Session: claude/kya-jev-audit-implementation-plan | Date: 27.09.2026 | Changes: Pointed §3.2 `kya-jev` row at spec v0.9 — re-audit found a 5th consumer (`browse-step-kya-jev.ts`, PR #2125) shipped without a spec/registry update, and that 3 of 5 consumers have no Article-12 audit logging (F1). Migration 087 still unapplied to production; `blogtheristo/KYAv2` still not created.
 - Version: 1.22 | Tool: Claude Code (Sonnet 5) | Session: claude/sync-motion-integration-jjkky9 | Date: 21.09.2026 | Changes: `DWS_CONTRACT_STANDARD.md` bumped to v0.2 — added §4.4 Settlement Rail (Agentic Commerce, Stripe, Revolut), linking partner revenue-share payouts to DWS's existing production Revolut/Stripe hybrid and gating agent-initiated purchases behind KYA + Capacity Class per §6. §7 registry row updated.
@@ -165,6 +166,17 @@ Standards fall into five categories:
 **Enforcement.** `/sovereignty-assess` scores against this table. A vendor marked Tier 2 must never be sold into a Tier 1 RFP. Full rationale and partner framing: `onelifetime.world/posts/redhat-sovereign-move-three-tiers.html`.
 
 **See also (added v3.61, 2026-05-28):** the universal three-pillar sovereignty model (Data / Technology / Operational) × three-jurisdiction emphasis profile (EU / US / Singapore) is canonical in `docs/PHD_FIREHORSE_EN.md` §14.23 and registered in `DWS_TRUTH_STANDARD.md` Row 16. The pillar model and the vendor-tier model in this section operate at different layers: pillars describe _what kind of sovereignty_ (data, technology, operational); vendor tiers describe _how sovereign the vendor is_ (T1/T2/T3). A complete procurement coordinate is therefore (Pillar, Tier, Jurisdiction). Field-Note explainer at `onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html`.
+
+#### 3.6.1 Reading rules for listed, EFTA and non-US-controlled vendors — **PENDING_REVIEW (draft 01.10.2026, not binding)**
+
+The tier table reads the legal entity and its ownership chain. Four cases it does not yet decide:
+
+1. **Listed company with dispersed ownership.** A company listed on an EU/EEA exchange, registered and headquartered in the EU/EEA, with no single shareholder or concert party holding ≥ 30 % of voting rights (the usual mandatory-offer threshold) and no non-EU parent, reads as **Tier 1**. Its tier is re-checked when a holder crosses 30 %. Examples to classify under this rule: Siemens AG (DE), ABB Ltd (CH/SE, see 2).
+2. **EFTA/EEA headquarters.** A company headquartered in an EFTA state (CH, NO, IS, LI) reads like an EU company for this table **only** if the customer's RFP or regulation accepts EEA/EFTA as equivalent; otherwise it reads **Tier 2** with the note "EFTA, not EU". The tier line must say which reading was used. Examples: ABB Ltd (Zürich), Syslogic AG (CH).
+3. **Non-US controlling shareholder.** Where a non-EU shareholder holds ≥ 30 % but < 50 % (no parent in law, but de-facto control), the vendor reads **Tier 2** with the controlling jurisdiction named (e.g. "Tier 2 — TW controlling shareholder"), because the question the tier answers is "can a non-EU authority reach the vendor through its owner", not "is there a US parent". Example: Kontron AG (AT; Ennoconn/Foxconn 48.36 % per heise, 08/2026).
+4. **Box vs chip.** A delivered device is classified on two lines: the **box maker** (legal entity and chain as above) and the **silicon designer** (CPU/GPU). A Tier 1 box with US silicon is stated as "box Tier 1, silicon Tier 2", never as Tier 1 overall. Example: Beckhoff IPC (family-owned GmbH & Co. KG, DE) with an NVIDIA or Intel GPU.
+
+Open for HIC: the 30 % threshold (vs. 25 % or 50 %); whether EEA equivalence is the default or opt-in per customer.
 
 ---
 

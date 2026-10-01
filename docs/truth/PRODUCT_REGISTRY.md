@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/product-registry.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.34. Do not edit by hand; run the script.
+- Version: 1.35 [Latest] | Tool: scripts/truth/product-registry.mjs | Changes: Generated from dws10.com/config/products.json catalogue 1.35. Do not edit by hand; run the script.
 
 Document Status:
 
@@ -88,7 +88,7 @@ TAM / yr is a model estimate per public offer (`config/truth/product-valuation-m
 | 39 | `KYA-JEV-001` | kya-jev — KYA-Gated Typed Decisions (Early Access) | €99 | public | — | DWS IQ | yes | €4.75M |  |
 | 40 | `lean-project` | EU AI Project Accelerator (Fixed Price) | €4,960 | public | — | Services | yes | €12.40M |  |
 | 41 | `LF-COMPLIANCE-AMBULANCE-001` | DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge) | €1 | public | — | Hardware | yes | €0.00M |  |
-| 42 | `LF-DGX-SPARK` | DGX Spark — NVIDIA-Branded Sovereign Edge AI | €6,109 | public | serious | Hardware | yes | €9.16M |  |
+| 42 | `LF-DGX-SPARK` | DGX Spark — NVIDIA-Branded Sovereign Edge AI | €8,008 | public | serious | Hardware | yes | €12.01M |  |
 | 43 | `LF-DOCA-ESSENTIAL` | DOCA Microservices — Essential Package | €500 | public | — | Hardware | yes | €18.00M |  |
 | 44 | `LF-DOCA-NETWORK-STORAGE` | DOCA Microservices — Networking & Storage Acceleration Package | €2,000 | public | — | Hardware | yes | €72.00M |  |
 | 45 | `LF-DOCA-SECURITY` | DOCA Microservices — Security & Compliance Package | €1,000 | public | — | Hardware | yes | €10.80M |  |
@@ -112,7 +112,7 @@ TAM / yr is a model estimate per public offer (`config/truth/product-valuation-m
 | 63 | `LF-NIM-RETRIEVAL` | NIM Microservices — Retrieval & Embedding Profile | €500 | public | — | Hardware | yes | €18.00M |  |
 | 64 | `LF-NIM-STARTER` | NIM Microservices — Starter Profile | €500 | public | — | Hardware | yes | €18.00M |  |
 | 65 | `LF-NVIDIA-INSTALL` | NVIDIA Model Installation + Full Service | €995 | public | serious | Hardware | yes | €0.99M |  |
-| 66 | `LF-SITROOM-001` | Situation Room — Two Sovereign AI Nodes | €11,598 | public | serious | Hardware | yes | €17.40M |  |
+| 66 | `LF-SITROOM-001` | Situation Room — Two Sovereign AI Nodes | €16,016 | public | serious | Hardware | yes | €24.02M |  |
 | 67 | `LIFETIME-BUNDLE-2026` | Climate Reporting Starter Bundle | €6,500 | public | serious | DWS IQ | yes | €5.42M |  |
 | 68 | `LIFETIME-IT-TUKI-10H` | IT Support Hour Bank for SMEs — 10 h | €750 | public | sme-campaign | SME | yes | €4.35M |  |
 | 69 | `LIFETIME-WEB-STARTER` | Website Starter — Modern Business Site | €650 | public | sme-campaign | SME | yes | €3.77M |  |

@@ -4,7 +4,7 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Thu, 01 Oct 2026 16:42:25 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 22:22:50 GMT</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 
     <item>
@@ -496,10 +496,10 @@
     <item>
       <g:id>LF-SITROOM-001</g:id>
       <g:title>Situation Room — Two Sovereign AI Nodes</g:title>
-      <g:description>Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €11,598 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+      <g:description>Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €16,016 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
       <g:link>https://dws10.com/products/situation-room.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-SITROOM-001.png</g:image_link>
-      <g:price>11598.00 EUR</g:price>
+      <g:price>16016.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Acer</g:brand>
@@ -601,7 +601,7 @@
       <g:description>NVIDIA&apos;s GB10 Grace Blackwell desktop AI workstation — the same silicon class as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm). The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
       <g:link>https://dws10.com/products/dgx-spark.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-DGX-SPARK.png</g:image_link>
-      <g:price>6109.00 EUR</g:price>
+      <g:price>8008.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>NVIDIA</g:brand>
@@ -900,7 +900,7 @@
     <item>
       <g:id>DWS-AEGIS-PILOT-001</g:id>
       <g:title>DWS IQ 7 Aegis Pilot (3 months)</g:title>
-      <g:description>A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of an Aegis deployment — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.</g:description>
+      <g:description>A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of an Aegis deployment — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; Lifetime World Model (LWM v2) training to the customer environment; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.</g:description>
       <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-PILOT-001.png</g:image_link>
       <g:price>19990.00 EUR</g:price>
