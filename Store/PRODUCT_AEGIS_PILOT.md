@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.1, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -152,10 +152,10 @@ _Teksti v2.0, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. V
 
 **Vaihe 0 (kaksi viikkoa, ei maksua).** Aloituskatselmointi ja pilotointiprojektin asettaminen. Työnkulku valitaan asiakkaan omasta kriittisestä prosessitarpeesta, ei katalogista, esimerkiksi erätason hiilijalanjäljen mittauksen rajoituksesta tai suvereenin tuotannon prosessin pullonkaulasta. Asiakas nimeää kirjallisesti projektinjohtajan, työnkulun omistajan, operaattorin, teknisen yhteyshenkilön ja päätösvastuun kantajan. Laitekatselmointi vahvistaa laskentasolmun, eristysmenetelmän ja sen, että pilottipaketti läpäisee harjoitusajon valitulla laitteella. Tulos on allekirjoitettu rajaus. Jos työnkululla ei ole määriteltyä valmis-tilaa, sitä ei voi testata, ja se todetaan ennen kuin mitään on maksettu.
 
-**Sopimus kahdessa osassa.** Toinen kauppa on halvempi, koska toistuva osa on jo olemassa.
+**Tuote sisältää kaksi osatoimitusta:**
 
-- **Toistuva osa (Aegis-tuote, sama jokaisessa toimituksessa):** ajoympäristö (skilled agents -parvi, Lifetime World Model v2, paikallinen mallipalvelu, agentti-identiteetti); hallinto (EU AI Act art. 12 -loki, allekirjoitetut päätöstapahtumat, operaattorin pysäytysvalta, kaksi mittaria); hyväksymistesti; vaiheen 0 menetelmä.
-- **Asiakaskohtainen osa:** työnkulku; sensorit ja syötteet, joiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaan; vain lukevat integraatiot (MES, historian, DCS, ERP); tietoliikennekanavat sekä tuotanto- ja tilannehuoneen syötteet; mittarit ja ohjaustasot; koulutus; laitteistokokoonpano.
+1. **Aegis-tuote, sama jokaisessa toimituksessa:** ajoympäristö (skilled agents -parvi, Lifetime World Model v2, paikallinen mallipalvelu, agentti-identiteetti); hallinto (EU AI Act art. 12 -loki, allekirjoitetut päätöstapahtumat, operaattorin pysäytysvalta, kaksi mittaria); hyväksymistesti; vaiheen 0 menetelmä.
+2. **Asiakaskohtainen toimitus, tehdään kerran per asiakas:** työnkulku; sensorit ja syötteet, joiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaan; vain lukevat integraatiot (MES, historian, DCS, ERP); tietoliikennekanavat sekä tuotanto- ja tilannehuoneen syötteet; mittarit ja ohjaustasot; koulutus; laitteistokokoonpano.
 
 **Vastuut.**
 
@@ -200,3 +200,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v1.12, 01.10.2026: HIC: pysy x86:ssa, Arm-pohjainen pino ei päde. GB10/DGX Spark/GN100/Jetson pois pilotin laskentasolmuista; ensisijaisesti asiakkaan jo käyttämä merkki (Beckhoff, Siemens), muuten hinnaston x86-solmu.
 - v1.12, 01.10.2026: (virhe) x86-only; perustui Boardyn ehdotukseen, jonka tulkitsin HIC:n päätökseksi.
 - v2.0, 01.10.2026: kovennettu teksti. Laitteistoportti NVIDIA CUDA -alusta (GB10 tai x86 + NVIDIA), x86-only kumottu (HIC). Vaihe 0 omaksi kappaleeksi, harjoitusajo valitulla laitteella. Sinetöinti testin alussa ja lopussa. Päivä 91 -vaihtoehto 3 poistettu (ei HIC-hyväksyntää). Sisäiset tiedostopolut poistettu julkisesta tekstistä. Versiot arkistoitu.
+- v2.0.1, 01.10.2026: HIC: epäselvä lause "toinen kauppa on halvempi…" korvattu muodolla "Tuote sisältää kaksi osatoimitusta: 1. … 2. …".
