@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-28
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/kill-authority.ts
 /**
  * Aegis Pilot — local kill authority (PRODUCT_AEGIS_PILOT.md, requirement 2

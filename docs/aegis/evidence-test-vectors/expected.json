@@ -1,0 +1,198 @@
+{
+  "format": "aegis-evidence-test-vectors/1",
+  "spec": "docs/aegis/EVIDENCE_FORMAT_v1.md",
+  "warning": "TEST-ONLY. Every private key here is sha256(seed_label) and is public. Never sign real evidence with it.",
+  "keys": {
+    "site": {
+      "seed_label": "aegis-evidence-test-vectors/v1 site TEST-ONLY",
+      "test_only_seed_hex": "cbc4a5d4282efe0ef45a67ba66d04f79ba8059df0c29e5a986c9f0290e1c4284",
+      "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAe3FDSEcLpySWINwoSStD67yDKPKAxPvxhL9lvIOMCrw=\n-----END PUBLIC KEY-----\n",
+      "key_id": "3fe15c2b334eb5a8"
+    },
+    "operator-a": {
+      "seed_label": "aegis-evidence-test-vectors/v1 operator-a TEST-ONLY",
+      "test_only_seed_hex": "a4cb108e21e1f3cda2d88f03c71e0b9ba8be86a5747537a582b873e22b9e0404",
+      "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAcYONvBXskPCnd/KfOEvXqf4y9Gp7qUsKL3Sg/Dy4dmw=\n-----END PUBLIC KEY-----\n",
+      "key_id": "e652956909b007c9"
+    },
+    "operator-b": {
+      "seed_label": "aegis-evidence-test-vectors/v1 operator-b TEST-ONLY",
+      "test_only_seed_hex": "0dd3f197aead34a59ad8e539523ca480f290dfbd202522e6e6ebf25973283cf2",
+      "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEADLQ6CO8d1OmFZl3JjIVO33KdRB30cEL4h+qS+xzgsHM=\n-----END PUBLIC KEY-----\n",
+      "key_id": "07f5c6d46bbda4bd"
+    }
+  },
+  "canonicalization": [
+    {
+      "name": "key order by UTF-16 code units",
+      "json": "{\"z\":1,\"a\":2,\"é\":3,\"\\ud83d\\ude00\":4,\"\\uffff\":5,\"B\":6}",
+      "canonical": "{\"B\":6,\"a\":2,\"z\":1,\"é\":3,\"😀\":4,\"￿\":5}"
+    },
+    {
+      "name": "nested, arrays keep order",
+      "json": "{\"b\":[3,1,{\"y\":null,\"x\":true}],\"a\":{\"d\":\"\",\"c\":false}}",
+      "canonical": "{\"a\":{\"c\":false,\"d\":\"\"},\"b\":[3,1,{\"x\":true,\"y\":null}]}"
+    },
+    {
+      "name": "string escapes",
+      "json": "{\"s\":\"quote\\\" backslash\\\\ nl\\n tab\\t ctl\\u0001 del\\u007f nbsp\\u00a0 ls\\u2028 é 😀\"}",
+      "canonical": "{\"s\":\"quote\\\" backslash\\\\ nl\\n tab\\t ctl\\u0001 del nbsp  ls  é 😀\"}"
+    },
+    {
+      "name": "numbers",
+      "json": "[0,-0,1,-1,0.1,1.5e-7,1e-7,1e21,1e+300,123456789012345680000,5e-324,0.000001,2.5]",
+      "canonical": "[0,0,1,-1,0.1,1.5e-7,1e-7,1e+21,1e+300,123456789012345680000,5e-324,0.000001,2.5]"
+    }
+  ],
+  "credentials": [
+    {
+      "credential_id": "00000000-0000-4000-8000-000000000101",
+      "canonical_body": "{\"capabilities\":[\"agent.stop\",\"decision.record\"],\"credentialId\":\"00000000-0000-4000-8000-000000000101\",\"expiresAt\":\"2026-10-04T05:00:00.000Z\",\"issuedAt\":\"2026-10-01T05:00:00.000Z\",\"issuerKeyId\":\"3fe15c2b334eb5a8\",\"kind\":\"operator\",\"role\":\"shift-supervisor\",\"siteId\":\"vector-site\",\"subjectId\":\"00000000-0000-4000-8000-000000000201\",\"subjectName\":\"TEST-ONLY operator A\",\"subjectPublicKeyPem\":\"-----BEGIN PUBLIC KEY-----\\nMCowBQYDK2VwAyEAcYONvBXskPCnd/KfOEvXqf4y9Gp7qUsKL3Sg/Dy4dmw=\\n-----END PUBLIC KEY-----\\n\",\"v\":1}",
+      "signature": "mg95YPxDR3yULJrRo5zFkA5JNtHrg4g8-Z_Fui4j5GT2cMkK74BKEoOKnXqNdcpdon5yZZZDY8Qhp4VTSWhnAg"
+    },
+    {
+      "credential_id": "00000000-0000-4000-8000-000000000102",
+      "canonical_body": "{\"capabilities\":[\"agent.stop\"],\"credentialId\":\"00000000-0000-4000-8000-000000000102\",\"expiresAt\":\"2026-10-04T05:00:00.000Z\",\"issuedAt\":\"2026-10-01T05:00:00.000Z\",\"issuerKeyId\":\"3fe15c2b334eb5a8\",\"kind\":\"operator\",\"siteId\":\"vector-site\",\"subjectId\":\"00000000-0000-4000-8000-000000000202\",\"subjectName\":\"TEST-ONLY operator B\",\"subjectPublicKeyPem\":\"-----BEGIN PUBLIC KEY-----\\nMCowBQYDK2VwAyEADLQ6CO8d1OmFZl3JjIVO33KdRB30cEL4h+qS+xzgsHM=\\n-----END PUBLIC KEY-----\\n\",\"v\":1}",
+      "signature": "NgLQZer2cTvnMZiQR6bWwNXuZebxWhL4g__AtAfAgCuJdAqn2kW-UJ_9_yVJwnV-EGbehfUF2TA_C7xNt3FSCQ"
+    }
+  ],
+  "commands": [
+    {
+      "kind": "decide",
+      "command_id": "00000000-0000-4000-8000-000000000401",
+      "canonical_body": "{\"commandId\":\"00000000-0000-4000-8000-000000000401\",\"issuedAt\":\"2026-10-01T06:00:02.000Z\",\"operatorCredentialId\":\"00000000-0000-4000-8000-000000000101\",\"reason\":\"TEST-ONLY: checked against the load forecast\",\"recommendationHash\":\"447e50e9c59d4075c253987eb55ca2c6945beaa0a985601e320f7b150be23fdc\",\"recommendationSeq\":1,\"v\":1,\"verdict\":\"accept\"}",
+      "command_digest": "046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0",
+      "operator_signature": "iSH71IWS6eL4MfBPTkv2xfVlT9xPJR0dyVVOR0DTbhxq-CADMJwupL8GTnhlvecsGwC_xljx4pL1Jg-jMyzwDQ",
+      "frame_canonical": "{\"command_digest\":\"046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0\",\"command_id\":\"00000000-0000-4000-8000-000000000401\",\"command_kind\":\"decide\",\"domain\":\"dws.aegis.operator-command.v1\",\"issued_at\":\"2026-10-01T06:00:02.000Z\",\"role\":\"shift-supervisor\"}",
+      "digest_signature": "V6HqdvdUdgfEBlky-BIIrFbTEocxlsHtIJADc8DHoYZOkm1BSumQuUquhwr4VDW5pGikhsELsoVvsxUx1CBIDg"
+    },
+    {
+      "kind": "stop",
+      "command_id": "00000000-0000-4000-8000-000000000402",
+      "canonical_body": "{\"commandId\":\"00000000-0000-4000-8000-000000000402\",\"issuedAt\":\"2026-10-01T06:00:04.000Z\",\"operatorCredentialId\":\"00000000-0000-4000-8000-000000000102\",\"reason\":\"TEST-ONLY: operator stop\",\"target\":\"00000000-0000-4000-8000-000000000300\",\"v\":1}",
+      "command_digest": "03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405",
+      "operator_signature": "PH_QJDYD7a-PokIATn6pFvSCa_TSY94giA3NOES2DDF9uLmxM4LgVpXyKL3mO29w6lVuB1ZD4nLmza2wI0tZCw",
+      "frame_canonical": "{\"command_digest\":\"03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405\",\"command_id\":\"00000000-0000-4000-8000-000000000402\",\"command_kind\":\"stop\",\"domain\":\"dws.aegis.operator-command.v1\",\"issued_at\":\"2026-10-01T06:00:04.000Z\",\"role\":null}",
+      "digest_signature": "ew2FyebG9vvi6nGUNlWhUl91gCo88LMrjqKNk3td-8swRUfE9ASzav8RqKt9RvWnEGfpR-spMoRgwOe82X1RCA"
+    }
+  ],
+  "events": [
+    {
+      "segment": "000000",
+      "seq": 0,
+      "event_type": "system.genesis",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"format\":\"aegis-pilot-ledger/1\",\"org_id\":\"vector-org\",\"site_id\":\"vector-site\"},\"event_id\":\"00000000-0000-4000-8000-000000001000\",\"event_type\":\"system.genesis\",\"input_digest\":null,\"model_version\":null,\"operator_id\":null,\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"seq\":0,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:00.000Z\",\"trace_id\":\"trace-vector\"}",
+      "event_hash": "7e0704bef79f87d9ddece5efae1894866df015b80afc5b2b8a2477a628ccb9b3",
+      "sig": "qFcRXA1llvrHh6yoRzsiE6GF7VCKiM-H6y9GEKVnjAsk5KQg7OoMrFRsGK3PnjxIZKUymP74_aSuKsG5uUFXAQ"
+    },
+    {
+      "segment": "000000",
+      "seq": 1,
+      "event_type": "agent.decide",
+      "canonical": "{\"agent_id\":\"00000000-0000-4000-8000-000000000300\",\"capability_manifest_hash\":null,\"confidence\":0.875,\"detail\":{\"huge\":1e+21,\"recommendation\":true,\"share\":0.1,\"step\":\"forecast\",\"tiny\":1e-7},\"event_id\":\"00000000-0000-4000-8000-000000001001\",\"event_type\":\"agent.decide\",\"input_digest\":null,\"model_version\":\"vector-model/1\",\"operator_id\":null,\"org_id\":\"vector-org\",\"output_digest\":\"dbfe937585b4147cb6f305277685021c22cafe00bdc241fd870c500d3e87cb2b\",\"prev_hash\":\"7e0704bef79f87d9ddece5efae1894866df015b80afc5b2b8a2477a628ccb9b3\",\"seq\":1,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:01.000Z\",\"trace_id\":\"trace-recommendation\"}",
+      "event_hash": "447e50e9c59d4075c253987eb55ca2c6945beaa0a985601e320f7b150be23fdc",
+      "sig": "uM8EwbDiK--PRjruFUeTN5gHXbwdbPGYyuyZc_SoKz6azo9Zuc3Liw_i7WvNiMnODzIGJCVzNulzqwb7xVT9Ag"
+    },
+    {
+      "segment": "000000",
+      "seq": 2,
+      "event_type": "human.decide",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"action\":\"decision\",\"capture\":\"live\",\"capture_lag_ms\":1000,\"command_digest\":\"046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0\",\"command_id\":\"00000000-0000-4000-8000-000000000401\",\"command_kind\":\"decide\",\"decided_at\":\"2026-10-01T06:00:02.000Z\",\"decision_by\":\"shift-supervisor\",\"decision_latency_ms\":1000,\"digest_signature\":\"V6HqdvdUdgfEBlky-BIIrFbTEocxlsHtIJADc8DHoYZOkm1BSumQuUquhwr4VDW5pGikhsELsoVvsxUx1CBIDg\",\"evidence_quality\":\"HUMAN_CONFIRMED\",\"evidence_strength\":0.72,\"issued_at\":\"2026-10-01T06:00:02.000Z\",\"journey_event\":\"PATH_ACCEPTED\",\"latency_basis\":\"operator-signed issuedAt minus recommendation timestamp\",\"operator_credential_id\":\"00000000-0000-4000-8000-000000000101\",\"operator_signature\":\"iSH71IWS6eL4MfBPTkv2xfVlT9xPJR0dyVVOR0DTbhxq-CADMJwupL8GTnhlvecsGwC_xljx4pL1Jg-jMyzwDQ\",\"recommendation_hash\":\"447e50e9c59d4075c253987eb55ca2c6945beaa0a985601e320f7b150be23fdc\",\"recommendation_seq\":1,\"recommended_by\":\"00000000-0000-4000-8000-000000000300\",\"recorded_lag_ms\":1000,\"role\":\"shift-supervisor\",\"signed_at\":\"2026-10-01T06:00:02.000Z\",\"verdict\":\"accept\"},\"event_id\":\"00000000-0000-4000-8000-000000001002\",\"event_type\":\"human.decide\",\"input_digest\":\"dbfe937585b4147cb6f305277685021c22cafe00bdc241fd870c500d3e87cb2b\",\"model_version\":null,\"operator_id\":\"00000000-0000-4000-8000-000000000201\",\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"447e50e9c59d4075c253987eb55ca2c6945beaa0a985601e320f7b150be23fdc\",\"seq\":2,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:03.000Z\",\"trace_id\":\"trace-recommendation\"}",
+      "event_hash": "fd1ae255ac662815bd98ab99aa1d80cd5dbfc2f543c0e432aea4615b1308029b",
+      "sig": "4rk1DDn24z-4aCAX2pAbUFqypGluL1IQSdFvY0jnKJrBn1S_Os0sm1xGD5EkzVP4ykkVVuE8yldCgHlLoGxRCw"
+    },
+    {
+      "segment": "000000",
+      "seq": 3,
+      "event_type": "human.override",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"action\":\"agent.stop\",\"agents_stopped\":[\"00000000-0000-4000-8000-000000000300\"],\"command_digest\":\"03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405\",\"command_id\":\"00000000-0000-4000-8000-000000000402\",\"command_kind\":\"stop\",\"digest_signature\":\"ew2FyebG9vvi6nGUNlWhUl91gCo88LMrjqKNk3td-8swRUfE9ASzav8RqKt9RvWnEGfpR-spMoRgwOe82X1RCA\",\"issued_at\":\"2026-10-01T06:00:04.000Z\",\"latency_ms\":1000,\"operator_credential_id\":\"00000000-0000-4000-8000-000000000102\",\"operator_signature\":\"PH_QJDYD7a-PokIATn6pFvSCa_TSY94giA3NOES2DDF9uLmxM4LgVpXyKL3mO29w6lVuB1ZD4nLmza2wI0tZCw\",\"role\":null,\"target\":\"00000000-0000-4000-8000-000000000300\"},\"event_id\":\"00000000-0000-4000-8000-000000001003\",\"event_type\":\"human.override\",\"input_digest\":null,\"model_version\":null,\"operator_id\":\"00000000-0000-4000-8000-000000000202\",\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"fd1ae255ac662815bd98ab99aa1d80cd5dbfc2f543c0e432aea4615b1308029b\",\"seq\":3,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:05.000Z\",\"trace_id\":\"trace-vector\"}",
+      "event_hash": "29f5ab8c88a10f5c9e93c82ee6c775344d6dfb669b249a63bc2e96cb5467d0dd",
+      "sig": "vuOSkuwKHEoWImTOjRtClOcxVkx6HUCu-b1EFLarkwR5xyjz6q0kFWISbsgo-KRWmpiXciFLX0SunPOU9f9LDA"
+    },
+    {
+      "segment": "000000",
+      "seq": 4,
+      "event_type": "authority.revoke",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"command_id\":\"00000000-0000-4000-8000-000000000402\",\"credential_id\":\"00000000-0000-4000-8000-000000000301\",\"reason\":\"operator stop\"},\"event_id\":\"00000000-0000-4000-8000-000000001004\",\"event_type\":\"authority.revoke\",\"input_digest\":null,\"model_version\":null,\"operator_id\":\"00000000-0000-4000-8000-000000000202\",\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"29f5ab8c88a10f5c9e93c82ee6c775344d6dfb669b249a63bc2e96cb5467d0dd\",\"seq\":4,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:05.000Z\",\"trace_id\":\"trace-vector\"}",
+      "event_hash": "34217caf8b9f2b989c41058e90eba2bcd213ba36c8e9b10ea6d25c6dfb361528",
+      "sig": "JG0rvFIEjH-fiC4rbx8PzkhGnKeamEBuhdUQ4cOSTXZGMuRWjn6A1_cujmNfOyO6jO3TUVNliv9yJGiayUeOBQ"
+    },
+    {
+      "segment": "000000",
+      "seq": 5,
+      "event_type": "system.segment_seal",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"reason\":\"scheduled: human.override since the last seal\",\"segment_index\":0},\"event_id\":\"00000000-0000-4000-8000-000000001005\",\"event_type\":\"system.segment_seal\",\"input_digest\":null,\"model_version\":null,\"operator_id\":null,\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"34217caf8b9f2b989c41058e90eba2bcd213ba36c8e9b10ea6d25c6dfb361528\",\"seq\":5,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:07.000Z\",\"trace_id\":\"trace-vector\"}",
+      "event_hash": "b3e3f530f09c8842e57ba98d408e9afa4ae936864b56c0841a19429f5570be21",
+      "sig": "m_v_qlmAfqxfyFqY9Fib5_HMZroM9ykNWOmblabpmgc_mTp4qoatbFCilUs21oztj-IaxDQSv__UnoUYXKOmCQ"
+    },
+    {
+      "segment": "active",
+      "seq": 0,
+      "event_type": "system.genesis",
+      "canonical": "{\"agent_id\":null,\"capability_manifest_hash\":null,\"confidence\":null,\"detail\":{\"format\":\"aegis-pilot-ledger/1\",\"org_id\":\"vector-org\",\"prev_segment\":{\"head_hash\":\"b3e3f530f09c8842e57ba98d408e9afa4ae936864b56c0841a19429f5570be21\",\"index\":0,\"seal_digest\":\"7df771c5529bf834c3c2828134559b9acf1d8d5fcb3e84b592dcc8eb28cacbee\"},\"site_id\":\"vector-site\"},\"event_id\":\"00000000-0000-4000-8000-000000002000\",\"event_type\":\"system.genesis\",\"input_digest\":null,\"model_version\":null,\"operator_id\":null,\"org_id\":\"vector-org\",\"output_digest\":null,\"prev_hash\":\"0000000000000000000000000000000000000000000000000000000000000000\",\"seq\":0,\"site_id\":\"vector-site\",\"timestamp\":\"2026-10-01T06:00:08.000Z\",\"trace_id\":\"trace-roll\"}",
+      "event_hash": "fdcfbdecb30ffd68a8bd34f52a9c80d7f199f7252d5c4703e3786c853122d505",
+      "sig": "25p2RejTW8iQoIJmIxVzhE1rqnN453eiWFCEnqHX8Qg2TxDcof7ZwHlJzJiHiOgU-pTTrCdO1ZqA8OduaY-DCQ"
+    }
+  ],
+  "seals": [
+    {
+      "index": 0,
+      "canonical_body": "{\"bytes\":6052,\"count\":6,\"file\":\"000000.jsonl\",\"firstTimestamp\":\"2026-10-01T06:00:00.000Z\",\"format\":\"aegis-pilot-segment/1\",\"headHash\":\"b3e3f530f09c8842e57ba98d408e9afa4ae936864b56c0841a19429f5570be21\",\"index\":0,\"keyId\":\"3fe15c2b334eb5a8\",\"lastTimestamp\":\"2026-10-01T06:00:07.000Z\",\"prevSeal\":null,\"reason\":\"scheduled: human.override since the last seal\",\"retention\":{\"classes\":{\"identity-5y\":3,\"risk-6m\":3},\"retainUntil\":\"2031-10-01T06:00:07.000Z\"},\"sealedAt\":\"2026-10-01T06:00:08.000Z\",\"sha256\":\"937f4d580bedde49cb7bc7553437c7db43230c7676513c3ce4d1c4b398c5a04c\",\"siteId\":\"vector-site\",\"v\":1}",
+      "seal_digest": "7df771c5529bf834c3c2828134559b9acf1d8d5fcb3e84b592dcc8eb28cacbee",
+      "sig": "tIbzeNEamb8ZrNB9rT3pfogp_9jAHwGGQuECZ0cejXqYPSAytrojAI_-bhR402iDvBvP-xvD-6pbQUsfIokjCg"
+    }
+  ],
+  "manifest": {
+    "canonical": "{\"createdAt\":\"2026-10-01T06:00:09.000Z\",\"files\":[{\"bytes\":126,\"path\":\"AUDITOR_GUIDE.md\",\"sha256\":\"69e744687d469e63aff2c25e12f17c8e867c4a449533a94201e283c28b7a16fc\"},{\"bytes\":344,\"path\":\"command-bodies/03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405.json\",\"sha256\":\"348e8d56c7ed9d46814e5e01628f3eca83ae856d3c44682a9082b1d83403168e\"},{\"bytes\":445,\"path\":\"command-bodies/046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0.json\",\"sha256\":\"126b493b6c3d66ab7da04a99e77fcca9e4eb4ea4c276fd14d2bf665f5a2fb222\"},{\"bytes\":683,\"path\":\"credentials/00000000-0000-4000-8000-000000000101.json\",\"sha256\":\"7cb470eacff3495c1a3c016a11b37c662c47e1190446daec278d38f146169fb1\"},{\"bytes\":630,\"path\":\"credentials/00000000-0000-4000-8000-000000000102.json\",\"sha256\":\"202e706f357c7f1f7f5864af0882392b261c99250b78512f03c61c4053f737da\"},{\"bytes\":876,\"path\":\"ledger/article12.jsonl\",\"sha256\":\"a7cfa0db635b9cc2909da171f351f956d7c5f50f3ecbb4749b83433aa5deac9f\"},{\"bytes\":6052,\"path\":\"ledger/segments/000000.jsonl\",\"sha256\":\"937f4d580bedde49cb7bc7553437c7db43230c7676513c3ce4d1c4b398c5a04c\"},{\"bytes\":793,\"path\":\"ledger/segments/000000.seal.json\",\"sha256\":\"4489ea7ca8c06c731b74bb646e1b891a986dbfa78d36ca3145b0e2bb78f6fa1d\"},{\"bytes\":242,\"path\":\"site/site.json\",\"sha256\":\"19b5b051fec51dfa825c3b0af5638060680afab03d671d5bde9b8c0644b46ae7\"}],\"keyId\":\"3fe15c2b334eb5a8\",\"lastSealDigest\":\"7df771c5529bf834c3c2828134559b9acf1d8d5fcb3e84b592dcc8eb28cacbee\",\"ledgerHead\":{\"count\":1,\"hash\":\"fdcfbdecb30ffd68a8bd34f52a9c80d7f199f7252d5c4703e3786c853122d505\"},\"siteId\":\"vector-site\",\"v\":1}",
+    "sig": "-AK2vDrJanMS5lj1E87_tpwe69KQtikAXrHtamzCLwMmOr4z7jijQyQETfwc6ltCdory13X78uCODEE5YBB8Ag"
+  },
+  "cases": [
+    {
+      "name": "redacted-stop-body",
+      "ledger": "variants/redacted-stop-body.jsonl",
+      "omit_bodies": [
+        "03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405"
+      ],
+      "expect": "PASS"
+    },
+    {
+      "name": "changed-target",
+      "ledger": "negative/changed-target.jsonl",
+      "expect": "OPERATOR_BINDING_MISMATCH:target"
+    },
+    {
+      "name": "changed-verdict",
+      "ledger": "negative/changed-verdict.jsonl",
+      "expect": "OPERATOR_BINDING_MISMATCH:verdict"
+    },
+    {
+      "name": "changed-reason",
+      "ledger": "negative/changed-reason.jsonl",
+      "extra_bodies": "negative/changed-reason.bodies",
+      "expect": "OPERATOR_SIGNATURE_INVALID"
+    },
+    {
+      "name": "swapped-credential",
+      "ledger": "negative/swapped-credential.jsonl",
+      "expect": "OPERATOR_BINDING_MISMATCH:operator_credential_id"
+    },
+    {
+      "name": "framed-role-swap",
+      "ledger": "negative/framed-role-swap.jsonl",
+      "expect": "OPERATOR_SIGNATURE_INVALID"
+    },
+    {
+      "name": "framed-command-id-swap",
+      "ledger": "negative/framed-command-id-swap.jsonl",
+      "expect": "OPERATOR_SIGNATURE_INVALID"
+    },
+    {
+      "name": "missing-body",
+      "ledger": "negative/missing-body.jsonl",
+      "omit_bodies": [
+        "03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405"
+      ],
+      "expect": "COMMAND_BODY_MISSING"
+    }
+  ]
+}

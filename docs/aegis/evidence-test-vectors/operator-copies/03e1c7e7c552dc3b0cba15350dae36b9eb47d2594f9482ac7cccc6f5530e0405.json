@@ -1,0 +1,11 @@
+{
+  "command_digest": "03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405",
+  "command_id": "00000000-0000-4000-8000-000000000402",
+  "command_kind": "stop",
+  "role": null,
+  "issued_at": "2026-10-01T06:00:04.000Z",
+  "operator_credential_id": "00000000-0000-4000-8000-000000000102",
+  "digest_signature": "ew2FyebG9vvi6nGUNlWhUl91gCo88LMrjqKNk3td-8swRUfE9ASzav8RqKt9RvWnEGfpR-spMoRgwOe82X1RCA",
+  "ledger_seq": 2,
+  "event_hash": "fd1ae255ac662815bd98ab99aa1d80cd5dbfc2f543c0e432aea4615b1308029b"
+}

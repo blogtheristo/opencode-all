@@ -1,0 +1,25 @@
+{
+  "v": 1,
+  "format": "aegis-pilot-segment/1",
+  "siteId": "vector-site",
+  "keyId": "3fe15c2b334eb5a8",
+  "index": 0,
+  "file": "000000.jsonl",
+  "sha256": "937f4d580bedde49cb7bc7553437c7db43230c7676513c3ce4d1c4b398c5a04c",
+  "bytes": 6052,
+  "count": 6,
+  "firstTimestamp": "2026-10-01T06:00:00.000Z",
+  "lastTimestamp": "2026-10-01T06:00:07.000Z",
+  "headHash": "b3e3f530f09c8842e57ba98d408e9afa4ae936864b56c0841a19429f5570be21",
+  "sealedAt": "2026-10-01T06:00:08.000Z",
+  "reason": "scheduled: human.override since the last seal",
+  "prevSeal": null,
+  "retention": {
+    "classes": {
+      "risk-6m": 3,
+      "identity-5y": 3
+    },
+    "retainUntil": "2031-10-01T06:00:07.000Z"
+  },
+  "sig": "tIbzeNEamb8ZrNB9rT3pfogp_9jAHwGGQuECZ0cejXqYPSAytrojAI_-bhR402iDvBvP-xvD-6pbQUsfIokjCg"
+}

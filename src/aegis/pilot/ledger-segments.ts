@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code Model=anthropic Agent=claude Date=2026-09-29
+// Evidence: Tool=Claude Code Model=claude Agent=aegis-evidence-impl Date=2026-10-01
 // Audit trail: git log -- src/aegis/pilot/ledger-segments.ts
 /**
  * Aegis Pilot — ledger segments and retention (AEGIS_PILOT_95_READINESS_PLAN.md, item C2).
