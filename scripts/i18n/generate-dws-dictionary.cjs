@@ -711,6 +711,57 @@ shared.product_tag_sovereign_cloud = T(
     note: 'Not on the DWS IQ US Cloud offers (DWS-US-STARTER, DWS-US-PILOT): they run on US infrastructure.',
   },
 );
+// Aegis acceptance and evidence vocabulary (HIC 01.10.2026; ONTOLOGY.md §16.7; WP13).
+const WP13_SRC = 'ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md';
+shared.acceptance_test = T(
+  'Acceptance test',
+  'Hyväksymistesti',
+  'Acceptanstest',
+  'Abnahmetest',
+  'Test de réception',
+  'agent_auditing',
+  {
+    source: WP13_SRC,
+    seo: true,
+    note: 'Customer-run: offline continuity, ledger integrity, stop authority.',
+  },
+);
+shared.stop_authority = T(
+  'Stop authority',
+  'Pysäytysvalta',
+  'Stoppbefogenhet',
+  'Stoppbefugnis',
+  'Autorité d’arrêt',
+  'kya_governance',
+  { source: WP13_SRC, seo: true },
+);
+shared.evidence_bundle = T(
+  'Evidence bundle',
+  'Todistepaketti',
+  'Bevispaket',
+  'Nachweispaket',
+  'Dossier de preuves',
+  'agent_auditing',
+  { source: WP13_SRC, seo: true },
+);
+shared.retention_lock = T(
+  'Retention lock',
+  'Säilytyslukko',
+  'Lagringslås',
+  'Aufbewahrungssperre',
+  'Verrou de conservation',
+  'agent_auditing',
+  { source: WP13_SRC, note: 'Can be extended, never shortened or removed.' },
+);
+shared.whitepaper_on_request = T(
+  'Whitepaper on request',
+  'Whitepaper pyynnöstä',
+  'Whitepaper på begäran',
+  'Whitepaper auf Anfrage',
+  'Livre blanc sur demande',
+  'none',
+  { source: 'DWS_TRUTH_STANDARD.md §2J' },
+);
 // Further product tags (HIC 25.09.2026: "Kaikki tagit talteen").
 for (const [key, tag, en, fi, sv, de, fr, onto] of [
   [

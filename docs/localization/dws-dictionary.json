@@ -1188,6 +1188,56 @@
       "note": "Not on the DWS IQ US Cloud offers (DWS-US-STARTER, DWS-US-PILOT): they run on US infrastructure.",
       "machineTranslationReview": "pending_named_human"
     },
+    "acceptance_test": {
+      "en": "Acceptance test",
+      "fi": "Hyväksymistesti",
+      "sv": "Acceptanstest",
+      "de": "Abnahmetest",
+      "fr": "Test de réception",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true,
+      "note": "Customer-run: offline continuity, ledger integrity, stop authority."
+    },
+    "stop_authority": {
+      "en": "Stop authority",
+      "fi": "Pysäytysvalta",
+      "sv": "Stoppbefogenhet",
+      "de": "Stoppbefugnis",
+      "fr": "Autorité d’arrêt",
+      "ontologyId": "kya_governance",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true
+    },
+    "evidence_bundle": {
+      "en": "Evidence bundle",
+      "fi": "Todistepaketti",
+      "sv": "Bevispaket",
+      "de": "Nachweispaket",
+      "fr": "Dossier de preuves",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true
+    },
+    "retention_lock": {
+      "en": "Retention lock",
+      "fi": "Säilytyslukko",
+      "sv": "Lagringslås",
+      "de": "Aufbewahrungssperre",
+      "fr": "Verrou de conservation",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "note": "Can be extended, never shortened or removed."
+    },
+    "whitepaper_on_request": {
+      "en": "Whitepaper on request",
+      "fi": "Whitepaper pyynnöstä",
+      "sv": "Whitepaper på begäran",
+      "de": "Whitepaper auf Anfrage",
+      "fr": "Livre blanc sur demande",
+      "ontologyId": "none",
+      "source": "DWS_TRUTH_STANDARD.md §2J"
+    },
     "product_tag_us_sovereign_cloud": {
       "en": "US Sovereign Cloud",
       "fi": "Yhdysvaltain suvereeni pilvi",

@@ -211,6 +211,7 @@ Chronological order. Update this table when adding/removing posts.
 | 69  | `eudi-wallet-eidas2-human-identity.fi.html`                    | Yhteys eWallet EU (EUDI Wallet) & eIDAS 2.0 (FI, sarja 11/12)                                                                                                                                                                                            | 8 Aug 2026  |
 | 70  | `kya-s1-sanasto-glossary.fi.html`                              | KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto (FI, sarja 12/12)                                                                                                                                                                         | 9 Aug 2026  |
 | 71  | `greg-isenberg-agents-need-a-signature.html`                   | Greg Isenberg Is Right About Agents. The Hard Part Is a Signature. (EN field note; agent infrastructure, KYA as the shared layer, honest limit: credential mints unsigned). **EN on tämän postauksen ground truth** — käännökset johdetaan EN-versiosta. | 24 Jul 2026 |
+| 73  | `proof-that-outlives-the-vendor.html`                          | Proof that outlives the vendor — Aegis: the control-room record stays yours, checkable without the vendor (EN only, v1.0, HIC-approved 01.10.2026; FI/SV/DE/FR not published — each needs its own HIC approval)                                          | 1 Oct 2026  |
 
 ---
 
@@ -948,6 +949,10 @@ A conclusion that holds after 17.2 goes where it changes work, in the same PR or
 | a product page                   | a product PR, HIC-gated (pricing and public copy stay RED)                                |
 
 Front matter `routes:` lists the destinations (e.g. `[roadmap, sales, ontology]`) or `[none]`.
+
+### 17.3a Tracked sources — a post never drifts from the product (HIC 01.10.2026)
+
+A post whose claims rest on a product declares, in its draft front matter, `version:`, `tracks:` (the source files: `Store/*.md`, whitepapers, or `dws10.com/config/products.json#<ID prefix>`) and `tracks_sha256:`. `npm run blog:tracked` (CI: `.github/workflows/blog-tracked-sources.yml`) fails when a tracked source changes. The fix is never to refresh the hash alone: re-read the post against the changed source, correct any drift, bump `version:`, then run `node scripts/blog/check-tracked-sources.mjs --update <slug>`. A wording change to a published post goes back to the HIC (§3.3). First post: `proof-that-outlives-the-vendor` (Aegis).
 
 ### 17.4 Demos
 
