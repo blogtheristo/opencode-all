@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.34 [Latest]
+Version: 1.35 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.34 [Latest] | Tool: scripts/truth/price-list-versions.mjs | Changes: Generated from config/truth/price-list-versions.json. Do not edit by hand.
+- Version: 1.35 [Latest] | Tool: scripts/truth/price-list-versions.mjs | Changes: Generated from config/truth/price-list-versions.json. Do not edit by hand.
 
 Document Status:
 
@@ -50,4 +50,5 @@ Counts: `records` = entries in `products`; `public` = non-BLUE, non-archived `pr
 | 1.31 | `price-list-v1.31.html` | original | yes | 2026-09-24 | `f2c5f2f1f` | 136 | 71 | 80 |
 | 1.32 | `price-list-v1.32.html` | original | yes | 2026-09-25 | `174ebce7b` | 136 | 71 | 80 |
 | 1.33 | `price-list-v1.33.html` | original | yes | 2026-09-25 | `4f0ae8e93` | 138 | 72 | 81 |
-| 1.34 | `price-list-v1.34.html` | original | current | — | — | 138 | 72 | 81 |
+| 1.34 | `price-list-v1.34.html` | original | yes | — | — | 138 | 72 | 81 |
+| 1.35 | `price-list-v1.35.html` | original | current | — | — | 138 | 72 | 81 |

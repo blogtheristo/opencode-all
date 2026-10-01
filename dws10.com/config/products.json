@@ -2000,17 +2000,17 @@
       "name": "Situation Room \u2014 Two Sovereign AI Nodes",
       "caption": "Two GN100 nodes bridged \u2014 when one screen isn't enough. Runs DWS IQ Control Room & Situation Room on NVIDIA edge.",
       "captionFi": "Kaksi yhdistetty\u00e4 GN100-solmua. Ajaa DWS IQ Control Roomia ja Situation Roomia NVIDIA-reunalaitteilla.",
-      "price": 11598,
+      "price": 16016,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The \u20ac11,598 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
+      "description": "Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The \u20ac16,016 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "2\u00d7 selected sovereign AI hardware nodes, bridged \u2014 \u20ac11,598 hardware total",
+        "2\u00d7 selected sovereign AI hardware nodes, bridged \u2014 \u20ac16,016 hardware total",
         "NVIDIA model installation for the bridged pair \u2014 \u20ac995 one-time, purchased separately",
         "Specialist configuration and support \u2014 \u20ac100/hour",
         "Wider model selection for vision, acoustic, language, reasoning and voice workloads"
       ],
-      "priceNote": "\u20ac11,598 hardware only \u00b7 installation \u20ac995 one-time \u00b7 specialist support \u20ac100/hour \u00b7 Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "\u20ac16,016 hardware only \u00b7 installation \u20ac995 one-time \u00b7 specialist support \u20ac100/hour \u00b7 Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/LF-SITROOM-001.png",
@@ -2369,16 +2369,16 @@
       "name": "DGX Spark \u2014 NVIDIA-Branded Sovereign Edge AI",
       "caption": "NVIDIA DGX Spark desktop AI workstation (GB10, 128 GB); hardware only.",
       "captionFi": "NVIDIA DGX Spark -ty\u00f6asema teko\u00e4lylle (GB10, 128 Gt); pelkk\u00e4 laite.",
-      "price": 6109,
+      "price": 8008,
       "currency": "EUR",
       "type": "one-time",
       "description": "NVIDIA's GB10 Grace Blackwell desktop AI workstation \u2014 the same silicon class as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm). The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).",
       "features": [
-        "1\u00d7 NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) \u2014 \u20ac6,109 hardware",
+        "1\u00d7 NVIDIA DGX Spark (GB10 Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x) \u2014 \u20ac8,008 hardware",
         "NVIDIA model installation \u2014 \u20ac995 one-time, purchased separately",
         "Specialist configuration and support \u2014 \u20ac100/hour"
       ],
-      "priceNote": "\u20ac6,109 hardware only \u00b7 installation \u20ac995 one-time \u00b7 specialist support \u20ac100/hour \u00b7 Finnish / EU B2B (VAT 0% reverse charge)",
+      "priceNote": "\u20ac8,008 hardware only \u00b7 installation \u20ac995 one-time \u00b7 specialist support \u20ac100/hour \u00b7 Finnish / EU B2B (VAT 0% reverse charge)",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/LF-DGX-SPARK.png",
@@ -10311,13 +10311,13 @@
     }
   },
   "lastUpdated": "2026-09-30T00:00:00Z",
-  "priceVersion": "1.34",
+  "priceVersion": "1.35",
   "priceList": {
-    "version": "1.34",
-    "effectiveDate": "2026-09-30",
+    "version": "1.35",
+    "effectiveDate": "2026-10-01",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-09-30",
+    "stampDate": "2026-10-01",
     "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
@@ -10336,8 +10336,8 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.34",
-    "effectiveDate": "2026-09-30",
+    "version": "1.35",
+    "effectiveDate": "2026-10-01",
     "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
@@ -10430,6 +10430,16 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.35",
+      "date": "2026-10-01",
+      "author": "claude/aegis-fi-copy-buyer-definition",
+      "changes": [
+        "LF-DGX-SPARK \u20ac6,109 \u2192 \u20ac8,008 hardware only (HIC 01.10.2026: same price as edge-node-gn100, one GB10 node price regardless of brand).",
+        "LF-SITROOM-001 \u20ac11,598 \u2192 \u20ac16,016 hardware only (HIC 01.10.2026: 2 \u00d7 \u20ac8,008).",
+        "LF-NVIDIA-INSTALL \u20ac995 and specialist support \u20ac100/h unchanged."
+      ]
+    },
     {
       "version": "1.34",
       "date": "2026-09-30",
