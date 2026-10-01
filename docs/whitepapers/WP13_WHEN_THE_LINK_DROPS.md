@@ -18,10 +18,14 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 01.10.2026
+- Last Modified: 01.10.2026
 - Author: Risto Anton Päärni, Founder, CEO, Lifetime Oy
 - Language: English
+- Languages Available: English (request page in English, Suomi, Svenska, Deutsch, Français)
 - Distribution: on request only (Truth Standard §2J). Not published as a public file.
 - Publication Status: DRAFT — HIC review before first distribution
+- Harness: Claude Code (web) + CLAUDE.md + DWS_TRUTH_STANDARD.md §2J
+- HIC-approved-drift: none
 
 ---
 

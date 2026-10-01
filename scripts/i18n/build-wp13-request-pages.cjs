@@ -34,7 +34,7 @@ const S = {
     tocH: 'Contents',
     formH: 'Request the whitepaper',
     formIntro:
-      'The paper is sent by email on request. Risto Anton Päärni sends it personally, usually within one business day.',
+      'The paper is sent by email on request. Risto Anton Päärni sends it personally.',
     name: 'Name',
     email: 'Work email',
     company: 'Company',
@@ -68,7 +68,7 @@ const S = {
     tocH: 'Sisältö',
     formH: 'Tilaa whitepaper',
     formIntro:
-      'Julkaisu lähetetään pyynnöstä sähköpostilla. Risto Anton Päärni lähettää sen henkilökohtaisesti, yleensä yhden arkipäivän kuluessa.',
+      'Julkaisu lähetetään pyynnöstä sähköpostilla. Risto Anton Päärni lähettää sen henkilökohtaisesti.',
     name: 'Nimi',
     email: 'Työsähköposti',
     company: 'Yritys',
@@ -102,7 +102,7 @@ const S = {
     tocH: 'Innehåll',
     formH: 'Beställ rapporten',
     formIntro:
-      'Rapporten skickas per e-post på begäran. Risto Anton Päärni skickar den personligen, vanligtvis inom en arbetsdag.',
+      'Rapporten skickas per e-post på begäran. Risto Anton Päärni skickar den personligen.',
     name: 'Namn',
     email: 'Arbetsmejl',
     company: 'Företag',
@@ -136,7 +136,7 @@ const S = {
     tocH: 'Inhalt',
     formH: 'Whitepaper anfordern',
     formIntro:
-      'Das Papier wird auf Anfrage per E-Mail versandt. Risto Anton Päärni sendet es persönlich, in der Regel innerhalb eines Werktags.',
+      'Das Papier wird auf Anfrage per E-Mail versandt. Risto Anton Päärni sendet es persönlich.',
     name: 'Name',
     email: 'Geschäftliche E-Mail',
     company: 'Unternehmen',
@@ -170,7 +170,7 @@ const S = {
     tocH: 'Sommaire',
     formH: 'Demander le livre blanc',
     formIntro:
-      'Le document est envoyé par e-mail sur demande. Risto Anton Päärni l’envoie personnellement, en général sous un jour ouvré.',
+      'Le document est envoyé par e-mail sur demande. Risto Anton Päärni l’envoie personnellement.',
     name: 'Nom',
     email: 'E-mail professionnel',
     company: 'Entreprise',

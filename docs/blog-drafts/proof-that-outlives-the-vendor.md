@@ -12,14 +12,14 @@ demo_url:
 target: onelifetime.world/posts/proof-that-outlives-the-vendor.html
 date: 2026-10-01
 author: Risto Anton Päärni
-version: 1.0
-claims_checked: 2026-10-01
+version: 1.0.1
+claims_checked: 2026-10-01 (v1.0.1: WP13 citation version and metadata changed in tracked sources; post text unchanged)
 tracks:
   - Store/PRODUCT_AEGIS_PILOT.md
   - Store/PRODUCT_AEGIS.md
   - docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md
   - dws10.com/config/products.json#DWS-AEGIS
-tracks_sha256: 3094644f3b008804902661e21d91ea3bb41c1b214791150ab0b31fa373c0ea68
+tracks_sha256: fa33b0d8752eaad362d1e9ef7631dbccaef3611d9af0a878e6f99094abbab598
 Status: APPROVED
 Approved_by: HIC (Risto Anton Päärni), 01.10.2026 — EN text v1.0 incl. heading "The question nobody asks in the control room"
 ---

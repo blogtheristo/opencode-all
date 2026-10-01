@@ -196,7 +196,7 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 
 ---
 
-¹ Risto Anton Päärni, _Kun yhteys katkeaa: Aegisin hyväksymistesti ja todisteet_ (Whitepaper WP13, v1.0, Lifetime Oy, 2026). Tilattavissa: dws10.com/whitepapers/wp13-when-the-link-drops/
+¹ Risto Anton Päärni, _Kun yhteys katkeaa: Aegisin hyväksymistesti ja todisteet_ (Whitepaper WP13, v1.1, Lifetime Oy, 2026). Tilattavissa: dws10.com/whitepapers/wp13-when-the-link-drops/
 
 **Versiohistoria (FI-osio)**
 
