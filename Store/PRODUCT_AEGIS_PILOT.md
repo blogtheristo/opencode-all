@@ -142,7 +142,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 **DWS IQ Aegis -pilotti: yksi työnkulku, kolme testiä, kolme kuukautta**
 
-Aegis on ajoympäristö, jossa tekoälyagentti tekee työtä asiakkaan omassa tuotannossa, esimerkiksi datakeskuksessa tai tehtaalla. Agentti suosittelee, ihminen päättää, ja jokaisesta vaiheesta jää allekirjoitettu jälki. Agentti ei ohjaa fyysisiä laitteita. Aegis on ennakkotilauksessa.
+Aegis on ajoympäristö, jossa tekoälyagentti tekee tiukasti johdettua ja valvottua työtä asiakkaan omassa tuotannossa, tuotantohuoneessa dedikoidulla laitteistolla, esimerkiksi datakeskuksessa tai tehtaalla. Agentti suosittelee, ihminen päättää, ja jokaisesta vaiheesta jää allekirjoitettu jälki. Agentti ei ohjaa fyysisiä laitteita. Aegis on ennakkotilauksessa.
 
 Pilotissa yksi työnkulku ajetaan agentilla tuotannossa kolmen kuukauden ajan kiinteään hintaan, 19 990 euroa. Summa hyvitetään kokonaan Aegis-käyttöönotosta, jos jatkatte tuotantoon kuuden kuukauden kuluessa. Verkkoyhteys katkaistaan sovitun ajan, ja testataan kolme asiaa:
 
