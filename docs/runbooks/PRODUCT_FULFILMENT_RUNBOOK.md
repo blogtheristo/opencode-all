@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.33 [Latest]
+Version: 1.34 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.33 [Latest] | Tool: scripts/truth/generate-fulfilment-runbook.mjs | Changes: Generated from dws10.com/config/products.json + config/truth/product-capability-chapters.json + config/truth/product-delivery-templates.json. Do not edit by hand; run the script. HIC 27.09.2026: "universal paid-order steps and one section per chapter listing each SKU exactly once."
+- Version: 1.34 [Latest] | Tool: scripts/truth/generate-fulfilment-runbook.mjs | Changes: Generated from dws10.com/config/products.json + config/truth/product-capability-chapters.json + config/truth/product-delivery-templates.json. Do not edit by hand; run the script. HIC 27.09.2026: "universal paid-order steps and one section per chapter listing each SKU exactly once."
 
 Document Status:
 
@@ -131,9 +131,9 @@ delays payment — the steps below start **after** a payment has been captured.
 
 | SKU | Product | Checkout |
 | --- | --- | --- |
-| `DWS-AEGIS-001` | DWS IQ Aegis | /checkout/?product=DWS-AEGIS-001 |
+| `DWS-AEGIS-001` | DWS IQ 7 Aegis | /checkout/?product=DWS-AEGIS-001 |
 | `DWS-AEGIS-IMPL-001` | DWS IQ Aegis Implementation Programme (3 phases) | /checkout/?product=DWS-AEGIS-IMPL-001 |
-| `DWS-AEGIS-PILOT-001` | DWS IQ Aegis Pilot (3 months) | /checkout/?product=DWS-AEGIS-PILOT-001 |
+| `DWS-AEGIS-PILOT-001` | DWS IQ 7 Aegis Pilot (3 months) | /checkout/?product=DWS-AEGIS-PILOT-001 |
 | `DWS-AEGIS-SUB-001` | DWS IQ Aegis — Maintenance Subscription | /checkout/?product=DWS-AEGIS-SUB-001 |
 | `KYA-JEV-001` | kya-jev — KYA-Gated Typed Decisions (Early Access) | /checkout/?product=KYA-JEV-001 |
 

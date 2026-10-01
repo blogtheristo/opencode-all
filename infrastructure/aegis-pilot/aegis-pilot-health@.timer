@@ -2,8 +2,12 @@
 Description=Aegis Pilot health probe timer for %i
 
 [Timer]
+# First probe 1 min after the timer starts: OnUnitActiveSec alone never fires
+# while the probe has not run once.
+OnActiveSec=1min
 OnUnitActiveSec=5m
-Unit=aegis-pilot-health@%i.service
+# The health probe is the oneshot aegis-pilot@.service (README.md).
+Unit=aegis-pilot@%i.service
 
 [Install]
 WantedBy=timers.target

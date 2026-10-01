@@ -6,7 +6,7 @@ This directory contains the per-industry ontologies that feed the LWM V1 soverei
 
 ```
 ontology/
-├── industries/              Per-industry ontology (7-layer JSON-LD + OWL/RDF)
+├── industries/              Per-industry ontology (9-layer JSON-LD + OWL/RDF)
 │   ├── 01-steel-metallurgy.json
 │   ├── 02-forestry-pulp-paper.json
 │   └── ... (25 total)
@@ -21,9 +21,9 @@ ontology/
 └── README.md                        This file
 ```
 
-## 7-Layer Ontology Structure
+## 9-Layer Ontology Structure
 
-Each industry ontology contains seven layers:
+Each industry ontology contains nine layers:
 
 | Layer | Name                    | Purpose                                               |
 | ----- | ----------------------- | ----------------------------------------------------- |
@@ -34,8 +34,10 @@ Each industry ontology contains seven layers:
 | 5     | Compliance Requirements | Reporting obligations, audit trails, certifications   |
 | 6     | Commercial Intelligence | Buying roles (R01-R25), pain points, sales wedges     |
 | 7     | Investor Positioning    | TAM/SAM, regulatory tailwinds, 6 investor wedge types |
+| 8     | Decision                | Symptom/need → causes → evidence → options (active)   |
+| 9     | Learning                | Outcome evidence → hypothesis → ontology update       |
 
-Layers 1-5 feed sovereign fine-tuning. Layers 6-7 feed sales-outreach and investor-outreach pipelines.
+Layers 1-5 feed sovereign fine-tuning. Layers 6-7 feed sales-outreach and investor-outreach pipelines. Layers 8-9 make the ontology active: layer 8 drives the diagnostic choice path on `dws10.com` and `/buy`, layer 9 learns from recorded decision outcomes (spec: plan §6.8–6.9). Layers 6-7 are internal and are not shown in buyer-facing whitepapers.
 
 ## 3-Stage Pipeline
 

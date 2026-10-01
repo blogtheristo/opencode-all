@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, startTransition } from 'react';
 import type { ContentItem, PipelineStage } from '../types';
 import * as store from '../store';
 
@@ -22,16 +22,21 @@ export function usePipeline() {
     return item;
   }, []);
 
-  const deleteItem = useCallback((id: string) => {
-    const result = store.deleteItem(id);
-    setItems(store.getItems());
-    if (selectedId === id) setSelectedId(null);
-    return result;
-  }, [selectedId]);
+  const deleteItem = useCallback(
+    (id: string) => {
+      const result = store.deleteItem(id);
+      setItems(store.getItems());
+      if (selectedId === id) setSelectedId(null);
+      return result;
+    },
+    [selectedId],
+  );
 
   const moveItem = useCallback((id: string, stage: PipelineStage) => {
     const item = store.moveItem(id, stage);
-    setItems(store.getItems());
+    startTransition(() => {
+      setItems(store.getItems());
+    });
     return item;
   }, []);
 

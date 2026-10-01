@@ -4,11 +4,12 @@
 
 ---
 
-Version: 1.7 [Latest]
+Version: 1.8 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.7 [Latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1: `abandonedShare`; review threshold of 10 HIC-confirmed. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 1.8 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: §7 "Evidence handover": `export` / `verify-bundle` (A2, Claude Code takeover of #2256). The pin is checked against the key id computed from the bundled public key; sealed segments, seals and acceptance records are verified offline. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
+- Version: 1.7 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1: `abandonedShare`; review threshold of 10 HIC-confirmed. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
 - Version: 1.6 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 30.09.2026 | Changes: §5.1 anti-rubber-stamp (HIC 29.09.2026): `modify` verdict, reason required on reject/modify, `manual_entry` capture with evidence strength, and review shares and signal in `journey`. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.5 [not latest] | Tool: Claude Code (web) | Session: claude/dws-iq7-aegis-research-lwqxgw | Date: 29.09.2026 | Changes: Readiness plan C5, HIC 28.09.2026. Operator decisions on recommendations (§5.1): `decide` (operator, sign and queue only), `drain-decisions` (site), `outcome` and `journey`; the `decide/` inbox; `--role` on `issue-operator`; the `advisory` scope flag. | Harness: Claude Code + CLAUDE.md + DWS_SECURITY_STANDARD | HIC-approved-drift: none
 - Version: 1.4 [not latest] | Tool: Claude Code | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: New §6.1 step 6 policy proof (`prove`, `--openshell-prover`, `containment.proof` in the record). New §6.2 M4 checklist for the DGX Spark with `physical-disconnect` (HIC 29.09.2026). Ledger segments and retention (readiness plan patch C2): §2 layout, new §4 "Ledger segments and retention" with `seal` / `segments` / `prune`, §8 whole-ledger bullet covers sealed segments. | Harness: Claude Code + CLAUDE.md + DWS_ARTICLE_12_LOGGING_STANDARD + DWS_SECURITY_STANDARD | HIC-approved-drift: none
@@ -285,6 +286,20 @@ The HIC decided on 29.09.2026 that M4 runs on the DGX Spark with `isolation.meth
 ## 7. Phase 4 — sizing and report (weeks 12–13)
 
 The acceptance record provides the measured inputs: per-step `durationMs`, events in the window, stop latency and the deferred-work volume. The sizing report cites the record id and its signature. It does not reproduce the numbers without a source.
+
+### Evidence handover
+
+After the acceptance run, and again at the end of the pilot, export the evidence for the customer's auditor:
+
+```
+node --import tsx scripts/aegis-pilot.ts export --state-dir <state> --out <empty-dir>
+node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle <dir> --expect-key-id <key id from the signed scope>
+```
+
+- `export` refuses a non-empty output directory, a link or other non-regular file in the state directory, and an evidence chain that does not verify. It copies the active ledger, every sealed segment and seal, `site/site.json`, the acceptance records and the credentials, then writes `manifest.json` (sha256 and size of every file, ledger head, newest seal digest) and `manifest.sig` (site key). The private site key and the `kill/` and `decide/` inboxes are never included.
+- `verify-bundle` needs no state directory and no DWS access. It exits 0 only when: the pin matches the key id **computed from the bundled public key**; the manifest signature verifies; the files are exactly the manifest's files; the whole segment chain verifies (seals, links, hashes, retention); the ledger head and newest seal match the manifest; and every acceptance record is signed by the site key and was recorded in the ledger under its digest.
+- Without `--expect-key-id`, `verify-bundle` reports `keyPinned: false` and `authenticity: "unpinned — authenticity not established"`, warns on stderr and **exits 4** (HIC 01.10.2026): an unpinned bundle is internally consistent, not proven to come from the customer's site. `--allow-unpinned` restores exit 0 for an integrity-only check (smoke tests); the output still says unpinned.
+- Verify on a machine that has never held the state directory or the repository, operated by someone other than Lifetime (M4 checklist, §6.2). Keep the key id from the signed scope separately from the bundle: a pin copied from the bundle proves nothing.
 
 ### Nightly rehearsal
 

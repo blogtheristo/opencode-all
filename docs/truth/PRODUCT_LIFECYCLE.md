@@ -4,11 +4,11 @@
 
 ---
 
-Version: 1.33 [Latest]
+Version: 1.34 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.33 [Latest] | Tool: scripts/truth/product-lifecycle.mjs | Changes: Generated from dws10.com/config/products.json 1.33, git history through 4f0ae8e93 and the HIC decision ledger. Do not edit by hand; add decisions to config/truth/product-lifecycle-ledger.json and run the script.
+- Version: 1.34 [Latest] | Tool: scripts/truth/product-lifecycle.mjs | Changes: Generated from dws10.com/config/products.json 1.34, git history through 4f0ae8e93 and the HIC decision ledger. Do not edit by hand; add decisions to config/truth/product-lifecycle-ledger.json and run the script.
 
 Document Status:
 
@@ -143,9 +143,9 @@ Evidence kinds: **decision** = HIC decision from the ledger (quote + date); **gi
 | 99 | `consulting-hourly` | Senior Compliance Specialist — Retainer + Outcomes | published | catalogue products | v22 (2026-09-25 `4f0ae8e93`) | 10 (2026-09-21) | git 2026-01-09 `d095d7ba3` published: Merge pull request #132 from blogtheristo/feature/payment-integration-dws10 |
 | 100 | `conversational-agent` | EU-Hosted Conversational Agent | published | catalogue products | v22 (2026-09-25 `4f0ae8e93`) | 10 (2026-09-21) | git 2026-01-28 `d0335d10a` published: Merge pull request #294 from blogtheristo/frosty-jennings<br>git 2026-04-17 `818d921c1` archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)<br>git 2026-05-06 `120be5329` published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q |
 | 101 | `devops-lead` | Assessment | published | catalogue products | v16 (2026-09-25 `4f0ae8e93`) | 9 (2026-09-21) | git 2026-01-28 `d0335d10a` published: Merge pull request #294 from blogtheristo/frosty-jennings<br>git 2026-04-17 `818d921c1` archived: Store: 3-locale bar + EU B2B default + Digital Design V2 rename (#1074)<br>git 2026-05-06 `120be5329` published: Merge pull request #961 from blogtheristo/claude/create-aegis-note-gNQ2q |
-| 102 | `DWS-AEGIS-001` | DWS IQ Aegis | published | catalogue products | v19 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-03-25 `61912ff2f` published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du<br>decision 2026-09-25 `PR #2107` published — HIC (Risto Anton Päärni): Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription. |
+| 102 | `DWS-AEGIS-001` | DWS IQ 7 Aegis | published | catalogue products | v19 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-03-25 `61912ff2f` published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du<br>decision 2026-09-25 `PR #2107` published — HIC (Risto Anton Päärni): Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription. |
 | 103 | `DWS-AEGIS-IMPL-001` | DWS IQ Aegis Implementation Programme (3 phases) | published | catalogue products | v9 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-07-31 `0a2b9c96c` published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix |
-| 104 | `DWS-AEGIS-PILOT-001` | DWS IQ Aegis Pilot (3 months) | published | catalogue products | v10 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-07-31 `0a2b9c96c` published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix |
+| 104 | `DWS-AEGIS-PILOT-001` | DWS IQ 7 Aegis Pilot (3 months) | published | catalogue products | v10 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-07-31 `0a2b9c96c` published: merge: enterprise AI harness — Aegis pilot re-spec, Learning Standard step 6, local-model drift fix |
 | 105 | `DWS-AEGIS-SUB-001` | DWS IQ Aegis — Maintenance Subscription | published | catalogue products | — | 33 (2026-09-21) | decision 2026-09-25 `PR #2107` published — HIC (Risto Anton Päärni): Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription. |
 | 106 | `DWS-CLIMATE-001` | DWS IQ Climate Intelligence | published | catalogue products | v19 (2026-09-25 `4f0ae8e93`) | 18 (2026-09-21) | git 2026-03-25 `61912ff2f` published: Merge pull request #895 from blogtheristo/claude/add-define-application-guide-gS1du |
 | 107 | `DWS-EU-PILOT` | DWS IQ — EU Sovereign Pilot | published | catalogue products | v20 (2026-09-25 `4f0ae8e93`) | 3 (2026-09-21) | git 2026-03-22 `3566101af` published: Merge pull request #865 from blogtheristo/claude/pricing-us-cloud-starter-cIxHZ |

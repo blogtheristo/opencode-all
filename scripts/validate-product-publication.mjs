@@ -14,9 +14,9 @@ import { render as renderRunbook } from './truth/generate-fulfilment-runbook.mjs
 import { build as buildFirehoseChapter5Preview, OUT_PATHS as FIREHORSE_CHAPTER5_OUT_PATHS } from './truth/generate-firehorse-store-preview-data.mjs';
 
 const ROOT = resolve(process.cwd());
-const CATALOG_VERSION = '1.33';
-const CONSULTING_VERSION = '1.33';
-const EFFECTIVE = '2026-09-25';
+const CATALOG_VERSION = '1.34';
+const CONSULTING_VERSION = '1.34';
+const EFFECTIVE = '2026-09-30';
 const BUY_EFFECTIVE = '2026-08-30';
 const LIFETIME_PAGE_EFFECTIVE = '2026-08-30';
 const NEXT_REVIEW = '2026-11-15';

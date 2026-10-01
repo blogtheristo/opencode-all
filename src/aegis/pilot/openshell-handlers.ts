@@ -44,13 +44,15 @@
 
 import { spawn } from 'node:child_process';
 import {
-  cpSync,
+  copyFileSync,
   existsSync,
+  constants as fsConstants,
   lstatSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
   readFileSync,
+  renameSync,
   rmSync,
   writeFileSync,
 } from 'node:fs';
@@ -62,6 +64,7 @@ import { type NetworkEndpoint, stepPolicy } from './openshell-policy.js';
 import type { PilotStep } from './scope.js';
 import { RESULT_MARKER } from './sandbox-step-runner.js';
 import type { StopTestAgent } from './acceptance.js';
+import { collectOcsf, type OcsfEvidence } from './openshell-ocsf.js';
 import type { HandlerRegistry, StepContext, StepHandler, StepResult } from './workflow-runner.js';
 import { NetworkUnavailable } from './workflow-runner.js';
 
@@ -176,6 +179,26 @@ export interface OpenShellRef {
   /** Copy-back bounds for /sandbox/out (defaults MAX_OUTPUT_FILES / MAX_OUTPUT_FILES_BYTES). */
   maxOutputFiles?: number;
   maxOutputBytes?: number;
+  /**
+   * Positive control for the gateway's listing shape, shared by every sandbox on
+   * that gateway (security review M3). A registry makes its own when not given.
+   */
+  listingControl?: ListingControl;
+  /**
+   * Collect the sandbox's OCSF events from the gateway before it is deleted and
+   * record their summary with the step (openshell-ocsf.ts; plan C4). Not on an
+   * operator stop: the stop is never delayed for evidence collection.
+   */
+  ocsf?: boolean;
+}
+
+/**
+ * Absence from `sandbox list` proves a stop only once a listing on the same
+ * gateway has been seen to show a sandbox by name. A gateway that nests `name`
+ * or returns a transient empty page would otherwise "prove" every stop.
+ */
+export interface ListingControl {
+  verified: boolean;
 }
 
 /** Containment evidence attached to each step result for the Article 12 record. */
@@ -186,6 +209,8 @@ export interface ContainmentEvidence {
   image: string;
   policyDigest: string;
   limits: SandboxLimits;
+  /** OpenShell OCSF events: counts, digests and deny events, never payloads. */
+  ocsf?: OcsfEvidence;
 }
 
 const ESBUILD = () => resolve(process.cwd(), 'node_modules/.bin/esbuild');
@@ -354,7 +379,10 @@ export async function confirmSandboxGone(
   name: string,
   deadlineMs: number,
   pollMs: number,
+  control: ListingControl,
 ): Promise<boolean> {
+  // No positive control yet: an empty listing proves nothing (security review 30.09.2026, M3).
+  if (!control.verified) return false;
   // Absence counts only when two consecutive complete listings agree, so a transient empty
   // page or a create that lands late is not taken as proof of a stop (review 30.09.2026, M2).
   const end = performance.now() + deadlineMs;
@@ -365,6 +393,29 @@ export async function confirmSandboxGone(
     absentOnce = listed === false;
     await sleep(pollMs);
   }
+  return false;
+}
+
+/**
+ * The positive control: polls until a complete listing shows `name`. Only then
+ * is the listing shape trusted to prove a later absence (`control.verified`).
+ */
+export async function verifyListed(
+  run: CommandRunner,
+  cli: string,
+  name: string,
+  deadlineMs: number,
+  pollMs: number,
+  control: ListingControl,
+): Promise<boolean> {
+  const end = performance.now() + deadlineMs;
+  do {
+    if ((await listContains(run, cli, name)) === true) {
+      control.verified = true;
+      return true;
+    }
+    await sleep(pollMs);
+  } while (performance.now() < end);
   return false;
 }
 
@@ -408,15 +459,20 @@ export async function terminateSandbox(p: {
   killLocal?: () => void;
   deadlineMs?: number;
   pollMs?: number;
+  control: ListingControl;
 }): Promise<{ confirmed: boolean; ms: number; detail: string }> {
   const t0 = performance.now();
   const del = () => p.run(p.cli, ['sandbox', 'delete', p.name], { timeoutMs: 60_000 });
   // A create still in flight could land after the sandbox was listed as gone, so it is
   // always settled first — not only when the delete fails (security review 30.09.2026, M2).
+  let created = false;
   if (p.create) {
     let settled = false;
     p.create.then(
-      () => (settled = true),
+      (r) => {
+        settled = true;
+        created = (r as CommandResult | undefined)?.code === 0;
+      },
       () => (settled = true),
     );
     await new Promise((r) => setImmediate(r));
@@ -425,6 +481,10 @@ export async function terminateSandbox(p: {
       await p.create.catch(() => undefined);
     }
   }
+  // A sandbox that was created but whose listing shape was never checked gets the
+  // positive control now, before the delete, so its absence can count afterwards.
+  if (created && !p.control.verified)
+    await verifyListed(p.run, p.cli, p.name, p.deadlineMs ?? 30_000, p.pollMs ?? 200, p.control);
   let res = await del();
   if (res.code !== 0 && p.create) {
     res = await del();
@@ -435,6 +495,7 @@ export async function terminateSandbox(p: {
     p.name,
     p.deadlineMs ?? 30_000,
     p.pollMs ?? 200,
+    p.control,
   );
   const ms = Math.round(performance.now() - t0);
   return gone
@@ -442,7 +503,9 @@ export async function terminateSandbox(p: {
     : {
         confirmed: false,
         ms,
-        detail: `sandbox still listed or listing failed (delete exit ${res.code}): ${res.stderr.slice(0, 200)}`,
+        detail: p.control.verified
+          ? `sandbox still listed or listing failed (delete exit ${res.code}): ${res.stderr.slice(0, 200)}`
+          : 'the gateway listing was never seen to show a sandbox, so absence proves nothing',
       };
 }
 
@@ -481,12 +544,77 @@ export function remapPaths<T>(value: T, from: string, to: string): T {
   return walk(value) as T;
 }
 
+/**
+ * Promotes a verified staging tree into the output directory (security review
+ * 30.09.2026, M5). The output directory is staged into every later step, so a
+ * step may hand an earlier file back only unchanged: any other overwrite, and
+ * any file/directory type conflict, is refused before anything is written.
+ * Files are first copied next to their destination under a temporary name and
+ * renamed into place only once all of them are written. `promoted` records the
+ * sha256 of every file this registry put there.
+ */
+export function promoteOutputs(
+  staging: string,
+  outputDir: string,
+  promoted: Map<string, string>,
+): void {
+  const plan: Array<{ rel: string; src: string; dest: string; digest: string }> = [];
+  const walk = (dir: string, prefix: string) => {
+    for (const name of readdirSync(dir)) {
+      const src = join(dir, name);
+      const rel = prefix ? `${prefix}/${name}` : name;
+      if (lstatSync(src).isDirectory()) walk(src, rel);
+      else plan.push({ rel, src, dest: join(outputDir, rel), digest: sha256(readFileSync(src)) });
+    }
+  };
+  walk(staging, '');
+  const todo = plan.filter(({ rel, dest, digest }) => {
+    const parts = rel.split('/');
+    for (let i = 1; i < parts.length; i++) {
+      const anc = join(outputDir, ...parts.slice(0, i));
+      if (existsSync(anc) && !lstatSync(anc).isDirectory())
+        throw new Error(`sandbox output rejected: type conflict at ${parts.slice(0, i).join('/')}`);
+    }
+    if (!existsSync(dest)) return true;
+    const st = lstatSync(dest);
+    if (!st.isFile()) throw new Error(`sandbox output rejected: type conflict at ${rel}`);
+    if (sha256(readFileSync(dest)) !== digest)
+      throw new Error(`sandbox output rejected: would overwrite ${rel}`);
+    return false;
+  });
+  const written: string[] = [];
+  try {
+    for (const f of todo) {
+      mkdirSync(dirname(f.dest), { recursive: true });
+      const tmp = `${f.dest}.aegis-${randomUUID().slice(0, 8)}.tmp`;
+      copyFileSync(f.src, tmp, fsConstants.COPYFILE_EXCL);
+      written.push(tmp);
+    }
+  } catch (err) {
+    for (const t of written) rmSync(t, { force: true });
+    throw err;
+  }
+  todo.forEach((f, i) => renameSync(written[i], f.dest));
+  for (const f of plan) promoted.set(f.rel, f.digest);
+}
+
+/** Refuses to stage earlier outputs into a step if any changed on the host since promotion. */
+function checkPromoted(outputDir: string, promoted: ReadonlyMap<string, string>): void {
+  for (const [rel, digest] of promoted) {
+    const p = join(outputDir, rel);
+    const ok = existsSync(p) && lstatSync(p).isFile() && sha256(readFileSync(p)) === digest;
+    if (!ok) throw new Error(`earlier output ${rel} changed on the host since it was promoted`);
+  }
+}
+
 async function runInSandbox(
   ref: OpenShellRef,
   bundle: Promise<string>,
   key: string,
   step: PilotStep,
   ctx: StepContext,
+  control: ListingControl,
+  promoted: Map<string, string>,
 ): Promise<StepResult> {
   const { signal, ...rest } = ctx;
   if (signal.aborted) throw signal.reason;
@@ -520,6 +648,7 @@ async function runInSandbox(
       killLocal: () => killLocal?.(),
       deadlineMs: confirmMs,
       pollMs: poll,
+      control,
     });
 
   const stop = async (): Promise<never> => {
@@ -587,7 +716,10 @@ async function runInSandbox(
         throw new Error(`sandbox input is not a regular file: ${host}`);
       staged[inside] = readFileSync(host).toString('base64');
     }
-    if (ref.outputDir && existsSync(ref.outputDir)) filesFrom(ref.outputDir, 'out', staged);
+    if (ref.outputDir && existsSync(ref.outputDir)) {
+      checkPromoted(ref.outputDir, promoted);
+      filesFrom(ref.outputDir, 'out', staged);
+    }
     const stagedBytes = Object.values(staged).reduce((n, b) => n + (b.length * 3) / 4, 0);
     if (stagedBytes > MAX_OUTPUT_FILES_BYTES * 2)
       throw new Error(`files to stage exceed the limit (${Math.round(stagedBytes)} bytes)`);
@@ -615,6 +747,11 @@ async function runInSandbox(
     const cr = await raceAbort(createCall);
     if (cr === 'aborted' || stopping) return await stop();
     if (cr.code !== 0) throw new Error(`sandbox create failed: ${cr.stderr.slice(0, 400)}`);
+    // Positive control (M3): the listing must show this sandbox before anything runs in it.
+    const seen = await raceAbort(verifyListed(run, cli, name, confirmMs, poll, control));
+    if (seen === 'aborted' || stopping) return await stop();
+    if (!seen)
+      throw new Error(`gateway listing never showed sandbox ${name}; its stop could not be proven`);
 
     const st = await raceAbort(sandboxExec(['-e', UNPACK], { input: JSON.stringify(staged) }));
     if (st === 'aborted' || stopping) return await stop();
@@ -628,13 +765,22 @@ async function runInSandbox(
     );
     if (res === 'aborted' || stopping) return await stop();
 
+    // Evidence from the sandbox travels with the error too, so failures and deferrals keep it.
+    const withEvidence = (e: Error): Error => Object.assign(e, { containment: { ...containment } });
+    const captureOcsf = async () => {
+      if (ref.ocsf) containment.ocsf = await collectOcsf(run, cli, name);
+    };
+
     let parsed: SandboxReply;
     try {
       parsed = parseResult(res.stdout);
     } catch (err) {
-      throw new Error(`${(err as Error).message}; exit ${res.code}; ${res.stderr.slice(0, 300)}`, {
-        cause: err,
-      });
+      await captureOcsf();
+      throw withEvidence(
+        new Error(`${(err as Error).message}; exit ${res.code}; ${res.stderr.slice(0, 300)}`, {
+          cause: err,
+        }),
+      );
     }
     // A success claim from a process that did not exit cleanly is not a success.
     if (parsed.ok && res.code !== 0)
@@ -686,13 +832,15 @@ async function runInSandbox(
       // that directory is staged into every later step (security review 30.09.2026, M4).
       if (parsed.ok) {
         mkdirSync(ref.outputDir, { recursive: true });
-        cpSync(staging, ref.outputDir, { recursive: true, verbatimSymlinks: true });
+        promoteOutputs(staging, ref.outputDir, promoted);
       }
     }
+    if (stopping) return await stop();
+    await captureOcsf();
     if (!parsed.ok) {
       if (parsed.errorName === 'NetworkUnavailable')
-        throw new NetworkUnavailable(parsed.errorMessage);
-      throw new Error(parsed.errorMessage ?? 'step failed in sandbox');
+        throw withEvidence(new NetworkUnavailable(parsed.errorMessage));
+      throw withEvidence(new Error(parsed.errorMessage ?? 'step failed in sandbox'));
     }
     const { output, decision, confidence, modelVersion } = parsed.result;
     const result: StepResult = { output, decision, confidence, modelVersion };
@@ -726,12 +874,14 @@ export function createOpenShellRegistry(
   mkdirSync(ref.workRoot, { recursive: true, mode: 0o700 });
   const run = ref.runner ?? spawnRunner;
   let bundle: Promise<string> | undefined;
+  const control = ref.listingControl ?? { verified: false };
+  const promoted = new Map<string, string>();
   const registry: Record<string, StepHandler> = {};
   for (const step of steps) {
     const handler: StepHandler = (ctx) => {
       bundle ??= buildBundle(ref, run);
       // Policy follows the step actually being run (steps may share a handler).
-      return runInSandbox(ref, bundle, step.handler, ctx.step, ctx);
+      return runInSandbox(ref, bundle, step.handler, ctx.step, ctx, control, promoted);
     };
     handler.hardStop = true;
     registry[step.handler] = handler;
@@ -765,6 +915,7 @@ export function openShellStopTestAgent(
     | 'pollIntervalMs'
     | 'deleteConfirmTimeoutMs'
     | 'limits'
+    | 'listingControl'
   >,
   tickMs: number,
 ): StopTestAgent {
@@ -773,6 +924,7 @@ export function openShellStopTestAgent(
   const cli = ref.cli ?? 'openshell';
   const node = ref.nodeBinary ?? '/usr/local/bin/node';
   const name = shortName('at');
+  const control = ref.listingControl ?? { verified: false };
   let killLocal: (() => void) | undefined;
   let createCall: Promise<CommandResult> | undefined;
   let result: Promise<{ confirmed: boolean; ms: number }> | undefined;
@@ -815,6 +967,18 @@ export function openShellStopTestAgent(
       const cr = await createCall;
       if (cr.code !== 0)
         throw new Error(`stop-test sandbox create failed: ${cr.stderr.slice(0, 300)}`);
+      const seen = await verifyListed(
+        run,
+        cli,
+        name,
+        ref.deleteConfirmTimeoutMs ?? 30_000,
+        ref.pollIntervalMs ?? 200,
+        control,
+      );
+      if (!seen)
+        throw new Error(
+          `gateway listing never showed stop-test sandbox ${name}; its stop could not be proven`,
+        );
       let buf = '';
       void run(
         cli,
@@ -852,6 +1016,7 @@ export function openShellStopTestAgent(
             killLocal: () => killLocal?.(),
             deadlineMs: ref.deleteConfirmTimeoutMs ?? 30_000,
             pollMs: ref.pollIntervalMs ?? 200,
+            control,
           }).then(({ confirmed, ms }) => ({ confirmed, ms }))
         : Promise.resolve({ confirmed: true, ms: 0 });
       return result;
