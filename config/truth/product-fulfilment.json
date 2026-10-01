@@ -1,6 +1,6 @@
 {
   "summary": {
-    "catalogVersion": "1.33",
+    "catalogVersion": "1.34",
     "totalProducts": 138,
     "unmapped": 0,
     "byPaymentRoute": {
@@ -812,7 +812,7 @@
     },
     {
       "id": "DWS-AEGIS-001",
-      "name": "DWS IQ Aegis",
+      "name": "DWS IQ 7 Aegis",
       "chapter": "Chapter 4",
       "capabilityFamily": "Aegis and KYA",
       "owner": "Lifetime Oy",
@@ -863,7 +863,7 @@
     },
     {
       "id": "DWS-AEGIS-PILOT-001",
-      "name": "DWS IQ Aegis Pilot (3 months)",
+      "name": "DWS IQ 7 Aegis Pilot (3 months)",
       "chapter": "Chapter 4",
       "capabilityFamily": "Aegis and KYA",
       "owner": "Lifetime Oy",

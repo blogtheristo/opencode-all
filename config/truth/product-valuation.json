@@ -1,6 +1,6 @@
 {
   "asOf": "2026-09-25",
-  "catalogVersion": "1.33",
+  "catalogVersion": "1.34",
   "products": {
     "offers": 146,
     "tamEurPerYear": 2526919200,
@@ -83,7 +83,7 @@
   "repo": {
     "codeKsloc": 277,
     "cocomoPersonMonths": 880,
-    "rebuildTraditionalEur": 7036255.860514173,
+    "rebuildTraditionalEur": 7036255.860514172,
     "rebuildAiLowEur": 1407251.1721028346,
     "rebuildAiHighEur": 2345418.620171391,
     "rdLedgerEur": 778081,
@@ -143,7 +143,7 @@
     },
     {
       "id": "DWS-AEGIS-001",
-      "name": "DWS IQ Aegis",
+      "name": "DWS IQ 7 Aegis",
       "published": true,
       "family": "aegis",
       "segment": "EU_REGULATED",
@@ -245,7 +245,7 @@
     },
     {
       "id": "DWS-AEGIS-PILOT-001",
-      "name": "DWS IQ Aegis Pilot (3 months)",
+      "name": "DWS IQ 7 Aegis Pilot (3 months)",
       "published": true,
       "family": "aegis",
       "segment": "EU_REGULATED",

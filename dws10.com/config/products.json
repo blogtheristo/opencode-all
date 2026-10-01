@@ -4543,13 +4543,13 @@
       "id": "DWS-AEGIS-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-2026",
-      "name": "DWS IQ Aegis",
+      "name": "DWS IQ 7 Aegis",
       "caption": "Licence for a single-tenant sovereign AI platform on Finnish infrastructure, with an air-gapped tier.",
       "captionFi": "Lisenssi: yhden asiakkaan suvereeni teko\u00e4lyalusta suomalaisella infrastruktuurilla, my\u00f6s ilmaeristetty (air-gapped) taso.",
       "price": 59990,
       "currency": "EUR",
       "type": "one-time",
-      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Designed to reduce CLOUD Act exposure. Available September 2026.",
+      "description": "Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Designed to reduce CLOUD Act exposure. Release candidate in 2026; general availability Q1 2027, after the first pilot acceptance record. Start with the pilot DWS-AEGIS-PILOT-001.",
       "features": [
         "Cross-vertical intelligence \u2014 detect supply chain cascades across 21 industries",
         "EU-sovereign \u2014 Finnish-owned infrastructure, designed to reduce CLOUD Act exposure",
@@ -4620,7 +4620,7 @@
       "id": "DWS-AEGIS-PILOT-001",
       "gtin": null,
       "mpn": "DWS-AEGIS-PILOT-2026",
-      "name": "DWS IQ Aegis Pilot (3 months)",
+      "name": "DWS IQ 7 Aegis Pilot (3 months)",
       "caption": "Three-month pilot of one Aegis workflow on your own hardware; fee credited to the licence.",
       "captionFi": "Kolmen kuukauden pilotti yhdest\u00e4 Aegis-ty\u00f6nkulusta omalla laitteistollanne; maksu hyvitet\u00e4\u00e4n lisenssin hinnasta.",
       "price": 19990,
@@ -4633,11 +4633,14 @@
         "Runs on existing customer hardware or a compact edge appliance; no DGX procurement required",
         "Proves the five control-room requirements: local execution and evidence, local identity/logs/kill authority, no network dependency for the core outcome, cloud optional, specified graceful degradation",
         "Binary acceptance KPI \u2014 uplink severed: workflow completes, Article 12 record still written locally, operator can still stop an agent. All three, or the pilot reports a negative result",
+        "Reported numbers: decision-path coverage and operator time per decision; energy \u20ac recorded as an outcome, never promised",
+        "Operator approval of each recommendation is a signed decision event in the local ledger",
+        "Agent steps sandboxed with NVIDIA OpenShell (verified 28.09.2026); the fee buys the tested, signed acceptance record",
         "Deployment-mode recommendation (Local/Edge, Hybrid or EU-Sovereign Cloud) with production hardware sizing",
         "Credited in full against the Aegis licence within 6 months; credit capped at \u20ac19,990 and excludes LWM integration, hardware, multi-site rollout and custom integrations",
         "Indicative nearest SEAL-3 (Digital Resilience) \u2014 not a Commission certificate"
       ],
-      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis licence if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.",
+      "priceNote": "\u20ac19,990 fixed, 3 months. Credited in full against the \u20ac59,990 Aegis licence if you proceed within 6 months (net cost to production unchanged at \u20ac59,990). INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window \u2014 (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at \u20ac19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months. REPORTED NUMBERS: decision-path coverage (primary) and operator time per decision (secondary). Energy savings in \u20ac are recorded as the outcome of each approved recommendation, never promised. The first workflow comes from the customer, not from a catalogue. Agent steps run in the NVIDIA OpenShell sandbox (open source, included); the fee buys the tested acceptance result and its signed record.",
       "revolutLink": null,
       "paypalPlanId": null,
       "image": "/static/images/products/DWS-AEGIS-PILOT-001.png",
@@ -4817,7 +4820,7 @@
       "currency": "EUR",
       "type": "subscription",
       "billingPeriod": "monthly",
-      "description": "Maintenance subscription for a DWS IQ Aegis licence (DWS-AEGIS-001), one per licensed deployment. Tier follows the licensed Aegis tier: Standard, Defence (GPU + SAR) or Sovereign (air-gapped). Same structure as the ontology product: pilot, licence, implementation, maintenance. Available September 2026.",
+      "description": "Maintenance subscription for a DWS IQ Aegis licence (DWS-AEGIS-001), one per licensed deployment. Tier follows the licensed Aegis tier: Standard, Defence (GPU + SAR) or Sovereign (air-gapped). Same structure as the ontology product: pilot, licence, implementation, maintenance. Available with the licence at general availability, Q1 2027.",
       "features": [
         "Required with every Aegis licence; tier follows the licensed tier",
         "Platform updates and security patches on the single-tenant deployment",
@@ -10127,7 +10130,7 @@
         "Quick setup and publishing",
         "cari.fi-inspired templates"
       ],
-      "priceNote": "One-time setup",
+      "priceNote": "One-time setup. A5 campaign price valid 28 Sep\u201331 Dec 2026.",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price \u20ac1,084 (VAT 0 %)",
       "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 1\u00a0084 \u20ac (ALV 0 %)",
       "tags": ["SME"],
@@ -10178,7 +10181,7 @@
         "Mobile-optimized storefront",
         "Basic inventory management"
       ],
-      "priceNote": "One-time setup",
+      "priceNote": "One-time setup. A5 campaign price valid 28 Sep\u201331 Dec 2026.",
       "caption": "A5 campaign price: \u221240 % vs. suggested retail price \u20ac584 (VAT 0 %)",
       "captionFi": "A5-kampanjahinta: \u221240 % ohjev\u00e4hitt\u00e4ishinnasta 584 \u20ac (ALV 0 %)",
       "tags": ["SME"],
@@ -10229,7 +10232,7 @@
         "Information security",
         "Training"
       ],
-      "priceNote": "10 h \u00d7 \u20ac75/h, VAT 0 %",
+      "priceNote": "10 h \u00d7 \u20ac75/h, VAT 0 %. A5 campaign price valid 28 Sep\u201331 Dec 2026.",
       "caption": "Hour bank: computer renewal, software updates, business applications, information security, training",
       "captionFi": "Tuntipankki: tietokoneiden uusiminen, ohjelmistojen p\u00e4ivitykset, yrityssovellukset, tietoturva, koulutus",
       "tags": ["SME", "Installation"],
@@ -10307,14 +10310,14 @@
       "channel": "online"
     }
   },
-  "lastUpdated": "2026-09-25T00:00:00Z",
-  "priceVersion": "1.33",
+  "lastUpdated": "2026-09-30T00:00:00Z",
+  "priceVersion": "1.34",
   "priceList": {
-    "version": "1.33",
-    "effectiveDate": "2026-09-25",
+    "version": "1.34",
+    "effectiveDate": "2026-09-30",
     "nextReviewDate": "2026-11-15",
     "stampQuarter": "2026.Q3",
-    "stampDate": "2026-09-25",
+    "stampDate": "2026-09-30",
     "validUntil": "2026-11-15",
     "policy": {
       "currency": "EUR",
@@ -10333,8 +10336,8 @@
     }
   },
   "commercialPortfolio": {
-    "version": "1.33",
-    "effectiveDate": "2026-09-25",
+    "version": "1.34",
+    "effectiveDate": "2026-09-30",
     "nextReviewDate": "2026-11-15",
     "definitions": {
       "serious": {
@@ -10427,6 +10430,19 @@
     }
   },
   "priceHistory": [
+    {
+      "version": "1.34",
+      "date": "2026-09-30",
+      "author": "claude/focused-lamport-r06g72",
+      "changes": [
+        "DWS-AEGIS-PILOT-001 renamed DWS IQ 7 Aegis Pilot (HIC 28.09.2026 product naming, AEGIS_ROADMAP.md 1.1). Price unchanged (\u20ac19,990).",
+        "DWS-AEGIS-PILOT-001 reported numbers (HIC decision D7, 28.09.2026): decision-path coverage (primary) and operator time per decision (secondary); energy \u20ac recorded as an outcome, never promised; the first workflow comes from the customer. Operator approval is a signed decision event (C5, merged 29.09.2026). Agent steps sandboxed with NVIDIA OpenShell, verified 28.09.2026; the fee buys the tested, signed acceptance record.",
+        "DWS-AEGIS-001 renamed DWS IQ 7 Aegis. Availability corrected from September 2026 to: release candidate 2026, general availability Q1 2027 after the first pilot acceptance record (HIC 28.09.2026, docs/plans/2026_PROOF_YEAR_CRITERIA.md 1.2). Same correction on DWS-AEGIS-SUB-001. Prices unchanged.",
+        "SME campaign (Web Starter, Webstore Mini, IT-support hour bank): A5 campaign end date 31.12.2026 in the price note (HIC 29.09.2026, docs/sales/google-business-profile-lifetime-oy.md). Prices unchanged.",
+        "DWS-IQ-006 description and two features rewritten for the signed-work positioning (HIC Q1/Q2, PR #2305, merged to main 30.09.2026 without a version bump; recorded here). Price, currency and type unchanged.",
+        "No products added, removed or repriced: 138 records, 72 public, 81 on the list. Effective 2026-09-30; next review and validUntil stay 2026-11-15."
+      ]
+    },
     {
       "version": "1.33",
       "date": "2026-09-25",
