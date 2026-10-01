@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.7, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.8, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -188,7 +188,7 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 
 **Pilotin päättyessä.** Hyvitysaika on kuusi kuukautta loppuraportin luovutuspäivästä. Raportti käydään läpi asiakkaan kanssa viimeistään 14 päivän kuluessa luovutuksesta; läpikäynnin ajankohta ei siirrä hyvitysajan alkua. Jatko tuotantoon hyvitysaikana: 19 990 euroa hyvitetään 59 990 euron Aegis-käyttöönotosta, ja käyttölisenssi jatkuu Aegis-lisenssin ja ylläpitotilauksen osana.
 
-**Tarkistettavuus ilman Lifetime Oy:tä.** Pilotin lopussa asiakas saa todistepaketin: lokin, päätöstapahtumat ja pysäytykset operaattorin allekirjoituksineen, hyväksymistestin tuloksen, sinettien tarkistussummat, allekirjoitetun sisällysluettelon sekä kaikki tarkistukseen tarvittavat julkiset avaimet (laitos ja operaattorit roolitietoineen). Lisäksi asiakas saa lokiformaatin jäädytetyn kuvauksen ja testivektorit: pienen esimerkkilokin, jonka tiivisteet ja allekirjoitukset tunnetaan. Niiden avulla kuka tahansa voi toteuttaa tarkistuksen uudelleen millä tahansa ohjelmointikielellä ja todeta sen oikeaksi vuosienkin päästä, ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset).
+**Tarkistettavuus ilman Lifetime Oy:tä.** Kun pilotti päättyy, asiakas saa todistepaketin: lokin, päätöstapahtumat ja pysäytykset operaattorin allekirjoituksineen, hyväksymistestin tuloksen, sinettien tarkistussummat, allekirjoitetun sisällysluettelon sekä kaikki tarkistukseen tarvittavat julkiset avaimet (laitos ja operaattorit roolitietoineen). Paketti sisältää myös lokiformaatin jäädytetyn kuvauksen ja testivektorit: pienen esimerkkilokin, jonka tiivisteet ja allekirjoitukset tunnetaan. Niiden avulla kuka tahansa voi toteuttaa tarkistuksen uudelleen millä tahansa ohjelmointikielellä ja todeta sen oikeaksi vuosienkin päästä, ilman Lifetime Oy:tä ja ilman Aegis-lisenssiä. Formaatti käyttää vain avoimia menetelmiä (JSON-rivit, SHA-256-ketju, Ed25519-allekirjoitukset). Formaattikuvaus ja testivektorit luovutetaan jo vaiheessa 0 arkkitehtuuri- ja tietoturvahyväksynnän aineistona, joten asiakas voi tarkistaa lokia koko pilotin ajan eikä vasta lopussa.
 
 **Kenelle.** Ostaja on se, jolla on päätösvalta pilotoitavaan työnkulkuun ja joka joutuu vastaamaan siihen, miten päätökseen päädyttiin. Titteli riippuu organisaatiosta ja tehtävien jaosta. CIO ja CISO hyväksyvät arkkitehtuurin, ja pilotin on annettava heille uskottava arkkitehtuuri, mutta he eivät välttämättä ole ostaja.
 
@@ -216,3 +216,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.5, 01.10.2026: Boardy: hyvitysikkunan alkupäivä määritelty (loppuraportin luovutus ja läpikäynti, vaihe 4, kuten EN "credit terms run from here"); otsikko "Päivä 91" → "Pilotin päättyessä".
 - v2.0.6, 01.10.2026: Boardy (auditoitu, pitää): avaimet ja jäädytetty formaatti + testivektorit lähdekoodikopion sijaan. **Ehto ennen ensimmäistä asiakastoimitusta:** opencode-tehtävä `.claude/done/opencode/aegis-evidence-ten-year-verify.json` (operaattorin allekirjoitus lokiin, formaattikuvaus, testivektorit, Python-tarkistin); tänään operaattorin allekirjoitus ei ole lokissa eikä paketissa.
 - v2.0.7, 01.10.2026: Boardy: hyvitysaika alkaa loppuraportin luovutuspäivästä (päivätty), läpikäynti viimeistään 14 päivän kuluessa; Aegis-käyttöönoton hinta 59 990 € ja jäävä 40 000 € samaan kappaleeseen; hyvitys pätee myös, jos testi ei mennyt läpi (kuten EN: ei ehtoa). EN-teksti linjattu. 14 päivää ja tulosriippumattomuus odottavat HIC-vahvistusta.
+- v2.0.8, 01.10.2026: Boardyn muotoilu tarkistettu koodia vasten (6/8 osaa toimii tänään; operaattorin allekirjoitus ja formaattikuvaus + testivektorit odottavat opencode-tehtävää `aegis-evidence-ten-year-verify`). Lisätty: formaattikuvaus ja testivektorit luovutetaan jo vaiheessa 0.
