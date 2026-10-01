@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v1.10, 01.10.2026. Versiohistoria osion lopussa._
+_Teksti v1.11, 01.10.2026. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -169,6 +169,18 @@ Kyseessä on Aegis-tuotteen käyttöönotto pilottitoimituksena. Sopimus jakautu
 - hyväksynnät: arkkitehtuuri (CIO) ja tietoturva (CISO) asiakkaan toimesta; nimetty projektinjohtaja, operaattori ja työnkulun omistaja.
 
 Hyväksymistestaus syntyy näiden katselmoinnissa ja on asiakkaan ja Lifetime Oy:n yhteinen.
+
+**Omistus, kahdessa osassa, jotta siitä ei riidellä myöhemmin.**
+
+- **Lifetime Oy:n:** Lifetime World Model v2 ja sen asiakaskohtainen konfiguraatio, skilled agents -parvi, ajoympäristö ja hallintakerros. Asiakas saa näihin käyttölisenssin; tekijänoikeus ei siirry.
+- **Asiakkaan:** asiakkaan oma data, Art. 12 -loki ja allekirjoitetut päätöstapahtumat, sensorisyötteet ja niiden rajat, hyväksymistestin raportti, arkkitehtuurikuvaus, mittaukset ja laitteisto.
+- **Mallin päivitys:** Lifetime Oy päivittää LWM v2:n ja asiakaskohtaisen konfiguraation uuteen versioon. Pilotin aikana se kuuluu pilottiin. Tuotannossa se kuuluu Aegis-ylläpitotilaukseen (`DWS-AEGIS-SUB-001`: Standard, Defence tai Sovereign), joka vaaditaan jokaisen Aegis-lisenssin kanssa. Päivitys asennetaan asiakkaan hyväksynnällä, ja edellinen versio säilyy palautettavana.
+
+**Päivä 91.** Pilotin päättyessä asiakkaalla on kolme vaihtoehtoa:
+
+1. **Jatko tuotantoon** kuuden kuukauden kuluessa: 19 990 € hyvitetään Aegis-käyttöönotosta, käyttölisenssi konfiguroituun malliin jatkuu Aegis-lisenssin ja ylläpitotilauksen (`DWS-AEGIS-SUB-001`) osana.
+2. **Ei jatkoa:** asiakas pitää oman datansa, lokinsa, raportin, arkkitehtuurikuvauksen, mittaukset ja laitteiston. Käyttölisenssi konfiguroituun malliin päättyy, eikä mitään ole velkaa.
+3. **Harkinta-aika:** käyttölisenssi konfiguroituun malliin pilottilaitteistolla kuuden kuukauden hyvitysajan loppuun ylläpitotilauksen Standard-hinnalla (`DWS-AEGIS-SUB-001`), ilman uutta käyttöönottoa. Tilaus päättyy ilmoituksella; jatko tuotantoon lukee hyvityksen.
 
 Tuotannolliset syötteet ja niiden rajat määritetään toimialan, standardien ja asiakkaan omien laatuvaatimusten mukaisina.
 
@@ -199,3 +211,4 @@ Kaksi lukua, jotka pilotti tuottaa: päätöspolun kattavuus (kuinka moni agenti
 - v1.8, 01.10.2026: sopimus jaettu toistuvaan osaan (ajoympäristö, hallinto, hyväksymistesti, vaiheen 0 menetelmä, laitteisto) ja asiakaskohtaiseen osaan (työnkulku, sensorit, integraatiot, koulutus, hyväksynnät). Pilotti = Aegis-tuotteen käyttöönotto pilottitoimituksena.
 - v1.9, 01.10.2026: Boardy: laitetoimitus jälleenmyyjänä valmistajan takuulla; ei omaa NVIDIA-huoltosopimusta; asennus hinnaston palvelurivinä, sitepreparaatio asiakkaalla; laitevalinta vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä.
 - v1.10, 01.10.2026: koulutuksen toteutuskustannus Lifetime Oy:llä; LWM v2 Lifetime Oy:n tekijänoikeudella suojattu tuote, pilotissa maksuton, tekijänoikeus ei siirry.
+- v1.11, 01.10.2026: Boardy: omistus kahdessa osassa (Lifetime Oy: LWM v2 + konfiguraatio, käyttölisenssi; asiakas: data, loki, syötteet, raportti, laitteisto); mallin päivitys Lifetime Oy:llä, tuotannossa ylläpitotilauksessa; päivä 91 kolme vaihtoehtoa. Vaihtoehto 3 (harkinta-aika Standard-hinnalla) on ehdotus, odottaa HIC:tä.
