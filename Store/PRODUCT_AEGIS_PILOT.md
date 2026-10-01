@@ -140,11 +140,11 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v1.8, 01.10.2026. Versiohistoria osion lopussa._
+_Teksti v1.9, 01.10.2026. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
-Aegis on ajoympäristö, jossa työnkulun vaatimat tekoälyagentit tekevät tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa: työ tehdään tuotantohuoneessa (control room) ja sitä valvotaan tilannehuoneessa (situation room), toimittamallamme dedikoidulla laitteistolla. Laitteisto on hinnastomme NVIDIA GB10 Grace Blackwell -luokkaa: yksi solmu (Control Room, Acer Veriton GN100, `edge-node-gn100`, tai NVIDIA DGX Spark, `LF-DGX-SPARK`) tai kaksi yhdistettyä solmua (Situation Room, `LF-SITROOM-001`), sekä Jetson-sensorisolmut ja iPCMax-yhdyskäytävät syötteille. Pilotti toimitetaan meidän laitteillamme tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla; muuta laitteistoa ei käytetä. Pilotti on kokonaistoimitus yhdellä tilauksella: pilotin kiinteä hinta ja laitteisto hinnaston riveinä (laite, asennus `LF-NVIDIA-INSTALL`). Laitteisto ei sisälly 19 990 euron hyvitykseen. Laitekaavio: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
+Aegis on ajoympäristö, jossa työnkulun vaatimat tekoälyagentit tekevät tiukasti johdettua ja valvottua työtä asiakkaan omissa tuotantotiloissa: työ tehdään tuotantohuoneessa (control room) ja sitä valvotaan tilannehuoneessa (situation room), toimittamallamme dedikoidulla laitteistolla. Laitteisto on hinnastomme NVIDIA GB10 Grace Blackwell -luokkaa: yksi solmu (Control Room, Acer Veriton GN100, `edge-node-gn100`, tai NVIDIA DGX Spark, `LF-DGX-SPARK`) tai kaksi yhdistettyä solmua (Situation Room, `LF-SITROOM-001`), sekä Jetson-sensorisolmut ja iPCMax-yhdyskäytävät syötteille. Pilotti toimitetaan hinnastomme GB10-luokan solmulla tai asiakkaan 100 % NVIDIA DGX -yhteensopivalla laitteistolla; laitevalinta vahvistetaan vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä. Pilotti on kokonaistoimitus yhdellä tilauksella: pilotin kiinteä hinta ja laitteisto hinnaston riveinä (laite, asennus `LF-NVIDIA-INSTALL`). Laitteisto ei sisälly 19 990 euron hyvitykseen. Laitekaavio: `docs/sales/AEGIS_PILOT_LAITEKAAVIO_FI.md`. Agentit toimivat asiakkaan määrittelemien syötteiden (sensorit, integraatiot) ja tulostavoitteiden (ohjaussuositukset, raportointitiedot) pohjalta, ja niiden tehtävä on asiakkaan määrittelemien tuotantoprosessien tavoitteiden saavuttaminen ja ylläpitäminen. Agentti suosittelee, operaattori päättää, eikä yksikään komento mene suoraan tuotantolaitteisiin. Jokaisesta vaiheesta jää allekirjoitettu jälki.
 
 Tuotantohuoneessa verkkokatko on tuotantotapahtuma, ei haitta. Siksi Aegiksen vaatimus on, että työ, loki ja pysäytys toimivat ilman verkkoa, ja siksi se testataan yhteys katkaistuna eikä esitetä tarjouksessa.
 
@@ -157,8 +157,8 @@ Kyseessä on Aegis-tuotteen käyttöönotto pilottitoimituksena. Sopimus jakautu
 - ajoympäristö: skilled agents -parvi, Lifetime World Model v2, paikallinen mallipalvelu, KYA-identiteetti;
 - hallinto: Art. 12 -loki, allekirjoitetut päätöstapahtumat, operaattorin pysäytysvalta, päätöspolun kattavuus ja operaattorin aika per päätös;
 - hyväksymistesti: kolme ehtoa, asiakas ajaa, eristysmenetelmän portaikko, raportti;
-- vaiheen 0 menetelmä: aloituskatselmointi, kriittisyysluokitus, roolien nimeäminen, allekirjoitettu rajaus;
-- laitteisto hinnastosta: NVIDIA GB10 -solmut ja niihin liitetyt laitteet, toimitus, asennus ja käyttöönotto (Lifetime Oy).
+- vaiheen 0 menetelmä: aloituskatselmointi, kriittisyysluokitus, roolien nimeäminen, laitekatselmointi (solmun saatavuus, takuukanava, avainten säilytys, laitteen eheysominaisuudet kirjataan todettuina tai puuttuvina), allekirjoitettu rajaus;
+- laitteisto hinnaston ehdoilla: GB10-luokan solmu ja siihen liitetyt laitteet toimitetaan jälleenmyyjänä valmistajan (Acer, NVIDIA) takuulla ja varaosaehdoilla; Lifetime Oy ei ole laitevalmistaja eikä sillä ole omaa NVIDIA-huoltosopimusta. Asennus ja käyttöönotto ovat hinnaston palvelurivi (`LF-NVIDIA-INSTALL`); sähkö, jäähdytys, kaapelointi ja telinepaikka ovat asiakkaan valmistelua.
 
 **Asiakaskohtainen osa (tehdään kerran per asiakas):**
 
@@ -197,3 +197,4 @@ Kaksi lukua, jotka pilotti tuottaa: päätöspolun kattavuus (kuinka moni agenti
 - v1.6, 01.10.2026: vastuut jaettu asiakas / Lifetime Oy / yhdessä; versiointi lisätty.
 - v1.7, 01.10.2026: suvereeniteettiluokka (§3.6, toimivalta ja omistusketju) erotettu hyväksymistestistä, joka mittaa pysäytysvaltaa, offline-jatkuvuutta ja lokin eheyttä.
 - v1.8, 01.10.2026: sopimus jaettu toistuvaan osaan (ajoympäristö, hallinto, hyväksymistesti, vaiheen 0 menetelmä, laitteisto) ja asiakaskohtaiseen osaan (työnkulku, sensorit, integraatiot, koulutus, hyväksynnät). Pilotti = Aegis-tuotteen käyttöönotto pilottitoimituksena.
+- v1.9, 01.10.2026: Boardy: laitetoimitus jälleenmyyjänä valmistajan takuulla; ei omaa NVIDIA-huoltosopimusta; asennus hinnaston palvelurivinä, sitepreparaatio asiakkaalla; laitevalinta vaiheen 0 laitekatselmoinnissa, ei sopimustekstissä.

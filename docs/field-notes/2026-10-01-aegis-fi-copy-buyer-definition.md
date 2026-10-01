@@ -102,3 +102,13 @@ HIC 01.10.2026: LWM v2 -koulutus asiakasympäristöön kuuluu pilottiin, koska s
 HIC 01.10.2026: "ennakkotilaus" poistetaan, kun tuote alkaa olla valmis. FI-teksteissä (Store-osio, ensikontakti) sanaa ei enää ole. `availability: preorder` -kentät (`Store/PRODUCT_AEGIS*.md`, `products.json`) ja EN "Product status: preorder" (`Store/PRODUCT_AEGIS.md:27`) jäävät, kunnes HIC ilmoittaa GA:n; silloin ne vaihdetaan samassa commitissa Truth-säännön mukaan.
 
 HIC 01.10.2026: toimitusvaiheen vastuut jaettu (asiakas: CIO/CISO-hyväksynnät, projektinjohtaja; Lifetime: agenttien, LWM v2:n ja käyttöhenkilöstön koulutus, sensoriliitynnät, DGX-laitteiston toimitus/asennus/käyttöönotto). HIC käytti sanaa "skilled agents -parvi" Boardyn huomautuksen jälkeen; tulkittu HIC:n päätökseksi, "parvi" palautettu tähän kohtaan.
+
+## Boardy 01.10.2026: DGX-rivi kantaa riskin
+
+Kolme väitettä tarkistettu:
+
+1. **Ei NVIDIA-sopimusta.** Pitää. Repossa on vain NVIDIA Inception -jäsenyys (`docs/HIL_Risto.md:79`). Laite-SKU:t myydään jälleenmyyjämarginaalilla Acer/NVIDIA EU-kanavan päältä (`products.json` priceHistory), ja jokaisen SKU:n `exclusions` rajaa jo "extended warranty or on-site support beyond the standard manufacturer term" ulos. FI-teksti sanoo nyt saman ääneen.
+2. **Fyysinen asennustyö.** Pitää. `LF-NVIDIA-INSTALL` on jo oma palvelurivi; `exclusions`: "Site preparation (power, network, rack space) not supplied by the buyer". Kirjattu asiakkaan valmisteluksi.
+3. **TPM 2.0 / mitattu käynnistysketju.** Väite ei vastaa nykyistä toteutusta: pysäytyksen allekirjoitus nojaa Ed25519-avaimiin, operaattorin avain laitteen ulkopuolella, site-avain tiedostossa `state/site/site.key` (0600, `src/aegis/pilot/doctor.ts:51`). TPM:ää ei käytetä, joten vaiheen 0 portti ei kaadu DGX:n TPM-tukeen. Todellinen aukko on toinen: site-avain on ohjelmistoavain, ei laitteeseen sidottu. DGX Spark / GN100 TPM 2.0 -tuki on edelleen varmistamatta (ei lähdettä repossa). Vaiheen 0 laitekatselmointi kirjaa eheysominaisuudet todettuina tai puuttuvina, ei hyväksymisehtona.
+
+Tekstimuutos: DGX-tuotenimi pois sopimusrivistä ("GB10-luokan solmu"), laitevalinta vaiheen 0 laitekatselmointiin. v1.9.
