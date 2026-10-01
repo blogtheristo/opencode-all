@@ -307,6 +307,8 @@ Source: `docs/sales/2026-09-28-aegis-pilot-market-research.md` (market research,
 
 **Negative decision evidence (★★☆☆☆, 2026-09-30, PhD §14.58, source: HIC exchange with Boardy):** founders' ontologies are almost always data-layer (semantic layer, knowledge graph, agent memory); the negative side of decisions (rejected, modified, deferred, abandoned recommendations with evidence strength) is almost never kept. Single qualitative source, no count. Product: Aegis Pilot decision events (`human.decide`, C5) and KYA-S1 PRV-4. Buyer: accountable operators (R11/R12) and oversight owners (R06/R15) who must show oversight was real. Next action: take up Boardy's offer to identify the few founders closest to decision-layer evidence (partner / competitor scan, not outbound), and use the rubber-stamp signal as a proof point in the Aegis Pilot conversation. No named account.
 
+**Beckhoff entertainment and attractions segment (★★☆☆☆, 2026-10-01, HIC-forwarded summary of Beckhoff's Entertainment Compendium 2026, PDF not yet read):** theme parks, kinetic installations, stage automation and simulators run 24/7 on TwinCAT/EtherCAT/TwinSAFE; Aegis fits as an operator-approved, read-only agent layer above the control system (same `DWS-AEGIS-PILOT-001`). No named account or trigger. Next action: read the PDF, verify the claims in `docs/partnerships/beckhoff-partner-note.md`, then name two attraction operators and re-score. Not a reason to add digital-twin or predictive-maintenance SKUs.
+
 ## ★☆☆☆☆ — PhD-Only (No Sales Routing)
 
 14.18, 14.24, 14.27, 14.30, 14.33, 14.37, 14.39, 14.41, 14.42, 14.50, 14.51 — pure scientific/standards/historical framing, no product tie. `Sales Score: N/A — thematic/research only, no buyer or budget line identified.`
