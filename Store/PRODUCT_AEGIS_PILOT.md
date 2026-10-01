@@ -140,7 +140,7 @@ Manufacturing control rooms, dual-use facilities and other critical sites where 
 
 ## Suomeksi
 
-_Teksti v2.0.9, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
+_Teksti v2.0.10, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`. Versiohistoria osion lopussa._
 
 **DWS IQ Aegis -pilotti: yksi pullonkaula ratkaistuna yhdessä tuotantohuoneessa, valvonta tilannehuoneessa**
 
@@ -160,7 +160,7 @@ _Teksti v2.0.9, 01.10.2026. Aiemmat versiot: `docs/sales/aegis-pilot-versions/`.
 **Vastuut.**
 
 - **Asiakas:** arkkitehtuurin hyväksyntä (CIO) ja tietoturvan hyväksyntä (CISO); nimetyt roolit; sähkö, jäähdytys, kaapelointi ja telinepaikka; verkon eristys asiakkaan omalla kytkimellä tai palomuurilla, tai Lifetime Oy:n toimittamalla teollisuuskytkimellä ja palomuurilla, jotka laskutetaan laiteriveinä. Hyväksymistestin aikana eristystä hallinnoi aina asiakas, ei Lifetime Oy eikä Aegis.
-- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa.
+- **Lifetime Oy:** laitekokoonpanon (alla) toimitus, asennus ja käyttöönotto jälleenmyyjänä valmistajan takuu- ja varaosaehdoilla (Lifetime Oy ei ole laitevalmistaja eikä sillä ole valmistajan huoltosopimusta); sensoriliityntöjen rakentaminen ja yhdistäminen; agenttien ja LWM v2:n sovitus asiakasympäristöön; käyttöhenkilöstön koulutus. Koulutuksen toteutuskustannuksen Lifetime Oy kantaa pilotissa. Pilotin aikana tukipyyntöihin vastataan 48 tunnin kuluessa.
 - **Yhdessä:** katselmoinneissa syntyvä hyväksymistestaus.
 
 **Laitekokoonpano.** Valitaan vaiheen 0 laitekatselmoinnissa ja laskutetaan hinnaston riveinä:
@@ -218,3 +218,4 @@ Kaikkien kolmen on mentävä läpi. Hylätty testi on käyttökelpoinen tulos, j
 - v2.0.7, 01.10.2026: Boardy: hyvitysaika alkaa loppuraportin luovutuspäivästä (päivätty), läpikäynti viimeistään 14 päivän kuluessa; Aegis-käyttöönoton hinta 59 990 € ja jäävä 40 000 € samaan kappaleeseen; hyvitys pätee myös, jos testi ei mennyt läpi (kuten EN: ei ehtoa). EN-teksti linjattu. 14 päivää ja tulosriippumattomuus odottavat HIC-vahvistusta.
 - v2.0.8, 01.10.2026: Boardyn muotoilu tarkistettu koodia vasten (6/8 osaa toimii tänään; operaattorin allekirjoitus ja formaattikuvaus + testivektorit odottavat opencode-tehtävää `aegis-evidence-ten-year-verify`). Lisätty: formaattikuvaus ja testivektorit luovutetaan jo vaiheessa 0.
 - v2.0.9, 01.10.2026: Boardy: ylläpitotilauksen sisältö lisätty (lähteet: `products.json` DWS-AEGIS-SUB-001 features/exclusions, `Store/PRODUCT_AEGIS.md:187–189` tiers, HIC 01.10.2026 mallipäivitys ylläpidossa). Boardy hyväksyi v2.0.7:n 14 päivän takarajan ja tulosriippumattoman hyvityksen. Standard-tuen vasteaika puuttuu lähteistä.
+- v2.0.10, 01.10.2026: HIC: tuen vasteaika pilotin aikana 48 tuntia. Tuotannon Standard-tason vasteaika edelleen auki.
