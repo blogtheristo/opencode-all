@@ -1,0 +1,21 @@
+{
+  "task": "NemoClaw skill host: run each skill call in an OpenShell sandbox",
+  "prompt": "Today src/mcp/nemoclaw-skill-host.ts runs skills in-process; NemoClawSandbox (src/sandbox/nemoclaw-sandbox.ts) is only a tier/allowlist model. Add OS-level containment by reusing the Aegis Pilot OpenShell driver (src/aegis/pilot/openshell-handlers.ts: CommandRunner, OpenShellRef, ContainmentEvidence; policy via src/aegis/pilot/openshell-policy.ts). Add an optional 'containment' option to the skill host: 'openshell' | 'none' (default 'none' so existing callers keep working). With 'openshell', each skill call runs through the OpenShell driver with a policy derived from the NemoClawSandbox tier: 'restricted' and below get no network; 'quarantine' and 'suspended' never start a sandbox; an unavailable openshell binary fails closed (error result, never an unconfined run). Record containment evidence in the result. Write src/__tests__/nemoclaw-openshell-containment.test.ts with an injected fake CommandRunner (no real binary) covering: openshell mode invokes the runner with a no-network policy for a restricted tier; quarantine tier never invokes the runner; missing binary fails closed; 'none' mode unchanged. Keep the provenance header convention. Do not change the Aegis Pilot behaviour.",
+  "base": "main",
+  "order": 100,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "tests exist",
+      "run": "test -f src/__tests__/nemoclaw-openshell-containment.test.ts"
+    },
+    {
+      "name": "tests pass",
+      "run": "npx vitest run src/__tests__/nemoclaw-openshell-containment.test.ts"
+    },
+    {
+      "name": "wired",
+      "run": "grep -q openshell-handlers src/mcp/nemoclaw-skill-host.ts"
+    }
+  ]
+}

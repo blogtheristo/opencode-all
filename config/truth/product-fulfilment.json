@@ -1,0 +1,3589 @@
+{
+  "summary": {
+    "catalogVersion": "1.35",
+    "totalProducts": 138,
+    "unmapped": 0,
+    "byPaymentRoute": {
+      "self-serve-checkout": 8,
+      "self-serve-checkout-fallback": 130,
+      "contact-route": 0,
+      "product-page-quote": 0,
+      "undetermined": 0
+    },
+    "byCapacity": {
+      "exempt": 68,
+      "complete": 70,
+      "gap": 0
+    },
+    "byContractScope": {
+      "complete": 138,
+      "partial": 0,
+      "gap": 0
+    },
+    "byChapter": {
+      "Chapter 11": 9,
+      "Chapter 2": 17,
+      "Chapter 3": 12,
+      "Chapter 8": 17,
+      "Chapter 9": 9,
+      "Chapter 5": 9,
+      "Chapter 10": 12,
+      "Chapter 4": 5,
+      "Chapter 6": 12,
+      "Chapter 12": 9,
+      "Chapter 13": 9,
+      "Chapter 7": 15,
+      "Chapter 1": 3
+    },
+    "reconciles": true
+  },
+  "rows": [
+    {
+      "id": "AC365-T3",
+      "name": "Agentic Commerce 365 Skilled Agents",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=AC365-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "AC365-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-AC365-T3"
+    },
+    {
+      "id": "ai-agent-engineering",
+      "name": "AI & Agent Engineering — Outcome-Backed Hourly",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ai-agent-engineering backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "ai-agent-engineering acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ai-agent-engineering"
+    },
+    {
+      "id": "ai-consultant-day",
+      "name": "Captain Day — One-Day AI Outcome",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ai-consultant-day backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "ai-consultant-day acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ai-consultant-day"
+    },
+    {
+      "id": "ai-consulting-agentic",
+      "name": "Agentic Software Development for EU Teams",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ai-consulting-agentic backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "ai-consulting-agentic acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ai-consulting-agentic"
+    },
+    {
+      "id": "ai-koulutus-3d",
+      "name": "AI Koulutus 3 Days Programme",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ai-koulutus-3d backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "ai-koulutus-3d acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ai-koulutus-3d"
+    },
+    {
+      "id": "AIS-EU-SOV-OC",
+      "name": "EU-Sovereign AI Migration — Per Workload",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=AIS-EU-SOV-OC backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "AIS-EU-SOV-OC acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-AIS-EU-SOV-OC"
+    },
+    {
+      "id": "AIS-OUTCOME-PILOT",
+      "name": "Outcome-Priced Applied-AI Pilot (6 weeks)",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=AIS-OUTCOME-PILOT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "AIS-OUTCOME-PILOT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-AIS-OUTCOME-PILOT"
+    },
+    {
+      "id": "aws-consultancy",
+      "name": "EU-Sovereign AI Engineering & Cloud Consultancy",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=aws-consultancy backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "aws-consultancy acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-aws-consultancy"
+    },
+    {
+      "id": "business-mentor-30",
+      "name": "Claude Code AI Coaching — 30 Hours",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=business-mentor-30 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "business-mentor-30 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-business-mentor-30"
+    },
+    {
+      "id": "claude-code-coaching-3day",
+      "name": "Claude Code Coaching — Lecture + Workshop (3 Days)",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=claude-code-coaching-3day backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "claude-code-coaching-3day acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-claude-code-coaching-3day"
+    },
+    {
+      "id": "claude-code-coaching-lecture",
+      "name": "Claude Code Coaching — 1-Day Lecture",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=claude-code-coaching-lecture backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "claude-code-coaching-lecture acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-claude-code-coaching-lecture"
+    },
+    {
+      "id": "claude-code-coaching-project",
+      "name": "Claude Code Coaching — Client Project Work",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=claude-code-coaching-project backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "claude-code-coaching-project acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-claude-code-coaching-project"
+    },
+    {
+      "id": "claude-code-coaching-workshop",
+      "name": "Claude Code Coaching — 2-Day Workshop",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=claude-code-coaching-workshop backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "claude-code-coaching-workshop acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-claude-code-coaching-workshop"
+    },
+    {
+      "id": "CMP-OC-ENT",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Enterprise)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CMP-OC-ENT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "CMP-OC-ENT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CMP-OC-ENT"
+    },
+    {
+      "id": "CMP-OC-STD",
+      "name": "Outcome — CSRD/CBAM/AI Act gap (Standard)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CMP-OC-STD backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "CMP-OC-STD acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CMP-OC-STD"
+    },
+    {
+      "id": "CMP-T0",
+      "name": "Compliance Agent — Pilot (60 days)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CMP-T0 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CMP-T0 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CMP-T0"
+    },
+    {
+      "id": "CMP-T1",
+      "name": "Compliance Agent — Starter",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CMP-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CMP-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CMP-T1"
+    },
+    {
+      "id": "CMP-T2",
+      "name": "Compliance Agent — Pro",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CMP-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CMP-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CMP-T2"
+    },
+    {
+      "id": "CONSTR-T2",
+      "name": "Construction Agent — Pro (bundle)",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CONSTR-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CONSTR-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CONSTR-T2"
+    },
+    {
+      "id": "CONSTR-T3",
+      "name": "Construction Ops Pod",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CONSTR-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CONSTR-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CONSTR-T3"
+    },
+    {
+      "id": "consulting-fit55",
+      "name": "Consulting Fit for 55 Specialist",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=consulting-fit55 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "consulting-fit55 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-consulting-fit55"
+    },
+    {
+      "id": "consulting-hourly",
+      "name": "Senior Compliance Specialist — Retainer + Outcomes",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=consulting-hourly backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "consulting-hourly acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-consulting-hourly"
+    },
+    {
+      "id": "conversational-agent",
+      "name": "EU-Hosted Conversational Agent",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=conversational-agent backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "conversational-agent acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-conversational-agent"
+    },
+    {
+      "id": "CS-T1",
+      "name": "Competitor Surveillance — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CS-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CS-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CS-T1"
+    },
+    {
+      "id": "CS-T2",
+      "name": "Competitor Surveillance — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CS-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CS-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CS-T2"
+    },
+    {
+      "id": "CSAT-T1",
+      "name": "Customer Sat — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CSAT-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CSAT-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CSAT-T1"
+    },
+    {
+      "id": "CSAT-T2",
+      "name": "Customer Sat — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=CSAT-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "CSAT-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-CSAT-T2"
+    },
+    {
+      "id": "devops-lead",
+      "name": "Assessment",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=devops-lead backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "devops-lead acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-devops-lead"
+    },
+    {
+      "id": "DW-T1",
+      "name": "Deepwiki Extractor — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DW-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "DW-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DW-T1"
+    },
+    {
+      "id": "DW-T2",
+      "name": "Deepwiki Extractor — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DW-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "DW-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DW-T2"
+    },
+    {
+      "id": "DWS-AEGIS-001",
+      "name": "DWS IQ 7 Aegis",
+      "chapter": "Chapter 4",
+      "capabilityFamily": "Aegis and KYA",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-AEGIS-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.3",
+        "DWS-AEGIS-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-AEGIS-001"
+    },
+    {
+      "id": "DWS-AEGIS-IMPL-001",
+      "name": "DWS IQ Aegis Implementation Programme (3 phases)",
+      "chapter": "Chapter 4",
+      "capabilityFamily": "Aegis and KYA",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-AEGIS-IMPL-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS-AEGIS-IMPL-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-AEGIS-IMPL-001"
+    },
+    {
+      "id": "DWS-AEGIS-PILOT-001",
+      "name": "DWS IQ 7 Aegis Pilot (3 months)",
+      "chapter": "Chapter 4",
+      "capabilityFamily": "Aegis and KYA",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-AEGIS-PILOT-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS-AEGIS-PILOT-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-AEGIS-PILOT-001"
+    },
+    {
+      "id": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "chapter": "Chapter 4",
+      "capabilityFamily": "Aegis and KYA",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-AEGIS-SUB-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.14",
+        "DWS-AEGIS-SUB-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-AEGIS-SUB-001"
+    },
+    {
+      "id": "DWS-CLIMATE-001",
+      "name": "DWS IQ Climate Intelligence",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-CLIMATE-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS-CLIMATE-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-CLIMATE-001"
+    },
+    {
+      "id": "DWS-EU-PILOT",
+      "name": "DWS IQ — EU Sovereign Pilot",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-EU-PILOT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.2",
+        "DWS-EU-PILOT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-EU-PILOT"
+    },
+    {
+      "id": "DWS-EU-STARTER",
+      "name": "DWS IQ — EU Sovereign Starter",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-EU-STARTER backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.2",
+        "DWS-EU-STARTER acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-EU-STARTER"
+    },
+    {
+      "id": "DWS-IQ-006",
+      "name": "Lifetime DWS IQ Platform (Version 6)",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=DWS-IQ-006 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.1",
+        "DWS-IQ-006 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-IQ-006"
+    },
+    {
+      "id": "DWS-IQ-ESS-SETUP",
+      "name": "DWS IQ Essentials — Setup",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-IQ-ESS-SETUP backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.14",
+        "DWS-IQ-ESS-SETUP acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-IQ-ESS-SETUP"
+    },
+    {
+      "id": "DWS-IQ-FREE-2026",
+      "name": "DWS IQ Free — 1 project, CSRD-ready",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-IQ-FREE-2026 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS-IQ-FREE-2026 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-IQ-FREE-2026"
+    },
+    {
+      "id": "DWS-SOVEREIGN-DB-001",
+      "name": "Sovereign Database — EU Data Sovereignty for PostgreSQL",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-SOVEREIGN-DB-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS-SOVEREIGN-DB-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-SOVEREIGN-DB-001"
+    },
+    {
+      "id": "DWS-US-PILOT",
+      "name": "DWS IQ — US Cloud Pilot",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-US-PILOT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.2",
+        "DWS-US-PILOT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-US-PILOT"
+    },
+    {
+      "id": "DWS-US-STARTER",
+      "name": "DWS IQ — US Cloud Starter",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS-US-STARTER backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.2",
+        "DWS-US-STARTER acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS-US-STARTER"
+    },
+    {
+      "id": "DWS365-CMP-T3",
+      "name": "DWS 365 Compliance Agents",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=DWS365-CMP-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "DWS365-CMP-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-DWS365-CMP-T3"
+    },
+    {
+      "id": "ED-T1",
+      "name": "Emissions Data — Starter",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ED-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "ED-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ED-T1"
+    },
+    {
+      "id": "ED-T2",
+      "name": "Emissions Data — Pro",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ED-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "ED-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ED-T2"
+    },
+    {
+      "id": "edge-node-gn100",
+      "name": "Control Room — Acer Veriton GN100",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=edge-node-gn100 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "edge-node-gn100 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-edge-node-gn100"
+    },
+    {
+      "id": "ESG-T3",
+      "name": "ESG Function-as-a-Service",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=ESG-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "ESG-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-ESG-T3"
+    },
+    {
+      "id": "FH-AUTO-001",
+      "name": "Firehorse Amplify",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=FH-AUTO-001 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "FH-AUTO-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-AUTO-001"
+    },
+    {
+      "id": "FH-CMS-001",
+      "name": "Firehorse Content Management",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=FH-CMS-001 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "FH-CMS-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-CMS-001"
+    },
+    {
+      "id": "FH-OMNI-001",
+      "name": "Firehorse Omnichannel Next",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=FH-OMNI-001 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "FH-OMNI-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-OMNI-001"
+    },
+    {
+      "id": "FH-RPT-001",
+      "name": "DWS IQ Report",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=FH-RPT-001 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "FH-RPT-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-RPT-001"
+    },
+    {
+      "id": "FH-SIGN-001",
+      "name": "Firehorse Signed Reports",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=FH-SIGN-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "FH-SIGN-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-SIGN-001"
+    },
+    {
+      "id": "FH-SKILL-T3",
+      "name": "Firehorse Skilled Agents",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=FH-SKILL-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "FH-SKILL-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-FH-SKILL-T3"
+    },
+    {
+      "id": "firehorse-coach",
+      "name": "EU AI Act Literacy Training",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=firehorse-coach backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "firehorse-coach acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-firehorse-coach"
+    },
+    {
+      "id": "firehorse-data-services",
+      "name": "Firehorse Data Services",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=firehorse-data-services backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "firehorse-data-services acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-firehorse-data-services"
+    },
+    {
+      "id": "firehorse-flow",
+      "name": "AI Customer Agent",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=firehorse-flow backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "firehorse-flow acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-firehorse-flow"
+    },
+    {
+      "id": "GTM-T3",
+      "name": "Go-to-Market Pod",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=GTM-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "GTM-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-GTM-T3"
+    },
+    {
+      "id": "HSE-T3",
+      "name": "HSE Function-as-a-Service",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=HSE-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "HSE-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-HSE-T3"
+    },
+    {
+      "id": "IND-BESS",
+      "name": "BESS — Battery storage industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-BESS backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-BESS acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-BESS"
+    },
+    {
+      "id": "IND-CERES",
+      "name": "Ceres — Agri / Circular industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-CERES backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-CERES acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-CERES"
+    },
+    {
+      "id": "IND-GAIA",
+      "name": "Gaia — Cement industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-GAIA backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-GAIA acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-GAIA"
+    },
+    {
+      "id": "IND-HELIOS",
+      "name": "Helios — Energy industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-HELIOS backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-HELIOS acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-HELIOS"
+    },
+    {
+      "id": "IND-MARS",
+      "name": "Mars — Construction industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-MARS backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-MARS acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-MARS"
+    },
+    {
+      "id": "IND-NEPTUN",
+      "name": "Neptune — Maritime industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-NEPTUN backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-NEPTUN acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-NEPTUN"
+    },
+    {
+      "id": "IND-PROM",
+      "name": "Prometheus — Hydrogen industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-PROM backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-PROM acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-PROM"
+    },
+    {
+      "id": "IND-TALOS",
+      "name": "Talos — Aluminium industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-TALOS backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-TALOS acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-TALOS"
+    },
+    {
+      "id": "IND-VULCAN",
+      "name": "Vulcan — Steel industry pod",
+      "chapter": "Chapter 12",
+      "capabilityFamily": "Industry pods",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=IND-VULCAN backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "IND-VULCAN acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-IND-VULCAN"
+    },
+    {
+      "id": "KYA-JEV-001",
+      "name": "kya-jev — KYA-Gated Typed Decisions (Early Access)",
+      "chapter": "Chapter 4",
+      "capabilityFamily": "Aegis and KYA",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=KYA-JEV-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "KYA-JEV-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-KYA-JEV-001"
+    },
+    {
+      "id": "LAND-AIL",
+      "name": "AI Literacy Bridge",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-AIL backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-AIL acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-AIL"
+    },
+    {
+      "id": "LAND-CSRD",
+      "name": "CSRD Reporting Accelerator",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-CSRD backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-CSRD acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-CSRD"
+    },
+    {
+      "id": "LAND-EUAI",
+      "name": "EU AI Act Compliance Sprint",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-EUAI backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-EUAI acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-EUAI"
+    },
+    {
+      "id": "LAND-GTM",
+      "name": "Go-to-Market Sprint",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-GTM backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-GTM acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-GTM"
+    },
+    {
+      "id": "LAND-HSE",
+      "name": "Site Safety Bootcamp",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-HSE backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-HSE acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-HSE"
+    },
+    {
+      "id": "LAND-LCA",
+      "name": "Carbon Reporting Sprint",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-LCA backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-LCA acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-LCA"
+    },
+    {
+      "id": "LAND-OPS",
+      "name": "Construction Ops Pilot",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-OPS backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-OPS acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-OPS"
+    },
+    {
+      "id": "LAND-SOV",
+      "name": "Sovereignty & NIS2 Sprint",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-SOV backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-SOV acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-SOV"
+    },
+    {
+      "id": "LAND-WF",
+      "name": "Full Workforce Onboarding",
+      "chapter": "Chapter 13",
+      "capabilityFamily": "Land-and-expand programmes",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LAND-WF backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "LAND-WF acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LAND-WF"
+    },
+    {
+      "id": "lean-project",
+      "name": "EU AI Project Accelerator (Fixed Price)",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=lean-project backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "lean-project acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-lean-project"
+    },
+    {
+      "id": "LF-COMPLIANCE-AMBULANCE-001",
+      "name": "DWS IQ Compliance Ambulance — Mobile Office (NVIDIA Thor Edge)",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-COMPLIANCE-AMBULANCE-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LF-COMPLIANCE-AMBULANCE-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-COMPLIANCE-AMBULANCE-001"
+    },
+    {
+      "id": "LF-DGX-SPARK",
+      "name": "DGX Spark — NVIDIA-Branded Sovereign Edge AI",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-DGX-SPARK backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-DGX-SPARK acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-DGX-SPARK"
+    },
+    {
+      "id": "LF-DOCA-ESSENTIAL",
+      "name": "DOCA Microservices — Essential Package",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-DOCA-ESSENTIAL backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LF-DOCA-ESSENTIAL acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-DOCA-ESSENTIAL"
+    },
+    {
+      "id": "LF-DOCA-NETWORK-STORAGE",
+      "name": "DOCA Microservices — Networking & Storage Acceleration Package",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-DOCA-NETWORK-STORAGE backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.6",
+        "LF-DOCA-NETWORK-STORAGE acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-DOCA-NETWORK-STORAGE"
+    },
+    {
+      "id": "LF-DOCA-SECURITY",
+      "name": "DOCA Microservices — Security & Compliance Package",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-DOCA-SECURITY backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.6",
+        "LF-DOCA-SECURITY acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-DOCA-SECURITY"
+    },
+    {
+      "id": "LF-FIPS-VALIDATION",
+      "name": "FIPS 140-3 Validation Service",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-FIPS-VALIDATION backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LF-FIPS-VALIDATION acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-FIPS-VALIDATION"
+    },
+    {
+      "id": "LF-GOV-AIRGAP-BUNDLE",
+      "name": "Air-Gapped Gov Ready Image Bundle",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-GOV-AIRGAP-BUNDLE backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.7",
+        "LF-GOV-AIRGAP-BUNDLE acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-GOV-AIRGAP-BUNDLE"
+    },
+    {
+      "id": "LF-GOV-READY-ANNUAL",
+      "name": "Government Ready Annual Maintenance",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-GOV-READY-ANNUAL backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.7",
+        "LF-GOV-READY-ANNUAL acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-GOV-READY-ANNUAL"
+    },
+    {
+      "id": "LF-GOV-READY-SETUP",
+      "name": "Government Ready Cluster Setup",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-GOV-READY-SETUP backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.7",
+        "LF-GOV-READY-SETUP acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-GOV-READY-SETUP"
+    },
+    {
+      "id": "LF-IGX-ORIN",
+      "name": "IGX Orin — Industrial / Medical Sovereign Edge AI",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-IGX-ORIN backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-IGX-ORIN acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-IGX-ORIN"
+    },
+    {
+      "id": "LF-IPCMAX-CINCOZE-DA1200",
+      "name": "Cincoze DA-1200 — Rugged Expandable Edge Computer",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-IPCMAX-CINCOZE-DA1200 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.9",
+        "LF-IPCMAX-CINCOZE-DA1200 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-IPCMAX-CINCOZE-DA1200"
+    },
+    {
+      "id": "LF-IPCMAX-IPC409",
+      "name": "iPCMax IPC-409 — Compact Fanless Sensor Gateway",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-IPCMAX-IPC409 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.9",
+        "LF-IPCMAX-IPC409 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-IPCMAX-IPC409"
+    },
+    {
+      "id": "LF-IPCMAX-IPCP68",
+      "name": "iPCMax IPC-P68 — Vision Gateway with PoE",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-IPCMAX-IPCP68 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.9",
+        "LF-IPCMAX-IPCP68 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-IPCMAX-IPCP68"
+    },
+    {
+      "id": "LF-JETSON-AGX",
+      "name": "Jetson Sensor Concentrator — AGX Orin 64GB + Install & Service",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-JETSON-AGX backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-JETSON-AGX acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-JETSON-AGX"
+    },
+    {
+      "id": "LF-JETSON-NANO",
+      "name": "Jetson Sensor Node — Orin Nano Super + Install & Service",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-JETSON-NANO backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-JETSON-NANO acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-JETSON-NANO"
+    },
+    {
+      "id": "LF-JETSON-NX",
+      "name": "Jetson Sensor Mid — Orin NX 16 GB + Install & Service",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-JETSON-NX backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-JETSON-NX acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-JETSON-NX"
+    },
+    {
+      "id": "LF-K8S-T1",
+      "name": "Kubernetes Orchestration — Single-Node k3s (Tier 1)",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-K8S-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.4",
+        "LF-K8S-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-K8S-T1"
+    },
+    {
+      "id": "LF-K8S-T2",
+      "name": "Kubernetes Orchestration — HA Cluster k3s (Tier 2)",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-K8S-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.4",
+        "LF-K8S-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-K8S-T2"
+    },
+    {
+      "id": "LF-K8S-T3",
+      "name": "Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-K8S-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.4",
+        "LF-K8S-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-K8S-T3"
+    },
+    {
+      "id": "LF-K8S-T4",
+      "name": "Kubernetes Orchestration — Full Infra Stack (Tier 4)",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-K8S-T4 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.4",
+        "LF-K8S-T4 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-K8S-T4"
+    },
+    {
+      "id": "LF-NIM-BIOLOGY",
+      "name": "NIM Microservices — Biology & Genomics Profile",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-NIM-BIOLOGY backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.5",
+        "LF-NIM-BIOLOGY acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-NIM-BIOLOGY"
+    },
+    {
+      "id": "LF-NIM-CODE",
+      "name": "NIM Microservices — Code Generation Profile",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-NIM-CODE backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.5",
+        "LF-NIM-CODE acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-NIM-CODE"
+    },
+    {
+      "id": "LF-NIM-RETRIEVAL",
+      "name": "NIM Microservices — Retrieval & Embedding Profile",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-NIM-RETRIEVAL backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.5",
+        "LF-NIM-RETRIEVAL acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-NIM-RETRIEVAL"
+    },
+    {
+      "id": "LF-NIM-STARTER",
+      "name": "NIM Microservices — Starter Profile",
+      "chapter": "Chapter 7",
+      "capabilityFamily": "Kubernetes, DOCA, Gov Ready and NIM",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-NIM-STARTER backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LF-NIM-STARTER acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-NIM-STARTER"
+    },
+    {
+      "id": "LF-NVIDIA-INSTALL",
+      "name": "NVIDIA Model Installation + Full Service",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-NVIDIA-INSTALL backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LF-NVIDIA-INSTALL acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-NVIDIA-INSTALL"
+    },
+    {
+      "id": "LF-SITROOM-001",
+      "name": "Situation Room — Two Sovereign AI Nodes",
+      "chapter": "Chapter 6",
+      "capabilityFamily": "Sovereign hardware and edge",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-SITROOM-001 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.8",
+        "LF-SITROOM-001 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-SITROOM-001"
+    },
+    {
+      "id": "LF-T1",
+      "name": "Lead Feedback — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "LF-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-T1"
+    },
+    {
+      "id": "LF-T2",
+      "name": "Lead Feedback — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LF-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "LF-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LF-T2"
+    },
+    {
+      "id": "LIFETIME-BUNDLE-2026",
+      "name": "Climate Reporting Starter Bundle",
+      "chapter": "Chapter 3",
+      "capabilityFamily": "DWS IQ core, deployment and cloud",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout",
+        "evidence": "checkoutUrl /checkout/?product=LIFETIME-BUNDLE-2026 backed by dedicated revolutLink"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "LIFETIME-BUNDLE-2026 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LIFETIME-BUNDLE-2026"
+    },
+    {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "name": "IT Support Hour Bank for SMEs — 10 h",
+      "chapter": "Chapter 1",
+      "capabilityFamily": "SME web and IT services",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LIFETIME-IT-TUKI-10H backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "managed human service — DWS_CAPACITY_CLASS_STANDARD.md §5.13"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.13",
+        "LIFETIME-IT-TUKI-10H acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LIFETIME-IT-TUKI-10H"
+    },
+    {
+      "id": "LIFETIME-WEB-STARTER",
+      "name": "Website Starter — Modern Business Site",
+      "chapter": "Chapter 1",
+      "capabilityFamily": "SME web and IT services",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LIFETIME-WEB-STARTER backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "managed human service — DWS_CAPACITY_CLASS_STANDARD.md §5.13"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.13",
+        "LIFETIME-WEB-STARTER acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LIFETIME-WEB-STARTER"
+    },
+    {
+      "id": "LIFETIME-WEBSTORE-MINI",
+      "name": "Small Online Store with Price List",
+      "chapter": "Chapter 1",
+      "capabilityFamily": "SME web and IT services",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LIFETIME-WEBSTORE-MINI backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "managed human service — DWS_CAPACITY_CLASS_STANDARD.md §5.13"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.13",
+        "LIFETIME-WEBSTORE-MINI acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LIFETIME-WEBSTORE-MINI"
+    },
+    {
+      "id": "LOG-T1",
+      "name": "Logistics — Starter",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LOG-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "LOG-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LOG-T1"
+    },
+    {
+      "id": "LOG-T2",
+      "name": "Logistics — Pro",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=LOG-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "LOG-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-LOG-T2"
+    },
+    {
+      "id": "MO-OC-ENT",
+      "name": "Outcome — LCA report (Enterprise)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=MO-OC-ENT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "MO-OC-ENT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-MO-OC-ENT"
+    },
+    {
+      "id": "MO-OC-STD",
+      "name": "Outcome — LCA report (Standard)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=MO-OC-STD backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "MO-OC-STD acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-MO-OC-STD"
+    },
+    {
+      "id": "MO-T0",
+      "name": "Material Oracle — Pilot (60 days, 1 project)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=MO-T0 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "MO-T0 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-MO-T0"
+    },
+    {
+      "id": "MO-T1",
+      "name": "Material Oracle — Starter",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=MO-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "MO-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-MO-T1"
+    },
+    {
+      "id": "MO-T2",
+      "name": "Material Oracle — Pro",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=MO-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "MO-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-MO-T2"
+    },
+    {
+      "id": "omnichannel-multimodal",
+      "name": "Firehorse Omnichannel & Multimodal AI Assistant",
+      "chapter": "Chapter 5",
+      "capabilityFamily": "Firehorse applications",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=omnichannel-multimodal backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "omnichannel-multimodal acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-omnichannel-multimodal"
+    },
+    {
+      "id": "professional-web-pages",
+      "name": "Kotisivut pk-yritykselle",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "archived",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=professional-web-pages backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "advisory engagement — DWS_CAPACITY_CLASS_STANDARD.md §5.11"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.11",
+        "professional-web-pages acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-professional-web-pages"
+    },
+    {
+      "id": "QG-T1",
+      "name": "Quality Gate — Starter",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=QG-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "QG-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-QG-T1"
+    },
+    {
+      "id": "QG-T2",
+      "name": "Quality Gate — Pro",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=QG-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "QG-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-QG-T2"
+    },
+    {
+      "id": "SEO-T1",
+      "name": "SEO Audit — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SEO-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SEO-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SEO-T1"
+    },
+    {
+      "id": "SEO-T2",
+      "name": "SEO Audit — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SEO-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SEO-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SEO-T2"
+    },
+    {
+      "id": "SG-T1",
+      "name": "Schedule Genius — Starter",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SG-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SG-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SG-T1"
+    },
+    {
+      "id": "SG-T2",
+      "name": "Schedule Genius — Pro",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SG-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SG-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SG-T2"
+    },
+    {
+      "id": "SOV-T1",
+      "name": "Sovereignty Monitor — Starter",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SOV-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SOV-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SOV-T1"
+    },
+    {
+      "id": "SOV-T2",
+      "name": "Sovereignty Monitor — Pro",
+      "chapter": "Chapter 9",
+      "capabilityFamily": "Operations and assurance agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SOV-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SOV-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SOV-T2"
+    },
+    {
+      "id": "SOV-T3",
+      "name": "Sovereignty & Compliance Pack",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SOV-T3 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SOV-T3 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SOV-T3"
+    },
+    {
+      "id": "sovereignty-cloud-consulting",
+      "name": "Sovereignty Cloud Consulting – European Cloud Migration",
+      "chapter": "Chapter 2",
+      "capabilityFamily": "Consulting, engineering and training",
+      "owner": "Lifetime Oy",
+      "lifecycle": "public",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=sovereignty-cloud-consulting backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "managed human service — DWS_CAPACITY_CLASS_STANDARD.md §5.13"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.13",
+        "sovereignty-cloud-consulting acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-sovereignty-cloud-consulting"
+    },
+    {
+      "id": "SS-OC-ENT",
+      "name": "Outcome — Site safety assessment (Enterprise)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SS-OC-ENT backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "SS-OC-ENT acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SS-OC-ENT"
+    },
+    {
+      "id": "SS-OC-STD",
+      "name": "Outcome — Site safety assessment (Standard)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SS-OC-STD backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "complete",
+        "reason": ""
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "SS-OC-STD acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SS-OC-STD"
+    },
+    {
+      "id": "SS-T0",
+      "name": "SiteSense — Pilot (30 days, 1 site)",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SS-T0 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SS-T0 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SS-T0"
+    },
+    {
+      "id": "SS-T1",
+      "name": "SiteSense — Starter",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SS-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SS-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SS-T1"
+    },
+    {
+      "id": "SS-T2",
+      "name": "SiteSense — Pro",
+      "chapter": "Chapter 8",
+      "capabilityFamily": "Compliance, safety, materials and emissions agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=SS-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "SS-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-SS-T2"
+    },
+    {
+      "id": "VIA-T1",
+      "name": "Viability — Starter",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=VIA-T1 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "VIA-T1 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-VIA-T1"
+    },
+    {
+      "id": "VIA-T2",
+      "name": "Viability — Pro",
+      "chapter": "Chapter 10",
+      "capabilityFamily": "Growth, knowledge and viability agents",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=VIA-T2 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "VIA-T2 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-VIA-T2"
+    },
+    {
+      "id": "WF-T4",
+      "name": "Full Skilled Workforce",
+      "chapter": "Chapter 11",
+      "capabilityFamily": "Function and channel bundles",
+      "owner": "Lifetime Oy",
+      "lifecycle": "blue",
+      "paymentRoute": {
+        "mode": "self-serve-checkout-fallback",
+        "evidence": "checkoutUrl /checkout/?product=WF-T4 backed by generic /checkout/ Revolut/PayPal fallback (no dedicated revolutLink)"
+      },
+      "capacity": {
+        "status": "exempt",
+        "reason": "agent SKU or agent bundle — DWS_CAPACITY_CLASS_STANDARD.md §5.12"
+      },
+      "contractScope": {
+        "status": "complete",
+        "reason": ""
+      },
+      "evidenceRefs": [
+        "docs/truth/PRODUCT_REGISTRY.md",
+        "DWS_CAPACITY_CLASS_STANDARD.md §5.12",
+        "WF-T4 acceptanceKpi (catalogue)"
+      ],
+      "backlogRef": "RB-WF-T4"
+    }
+  ]
+}

@@ -37,15 +37,15 @@
       code: 'fi',
       name: 'Suomi',
       flag: '🇫🇮',
-      home: 'Suvereenit AI-agentit Euroopan teollisuudelle. Rakennettu Suomessa.',
-      blog: 'Lifetime Scope — kentältä teollisen AI:n eturintamalta, joka toinen viikko.',
+      home: 'Yksi elämä, yksi planeetta — ymmärrämme teknologian ja muutoksen yhtenä osana ratkaisuja. Independent Ontology säilyttää organisaation ymmärryksen: havainnosta päätökseen ja vaikutukseen, yli järjestelmä- ja teknologiasukupolvien.',
+      blog: 'Lifetime Scope Journal - Business Blog kentältä teollisuuden tekoälyratkaisujen ja compliancen eturintamalta.',
       press: 'Viralliset tiedotteet Lifetime Oy:ltä — DWS IQ, KYA ja Sovereign Stack.',
     },
     {
       code: 'sv',
       name: 'Svenska',
       flag: '🇸🇪',
-      home: 'Suveräna AI-agenter för europeisk industri. Byggda i Finland.',
+      home: 'Suverän AI och regelefterlevnad för industriellt bruk. Byggd i Finland.',
       blog: 'Lifetime Scope — fältrapporter från industriell AI, varannan vecka.',
       press: 'Officiella pressmeddelanden från Lifetime Oy — DWS IQ, KYA, sovereign stack.',
     },
@@ -53,7 +53,7 @@
       code: 'de',
       name: 'Deutsch',
       flag: '🇩🇪',
-      home: 'Souveräne KI-Agenten für Europas Industrie. Entwickelt in Finnland.',
+      home: 'Souveräne KI und Compliance für den industriellen Einsatz. Entwickelt in Finnland.',
       blog: 'Lifetime Scope — Feldberichte von der industriellen KI-Front, alle zwei Wochen.',
       press: 'Offizielle Pressemitteilungen von Lifetime Oy — DWS IQ, KYA, Sovereign Stack.',
     },
@@ -61,7 +61,7 @@
       code: 'fr',
       name: 'Français',
       flag: '🇫🇷',
-      home: 'Agents IA souverains pour l’industrie européenne. Conçus en Finlande.',
+      home: 'IA souveraine et conformité pour un usage industriel. Conçue en Finlande.',
       blog: 'Lifetime Scope — chroniques du terrain de l’IA industrielle, toutes les deux semaines.',
       press: 'Communiqués de presse officiels de Lifetime Oy — DWS IQ, KYA, sovereign stack.',
     },
@@ -69,7 +69,7 @@
       code: 'en',
       name: 'English',
       flag: '🇬🇧',
-      home: 'Sovereign AI agents for European industry. Built in Finland.',
+      home: 'Sovereign AI and Compliance for Industrial Use. Built in Finland.',
       blog: 'Lifetime Scope — field notes from the industrial AI frontier, every other week.',
       press: 'Official press releases from Lifetime Oy — DWS IQ, KYA, and the sovereign stack.',
     },
@@ -238,8 +238,7 @@
     // as text, never interpolated into innerHTML. Escaping only & and < left >, quotes and
     // apostrophes able to break the markup.
     var heading = document.createElement('div');
-    heading.className =
-      'olw-vlb-heading' + (post && post.title ? ' olw-vlb-post-title' : '');
+    heading.className = 'olw-vlb-heading' + (post && post.title ? ' olw-vlb-post-title' : '');
     heading.textContent = '🌍 ' + (post && post.title ? post.title : '5 European Languages');
 
     el.innerHTML = rows;

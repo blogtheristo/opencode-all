@@ -1,3 +1,5 @@
+# Evidence: Tool=Claude Code 2.1.282 Model=anthropic/claude-opus-5-5 Agent=claude-code Date=2026-09-25
+# Audit trail: git log -- .github/workflows/pr-auto-merge.yml
 name: PR Auto-Merge
 
 # Triggers when check suites complete on a PR, or when the ai-approved label is added
@@ -7,6 +9,13 @@ on:
   pull_request:
     types: [labeled]
 
+# GHA cost (HIC 2026-09-25): check_suite fires once per app per push (27x on one
+# commit). Runs on DGX (free) and bursts collapse to the latest run — the job
+# rescans all open PRs, so only the newest run matters.
+concurrency:
+  group: pr-auto-merge
+  cancel-in-progress: true
+
 permissions:
   contents: write
   pull-requests: write
@@ -15,7 +24,7 @@ permissions:
 jobs:
   auto-merge:
     name: Auto-Merge if Ready
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     timeout-minutes: 5
     # Only run when a PR has the ai-approved label
     if: |

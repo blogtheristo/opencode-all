@@ -36,7 +36,7 @@ AGENT HISTORY:
 
 1. **The ICEYE hook is exact, not generic.** Pekka Laurila (ICEYE) shared her Frontier Stage panel. DWS IQ Aegis ships **ArgusAgent** — SAR orbital intelligence that is explicitly **ICEYE-compatible** (`Store/PRODUCT_AEGIS.md`). We already build on the exact sovereign-ISR primitive her panel was about.
 2. **We are the layer NIF's portfolio needs, not a competing app.** NIF backs dual-use deep-tech companies scaling defence manufacturing and capability. Aegis is the **sovereign data + agent-governance + EU AI Act compliance layer** those companies must deploy to be procurement-ready. We are picks-and-shovels for the NIF thesis — see the attached Frankenburg FieldFoundry case for the worked example.
-3. **Directly answers the Summit's central question.** The recap framed it as: turn Europe's deep-tech advantage into _scalable, deployable_ capability by aligning capital, procurement, demand signals and industrial partnerships. Aegis is **EDIP Article 9 eligible**, EU-sovereign (zero CLOUD Act exposure), PiTuKri-audited, and deploys per-site/per-jurisdiction — i.e. built for cross-border scaling across the Alliance.
+3. **Directly answers the Summit's central question.** The recap framed it as: turn Europe's deep-tech advantage into _scalable, deployable_ capability by aligning capital, procurement, demand signals and industrial partnerships. Aegis is **EDIP Article 9 eligible**, EU-sovereign (zero CLOUD Act exposure), PiTuKri v1.1 self-assessed, and deploys per-site/per-jurisdiction — i.e. built for cross-border scaling across the Alliance.
 4. **The European C2/data-layer gap.** The U.S. baseline is Palantir Foundry + Anduril Lattice; Europe has no sovereign equivalent. Aegis is positioned as that EU-sovereign data + agent layer (`partners-outreach/EU_SOVEREIGN_C2_DATA_LAYER_BRIEF.md`) — a structural gap an Alliance fund is mandated to close.
 
 ## Strategy
@@ -65,7 +65,7 @@ Risto Päärni, CEO of Lifetime Oy (Finland). I followed NIF's Dual-Use Forum wi
 
 We make **DWS IQ Aegis** — the EU-sovereign data, agent-governance and EU AI Act compliance layer for dual-use manufacturing. It's the piece your portfolio companies need to be procurement-ready, not another application competing with them:
 
-- **Sovereign by construction** — single-tenant, Finland-hosted, zero CLOUD Act exposure, EDIP Article 9 eligible, PiTuKri-audited. The European counterpart to the Foundry/Lattice data layer.
+- **Sovereign by construction** — single-tenant, Finland-hosted, zero CLOUD Act exposure, EDIP Article 9 eligible, PiTuKri v1.1 self-assessed (independent audit planned). The European counterpart to the Foundry/Lattice data layer.
 - **Agent governance built in** — Know-Your-Agent identity, MicroVM isolation, kill authority, and EU AI Act Article 12 audit trails for every AI decision on the factory data layer.
 - **The Argus/ICEYE overlap** — our ArgusAgent ingests SAR orbital intelligence and is ICEYE-compatible, so we already build on the sovereign-ISR primitive your panel was about.
 

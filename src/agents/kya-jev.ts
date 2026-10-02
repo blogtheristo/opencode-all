@@ -47,6 +47,19 @@ export interface TypedDecisionResult {
   abstained: boolean;
 }
 
+export interface KyaJevAuditRecord {
+  questionKind: 'choice' | 'score' | 'boolean';
+  questionPrompt: string;
+  decision: string;
+  probabilities?: Record<string, number>;
+  confidence: number;
+  calibration: 'self-reported-uncalibrated';
+  abstained: boolean;
+  model?: string;
+}
+
+export type KyaJevAuditSink = (record: KyaJevAuditRecord) => Promise<void>;
+
 const ABSTAIN_CHOICE = '__ABSTAIN__';
 
 /**
@@ -173,14 +186,38 @@ export async function makeTypedDecision(
   client: LLMClient,
   req: TypedDecisionRequest,
   runtime: AgentRuntimeContext | undefined,
+  audit?: KyaJevAuditSink,
 ): Promise<TypedDecisionResult> {
   requireKyaVerdict(runtime);
 
   const prompt = buildPrompt(req);
+  let lastResponse: Awaited<ReturnType<LLMClient['chat']>> | undefined;
   for (let attempt = 0; attempt < 2; attempt++) {
     const response = await client.chat([{ role: 'user', content: prompt }]);
+    lastResponse = response;
     const result = parseAndValidate(response.content, req.question);
-    if (result) return result;
+    if (result) {
+      if (audit) {
+        const record: KyaJevAuditRecord = {
+          questionKind: req.question.kind,
+          questionPrompt: req.question.prompt,
+          decision: result.decision,
+          probabilities: result.probabilities,
+          confidence: result.confidence,
+          calibration: result.calibration,
+          abstained: result.abstained,
+          model: response.model,
+        };
+        try {
+          await audit(record);
+        } catch (err) {
+          logger.warn('kya-jev audit record write failed', {
+            error: err instanceof Error ? err.message : String(err),
+          });
+        }
+      }
+      return result;
+    }
     logger.warn('kya-jev: invalid typed-decision output, retrying', {
       attempt,
       questionKind: req.question.kind,
@@ -188,5 +225,25 @@ export async function makeTypedDecision(
   }
 
   logger.warn('kya-jev: exhausted retries, abstaining', { questionKind: req.question.kind });
-  return abstainResult();
+  const result = abstainResult();
+  if (audit) {
+    const record: KyaJevAuditRecord = {
+      questionKind: req.question.kind,
+      questionPrompt: req.question.prompt,
+      decision: result.decision,
+      probabilities: result.probabilities,
+      confidence: result.confidence,
+      calibration: result.calibration,
+      abstained: result.abstained,
+      model: lastResponse?.model,
+    };
+    try {
+      await audit(record);
+    } catch (err) {
+      logger.warn('kya-jev audit record write failed', {
+        error: err instanceof Error ? err.message : String(err),
+      });
+    }
+  }
+  return result;
 }

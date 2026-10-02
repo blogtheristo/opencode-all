@@ -4,12 +4,13 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.1
+Version: 1.2
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: OpenCode (mimo-v2.5-free) | Session: opencode/v128-price-list-audit | Date: 30.08.2026 | Changes: Initial creation — DWS Capacity Class classification system for commercial product capacity communication. Defines Core → Production → Enterprise → Sovereign/Scale hierarchy, Options → Capabilities → Capacity mapping rules, product-specific profiles for all 139 products, public presentation guidelines, and evidence requirements for capacity claims.
 - Version: 1.1 | Tool: OpenCode (mimo-v2.5-free) | Session: opencode/v128-price-list-audit | Date: 30.08.2026 | Changes: Added Secure Model Execution Boundary (§3.3) — five boundary components (model source, artifact format, execution isolation, network egress, evidence) for third-party AI artifact governance. Addresses agent-driven cross-environment pivot attacks (OpenAI/HF incident July 2026), malicious pickle deserialization, namespace hijacking. Updated governance chain to include Themis verify/monitor role and DWS Development Model test/approve role.
+- Version: 1.2 | Tool: Claude Code 2.1.283 | Session: claude/ecstatic-johnson-nd6uha | Date: 27.09.2026 | Changes: Closed the 47 capacity-evidence backlog items (docs/truth/PRODUCT_READINESS_BACKLOG.md). §5.12 now names its SKUs and covers T3/T4 agent bundles; added §5.13 (managed human services) and §5.14 (Aegis maintenance, DWS IQ Essentials setup profiles). Catalogue records carry `capacityExemptBasis` so every exemption cites its section. No capacity number was added without a source.
 
 ***
 
@@ -92,7 +93,7 @@ Each class is a superset of the previous. Not all products use all classes — o
 
 **Capabilities included:** Basic agent execution, standard compliance templates, single-user access, community support.
 
-**Key buying limits:** Restricted agent count, single concurrent workflow, no custom integrations, no SLA commitment.
+**Key buying limits:** Restricted number of agents, single concurrent workflow, no custom integrations, no SLA commitment.
 
 **Typical buyer:** SMB evaluating DWS IQ for the first time. Proving ROI before scaling.
 
@@ -106,7 +107,7 @@ Each class is a superset of the previous. Not all products use all classes — o
 
 **Capabilities included:** Full agent fleet (per tier limits), multi-user access, API integrations, standard compliance modules, email support.
 
-**Key buying limits:** Agent count capped per tier, concurrent sessions limited, no air-gap, standard SLA.
+**Key buying limits:** Number of agents capped per tier, concurrent sessions limited, no air-gap, standard SLA.
 
 **Typical buyer:** Mid-market company with 1–3 compliance workloads needing production-grade execution.
 
@@ -304,6 +305,27 @@ Advisory products (storeCategory: advisory) do not carry Capacity Classes. They 
 
 Agent SKU products are internal allocation units, not customer-facing deployment configurations. They do not carry Capacity Classes on the public price list.
 
+This covers single-agent tiers (T0–T2) and function/workforce bundles (T3/T4) composed of them: a bundle's capacity is the sum of its component agents and the deployment it runs on (§5.1, §5.2), not a class of its own. Catalogue records mark these `capacityExempt: true` with `capacityExemptBasis: "§5.12"`:
+
+CMP-T0, CMP-T1, CMP-T2, SS-T0, SS-T1, SS-T2, MO-T0, MO-T1, MO-T2, ED-T1, ED-T2, SG-T1, SG-T2, CONSTR-T2, LOG-T1, LOG-T2, SOV-T1, SOV-T2, QG-T1, QG-T2, CSAT-T1, CSAT-T2, LF-T1, LF-T2, CS-T1, CS-T2, SEO-T1, SEO-T2, DW-T1, DW-T2, VIA-T1, VIA-T2; bundles ESG-T3, HSE-T3, CONSTR-T3, SOV-T3, GTM-T3, WF-T4, DWS365-CMP-T3, FH-SKILL-T3, AC365-T3.
+
+Agent SKUs that already carried a Capacity Class before v1.2 keep it; this section does not remove existing classes.
+
+### 5.13 Managed Human Services
+
+Service engagements delivered by named people (web builds, IT support hour banks, cloud consulting) are not deployment configurations, the same reasoning as §5.11 for products outside `storeCategory: advisory`. Capacity is the contracted hours or scoped deliverable stated in the product record. Catalogue records mark these `capacityExempt: true` with `capacityExemptBasis: "§5.13"`:
+
+LIFETIME-IT-TUKI-10H, LIFETIME-WEB-STARTER, LIFETIME-WEBSTORE-MINI, sovereignty-cloud-consulting.
+
+### 5.14 Platform Setup and Maintenance Products
+
+| Class | Product | Options | Capabilities | Key Limits |
+|-------|---------|---------|-------------|------------|
+| **Enterprise** | Aegis Maintenance Subscription (DWS-AEGIS-SUB-001) | Aegis Standard, Defence, Sovereign | Updates and security patches, support and operations on the licensed deployment | Follows the licensed Aegis tier (§5.3); one subscription per licensed deployment |
+| **Core** | DWS IQ Essentials Setup (DWS-IQ-ESS-SETUP) | Buyer infrastructure, Lifetime-managed hosting | GitHub connector, one operational-runtime connector, evidenced safe update with rollback | One operational-runtime connector; capacity depends on deployment option and workload (§7.3 fallback) |
+
+**Source:** `dws10.com/config/products.json` (DWS-AEGIS-SUB-001 features and description; DWS-IQ-ESS-SETUP features and description), §5.3. Architectural specification per §7.1; no load-test figure is claimed.
+
 ---
 
 ## 6. Public Presentation Rules
@@ -320,7 +342,7 @@ The public Capacity Reference section shows:
 
 ### 6.2 What Never Appears on the Public Page
 
-- GPU/CPU model numbers, VRAM specs, benchmark scores
+- GPU/CPU model numbers, VRAM specs, "benchmark scores"
 - Internal SKU logic, cost basis, margins
 - Edge-case performance numbers (tok/s, p95 latency)
 - Competitor-equivalent technical mapping
@@ -354,7 +376,7 @@ Every capacity claim must have one of:
 
 | Evidence Type | Example | Acceptable For |
 |--------------|---------|---------------|
-| **Test result** | Load test showing N concurrent sessions | Agent count, concurrent session limits |
+| **Test result** | Load test showing N concurrent sessions | Number of agents, concurrent session limits |
 | **Measurement** | DGX Spark inference benchmark | Hardware performance class |
 | **Architectural specification** | K8s cluster topology, MicroVM isolation | Deployment class, governance class |
 | **Contractual commitment** | SLA document with defined response times | SLA claims |
@@ -399,7 +421,7 @@ Claims without evidence may appear in marketing copy but must not appear in the 
 
 The buyer should consider upgrading when:
 
-- Agent count approaches tier limit (80% utilization)
+- Number of agents approaches tier limit (80% utilization)
 - Concurrent workflows exceed single-node capacity
 - Regulatory requirement demands air-gap or physical isolation
 - Multi-site deployment requires cluster orchestration

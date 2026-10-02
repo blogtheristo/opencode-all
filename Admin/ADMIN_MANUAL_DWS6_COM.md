@@ -4,13 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.2
+Version: 1.4
 
 Sessions & Modifications:
 
 - Version: 1.0 | Tool: Cursor AI | Session: Current | Date: 30.12.2025 | Changes: Initial creation - dws6.com deployment documentation
 - Version: 1.1 | Tool: Cursor AI (Claude Opus 4.5) | Session: 2026-01-08 | Date: 08.01.2026 | Changes: Updated hero text to "DWS 6 IQ Platform Administration Portal"; Added Public Cloud Version V1 branding; Documented portal vs login page distinction
 - Version: 1.2 | Tool: Claude Code 2.1.278 (anthropic/claude-opus-5) | Session: fix/dashboard-auth-wiring | Date: 22.09.2026 | Changes: Added §11 — Back-Office live-data API and server-side admin authorization (organization_members), V10 dashboard build/publish procedure (committed to dashboard/firehorse/v10/), DWS AB admin organization
+- Version: 1.3 | Tool: Claude Code (Sonnet 5) | Session: claude/backoffice-open-items | Date: 24.09.2026 | Changes: Closed §11's three open items. §11.2: page-level gate now calls `GET /api/v1/backoffice/me` (server-verified) instead of trusting `user_metadata.role`; `window.DWS_API_BASE` set to HIC-approved `backend.dws6.com` (host not live yet — Cloudflare ingress + DNS still pending). §11.3: root `_redirects` fixes V10 deep-link refresh (done); `VITE_API_URL` wiring documented as a pending manual build step. Cross-ref: `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md`.
+- Version: 1.4 | Tool: Claude Code (Opus 5) | Session: claude/backoffice-open-items | Date: 24.09.2026 | Changes: Corrected §11.2's ingress instructions. The live tunnel is `dgx-heartbeat`, locally managed via `/etc/cloudflared/config.yml` on the DGX box (not addable from the Cloudflare dashboard), and the origin URL is `http://localhost:8080`, not `http://dws-backend:8080` — `cloudflared` runs as a host systemd service, not on the Docker network. Points to the existing runbook in `Admin/ADMIN_MANUAL.md`.
 
 Session Links & References:
 
@@ -1457,7 +1459,11 @@ The page sends the Supabase access token to the backend API `/api/v1/backoffice/
 
 A card shows **—** when its source is unreachable — numbers are never invented. Container data only works where the backend can run Docker (DGX Spark); on Cloud Run the container cards show —.
 
-The page calls the API on the same origin unless `window.DWS_API_BASE` is set. Cloudflare Pages has no `/api` route, so on production the API host must be configured (open item).
+The page-level gate (before any API call) also calls `GET /api/v1/backoffice/me`, which reuses the same `requireBackofficeAdmin` middleware, and redirects to `/unauthorized.html` on anything but 200 — the page no longer trusts client-editable `user_metadata.role` to decide whether to show itself.
+
+The page calls the API on the same origin unless `window.DWS_API_BASE` is set. Cloudflare Pages has no `/api` route, so `dws6.com/dashboard/backoffice/index.html` (+ `landing-pages/dws6-com` mirror) sets `window.DWS_API_BASE = "https://backend.dws6.com"` (HIC-approved, 24.09.2026).
+
+This host is **not live yet.** It needs a new public hostname on the `dgx-heartbeat` Cloudflare Tunnel — which is **locally managed** (`/etc/cloudflared/config.yml` on the DGX box, `cloudflared` as a host systemd service), so it cannot be added from the Cloudflare dashboard. Follow `Admin/ADMIN_MANUAL.md` → "Adding a new public hostname to the tunnel": `cloudflared tunnel route dns dgx-heartbeat backend.dws6.com`, add ingress `backend.dws6.com` → `http://localhost:8080` before the catch-all 404, restart the daemon. Note the origin is `localhost:8080` (the published host port), **not** `dws-backend:8080` — the daemon is not on the Docker network. Verify with `curl https://backend.dws6.com/health` → 200. Until then, backoffice API calls against the production Pages site 404. See `docs/field-notes/2026-09-24-backoffice-open-items-fixed.md`.
 
 ### 11.3 V10 dashboard (`/dashboard/firehorse/v10/`)
 
@@ -1475,7 +1481,9 @@ npm run build        # writes ../v10
 
 Copy both folders to `landing-pages/dws6-com/dashboard/firehorse/` in the same commit (dual folder sync).
 
-**Known limitation:** refreshing the browser on a V10 sub-page (e.g. `/dashboard/firehorse/v10/login`) falls back to the site root, because there is no `_redirects` rewrite yet. Open V10 from its entry URL.
+**Deep-link refresh:** fixed 24.09.2026 — `dws6.com/_redirects` (+ `landing-pages/dws6-com` mirror, root-level, Cloudflare Pages only honors this at project root) rewrites `/dashboard/firehorse/v10/*` to `/dashboard/firehorse/v10/index.html` with a 200, so refreshing a V10 sub-page (e.g. `/dashboard/firehorse/v10/login`) now serves the SPA instead of 404ing.
+
+**V10 API host:** the built app also needs `VITE_API_URL=https://backend.dws6.com` set at build time (same approved hostname as §11.2, not yet live — see there). Not yet wired into the committed `v10/` build; set it in `.env` under `dashboard/firehorse/v10-react/` before the next `npm run build` and republish per the rebuild steps above.
 
 ---
 

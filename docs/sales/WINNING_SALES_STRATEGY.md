@@ -1,6 +1,6 @@
 # Winning Sales Strategy — Why the Client Says Yes
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -22,7 +22,7 @@ Document Status:
 - Language: English
 - Publication Status: ACTIVE (internal sales tooling)
 
-***
+---
 
 ## Strategy Documents (Split 28.06.2026)
 
@@ -114,13 +114,13 @@ Noah discovered it waiting tables. Risto lives it in the car. DWS builds it into
 
 People do not buy features. They buy the removal of a feeling:
 
-| Feeling Removed                              | What Triggers the Yes                                               | DWS Proof Point                                                                                      |
-| -------------------------------------------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Feeling Removed                              | What Triggers the Yes                                               | DWS Proof Point                                                                                               |
+| -------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | **Anxiety** ("Am I making a mistake?")       | Published prices, clear pilot scope, contracted pilot references    | Two enterprise pilots contracted Q1/2026 at €29,950 each. €5,990/mo published. 5-month pilot with clear exit. |
-| **Confusion** ("I don't understand this")    | Simple explanation, structured proposal, one-question qualification | "Think of DWS IQ as a team of specialist agents you can hire by the task, not by the seat."          |
-| **Loneliness** ("No one else is doing this") | Social proof, industry-specific case studies, regulatory mandate    | "CBAM 2026 is not optional. 25 EU industries must report. Here is how the first three are doing it." |
-| **Distrust** ("This vendor will disappear")  | Sovereign infrastructure, Finnish hosting, no CLOUD Act exposure    | EU data residency badge. NVIDIA ISV Partner. Red Hat Technology Partner.                             |
-| **Overwhelm** ("This is too big to start")   | Buffet principle — start anywhere, expand when ready                | Tier 1 at €4,999 is a real product, not a teaser. Full platform access during pilot.                 |
+| **Confusion** ("I don't understand this")    | Simple explanation, structured proposal, one-question qualification | "Think of DWS IQ as a team of specialist agents you can hire by the task, not by the seat."                   |
+| **Loneliness** ("No one else is doing this") | Social proof, industry-specific case studies, regulatory mandate    | "CBAM 2026 is not optional. 25 EU industries must report. Here is how the first three are doing it."          |
+| **Distrust** ("This vendor will disappear")  | Sovereign infrastructure, Finnish hosting, no CLOUD Act exposure    | EU data residency badge. NVIDIA ISV Partner. Red Hat Technology Partner.                                      |
+| **Overwhelm** ("This is too big to start")   | Buffet principle — start anywhere, expand when ready                | Tier 1 at €4,999 is a real product, not a teaser. Full platform access during pilot.                          |
 
 ---
 
@@ -461,13 +461,15 @@ PROMISED OFFER WIN = FREE ENTRY + BOARD-READY PACKAGE + PATIENCE + HONEST TIER F
 
 **What happened:** Materials were not good enough. We got no.
 
+**HIC 28.09.2026:** the offer was sent, but it was incomplete — the pilot model (fixed-price pilot, binary acceptance KPI, fee credited to the licence) came later. The 27.6 offer had no bounded first step for the buyer to say yes to. A reopened door starts from `DWS-AEGIS-PILOT-001` (price list), not from the 27.6 package.
+
 **Why we lost — honest post-mortem:**
 
 | Weakness             | What Went Wrong                                                                                                             | Lesson                                                                                                                                            |
 | -------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Material quality** | Defence-grade buyer expects defence-grade materials. Our bid may have looked like a startup pitch, not a mil-spec proposal. | Nokia Defence evaluates thousands of vendor proposals. The materials must look like they came from a company that already operates in this space. |
 | **Credibility gap**  | Lifetime Oy has no defence-sector delivery track record. Strong tech, but no reference customer in this segment.            | Without a defence reference, the materials must overcompensate with technical depth, compliance attestations, and architecture documentation.     |
-| **Product maturity** | Aegis Defence tier is pre-GA (September 2026). Nokia may have needed production-ready, not pilot-ready.                        | Defence procurement needs certainty. "GA in August" sounds like risk to a buyer who needs operational capability now.                             |
+| **Product maturity** | Aegis Defence tier is pre-GA (September 2026). Nokia may have needed production-ready, not pilot-ready.                     | Defence procurement needs certainty. "GA in August" sounds like risk to a buyer who needs operational capability now.                             |
 | **Packaging**        | The offer may not have spoken Nokia Defence's language — STANAG, AQAP, ITAR-free, TEMPEST, DEFCON.                          | Defence vocabulary matters. Every sentence must signal domain fluency.                                                                            |
 
 **What Noah would say:** "Scripts only get you so far. The real shift happens when you understand what someone actually cares about." We may have pitched our technology instead of understanding Nokia Defence's actual procurement criteria.
@@ -584,18 +586,18 @@ COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
 
 ### The Six Cases — Pipeline Dashboard
 
-| Dimension           | ORK                      | Outokumpu                             | Kemira                                 | Nokia Defence                 | Diana (Riihimäki)                      | Arctic15                              |
-| ------------------- | ------------------------ | ------------------------------------- | -------------------------------------- | ----------------------------- | -------------------------------------- | ------------------------------------- |
-| **Status**          | BID IN PREPARATION (deadline 14.8.2026) | IN DISCUSSION        | IN DISCUSSION                          | LOST                          | IMPROVE & RETRY                        | IMPROVE & RETRY                       |
-| **Type**            | Public procurement       | Enterprise pilot                      | Enterprise platform                    | Defence platform              | Defence funding                        | Startup competition                   |
-| **Metaphor**        | Buffet                   | Captain                               | Vineyard                               | Captain (failed)              | Vineyard                               | Vineyard                              |
-| **Contact**         | Committee (anon)         | Ari Hirvonen                          | Maria Sederholm                        | Tommi Haapala                 | Laura Manner-Raappana                  | SIRA judges                           |
-| **Value**           | Framework (€1.7M ref)    | €24k pilot                            | €30k/yr (Climate IQ)                   | €90k+                         | Funding grant                          | Top 4 + visibility                    |
-| **Key challenge**   | Contractor depth         | Internal champion                     | Board-ready package                    | Material quality              | Missing video + deck                   | Legibility gap                        |
-| **What went right** | Strong technical bid     | Trust, warm contact                   | Carbon need stated                     | NDA signed                    | "Interesting elements"                 | Top 15 of 100                         |
-| **What went wrong** | — (pending)              | — (pending)                           | — (pending)                            | Materials not defence-grade   | No video, no deck, vague defence angle | Soft numbers, wrong frame             |
-| **Follow-up**       | Wait                     | Silence + 1 value-add                 | Silence, let Maria socialise           | Wait for GA + reference       | Build video + deck, reapply            | Fix 3 facts, resubmit                 |
-| **Noah's lesson**   | "Figuring out who's who" | "The real reason behind the decision" | "Connect that to what you're offering" | "Scripts only get you so far" | "Adjust your tone"                     | "Understand what someone cares about" |
+| Dimension           | ORK                                     | Outokumpu                             | Kemira                                 | Nokia Defence                 | Diana (Riihimäki)                      | Arctic15                              |
+| ------------------- | --------------------------------------- | ------------------------------------- | -------------------------------------- | ----------------------------- | -------------------------------------- | ------------------------------------- |
+| **Status**          | BID IN PREPARATION (deadline 14.8.2026) | IN DISCUSSION                         | IN DISCUSSION                          | LOST                          | IMPROVE & RETRY                        | IMPROVE & RETRY                       |
+| **Type**            | Public procurement                      | Enterprise pilot                      | Enterprise platform                    | Defence platform              | Defence funding                        | Startup competition                   |
+| **Metaphor**        | Buffet                                  | Captain                               | Vineyard                               | Captain (failed)              | Vineyard                               | Vineyard                              |
+| **Contact**         | Committee (anon)                        | Ari Hirvonen                          | Maria Sederholm                        | Tommi Haapala                 | Laura Manner-Raappana                  | SIRA judges                           |
+| **Value**           | Framework (€1.7M ref)                   | €24k pilot                            | €30k/yr (Climate IQ)                   | €90k+                         | Funding grant                          | Top 4 + visibility                    |
+| **Key challenge**   | Contractor depth                        | Internal champion                     | Board-ready package                    | Material quality              | Missing video + deck                   | Legibility gap                        |
+| **What went right** | Strong technical bid                    | Trust, warm contact                   | Carbon need stated                     | NDA signed                    | "Interesting elements"                 | Top 15 of 100                         |
+| **What went wrong** | — (pending)                             | — (pending)                           | — (pending)                            | Materials not defence-grade   | No video, no deck, vague defence angle | Soft numbers, wrong frame             |
+| **Follow-up**       | Wait                                    | Silence + 1 value-add                 | Silence, let Maria socialise           | Wait for GA + reference       | Build video + deck, reapply            | Fix 3 facts, resubmit                 |
+| **Noah's lesson**   | "Figuring out who's who"                | "The real reason behind the decision" | "Connect that to what you're offering" | "Scripts only get you so far" | "Adjust your tone"                     | "Understand what someone cares about" |
 
 ### The Pattern Across All Six
 
@@ -607,15 +609,15 @@ COMPETITION WIN = RIGHT FRAME × HARD NUMBERS × LEGIBILITY × MOMENTUM EVIDENCE
 
 The fix is one fix. Build a modular material kit:
 
-| Module                         | Needed By                           | Status                                                    |
-| ------------------------------ | ----------------------------------- | --------------------------------------------------------- |
-| **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches | BUILT — `MODULE_1_VIDEO_SCRIPT.md` (record with OBS/Loom) |
-| **Pitch deck (10 slides)**     | Diana, Arctic15, investors          | BUILT — `MODULE_2_PITCH_DECK.md` (produce in Gamma/PPT)   |
-| **Hard traction page**         | Arctic15, investors                 | BUILT — `MODULE_3_TRACTION_PAGE.md` (verify numbers)      |
-| **Defence-specific insert**    | Defence Startup Fund, defence-prime round 2 | BUILT — `MODULE_4_DEFENCE_INSERT.md` (3-page bolt-on) |
-| **Sovereignty lead story**     | Arctic15, all investor materials    | EXISTS — needs to move to headline position               |
-| **Trajectory/momentum page**   | Arctic15                            | EXISTS — needs assembly                                   |
-| **Board-ready offer template** | Kemira, future enterprise           | EXISTS (Kemira tarjouskirje is the model)                 |
+| Module                         | Needed By                                   | Status                                                    |
+| ------------------------------ | ------------------------------------------- | --------------------------------------------------------- |
+| **Video demo (2-3 min)**       | Diana, Arctic15, all future pitches         | BUILT — `MODULE_1_VIDEO_SCRIPT.md` (record with OBS/Loom) |
+| **Pitch deck (10 slides)**     | Diana, Arctic15, investors                  | BUILT — `MODULE_2_PITCH_DECK.md` (produce in Gamma/PPT)   |
+| **Hard traction page**         | Arctic15, investors                         | BUILT — `MODULE_3_TRACTION_PAGE.md` (verify numbers)      |
+| **Defence-specific insert**    | Defence Startup Fund, defence-prime round 2 | BUILT — `MODULE_4_DEFENCE_INSERT.md` (3-page bolt-on)     |
+| **Sovereignty lead story**     | Arctic15, all investor materials            | EXISTS — needs to move to headline position               |
+| **Trajectory/momentum page**   | Arctic15                                    | EXISTS — needs assembly                                   |
+| **Board-ready offer template** | Kemira, future enterprise                   | EXISTS (Kemira tarjouskirje is the model)                 |
 
 **Priority sequence:**
 

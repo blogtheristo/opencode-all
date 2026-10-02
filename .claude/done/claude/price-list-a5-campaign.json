@@ -1,0 +1,22 @@
+{
+  "task": "Finish PR #2122: fix(dws10): address PR #2107 review findings; field note on valuation and Aegis licence",
+  "pr": 2122,
+  "base": "main",
+  "order": 3122,
+  "maxRounds": 3,
+  "prompt": "Bring PR #2122 (\"fix(dws10): address PR #2107 review findings; field note on valuation and Aegis licence\", branch claude/price-list-a5-campaign) to mergeable. Do not change what the PR is for.\n1) git fetch origin && git merge origin/main — resolve every conflict keeping both sides' intent; regenerate lockfiles/generated files with the repo's tooling, never by hand.\n2) gh pr checks 2122 and gh pr view 2122 --comments: fix every failing check and every review finding that is a real bug; for optional nits, fix only if trivial.\n3) Run the checks CI would run for the changed files (npx tsc --noEmit, related vitest, prettier --check).\n4) Commit and git push origin claude/price-list-a5-campaign (a merge commit, never a rebase or force-push).\n5) If something needs a human decision (content, pricing, policy), write it as a PR comment with gh pr comment and stop.",
+  "checks": [
+    {
+      "name": "origin/main is merged in",
+      "run": "git fetch -q origin main && git merge-base --is-ancestor origin/main HEAD"
+    },
+    {
+      "name": "no failing PR checks (except the Copilot reviewer app, which fails on every PR)",
+      "run": "out=$(gh pr checks 2122 2>&1 | grep -v copilot-pull-request-reviewer); echo \"$out\" | tail -15; ! echo \"$out\" | grep -qiE '\\bfail(ed|ure)?\\b'"
+    },
+    {
+      "name": "GitHub sees it as mergeable",
+      "run": "m=$(gh pr view 2122 --json mergeable -q .mergeable); echo \"mergeable=$m\"; [ \"$m\" = MERGEABLE ]"
+    }
+  ]
+}

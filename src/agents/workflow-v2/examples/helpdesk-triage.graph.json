@@ -1,0 +1,62 @@
+{
+  "name": "helpdesk-triage-chapter-six",
+  "version": 1,
+  "startNode": "START",
+  "nodes": [
+    {
+      "id": "START",
+      "description": "Validate the input is a UUID matching support_tickets.id. If it is not a UUID, ask for the ticket ID rather than guessing — the skill is explicit about not guessing here. A ticket already `resolved` or `closed` needs no triage.",
+      "allowedNext": ["TRIAGE", "PARKED"]
+    },
+    {
+      "id": "TRIAGE",
+      "description": "Invoke the Helpdesk agent (cli: `run helpdesk --input {action:'triage', ticketId}`). It loads customer, plan, prior tickets and policy KB, then returns: intent (plan-limit | billing | refund | bug-report | how-to), confidence 0.0-1.0, draftReply, recommendedAction, citedPolicySources.",
+      "allowedNext": ["CLASSIFY_ACTION", "ERROR_RECOVERY"]
+    },
+    {
+      "id": "CLASSIFY_ACTION",
+      "description": "Route on the agent's recommendedAction and confidence. The skill's documented rule: confidence < 0.6, or an action of `escalate` or `refund`, means the agent has already opened an hil_escalations row and set the ticket to awaiting_human — that path is not a draft-and-send path.",
+      "allowedNext": ["HIC_APPROVAL_GATE", "ESCALATED", "RESOLVE_NO_REPLY"]
+    },
+    {
+      "id": "HIC_APPROVAL_GATE",
+      "description": "RED zone: the Helpdesk agent NEVER sends email — a human reviewer must approve the draft. Surface the draft reply verbatim plus its cited policy sources, and stop. Only an explicit human approval of this exact draft permits SEND_REPLY. Same structural gate as Chapter 1's outbound-email gate; the runner's DEFAULT_GATED_NODE_IDS covers this node id automatically.",
+      "allowedNext": ["SEND_REPLY", "TRIAGE"]
+    },
+    {
+      "id": "SEND_REPLY",
+      "description": "Reachable only through HIC_APPROVAL_GATE. The reviewer's action: POST /api/v1/support/tickets/:id/send. The graph does not send on its own — it records that the approved send happened.",
+      "allowedNext": ["AWAIT_CUSTOMER", "ERROR_RECOVERY"]
+    },
+    {
+      "id": "AWAIT_CUSTOMER",
+      "description": "Reply sent; awaiting customer response. A follow-up reply is a NEW draft and re-enters TRIAGE then HIC_APPROVAL_GATE — never a resend on the prior approval.",
+      "allowedNext": ["TRIAGE", "RESOLVED", "PARKED"]
+    },
+    {
+      "id": "ESCALATED",
+      "description": "An hil_escalations row exists and the ticket is awaiting_human (low confidence, refund, or explicit escalate). Surface the escalation ID and reason to the reviewer. Terminal for the agent — a human owns the ticket from here.",
+      "allowedNext": []
+    },
+    {
+      "id": "RESOLVE_NO_REPLY",
+      "description": "recommendedAction is `resolve` with no outbound reply needed (e.g. the issue self-resolved or was a duplicate). No approval gate applies because nothing leaves the building.",
+      "allowedNext": ["RESOLVED"]
+    },
+    {
+      "id": "RESOLVED",
+      "description": "Terminal — ticket resolved.",
+      "allowedNext": []
+    },
+    {
+      "id": "ERROR_RECOVERY",
+      "description": "Agent invocation failed, or the send call errored. Diagnose (bad ticket ID, agent timeout, delivery failure) and retry the triage rather than fabricating a reply.",
+      "allowedNext": ["TRIAGE", "PARKED"]
+    },
+    {
+      "id": "PARKED",
+      "description": "Terminal for this run — ticket deferred, out of scope, or already closed on arrival.",
+      "allowedNext": []
+    }
+  ]
+}

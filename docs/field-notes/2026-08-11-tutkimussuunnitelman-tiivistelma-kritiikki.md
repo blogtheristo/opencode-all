@@ -1,6 +1,6 @@
 # Tutkimussuunnitelman tiivistelmä — HIC:n kritiikki 11.08.2026
 
-***
+---
 
 # VERSION AND AGENT HISTORY
 
@@ -8,7 +8,7 @@ Version: 1.0
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.6, Nokia-export v2.1 → v2.6).
+- Version: 1.0 | Tool: Claude Code | Session: claude/tutkimussuunnitelma-tiivistelmä-fczxea | Date: 11.08.2026 | Changes: Kenttämuistiinpano HIC:n kahden kritiikkikohdan käsittelystä tutkimussuunnitelman tiivistelmässä (masteri v2.1 → v2.7, Nokia-export v2.1 → v2.7).
 
 Session Links & References:
 
@@ -22,7 +22,7 @@ Document Status:
 - Publication Status: INTERNAL
 - Classification: CONFIDENTIAL — Väitöskirja- ja rahoitusaineisto
 
-***
+---
 
 ## 1. Kritiikki sellaisena kuin se annettiin
 
@@ -49,7 +49,7 @@ v2.1:n vartija koski vain Saksaa. Uusien jurisdiktioiden lisääminen olisi ilma
 | Saksa                  | Skenaario                                                          |
 | Yhdysvallat            | Dokumenttiprofiili                                                 |
 | Singapore              | Dokumenttiprofiili (ISO/IEC JTC 1/SC 42 -reitti todennettu §14.43) |
-| Etelä-Korea            | **Poistettu kehyksestä v2.4:ssä** — ks. §4c paluuehto               |
+| Etelä-Korea            | **Poistettu kehyksestä v2.4:ssä** — ks. §4c paluuehto              |
 | ASEAN / laajempi Aasia | Skenaario                                                          |
 
 **Etelä-Korea on ainoa merkintä ilman lähdepohjaa.** Repositoriossa Etelä-Korea esiintyy 11.08.2026 vain G7-plus-kumppanit-koalition jäsenenä tekoälymenojen yhteydessä (`docs/PHD_FIREHORSE_FI.md` §14.24) — ei sääntely-, hankinta- eikä standardointireittinä. Merkintä `unverified` on siksi tarkoituksellinen ja poistetaan vasta lähdekartoituksen jälkeen (Sääntö 12).
@@ -117,6 +117,18 @@ HIC toimitti Geminin uudemman version (leima "Versio 2.2 · 11.08.2026"), joka s
 - Stale-rivi "Evidenssistatukset lukittu v2.0:ssa", joka listaa vain FI/SE/DE.
 
 **Varmentamaton tieto:** `PearX` on HIC:n/Geminin toimittama; repossa ei ole sille lähdettä. Kirjattu mahdollisena rahoituspolkuna, ei toteutuneena.
+
+## 4f. Hyväksynnän ja commitin välinen kuilu (v2.7, 28.09.2026)
+
+HIC hyväksyi 11.08.2026 korvauksen _"syvä paikallinen validointi Suomessa, Ruotsissa ja Saksassa"_ → _"paikalliset vertailut Suomessa, Ruotsissa ja Saksassa niiden kunkin evidenssistatuksen mukaisesti"_. **Korvaus ei ollut PR #1820:n sisällössä** (merged 11.08.2026 03:16Z, v2.1 → v2.6, 5 tiedostoa, +725/−27). Se löytyi vasta 28.09.2026, kun mainin tiedostoa luettiin uudelleen.
+
+Samalla paljastui toinen puute: **Nokia-säätiön exportista puuttui kokonaan tutkimus-vs-GTM-kappale**, vaikka sen oma muutoshistoria (v2.3) väitti sen olevan siellä. Apurahaliitteestä puuttui siis juuri se erottelu, jota HIC vaati — laaja jurisdiktiokehys ilman mainintaa siitä, ettei se ole markkinasuunnitelma.
+
+**Molemmat korjattu v2.7:ssä.** Lisäksi empiirinen riippuvuus rajattiin HIC:n tarkennuksen mukaisesti osittaiseksi: väitöskirja ei romahda, jos käyttöönotot viivästyvät, koska RQ1 ja RQ2 voivat edetä fallback-aineistolla; RQ3 ja RQ4 ovat ne osat, joiden aineisto edellyttää onnistuneita käyttöönottoja.
+
+**Opetus:** HIC:n hyväksyntä keskustelussa ei ole sama asia kuin commit. Kun hyväksyntä tulee kesken session, korvaus committoidaan ennen kuin seuraavaan aiheeseen siirrytään — ja hyväksytyn muotoilun olemassaolo tarkistetaan tiedostosta (`grep`), ei muistista.
+
+**Delimiter-korjaus:** tiedostojen `***`-erottimet muunnettu `---`:ksi CLAUDE.md:n mukaisesti (HIC 19.09.2026 korvasi `***`:n Prettier-vakaalla `---`:lla). Aiempi handoff-ohje "palauta `***` käsin" on vanhentunut ja poistettu.
 
 ## 5. HIC Learning Outcome — kuusi askelta
 

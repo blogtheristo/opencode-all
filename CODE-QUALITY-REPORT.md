@@ -76,7 +76,7 @@ node --check <every inline <script> and shared-assets JS the Aegis pages load>
 
 Typecheck, build, and the aegis-scoped unit tests are green. One BLOCKER (site-wide JS syntax error) was found and fixed with a proof-of-fix. Two HIGH findings (missing stylesheet asset, agent-name collision) remain open — one requires deploy-pipeline information this worktree cannot see, the other requires an HIC naming decision. Proceeding to Phase 2 with these two HIGHs carried forward as open blockers.
 
-***
+---
 
 ## Addendum — 2026-08-19: Aegis component inventory + orchestrator build
 
@@ -91,13 +91,13 @@ Store/PRODUCT_AEGIS.md's "Agents Included" table names five core components.
 Each was checked by reading the file, not by trusting the doc or prior
 report text.
 
-| Component | Claim in doc | Finding | File |
-| --- | --- | --- | --- |
-| Argus | "Live" (orbital SAR labeling) | **Real, working code.** 756-line `ArgusAgent extends BaseAgent`, full `execute()`, SAR/AOI pipeline logic, no TODO/stub markers. | `src/agents/argus.agent.ts` |
-| SovereigntyMonitor | "Live" | **Real, working code.** 614-line `SovereigntyMonitorAgent extends BaseAgent`, scoring across weighted dimensions, tier classification, no TODO/stub markers. | `src/agents/sovereignty-monitor.agent.ts` |
-| Article12Logger | "Live" | **Real, working code**, but requires a live `INTERNAL_DB_URL` Postgres connection to function — throws at construction time if unset. 188 lines, two-phase pre-flight/post-flight audit write, no TODO/stub markers. Not previously wired into any agent named `aegis`. | `src/agents/article12-logger.ts` |
-| KYA Engine | "Live" (part of the governance loop) | **Real, working code.** `src/identity/kya-engine.ts` implements the Shanghai Model policy engine (`evaluateSignal`) mapping Shufti AML webhook signals to `UPDATE_SCORE` / `TERMINATE_CHAIN` / `REVAL_LEASH`. Separate `kya-standard-conformance.test.ts` exists and is in the passing suite. Not orchestrated by anything named `aegis` prior to this session. | `src/identity/kya-engine.ts` |
-| ComplianceAgent | "Live" | **Real, working code.** 580-line `ComplianceAgent extends BaseAgent` (dual-use export control + EU climate compliance gaps), no TODO/stub markers except two explicit doc-string gap notes (`'Carbon reporting not implemented'`, `'EU AI Act Article 12 automatic logging not implemented'` — these are *findings the agent itself reports*, not missing agent code). | `src/agents/compliance.agent.ts` |
+| Component          | Claim in doc                         | Finding                                                                                                                                                                                                                                                                                                                                                                | File                                      |
+| ------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Argus              | "Live" (orbital SAR labeling)        | **Real, working code.** 756-line `ArgusAgent extends BaseAgent`, full `execute()`, SAR/AOI pipeline logic, no TODO/stub markers.                                                                                                                                                                                                                                       | `src/agents/argus.agent.ts`               |
+| SovereigntyMonitor | "Live"                               | **Real, working code.** 614-line `SovereigntyMonitorAgent extends BaseAgent`, scoring across weighted dimensions, tier classification, no TODO/stub markers.                                                                                                                                                                                                           | `src/agents/sovereignty-monitor.agent.ts` |
+| Article12Logger    | "Live"                               | **Real, working code**, but requires a live `INTERNAL_DB_URL` Postgres connection to function — throws at construction time if unset. 188 lines, two-phase pre-flight/post-flight audit write, no TODO/stub markers. Not previously wired into any agent named `aegis`.                                                                                                | `src/agents/article12-logger.ts`          |
+| KYA Engine         | "Live" (part of the governance loop) | **Real, working code.** `src/identity/kya-engine.ts` implements the Shanghai Model policy engine (`evaluateSignal`) mapping Shufti AML webhook signals to `UPDATE_SCORE` / `TERMINATE_CHAIN` / `REVAL_LEASH`. Separate `kya-standard-conformance.test.ts` exists and is in the passing suite. Not orchestrated by anything named `aegis` prior to this session.        | `src/identity/kya-engine.ts`              |
+| ComplianceAgent    | "Live"                               | **Real, working code.** 580-line `ComplianceAgent extends BaseAgent` (dual-use export control + EU climate compliance gaps), no TODO/stub markers except two explicit doc-string gap notes (`'Carbon reporting not implemented'`, `'EU AI Act Article 12 automatic logging not implemented'` — these are _findings the agent itself reports_, not missing agent code). | `src/agents/compliance.agent.ts`          |
 
 **Correction to the task brief's premise:** all five documented Aegis
 components already existed as real, non-stub code before this session. What
@@ -174,6 +174,98 @@ npx vitest run src/__tests__                         # 1176 passed, 1 pre-existi
                                                        # this branch BEFORE this
                                                        # session's changes via
                                                        # git stash), 3 skipped
+```
+
+---
+
+## Addendum — 2026-08-19 (session 2): durable store built, live-DB write path proven locally
+
+HIC scope decision (19.08.2026): close the two BLOCKED items above that
+depend on a database — durable replay/audit-chain store and live
+Article12Logger persistence — targeting DGX Spark as the deployment.
+Offline/degraded control-room mode stays BLOCKED, explicitly out of scope
+(see `RELEASE-READINESS.md` and `HIC-REPORT.md` addenda for the full
+boundary statement — do not treat this session's networked-cloud
+resilience work as edge/offline readiness).
+
+### New code
+
+- **`src/agents/aegis-durable-store.ts`** — replaces the in-memory
+  `Set`/`Array` on `AegisAgent` with a Postgres-backed store
+  (`aegis_audit_chain`), same hash-chain formula, reserve/finalize two-phase
+  API (replay-check before side-effecting work runs; hash computed once the
+  result summary is known). Falls back to the old in-memory behavior,
+  flagged `durable: false`, if Postgres is unreachable at any point.
+- **`infrastructure/dgx-spark/migrations/023_aegis_audit_chain.sql`** — new
+  table, following the same append-only/column-scoped-GRANT convention as
+  `019_command_audit_log.sql` and `021_fix_partial_runs_article12.sql`.
+- **`infrastructure/dgx-spark/docker-compose.yml`** — added the `dws-postgres`
+  service block that a prior session's changelog entry (v1.4.0) had claimed
+  already existed but did not; `dws-backend`/`dws-cron` now genuinely
+  `depends_on` it. `.env.example` updated with the required vars.
+- **`src/agents/aegis.agent.ts`** — updated to use the new store; the static
+  `getAuditChain()`/`verifyAuditChain()` accessors are now `async` (callers
+  in `src/__tests__/agents/aegis.test.ts` updated to `await` them — no
+  behavioral change to the 9 original tests, all still pass).
+
+### Real evidence, not mocked
+
+This session's sandbox had PostgreSQL 16 and Redis installed locally with
+root access — used to run all new tests against a **real** database with
+the **exact production schema** applied, rather than mocking `pg`:
+
+- `src/__tests__/agents/aegis-durable-store.test.ts` — 7/7 passing:
+  process-restart survival, durable replay rejection across store
+  instances, tamper detection via a raw SQL `UPDATE`, concurrency safety
+  (two instances reserving simultaneously never fork the chain — this test
+  caught and drove the fix for a real race-condition bug, see below),
+  graceful degradation on an unreachable DB, a mid-operation failure that
+  still preserves the entry, and automatic recovery after an outage.
+- `src/__tests__/agents/article12-logger.test.ts` — 4/4 passing: real
+  `logPreFlight()`/`logPostFlight()` writes against the production
+  `article12_audit_log` schema, the DB-level `decision_summary` length
+  `CHECK` constraint, and the `PUBLIC` cannot `UPDATE`/`DELETE`/`TRUNCATE`
+  grants verified against the live catalog via `has_table_privilege()`.
+
+**Bug found and fixed:** the first design resolved a new entry's `prevHash`
+at reservation time from the "last row"; under concurrency this let two
+reservations racing ahead of their completions both link to the same
+not-yet-finished row and fork the chain — caught live by the new
+concurrency test (it failed until fixed). Fixed by resolving `prevHash` at
+completion time instead, under a Postgres advisory lock, from the last row
+that has actually finished — not the last one merely reserved.
+
+### Still open / BLOCKED
+
+- **Article 12 persistence — DGX Spark run** — the write path is now
+  proven against the production schema on a local Postgres, but not yet
+  against DGX Spark's actual `dws-postgres` container over the real
+  `dws-network`. Marked **BLOCKED-IN-SANDBOX** for that specific half —
+  exact verification command in `RELEASE-READINESS.md`.
+- **Durable replay/audit-chain store — DGX Spark run** — same caveat:
+  proven locally, DGX-specific run pending.
+- **Offline/degraded control-room mode** — unchanged, explicitly out of
+  scope this session per the HIC's 19.08.2026 decision. Remains BLOCKED.
+  This session's Postgres-outage fallback/recovery testing is networked-
+  cloud resilience, not edge/offline readiness — do not conflate the two.
+
+### Verification run this session
+
+```
+npx tsc --noEmit -p .        # 0 errors
+npm run build                # clean
+npx vitest run src/__tests__/agents/aegis.test.ts   # 9 passed (degraded mode, no DB)
+AEGIS_DURABILITY_TEST_DB_URL="postgres://<test-role>@127.0.0.1:5432/<test-db>" \
+  npx vitest run \
+    src/__tests__/agents/aegis.test.ts \
+    src/__tests__/agents/aegis-durable-store.test.ts \
+    src/__tests__/agents/article12-logger.test.ts    # 9 + 7 + 4 = 20 passed
+npx vitest run                # 1181 passed, 10 skipped, 1 pre-existing unrelated
+                               # failure (agent-registry.test.ts, confirmed
+                               # present before this session via git stash —
+                               # not touched, out of scope)
+python3 -c "import yaml; yaml.safe_load(open('infrastructure/dgx-spark/docker-compose.yml'))"
+docker compose -f infrastructure/dgx-spark/docker-compose.yml config -q   # exit 0
 ```
 
 ## Status: **PARTIAL** (unchanged headline; addendum adds the orchestrator work above)

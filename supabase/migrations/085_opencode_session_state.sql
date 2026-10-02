@@ -1,5 +1,7 @@
 -- OpenCode-all session state management
--- Migration: 076_opencode_session_state
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/085_opencode_session_state.sql
+-- Migration: 085_opencode_session_state
 -- Purpose: Replace JSONL queue.jsonl with Supabase table for reliable session tracking
 
 CREATE TABLE IF NOT EXISTS opencode_sessions (
@@ -49,8 +51,9 @@ CREATE INDEX IF NOT EXISTS idx_opencode_sessions_state_status ON opencode_sessio
 ALTER TABLE opencode_sessions ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "service_role_all" ON opencode_sessions
-  FOR ALL USING (true) WITH CHECK (true);
+  FOR ALL TO service_role USING (true) WITH CHECK (true);
 
--- Grants
-GRANT SELECT, INSERT, UPDATE, DELETE ON opencode_sessions TO service_role;
-GRANT SELECT, INSERT, UPDATE ON opencode_sessions TO authenticated;
+-- Explicit table grants; no authenticated policy means row access remains
+-- service-only through RLS.
+GRANT SELECT, INSERT, UPDATE, DELETE ON opencode_sessions
+  TO authenticated, service_role;

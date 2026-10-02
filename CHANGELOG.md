@@ -7,8 +7,101 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- **opencode-loop systematic errors found in the 30.09.2026 PR audit.**
+  `scripts/opencode-task-loop.mjs`: a task whose PR is merged or closed, or whose acceptance
+  checks already pass on origin/main, is SETTLED and not run (it had produced duplicate PRs
+  #2262, #2264, #2265, #2215, #2259); a branch that edits `agent-done-gate.mjs` must also pass
+  its own copy of the gate (#2266 was DONE while its gate crashed); round prompt forbids
+  out-of-scope reformatting and recording PASS for a step that did not run.
+  `scripts/agent-done-gate.mjs`: format is judged over the whole branch vs its merge base, not
+  `--since` (#2267/#2268 were DONE with unformatted files). `scripts/opencode-pr-specs.mjs`:
+  PRs with no merge base, truncated (100+) file lists, or price-list/buy/feeds/site HTML/
+  functions/migrations paths go to the HIC list instead of the loop queue.
+
 ### Added
 
+- **DGX auto-start for the opencode loop + one-command HIC console (HIC, 30.09.2026).**
+  `bash scripts/install-opencode-loop.sh` (once, on the DGX) installs a systemd user timer
+  (`infrastructure/dgx-spark/opencode-loop/`) that runs `opencode-loop start` (tmux `oc-loop`) at
+  boot and every 15 minutes, after Ollama on 11434 answers, then `opencode-all --prs`. It also puts `hic` and
+  `opencode-all` on PATH and adds a one-line digest to the login banner. `hic` (`scripts/hic.mjs`)
+  lists merge-ready PRs, PRs needing the HIC, and blocked tasks; `hic merge N` refuses unless
+  the PR is not draft, mergeable and CI green, and blog/pricing PRs need `--approved-content`
+  (Rule 13). `hic approve|note|close|reset` wrap `opencode-all --prs`.
+
+### Changed
+
+- **Production backend moves from Scaleway to DGX Spark (HIC, 26.09.2026: cost).**
+  `infrastructure/dgx-spark/day-runner.sh` now rebuilds (no cache) when app or
+  Docker files changed since the last healthy deploy, then health-checks the
+  backend and logs `DEPLOY OK` / `DEPLOY FAILED`. Before, a `src/` change kept
+  running on a stale image. `deploy-scaleway.yml` (failing at registry push) and
+  `deploy-dgx-spark.yml` (green without deploying: the GitHub-hosted runner
+  cannot reach the DGX) are renamed to `.disabled`. Frontend URL switch and
+  Scaleway teardown follow once `api.dws6.com` is on the tunnel. See
+  `docs/field-notes/2026-09-26-hic-out-of-the-routine-path.md` §7.
+
+### Added
+
+- **Decision record: why DWS runs on PostgreSQL (HIC, 27.09.2026).**
+  `docs/architecture/DATABASE_DECISION_POSTGRESQL.md` collects the reasons
+  from the data standard, locked decisions and security §17.5: one engine for
+  transactions, time series, vectors and documents; jsonb removes the need for
+  a separate document database; RLS in the database; portable across Supabase,
+  Aiven, edge and air-gapped hosts. Records the costs, including an unresolved
+  conflict over whether the Aiven mirror (DR-5) runs and on which provider.
+  The March Aiven note's "no CLOUD Act exposure" claim is marked superseded.
+- **Aegis Pilot hard stop (readiness plan patch C1).** Workflow steps and the
+  stop-test agent now run in worker threads that an operator stop terminates
+  (`src/aegis/pilot/isolated-handlers.ts`). A handler that ignores its signal or
+  spins synchronously is stopped anyway, and the record carries `stopMode`,
+  `terminationMs` and `lateMessages`. Acceptance runs refuse the cooperative
+  stop. Isolated rehearsal: PASS; the stubborn agent terminated in 5 ms.
+- **Aegis Pilot local-first kit (DWS-AEGIS-PILOT-001).** `src/aegis/pilot/` +
+  `npm run aegis:pilot`: local Article 12 ledger (hash-chained, site-signed,
+  fsync per event), Ed25519 site identity, operator kill authority over a local
+  signed-command inbox, egress probe, workflow runner that defers non-core
+  network steps and reconciles on reconnect, and the severed-uplink acceptance
+  test that computes the binary KPI (PASS / NEGATIVE_RESULT / NOT_TAKEN /
+  INVALID) into a signed record. `npm run aegis:pilot:rehearse-isolated` runs
+  the rehearsal inside a Linux network namespace. Runbook
+  `docs/runbooks/AEGIS_PILOT_RUNBOOK.md`; notes
+  `docs/field-notes/2026-09-28-aegis-pilot-local-first-kit.md`.
+
+- **Active Ontology 1.5 — technical acceptance (HIC, 24.09.2026).** The
+  Decision Flight Recorder, Decision Traceability and the DISCOVER → Decision
+  Journey bridge were validated on a clean database. Migrations 089 → 093 were
+  applied to a new empty PostgreSQL 16 database, then:
+  - Foundation `supabase/migrations/094_240926_decision_journey.sql`: 32/32 checks
+    pass. Covered: append-only log, hash chain, source-aware evidence strength,
+    learning-confidence cap, ontology-update gate, system-only `PATH_ABANDONED`.
+  - Bridge `supabase/migrations/095_240926_decision_journey_discover_bridge.sql`:
+    20/20 checks pass. `OBSERVATION_RECORDED → OWNERSHIP_HYPOTHESIS_CREATED →
+PATH_RECOMMENDED → PATH_TRANSFERRED → OWNER_ACKNOWLEDGED` land under one
+    `journey_id`. Every event's `evidence_refs` resolve back to the DISCOVER
+    observation.
+  - An anonymous DISCOVER visit never creates an immutable journey. A journey
+    is created only once the organisation is identified, an ownership finding
+    exists and a recommendation or transfer exists. Unknown verdicts are
+    dropped at intake and at the bridge.
+  - Helpdesk shadow mode (`src/decision-journey/`, off by default): the agent
+    proposes and a human decides; `helpdesk_shadow_agreement` tracks
+    `would_have_executed_wrongly`.
+  - Not applied to Supabase yet; applying migrations is a HIC (RED-zone) step.
+    Next goal: the first real Ownership Transfer from an external organisation
+    (M1), not a new feature. Spec:
+    `docs/plans/2026-09-24-decision-journey-outcome-evidence.md` §9.5–9.6.
+
+- Dapr pub/sub pilot (default OFF, `DAPR_PUBSUB_PILOT_ENABLED=true` to
+  enable): `src/agents/event-bus.ts` optionally publishes the
+  `agent.task_complete` event type to a local Dapr sidecar for durable,
+  cross-process delivery, alongside its existing in-memory local dispatch.
+  Delivery callback at `src/routes/dapr-pubsub.routes.ts` (`/dapr/*`).
+  Redis pub/sub component template + run instructions: `dapr/README.md`.
+  Scope, rationale, and phased go/no-go plan:
+  `docs/field-notes/2026-09-22-dapr-use-cases-dws.md`.
 - Back-Office live-data API `/api/v1/backoffice/{stats,containers,users,audit-log}`
   (`src/routes/backoffice.routes.ts`) with server-side admin check against
   `organization_members` (active owner/admin); `dashboard/backoffice/` now renders
@@ -19,9 +112,20 @@ This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- OpenCode root `opencode.json` (closes #1832): the `read`/`edit` permission blocks
+  allowed reading the repo-root `.env`, denied `.env.example`, and left root-level
+  `*secret*`/`*credentials*`/`*.pem`/`*.key`/`id_rsa` readable (last-match-wins +
+  `**/` needs a slash). Rule sets rewritten and verified with OpenCode 1.18.32
+  `debug config --pure` plus a matcher harness; `share` disabled; `.claude/`
+  harness edits gated to `ask`; non-schema `cost-policy` block moved to
+  `config/cost-policy.json`. Field note
+  `docs/field-notes/2026-09-23-opencode-config-audit-issue-1832.md`.
+
 - V10 asked for a new login: it now uses the shared dws6.com Supabase config and
   session key (`dws6-auth-token`) instead of a placeholder project, and its router
   honours the `/dashboard/firehorse/v10/` base path.
+
+  > > > > > > > origin/main
 
 - DGX local-first LiteLLM router (`config/litellm-config.yaml`) using only
   `OLLAMA_DEPLOYED_MODELS` (`nemotron-3-super`, `qwen3-coder:30b`) and

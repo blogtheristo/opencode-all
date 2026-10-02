@@ -8,13 +8,18 @@
  * Run via: npm run temporal:worker (scripts/temporal-worker.ts)
  * Requires a reachable Temporal server — see src/temporal/client.ts.
  */
+import { existsSync } from 'node:fs';
 import { NativeConnection, Worker } from '@temporalio/worker';
 import * as activities from './activities/index.js';
 import { TASK_QUEUES } from './task-queues.js';
 import { getTemporalAddress, getTemporalNamespace } from './client.js';
 import logger from '../utils/logger.js';
 
-const WORKFLOWS_PATH = new URL('./workflows/index.js', import.meta.url).pathname;
+// Compiled builds have index.js; the tsx runtime (Docker CMD, npm script) only has index.ts.
+const compiledWorkflows = new URL('./workflows/index.js', import.meta.url).pathname;
+const WORKFLOWS_PATH = existsSync(compiledWorkflows)
+  ? compiledWorkflows
+  : new URL('./workflows/index.ts', import.meta.url).pathname;
 
 async function createWorkerForQueue(taskQueue: string): Promise<Worker> {
   const connection = await NativeConnection.connect({

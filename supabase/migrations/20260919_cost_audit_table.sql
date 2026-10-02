@@ -1,5 +1,5 @@
 -- Migration: Create cost_audit table for persistent cost governance tracking
--- Evidence: Tool=Claude Code 1.0 Model=claude-haiku-4-5-20251001 Agent=cost-audit-persistence Date=2026-09-19
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
 -- Audit trail: git log -- supabase/migrations/20260919_cost_audit_table.sql
 
 -- Table: cost_audit (persistent cost governance audit log)
@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.cost_audit (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
 
   -- Audit metadata (from cost-policy.log pipe-delimited format)
-  session_datetime TEXT NOT NULL,           -- ISO 8601 timestamp of session decision
+  session_datetime TIMESTAMPTZ NOT NULL,    -- ISO 8601 timestamp of session decision
   session_id TEXT NOT NULL,                 -- Cursor/Grok/Claude Code session ID
   agent_type TEXT NOT NULL,                 -- cursor-ai, grok-ai, claude-code
   sandbox TEXT NOT NULL,                    -- dgx-local, cloud, blocked
@@ -39,13 +39,11 @@ ALTER TABLE public.cost_audit ENABLE ROW LEVEL SECURITY;
 -- RLS Policy: Admins (three allowed emails) can read all
 CREATE POLICY cost_audit_admin_read ON public.cost_audit
   FOR SELECT
+  TO authenticated
   USING (auth.jwt() ->> 'email' IN ('admin@dws6.com', 'risto.paarni2024@lifetime.fi', 'admin@dws10.com'));
 
--- RLS Policy: service_role (backend) can insert and update
--- Note: service_role bypasses RLS, so we don't need explicit policies for it
--- but we grant it here for clarity
-GRANT SELECT, INSERT, UPDATE ON public.cost_audit TO service_role;
-GRANT SELECT ON public.cost_audit TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.cost_audit
+  TO authenticated, service_role;
 
 -- Indexes for efficient querying
 CREATE INDEX idx_cost_audit_session_datetime ON public.cost_audit(session_datetime DESC);

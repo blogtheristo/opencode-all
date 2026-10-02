@@ -1,0 +1,78 @@
+{
+  "description": "HIC decisions on product lifecycle state. One entry per decision; never edit or delete an entry, add a new one. States: planned, page-only, internal, published, archived, discontinued, removed. Rendered by scripts/truth/product-lifecycle.mjs into docs/truth/PRODUCT_LIFECYCLE.md (TRUTH row 43). Planned rows (no catalogue record yet) are added here first.",
+  "decisions": [
+    {
+      "id": "professional-web-pages",
+      "name": "Kotisivut pk-yritykselle",
+      "state": "archived",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "On price list has old price 750€. Now we have ohjevähittäishinta and campaign price 650€ alv 0",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "LIFETIME-WEB-STARTER",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Create product tag SMEs should have campaign products. Keep them own section on price-list",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "LIFETIME-WEBSTORE-MINI",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Create product tag SMEs should have campaign products. Keep them own section on price-list",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "LIFETIME-IT-TUKI-10H",
+      "name": "IT Support Hour Bank for SMEs — 10 h",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Tuntipankki on 3. Tuote sisältäen; tietokoneiden uusiminen, ohjelmistojen päivitykset, yrityssovellutukset, tietoturva, koulutus. Lisää se sivulle 3. A5 kampanjaan ja liitä. Tag SMEs.",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "firehorse-mobile",
+      "name": "Firehorse Mobile",
+      "state": "planned",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "On tulossa",
+      "note": "Answer to: is firehorse-mobile a coming product? The public page dws10.com/products/firehorse-mobile.html already says coming soon. It gets a catalogue record when the HIC sets its price.",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "DWS-AEGIS-001",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription.",
+      "note": "The €59,990 is the one-time Aegis licence (tag Licence), no longer called onboarding.",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "DWS-AEGIS-SUB-001",
+      "name": "DWS IQ Aegis — Maintenance Subscription",
+      "state": "published",
+      "date": "2026-09-25",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Minusta siinä pitäisi olla license ja tuoterakenne kuten ontology tuotteessa. Se vastaa ontology tuotetta käyttöönotossa mutta siinä on myös ylläpito subscription.",
+      "note": "New maintenance subscription; prices moved unchanged from the Aegis licence price note (Standard €999/mo, Defence €1,999/mo, Sovereign €4,999/mo).",
+      "ref": "PR #2107"
+    },
+    {
+      "id": "ops-manager",
+      "name": "DWS IQ Ops Manager",
+      "state": "planned",
+      "date": "2026-09-27",
+      "decidedBy": "HIC (Risto Anton Päärni)",
+      "quote": "Add to catalogue",
+      "note": "Answer to: Ops Manager is named as a DWS IQ product in the CLAUDE.md Market Signal rule but had no catalogue ID (thesis concept, PHD_FIREHORSE §14.16.5 Ops Manager V0 buyer lock). Registered as planned; it gets a products.json record and public page when the HIC sets its price.",
+      "ref": "blogtheristo/dws6#2178"
+    }
+  ]
+}

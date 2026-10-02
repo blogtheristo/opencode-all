@@ -1,0 +1,58 @@
+{
+  "v": 1,
+  "siteId": "vector-site",
+  "keyId": "3fe15c2b334eb5a8",
+  "createdAt": "2026-10-01T06:00:09.000Z",
+  "ledgerHead": {
+    "count": 1,
+    "hash": "fdcfbdecb30ffd68a8bd34f52a9c80d7f199f7252d5c4703e3786c853122d505"
+  },
+  "lastSealDigest": "7df771c5529bf834c3c2828134559b9acf1d8d5fcb3e84b592dcc8eb28cacbee",
+  "files": [
+    {
+      "path": "AUDITOR_GUIDE.md",
+      "sha256": "69e744687d469e63aff2c25e12f17c8e867c4a449533a94201e283c28b7a16fc",
+      "bytes": 126
+    },
+    {
+      "path": "command-bodies/03e1c7e7c552dc3b0cba15350dae36b9eb47d2594f9482ac7cccc6f5530e0405.json",
+      "sha256": "348e8d56c7ed9d46814e5e01628f3eca83ae856d3c44682a9082b1d83403168e",
+      "bytes": 344
+    },
+    {
+      "path": "command-bodies/046b2f490f3fe7e4f6cc1213188fa780011efb78ab85fcaba67df17af700ecd0.json",
+      "sha256": "126b493b6c3d66ab7da04a99e77fcca9e4eb4ea4c276fd14d2bf665f5a2fb222",
+      "bytes": 445
+    },
+    {
+      "path": "credentials/00000000-0000-4000-8000-000000000101.json",
+      "sha256": "7cb470eacff3495c1a3c016a11b37c662c47e1190446daec278d38f146169fb1",
+      "bytes": 683
+    },
+    {
+      "path": "credentials/00000000-0000-4000-8000-000000000102.json",
+      "sha256": "202e706f357c7f1f7f5864af0882392b261c99250b78512f03c61c4053f737da",
+      "bytes": 630
+    },
+    {
+      "path": "ledger/article12.jsonl",
+      "sha256": "a7cfa0db635b9cc2909da171f351f956d7c5f50f3ecbb4749b83433aa5deac9f",
+      "bytes": 876
+    },
+    {
+      "path": "ledger/segments/000000.jsonl",
+      "sha256": "937f4d580bedde49cb7bc7553437c7db43230c7676513c3ce4d1c4b398c5a04c",
+      "bytes": 6052
+    },
+    {
+      "path": "ledger/segments/000000.seal.json",
+      "sha256": "4489ea7ca8c06c731b74bb646e1b891a986dbfa78d36ca3145b0e2bb78f6fa1d",
+      "bytes": 793
+    },
+    {
+      "path": "site/site.json",
+      "sha256": "19b5b051fec51dfa825c3b0af5638060680afab03d671d5bde9b8c0644b46ae7",
+      "bytes": 242
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Aegis authority record in OpenShell</title>
+<style>body{font-family:system-ui,sans-serif;max-width:860px;margin:0 auto;padding:24px 16px;line-height:1.55;color:#16222b;background:#f7f8f6}table{border-collapse:collapse;width:100%}th,td{border:1px solid #cfd6d3;padding:6px 10px;text-align:left}code{background:#eaf1ee;padding:1px 4px}</style></head><body><h1>Aegis Pilot — decision-authority record proven with OpenShell containment</h1>
+<hr />
+<h1>VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: Claude Code (web) | Session: claude/aegis-pilot-openshell-03ist6 | Date: 29.09.2026 | Changes: Created. #2229 merged into the #2230 branch ahead of time; combined real-gateway rehearsal result. | Harness: Claude Code + CLAUDE.md + DWS_TRUTH_STANDARD | HIC-approved-drift: none</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 29.09.2026</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<h2>What happened</h2>
+<p>PR #2229 (decision-authority record, stop tombstone, credential digest bound at grant) and PR #2230 (OpenShell containment) each touched the runbook §6 and <code>src/aegis/pilot/index.ts</code>, so whichever merged second would conflict. #2229's branch was merged into #2230's branch and the two conflicts were resolved: the runbook keeps step 6 (authority record) followed by §6.1 (OpenShell setup), and the index exports both modules. Either PR can now merge first.</p>
+<p>The combined code was rehearsed against the real OpenShell gateway, inside <code>unshare --net</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acceptance outcome</td>
+<td>PASS; reconcile replayed; ledger and record verify</td>
+</tr>
+<tr>
+<td>Operator stop command accepted</td>
+<td>99 ms</td>
+</tr>
+<tr>
+<td>Sandboxed stop-test agent terminated (deletion confirmed)</td>
+<td>5,298 ms</td>
+</tr>
+<tr>
+<td>Work events from the stopped agent after the stop</td>
+<td>0 (refused attempts: 0)</td>
+</tr>
+<tr>
+<td>Credential file matches the digest written at grant</td>
+<td>yes, for both agents</td>
+</tr>
+<tr>
+<td>Tests</td>
+<td>75 pass</td>
+</tr>
+</tbody>
+</table>
+<h2>The insight</h2>
+<p>The record now answers the buyer's question end to end for an agent running under real containment. Who held authority is the grant with its credential digest. What followed is completed for the workflow agent and stopped for the stop-test agent. The negative evidence is that nothing was recorded after the halt moment, and termination was confirmed by the sandbox's absence. That combination is what the offer's Appendix A describes. It is now demonstrated rather than only designed.</p>
+<h2>Next steps</h2>
+<ol>
+<li>The HIC merges #2228–#2231.</li>
+<li>M4: the same rehearsal on the pilot's edge hardware, with a witness (target 25.10).</li>
+<li>C4 remainder: OCSF events into the ledger, prover result in the record.</li>
+</ol>
+<h2>Learning outcome steps</h2>
+<ol>
+<li>KB: N/A. This is implementation evidence for a branch whose field notes (<code>2026-09-28-nvidia-openshell-aegis-c4.md</code>) are already the KB source. It will be ingested at merge.</li>
+<li>Field note: this file.</li>
+<li>Learn HTML: <code>Learn/2026-09-29-aegis-authority-record-in-openshell.html</code> (rendered with Python-Markdown; pandoc is not installed in this container).</li>
+<li>Drive export: N/A. No Drive connector write in this session; the repository is the source of truth.</li>
+<li>HIC decision: which hardware runs M4 (DGX Spark or GN100), and which router takes the deny-all rule?</li>
+<li>Calendar: N/A. No new dated commitment; the 02.10, 15.10, 30.11 and 31.12 entries already exist.</li>
+</ol></body></html>

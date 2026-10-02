@@ -1,5 +1,12 @@
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
+// Audit trail: git log -- src/__tests__/security/runtime-auth-kya-verdict.test.ts
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { issueKyaVerdict, verifyKyaVerdict } from '../../security/runtime-auth.js';
+import { createHmac } from 'node:crypto';
+import {
+  _resetPoliciesForTests,
+  issueKyaVerdict,
+  verifyKyaVerdict,
+} from '../../security/runtime-auth.js';
 
 const ORIGINAL_SECRET = process.env.KYA_VERDICT_SIGNING_SECRET;
 const ORIGINAL_PREVIOUS = process.env.KYA_VERDICT_SIGNING_SECRET_PREVIOUS;
@@ -8,6 +15,7 @@ const ORIGINAL_NODE_ENV = process.env.NODE_ENV;
 beforeEach(() => {
   process.env.KYA_VERDICT_SIGNING_SECRET = 'test-secret-a';
   delete process.env.KYA_VERDICT_SIGNING_SECRET_PREVIOUS;
+  _resetPoliciesForTests();
 });
 
 afterEach(() => {
@@ -26,6 +34,20 @@ describe('issueKyaVerdict / verifyKyaVerdict', () => {
     expect(verifyKyaVerdict(v)).toBe(true);
   });
 
+  it('continues to verify legacy signed verdicts during rollout', () => {
+    const issuedAt = '2026-09-27T12:00:00.000Z';
+    const payload = JSON.stringify({
+      decision: 'allowed',
+      trustScore: 42,
+      policyVersion: null,
+      gate: null,
+      issuedAt,
+    });
+    const sig = createHmac('sha256', 'test-secret-a').update(payload).digest('hex');
+
+    expect(verifyKyaVerdict({ decision: 'allowed', trustScore: 42, issuedAt, sig })).toBe(true);
+  });
+
   it('a hand-constructed verdict with no signature verifies false', () => {
     expect(verifyKyaVerdict({ decision: 'allowed', trustScore: 100 })).toBe(false);
   });
@@ -35,6 +57,12 @@ describe('issueKyaVerdict / verifyKyaVerdict', () => {
     expect(verifyKyaVerdict({ ...v, trustScore: 43 })).toBe(false);
     expect(verifyKyaVerdict({ ...v, decision: 'denied' })).toBe(false);
     expect(verifyKyaVerdict({ ...v, gate: 'forged' })).toBe(false);
+  });
+
+  it('refuses to sign the reserved Themis bridge gate outside issueThemisBridgeVerdict', () => {
+    const v = issueKyaVerdict({ decision: 'allowed', trustScore: 90, gate: 'themis-policy-gate' });
+    expect(v.sig).toBeUndefined();
+    expect(verifyKyaVerdict(v)).toBe(false);
   });
 
   it('a verdict signed under a different secret does not verify', () => {

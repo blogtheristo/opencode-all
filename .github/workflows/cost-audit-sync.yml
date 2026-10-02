@@ -1,10 +1,11 @@
+# Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-d-dgx-persistence Date=2026-09-27
+# Audit trail: git log -- .github/workflows/cost-audit-sync.yml
 name: Daily Cost Audit Sync to Supabase
 
 on:
-  schedule:
-    # Every day at 02:00 UTC
-    - cron: '0 2 * * *'
-  workflow_dispatch: # Allow manual trigger
+  # Schedule REMOVED 2026-09-27 — DGX Spark is primary (scripts/daily/cost-audit-sync.sh)
+  # Was: cron '0 2 * * *' (daily at 02:00 UTC)
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -15,25 +16,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
+        with:
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
+
+      - name: Skip if DGX is primary
+        if: steps.failover.outputs.dgx_alive == 'true'
+        run: echo "DGX Spark is healthy — cost audit sync runs there."
+
       - name: Setup Node.js
+        if: steps.failover.outputs.dgx_alive != 'true'
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm ci
+        if: steps.failover.outputs.dgx_alive != 'true'
+        run: npm ci --ignore-scripts
 
       - name: Run cost audit sync
+        if: steps.failover.outputs.dgx_alive != 'true'
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-        run: npx ts-node scripts/cost-audit-sync-supabase.ts
+        run: npx tsx scripts/cost-audit-sync-supabase.ts
 
       - name: Verify sync
-        if: success()
-        run: echo "✅ Cost audit sync completed successfully"
+        if: success() && steps.failover.outputs.dgx_alive != 'true'
+        run: echo "Cost audit sync completed successfully"
 
       - name: Notify on failure
         if: failure()
-        run: echo "❌ Cost audit sync failed; check logs for details"
+        run: echo "Cost audit sync failed; check logs for details"

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Evidence: Tool=OpenCode 1.18.29 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-09-05
 // Audit trail: git log -- scripts/opencode-batch-worker.mjs + .workflows/opencode-all/queue.jsonl
-import { spawn, execFileSync } from 'node:child_process';
+import { spawn, spawnSync, execFileSync } from 'node:child_process';
 import {
   existsSync,
   readFileSync,
@@ -467,10 +467,38 @@ async function runValidationGate(entry, worktreePath = REPO) {
     results.errors.push(`git diff: ${e.message}`);
   }
 
+  // Done gate (CLAUDE.md Done Gate Rule): judges only this session's work (--since baseline)
+  // plus any acceptance spec in .claude/done/<branch>.json. Unpushed is expected here.
+  console.log(`  [validation] running agent-done-gate...`);
+  const gate = spawnSync(
+    'node',
+    [
+      join(REPO, 'scripts', 'agent-done-gate.mjs'),
+      '--full',
+      '--allow-unpushed',
+      ...(baseline ? ['--since', baseline] : []),
+    ],
+    { ...wt, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, timeout: 30 * 60 * 1000 },
+  );
+  results.doneGate = gate.status === 0;
+  results.doneGateOutput = `${gate.stdout ?? ''}${gate.stderr ?? ''}`.trim();
+  if (!results.doneGate)
+    results.errors.push(
+      `done-gate: ${results.doneGateOutput
+        .split('\n')
+        .filter((l) => /FAIL/.test(l))
+        .join(' | ')}`,
+    );
+
   const passed =
-    results.build && results.lint && results.typecheck && results.test && results.cleanTree;
+    results.build &&
+    results.lint &&
+    results.typecheck &&
+    results.test &&
+    results.cleanTree &&
+    results.doneGate;
   console.log(
-    `  [validation] ${passed ? 'PASSED' : 'FAILED'} — build:${results.build} lint:${results.lint} typecheck:${results.typecheck} test:${results.test} clean:${results.cleanTree}`,
+    `  [validation] ${passed ? 'PASSED' : 'FAILED'} — build:${results.build} lint:${results.lint} typecheck:${results.typecheck} test:${results.test} clean:${results.cleanTree} done-gate:${results.doneGate}`,
   );
   return { passed, results };
 }

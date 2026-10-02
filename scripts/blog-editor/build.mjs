@@ -1,0 +1,229 @@
+#!/usr/bin/env node
+// Evidence: Tool=Claude Code Model=anthropic Agent=blog-editor Date=2026-09-28
+// Audit trail: git log -- scripts/blog-editor/build.mjs
+/**
+ * Build the Blog editor artifact (a private claude.ai page the HIC opens on the iPhone).
+ *
+ *   npx tsx scripts/blog-editor/build.mjs <out-dir>
+ *
+ * Writes <out-dir>/index.html (from page.html), <out-dir>/learn/ (latest version of each Learn/
+ * document the access policy classes public / user / customer / internal — confidential and
+ * unclassified documents are never copied) and <out-dir>/drafts-seed.json (docs/blog-drafts/*.md
+ * as rows for the page's `drafts` collection, each with the git hash it was seeded from),
+ * <out-dir>/dictionary-seo.json and <out-dir>/posts-index.json (for the BLOG_STANDARD §16 checks).
+ * Claude publishes the directory and seeds the rows; edits come back with apply-edits.mjs.
+ */
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import {
+  copyFileSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { classifyDocument } from '../../src/services/document-access.ts';
+import { collectCentres } from '../knowledge-centres.mjs';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const out = resolve(process.argv[2] ?? '');
+if (!process.argv[2]) {
+  console.error('usage: npx tsx scripts/blog-editor/build.mjs <out-dir>');
+  process.exit(2);
+}
+const ALLOWED = new Set(['public', 'user', 'customer', 'internal']);
+const sha = (s) => createHash('sha256').update(s).digest('hex');
+
+mkdirSync(join(out, 'learn'), { recursive: true });
+// Version shown in the page bar: the last commit of the page source (+ "*" when the working
+// copy differs from it) and the build date, so the HIC can tell which editor is live.
+const gitOut = (...a) => {
+  try {
+    return execFileSync('git', a, { cwd: ROOT, encoding: 'utf8' }).trim();
+  } catch {
+    return '';
+  }
+};
+const pageCommit =
+  gitOut('log', '-1', '--format=%h', '--', 'scripts/blog-editor/page.html') || 'dev';
+const pageDirty = gitOut('status', '--porcelain', '--', 'scripts/blog-editor/page.html') ? '*' : '';
+// Release number: bump by hand when the page changes behaviour (HIC 30.09.2026: v0.1 = the
+// first live editor with the language bar, commit 7da1c79b2).
+const PAGE_RELEASE = '0.5'; // 0.5: centre and hub buttons (investor, customer, partner, materials, legal, compliance)
+const beVersion = `v${PAGE_RELEASE} · ${pageCommit}${pageDirty} · ${new Date().toISOString().slice(0, 10)}`;
+writeFileSync(
+  join(out, 'index.html'),
+  readFileSync(join(ROOT, 'scripts/blog-editor/page.html'), 'utf8').replace(
+    '__BE_VERSION__',
+    beVersion,
+  ),
+);
+
+// Learn: newest version of each document, allowed classes only.
+const version = (f) => (f.match(/[_-]v(\d+(?:\.\d+)*)\.html$/)?.[1] ?? '0').split('.').map(Number);
+const newer = (a, b) => {
+  const x = version(a);
+  const y = version(b);
+  for (let i = 0; i < Math.max(x.length, y.length); i++)
+    if ((x[i] ?? 0) !== (y[i] ?? 0)) return (x[i] ?? 0) > (y[i] ?? 0);
+  return false;
+};
+const latest = new Map();
+for (const f of readdirSync(join(ROOT, 'Learn')).filter((f) => f.endsWith('.html'))) {
+  const base = f.replace(/[_-]v\d+(\.\d+)*\.html$/i, '').replace(/\.html$/, '');
+  if (!latest.has(base) || newer(f, latest.get(base))) latest.set(base, f);
+}
+// Four pillars (BLOG_STANDARD §17): Learn, Whitepapers & demos, Thesis. Blog posts are the drafts.
+// External sources are counted so the page shows which documents rest on outside evidence.
+const ACADEMIC =
+  /doi\.org|arxiv\.org|dl\.acm\.org|ieeexplore|springer|sciencedirect|wiley|nature\.com|jstor|ssrn|semanticscholar|\.edu\/|urn\.fi/i;
+function pillarOf(file, html) {
+  const pillar = /^(V3Thesis|PHD_FIREHORSE)/.test(file)
+    ? 'thesis'
+    : /whitepaper|^WP\d+/i.test(file)
+      ? 'whitepaper'
+      : 'learn';
+  const urls = [
+    ...new Set(
+      [...html.matchAll(/https?:\/\/[^\s"'<>)]+/g)]
+        .map((m) => m[0])
+        .filter(
+          (u) =>
+            !/onelifetime\.world|dws10\.com|dws6\.com|lifetime\.fi|fonts\.g|cdnjs|w3\.org/.test(u),
+        ),
+    ),
+  ];
+  return {
+    pillar,
+    track:
+      pillar === 'thesis'
+        ? file.startsWith('PHD')
+          ? 'strategic PhD'
+          : "operational master's"
+        : undefined,
+    sources: urls.length,
+    academic: urls.filter((u) => ACADEMIC.test(u)).length,
+  };
+}
+const docs = [];
+let withheld = 0;
+for (const f of latest.values()) {
+  const cls = classifyDocument(`Learn/${f}`).class;
+  if (!ALLOWED.has(cls)) {
+    withheld++;
+    continue;
+  }
+  const html = readFileSync(join(ROOT, 'Learn', f), 'utf8');
+  const title = (html.match(/<title>([^<]{1,200})<\/title>/i)?.[1] ?? f).trim();
+  copyFileSync(join(ROOT, 'Learn', f), join(out, 'learn', f));
+  docs.push({
+    file: f,
+    title,
+    class: cls,
+    kb: Math.round(statSync(join(ROOT, 'Learn', f)).size / 1024),
+    ...pillarOf(f, html),
+  });
+}
+// Whitepapers built from docs/whitepapers/*.md (BLOG_STANDARD §17: four pillars).
+for (const f of readdirSync(join(ROOT, 'docs/whitepapers')).filter((f) =>
+  /^WP\d+.*\.html$/.test(f),
+)) {
+  const html = readFileSync(join(ROOT, 'docs/whitepapers', f), 'utf8');
+  copyFileSync(join(ROOT, 'docs/whitepapers', f), join(out, 'learn', f));
+  docs.push({
+    file: f,
+    title: (html.match(/<title>([^<]{1,200})<\/title>/i)?.[1] ?? f).trim(),
+    class: 'internal',
+    kb: Math.round(statSync(join(ROOT, 'docs/whitepapers', f)).size / 1024),
+    ...pillarOf(f, html),
+  });
+}
+// Centres and hubs (scripts/knowledge-centres.mjs): live dws10.com pages; internal folders are
+// counted only. Pages over the embed limit open on the live site instead.
+const centres = collectCentres(ROOT);
+for (const d of centres.docs) {
+  const file = d.file.replace(/\//g, '__');
+  if (d.embed) writeFileSync(join(out, 'learn', file), d.html);
+  docs.push({
+    file,
+    title: d.title,
+    class: 'public',
+    kb: d.kb,
+    url: d.url,
+    embed: d.embed,
+    ...pillarOf(file, d.html),
+    pillar: d.centre,
+  });
+}
+docs.sort((a, b) => a.title.localeCompare(b.title));
+writeFileSync(
+  join(out, 'learn', 'manifest.json'),
+  JSON.stringify(
+    {
+      built: new Date().toISOString().slice(0, 10),
+      withheld,
+      centres: { withheld: centres.withheld, langCopies: centres.langCopies },
+      docs,
+    },
+    null,
+    1,
+  ),
+);
+
+// Drafts: rows for the page's `drafts` collection.
+const frontMatter = (text) => {
+  const fm = {};
+  for (const line of (text.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '').split('\n')) {
+    const kv = line.match(/^([A-Za-z_]+):\s*"?(.*?)"?\s*$/);
+    if (kv) fm[kv[1]] = kv[2];
+  }
+  return fm;
+};
+const draftDir = join(ROOT, 'docs/blog-drafts');
+const rows = readdirSync(draftDir)
+  .filter((n) => /^[A-Za-z0-9._-]+\.md$/.test(n))
+  .map((name) => {
+    const content = readFileSync(join(draftDir, name), 'utf8');
+    const fm = frontMatter(content);
+    return {
+      id: name,
+      data: {
+        name,
+        title: fm.title || name,
+        lang: fm.lang || '',
+        date: fm.date || '',
+        content,
+        baseHash: sha(content),
+        rev: 0,
+        edited: false,
+      },
+    };
+  });
+writeFileSync(join(out, 'drafts-seed.json'), JSON.stringify(rows));
+
+// BLOG_STANDARD §16 checks in the page: the SEO vocabulary (dictionary terms with seo: true and
+// their ontology binding) and the published post file names (which language variants exist).
+const dict = JSON.parse(readFileSync(join(ROOT, 'docs/localization/dws-dictionary.json'), 'utf8'));
+const seo = {};
+for (const [key, e] of Object.entries(dict.shared ?? {}))
+  if (e?.seo)
+    seo[key] = {
+      en: e.en,
+      fi: e.fi,
+      sv: e.sv,
+      de: e.de,
+      fr: e.fr,
+      ontologyId: e.ontologyId ?? 'none',
+    };
+writeFileSync(join(out, 'dictionary-seo.json'), JSON.stringify(seo));
+const posts = readdirSync(join(ROOT, 'onelifetime.world/posts')).filter(
+  (f) => f.endsWith('.html') && !f.startsWith('_'),
+);
+writeFileSync(join(out, 'posts-index.json'), JSON.stringify(posts));
+
+console.log(
+  `blog-editor build: ${docs.length} Learn documents (${withheld} withheld by the access policy), ${rows.length} drafts → ${out}`,
+);

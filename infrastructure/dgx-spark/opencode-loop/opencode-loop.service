@@ -1,0 +1,20 @@
+# Evidence: Tool=Claude Code Model=anthropic/claude-opus-5-5 Agent=opencode-loop-unit Date=2026-09-30
+# systemd USER unit — installed by scripts/install-opencode-loop.sh (do not copy by hand).
+# Keeps the loop alive the way the HIC does by hand: `opencode-loop start` (tmux session oc-loop,
+# scripts/shell/opencode-worktree.bash). Idempotent — a running loop is left alone. The timer re-runs
+# it, so a crashed loop is back within 15 minutes, and the open-PR queue is refreshed each time.
+[Unit]
+Description=Ensure the DWS opencode task loop is running; refresh its PR queue
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/dws6
+EnvironmentFile=-%h/.config/opencode-loop.env
+# Ollama on the DGX (11434; 11435 is the Windows SSH tunnel). Wait up to 5 min after boot.
+ExecStartPre=/bin/bash -c 'for i in $(seq 30); do curl -sf http://127.0.0.1:11434/api/tags >/dev/null && exit 0; sleep 10; done; echo "ollama not reachable on 11434" >&2; exit 1'
+ExecStart=/bin/bash -lc 'source scripts/shell/opencode-worktree.bash && opencode-loop start >/dev/null && bash scripts/opencode-open-all.sh --prs'
+# The loop lives in tmux, outside this oneshot: do not kill it when the unit finishes.
+KillMode=process
+TimeoutStartSec=15min

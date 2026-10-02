@@ -1,4 +1,6 @@
 -- Migration 082: CBAM Paid Pilot — endpoint log table
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/082_cbam_pilot_log.sql
 --
 -- Creates the paid_endpoint_log table for the CBAM KYA-S1 pilot.
 -- Every call to /api/v1/cbam/calculation is recorded here regardless of result.
@@ -51,8 +53,9 @@ CREATE POLICY paid_endpoint_log_service_only
   TO service_role
   USING (true);
 
--- Explicit grants required (Supabase ≥2026-05-30 grant model)
-GRANT SELECT, INSERT ON paid_endpoint_log TO service_role;
+-- Explicit table grants; RLS keeps authenticated row access service-only.
+GRANT SELECT, INSERT, UPDATE, DELETE ON paid_endpoint_log
+  TO authenticated, service_role;
 
 -- ============================================================
 -- 3. Indexes for the 30-day analysis query

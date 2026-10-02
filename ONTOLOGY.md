@@ -4,10 +4,15 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.7
+Version: 1.12 [Latest]
 
 Sessions & Modifications:
 
+- Version: 1.12 [Latest] | Tool: Claude Code | Session: claude/aegis-disclosure-depth | Date: 01.10.2026 | Changes: Additive **§16.7 Acceptance and evidence vocabulary (Aegis)** — acceptance test, stop authority, seal, evidence bundle, retention lock, whitepaper on request; dictionary ids `agent_auditing` / `kya_governance` (no new id). Detail lives in WP13 (Truth Standard §2J).
+- Version: 1.11 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: Additive **Appendix E.1** — the dictionary `ontologyId` values and the section of this document each one points to. HIC 28.09.2026: every blog SEO term is bound to the ontology (BLOG_STANDARD §16), so the 13 SEO terms that were `none` got ids; two ids are new (`dws_platform`, `process_model`).
+- Version: 1.10 [not latest] | Tool: Claude Code (Opus 5) | Session: claude/practical-meitner-k9bhnn (salvage of claude/backoffice-open-items, PR #2075 closed unmerged) | Date: 27.09.2026 (orig. 24.09.2026) | Changes: Additive **Appendix F** — binds ontology vocabulary to the admin documentation that operationally explains it. Appendices D/E answer what a term is called; F answers where it is documented. Adds `scripts/ontology-admin-index.mjs` (deterministic, no model per Rule 5) generating `docs/ontology/admin-term-index.json` from CCP seed terms + `kb/wiki/concepts/` + every heading under `Admin/`, plus `npm run ontology:index` / `ontology:lookup`. Pointers only — `Admin/` stays source-of-truth, nothing is copied. Paired with a new CLAUDE.md resolver rule obliging agents to look up a term before asserting how a system works; written after a session gave the HIC three rounds of wrong Cloudflare Tunnel instructions while the correct runbook sat unread in `Admin/ADMIN_MANUAL.md`.
+- Version: 1.9 [not latest] | Tool: Claude Code | Session: claude/price-list-a5-campaign | Date: 25.09.2026 | Changes: Additive §17 — product taxonomy: group tags (SME, DWS IQ, Firehorse), attribute tags (Hardware, Sovereign, Air-Gapped, Sovereign Cloud, US Sovereign Cloud, On-Prem, Gov Ready, Licence, Subscription, Installation, Pilot, Free, Training, Early Access) and product lifecycle states (HIC 25.09.2026). Dictionary gains `product_tag_*` keys.
+- Version: 1.8 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Additive §4.1 — LWM has two named layers: model base (TRUTH line 20) and state register and memory (IDV/TRS/PRV, KYA-S1 part 9, HIC 09.08.2026). Resolves the open term conflict in the draft `lifetime-world-model-ja-teollisuuden-prosessimallit`. Dictionary gains the KYA-S1 §16.6 table, LWM, process-model terms and domain taglines.
 - Version: 1.7 | Tool: Cursor Grok 4.6 | Session: cursor/dws10-i18n-25-dictionary-c0ce | Date: 18.09.2026 | Changes: Additive **Appendix E** pointer — `docs/localization/dws-dictionary.json` binds five-language termKeys to `ontologyId` (or explicit `none`) for later LF-ONTOLOGY-25 / LWM-ONT-SOVEREIGN builds. CCP Appendix D is unchanged. Prices stay in `dws10.com/config/products.json`.
 - Version: 1.6 | Tool: Claude Code (Opus 5) | Session: claude/kya-s1-blog-post-1-swb4k4 | Date: 09.08.2026 | Changes: Added §16 **KYA Ontology — Agent Governance Vocabulary**: the canonical vocabulary for the mandate layer the spatial/temporal/causal/entity ontologies do not cover — UNDER WHAT MANDATE an autonomous agent acted. Core concepts, the seven KYA-S1 control domains, the KYA-AL1/AL2/AL3 assurance levels (renamed from Bronze/Silver/Gold in KYA-S1 v1.4), runtime mechanisms (Lease Token, fail-closed, leash snap, capture-precedes-release, bounded attribution clock, TRS/TRS_req), process concepts (HIC, Single Pane of Glass, PRV-4, BPMN 2.0 engine, EUDI Wallet), and a five-language term table with Finnish as Ground Truth. Normative source is `Legal/KYA_S1.md` v1.5; §16 is descriptive and yields to it. Three translation errors in the supplied table were corrected and recorded in §16.7 rather than applied silently.
 - Version: 1.5 | Tool: Claude Code | Session: claude/lifetime-handbook-web-updates-lmyi2g | Date: 01.07.2026 | Changes: Added "Data Lifecycle & Retention Ontology (HOW LONG)" subsection in §6 — every ontology node ingesting live data now carries an explicit per-node retention schema (node_owner, raw/summary/audit/rollup tiers, quarterly aggregation_review), closing the gap named by the Valtiovarainministeriö security-oriented information management guide (VM 2026:27 §4.4.2, aggregation effect / kasautumisvaikutus). Reference implementation: Control Room / Situation Room four-tier model (`docs/field-notes/2026-07-01-tiedon-vanheneminen-sensoridata-retention-control-room.md`, `Admin/ADMIN_MANUAL.md`). Retention is a property of the node, not a platform-wide default.
@@ -25,7 +30,7 @@ Session Links & References:
 Document Status:
 
 - Created: 21.01.2026
-- Last Modified: 09.08.2026
+- Last Modified: 28.09.2026
 - Language: English
 - Languages Available: English
 - Publication Status: ✅ ACTIVE
@@ -248,6 +253,19 @@ LWM = (Spatial Map + Temporal Timeline + Causal Logic + Safety Constraints)
 | **Updates**   | Batch re-indexing | Continuous world model updates           |
 | **Conflicts** | Ignored           | Actively resolved                        |
 | **Safety**    | Query filtering   | Orchestration rules + safety constraints |
+
+### 4.1 Two layers of the LWM: model base and state register
+
+The term LWM covers two layers. They are named separately so that no text uses one meaning for the other.
+
+| Layer                             | What it is                                                                                                                                   | Canonical source                                                              |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **LWM model base**                | Per-industry ontology + world model base, fine-tuned per enterprise (spatial, temporal, causal, safety — the equation above).                | `DWS_TRUTH_STANDARD.md` line 20; this section                                 |
+| **LWM state register and memory** | The live register of who acted, under which mandate, with what trust: agent identity (IDV), trust score (TRS) and decision provenance (PRV). | KYA-S1 series part 9 "Globaali tilarekisteri ja muisti" (HIC 09.08.2026); §16 |
+
+Relation: the model base answers **what the world is**; the state register answers **who changed it, with what authority**. A Skilled Agent reads both before acting. A BPMN gateway reads TRS from the state register to route a step to a Service Task (automatic) or a User Task (HIC sign-off); the HIC sign-off is written back as PRV-4.
+
+Five-language form: `lwm` and `lwm_state_register` in `docs/localization/dws-dictionary.json`.
 
 ---
 
@@ -1957,6 +1975,19 @@ Recorded rather than silently applied, per Rule 12:
 
 ---
 
+### 16.7 Acceptance and evidence vocabulary — Aegis (v1.12, 01.10.2026)
+
+Public pages use these terms at decision level; the implementation is in WP13 _When the Link Drops_ (on request, Truth Standard §2J).
+
+| Term (EN / FI)                               | Meaning                                                                                                      | `ontologyId`     |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------- |
+| Acceptance test / Hyväksymistesti            | Customer-run test with the uplink cut: workflow completes, record has no gap, operator stops a running agent | `agent_auditing` |
+| Stop authority / Pysäytysvalta               | An operator's power to stop a running agent with the operator's own key, verified from the signed record     | `kya_governance` |
+| Seal / Sinetti                               | A fixed checkpoint of the record after which any change is detectable                                        | `agent_auditing` |
+| Evidence bundle / Todistepaketti             | What the customer receives to verify the record without the vendor                                           | `agent_auditing` |
+| Retention lock / Säilytyslukko               | Storage lock that can be extended but never shortened or removed                                             | `agent_auditing` |
+| Whitepaper on request / Whitepaper pyynnöstä | Implementation detail kept off public pages and sent by request                                              | `none`           |
+
 ## Appendix E: DWS Dictionary bind (additive, 2026-09-18)
 
 Pointer only — do not treat this appendix as a price or industry-count source.
@@ -1969,5 +2000,111 @@ Pointer only — do not treat this appendix as a price or industry-count source.
 | kya-jev advisory                   | `src/agents/dictionary-kya-jev.ts`      | Signed KYA `allowed` verdict required. Output is not a glossary lock. Confidence is `self-reported-uncalibrated` (`docs/KYA_JEV_SPECIFICATION.md` §7). |
 
 Industry slug aliases used when `scope_type=industry` in Appendix D: `construction` → industry 8, steel aliases → industry 2. New industry CCP rows are added only when a preferred term actually differs.
+
+### E.1 Ontology ids used by the dictionary (2026-09-28)
+
+Each `ontologyId` in `dws-dictionary.json` names one part of this document. A new id is added here
+before the dictionary uses it. Blog SEO tags must resolve to one of these (BLOG_STANDARD §16.1).
+
+| `ontologyId`          | Section of this document                                             | Typical terms                                 |
+| --------------------- | -------------------------------------------------------------------- | --------------------------------------------- |
+| `sovereignty`         | §6 DWS6 Enterprise Ontology (EU framework), §15.4 connector decision | sovereign, data sovereignty, Aegis, CLOUD Act |
+| `compliance_agent`    | §6 DWS6 Enterprise Ontology — EU regulatory framework                | CSRD, CBAM, EU AI Act, dual-use               |
+| `carbon_balance`      | §6 DWS6 Enterprise Ontology — Fit for 55 / ETS                       | emissions, carbon balance                     |
+| `kya_governance`      | §16 KYA Ontology                                                     | KYA, HIC, Article 14, TRS, lease token        |
+| `agent_auditing`      | §16.4 runtime mechanisms, §13.3 per-decision lineage                 | Article 12 logging, audit trail               |
+| `agent_communication` | §16.5 process and integration concepts                               | agent-to-agent messaging                      |
+| `infrastructure`      | §13.7 Embedded Edge Ontology                                         | agent isolation, edge runtime                 |
+| `observability`       | §8 Safety & Orchestration                                            | monitoring, tracing                           |
+| `lwm`                 | §4 Lifetime World Model                                              | LWM, state register                           |
+| `agent_taxonomy`      | §6 Entity Ontology (WHO/WHAT)                                        | Skilled Agent                                 |
+| `dws_platform`        | §6 DWS6 Enterprise Ontology — DWS IQ platform entities               | DWS IQ                                        |
+| `process_model`       | §16.5 process and integration concepts (with BPMN 2.0)               | ISA-95, SysML, VSM, SIPOC                     |
+
+## 17. Product Taxonomy — groups, attribute tags and lifecycle states (v1.9)
+
+The product catalogue (`dws10.com/config/products.json`) uses one tag vocabulary, so the price list, the product registry (TRUTH row 42), the lifecycle registry (TRUTH row 43), the dictionary and outreach all say the same thing about a product (HIC 25.09.2026).
+
+### 17.1 Group tags — which section a product is listed in
+
+| Tag         | Meaning                                                             | Price-list section (FI)                               |
+| ----------- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| `SME`       | Campaign product for Finnish SMEs (web, webstore, IT-support hours) | SME campaign products (Pk-yritysten kampanjatuotteet) |
+| `DWS IQ`    | Offer of the DWS IQ platform family, including Aegis                | DWS IQ platform (DWS IQ -alusta)                      |
+| `Firehorse` | Firehorse agent products and the Firehorse subscription             | Firehorse agents (Firehorse-agentit)                  |
+
+Offers without a group tag are grouped by catalogue class: independent data products (`independentProductIds`), services, consulting and training (`storeCategory` advisory or ai-cloud), hardware and infrastructure (`storeCategory` hardware and LF- infrastructure SKUs). There is no "Supporting" tag; it is only an internal residual class.
+
+### 17.2 Attribute tags — what a product is
+
+| Tag                  | Meaning                                                                                                                 | Carried by                                                                                                                        |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `Hardware`           | A physical device Lifetime Oy supplies                                                                                  | 11 hardware products (not installation services)                                                                                  |
+| `Sovereign`          | Runs under the customer's or an EU jurisdiction, outside the reach of a non-EU parent company (§16, TRUTH row 39)       | Hardware products; DWS IQ Aegis offers                                                                                            |
+| `Air-Gapped`         | Can run with no network connection to outside systems (FI: ilmaeristetty (air-gapped))                                  | Hardware products; DWS IQ Aegis offers                                                                                            |
+| `Sovereign Cloud`    | Hosted on EU sovereign cloud infrastructure                                                                             | DWS IQ offers, except the two US offers                                                                                           |
+| `US Sovereign Cloud` | Hosted in the US under US jurisdiction; sovereign for a US buyer, not EU sovereignty (HIC 25.09.2026)                   | DWS-US-STARTER, DWS-US-PILOT                                                                                                      |
+| `On-Prem`            | Runs on the customer's own hardware or site; not necessarily air-gapped                                                 | Kubernetes tiers, NIM profiles, Essentials self-hosted, LWM-ONT-SOVEREIGN                                                         |
+| `Gov Ready`          | Meets government and defence hardening (FIPS 140-3, STIG)                                                               | LF-K8S-T3, Gov Ready setup and maintenance, air-gapped bundle, FIPS validation, DOCA security                                     |
+| `Licence`            | Right to use an artefact, not a service or a device                                                                     | LF-ONTOLOGY-25 (annual), LWM-ONT-SOVEREIGN (perpetual), DWS-AEGIS-001 (one-time; with maintenance subscription DWS-AEGIS-SUB-001) |
+| `Subscription`       | Recurring charge: type subscription or monthly, or billingPeriod monthly or yearly — on every such offer and only there | 25 offers                                                                                                                         |
+| `Installation`       | Includes on-site or remote installation work                                                                            | IT-support hour bank, LF-NVIDIA-INSTALL, Jetson install packages                                                                  |
+| `Pilot`              | Time-boxed entry offer before the full product                                                                          | Aegis, EU and US pilots, ontology pilot, outcome pilot                                                                            |
+| `Free`               | No charge within stated caps                                                                                            | DWS-IQ-FREE-2026                                                                                                                  |
+| `Training`           | Teaching people, incl. EU AI Act Article 4 AI literacy                                                                  | Claude Code coaching, AI Koulutus, EU AI Act literacy training                                                                    |
+| `Early Access`       | Released before its quality evidence is complete; not for sole use in consequential decisions                           | KYA-JEV-001                                                                                                                       |
+
+Order on hardware products is fixed: `Hardware`, `Sovereign`, `Air-Gapped`. On every record, tags follow the order of `definitions.productTags.allowed`. A tag is a claim about the product: `Sovereign Cloud` is never put on an offer that runs on US infrastructure; those carry `US Sovereign Cloud`, and a record never carries both. The publication validator rejects any tag outside the allowed list, tags out of order, and a `Subscription` tag that does not match a recurring price.
+
+### 17.3 Lifecycle states — where a product ID is in its life
+
+| State          | Meaning                                                        |
+| -------------- | -------------------------------------------------------------- |
+| `planned`      | Decided or planned by the HIC; no catalogue record yet         |
+| `page-only`    | Public product page exists but no catalogue ID (drift)         |
+| `internal`     | Catalogue record, BLUE: internal or pilot                      |
+| `published`    | Catalogue record, public: on the price list                    |
+| `archived`     | Retired: record kept, archived, not sold                       |
+| `discontinued` | Retired: moved to `discontinuedProducts`                       |
+| `removed`      | Retired: record deleted from the catalogue (evidence from git) |
+
+Every product ID, with its state and decision evidence, is in `docs/truth/PRODUCT_LIFECYCLE.md`; HIC decisions go into the append-only ledger `config/truth/product-lifecycle-ledger.json`.
+
+Five-language form: `product_tag_*` keys in `docs/localization/dws-dictionary.json`.
+
+---
+
+---
+
+## Appendix F: Admin documentation bind (additive, 2026-09-24)
+
+Appendices D and E answer _what a term is called_. This one answers **where the term is
+operationally documented** — the binding an agent needs before it describes how a DWS
+system actually works.
+
+| Bind             | Path                                                      | Rule                                                                                   |
+| ---------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Pointer index    | `docs/ontology/admin-term-index.json`                     | Generated, gitignored (~1 MB, churns on every doc edit). Lookup builds it if absent.   |
+| Generator        | `scripts/ontology-admin-index.mjs`                        | Deterministic, no model (Rule 5). Scans headings, emits `file:line`.                   |
+| Lookup           | `npm run ontology:lookup <term>`                          | `●` = section is about the term, `○` = mentions it. A hit is a pointer; open the file. |
+| Agent obligation | `CLAUDE.md` → "Resolver — Ontology → Admin Documentation" | Look up the term before asserting how a system works.                                  |
+
+**Term sources.** CCP seed `preferred_term` values (Appendix D), `kb/wiki/concepts/*`
+names, and every heading under `Admin/` plus `ONTOLOGY.md` and `CLAUDE.md`.
+
+**Pointers, not copies.** The index stores file paths and line numbers only. `Admin/` is
+source-of-truth per CLAUDE.md; copying manual prose into an index would duplicate
+documents that change often and go stale without signalling it. This is the same reason
+the KB ingests into `kb/raw/` but the admin manuals are indexed in place.
+
+**Relationship to `/kb` and `/query`.** Those read the compiled wiki at `kb/wiki/`, whose
+sources live in `kb/raw/`. The admin manuals are deliberately not ingested there — this
+index is the admin-documentation lane, and the two are complementary: `/query` answers
+"what did we decide about X", `ontology:lookup` answers "where is X documented".
+
+**Known limit.** Matching is lexical, not semantic — a term is found where it is written.
+A concept documented only under a synonym will not surface until either the synonym is
+added to the CCP seed or the heading is renamed. Fail loud on a miss (Rule 12) rather than
+guessing; the lookup prints related terms when it finds nothing.
 
 **End of Document**

@@ -4,10 +4,11 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.3
+Version: 1.4
 
 Sessions & Modifications:
 
+- Version: 1.4 | Tool: Claude Code (Opus 5) | Session: claude/continue-session-v5c3vj | Date: 22.09.2026 | Changes: Appended a second public-sector industry variant to §4 — "Public sector — productisation / replicability" (Door #1 R12 Operations Director / programme owner; wedge: VTV 10/2026 finding that funded AI must be replicable and the state has no operating model to productise it). Added the Trophy Effect note: the existing R05 General Counsel row is the pre-trophy door and is unchanged — this is an append, not a replacement. HIC Q1 = A (22.09.2026) on `docs/plans/2026-09-21-signed-work-gtm-pivot.md`. No role or stage renumbering.
 - Version: 1.3 | Tool: Claude Code (claude-sonnet-5) | Session: claude/outokumpu-customer-strategy-p01zeu | Date: 01.07.2026 | Changes: R11 Plant Director notes cell updated to add Kemi as a third Outokumpu instance alongside Tornio + Avesta, following identification of Henri Simpanen (VP Kemi mine) as a second, independent door into the Outokumpu account. Detail in `docs/field-notes/2026-07-01-outokumpu-henri-simpanen-kemi-mine-second-door.md`. Append-only correction per §6 maintenance rule; no role or stage renumbering.
 - Version: 1.3 | Tool: Claude Code (Opus 4.8) | Session: claude/nvidia-halos-robotics-suqayg | Date: 23.06.2026 | Changes: Appended a "Robotics / Physical AI" industry variant to §4 (Door #1 R12 Operations Director — throughput lever; wedge: functional-safety conformity under Machinery Regulation 2023/1230 + EU AI Act embedded high-risk). Triggered by the NVIDIA Halos for Robotics launch (2026-06-22) as a market signal; full wedge matrix in `docs/regulatory-radar/NVIDIA_HALOS_ROBOTICS_BRIEF.md`. Append, not a replacement.
 - Version: 1.2 | Tool: Claude Code (Opus 4.8) | Session: claude/santander-ai-governance-mhd8rj | Date: 22.06.2026 | Changes: Appended a second financial-services industry variant to §4 — "Financial services — AI governance" (Door #1 R15 CISO, wedge: EU AI Act high-risk AI decisions). Triggered by the SantanderAI open-source release as a market signal; full wedge matrix in `docs/regulatory-radar/SANTANDER_AI_GOVERNANCE_BRIEF.md`. The existing financed-emissions (SFDR) variant is unchanged — this is an append, not a replacement.
@@ -17,7 +18,7 @@ Sessions & Modifications:
 Document Status:
 
 - Created: 25.05.2026
-- Last Modified: 01.07.2026
+- Last Modified: 22.09.2026
 - Language: English
 - Publication Status: ACTIVE
 - Document Type: Canonical Registry
@@ -89,20 +90,23 @@ Each entry has: ID, title, stage, default ownership scope, and notes for when th
 
 The 25 roles are stable; their **emphasis** shifts per industry. Document these variants when developing per-industry sales motions; do not re-invent the role list.
 
-| Industry pattern                       | Door #1 (R-ID)          | Wedge                                                                | Roles with elevated emphasis |
-| -------------------------------------- | ----------------------- | -------------------------------------------------------------------- | ---------------------------- |
-| **Steel / heavy industry** (Outokumpu) | R02 IP Director         | CBAM disclosures as IP filings                                       | R02, R07, R11, R19           |
-| **Chemicals & petrochemicals**         | R03 / R04 R&D / CTO     | REACH + CBAM + H2 mandates                                           | R03, R04, R05, R07           |
-| **Construction & buildings**           | R12 Operations Director | EPBD embodied carbon                                                 | R12, R09, R17, R20           |
-| **Manufacturing cross-sector**         | R13 CIO                 | Digital Product Passports (ESPR)                                     | R13, R07, R09                |
-| **Robotics / Physical AI**             | R12 Operations Director | Functional-safety conformity (Machinery Reg 2027 + AI Act embedded)  | R12, R06, R15, R19, R23      |
-| **Financial services**                 | R23 CFO                 | Financed emissions (SFDR)                                            | R23, R24, R05                |
-| **Financial services — AI governance** | R15 CISO                | EU AI Act high-risk AI decisions (credit scoring, insurance pricing) | R15, R06, R13, R19, R23      |
-| **Maritime / shipbuilding**            | R12 Operations Director | FuelEU Maritime + ETS Maritime                                       | R12, R20, R07                |
-| **Public sector**                      | R05 General Counsel     | NIS2 + sovereign procurement                                         | R05, R13, R15                |
-| **Data centres**                       | R15 CISO                | EED + Data Centre Energy Reporting                                   | R15, R13, R07                |
+| Industry pattern                                   | Door #1 (R-ID)                               | Wedge                                                                                             | Roles with elevated emphasis |
+| -------------------------------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------- |
+| **Steel / heavy industry** (Outokumpu)             | R02 IP Director                              | CBAM disclosures as IP filings                                                                    | R02, R07, R11, R19           |
+| **Chemicals & petrochemicals**                     | R03 / R04 R&D / CTO                          | REACH + CBAM + H2 mandates                                                                        | R03, R04, R05, R07           |
+| **Construction & buildings**                       | R12 Operations Director                      | EPBD embodied carbon                                                                              | R12, R09, R17, R20           |
+| **Manufacturing cross-sector**                     | R13 CIO                                      | Digital Product Passports (ESPR)                                                                  | R13, R07, R09                |
+| **Robotics / Physical AI**                         | R12 Operations Director                      | Functional-safety conformity (Machinery Reg 2027 + AI Act embedded)                               | R12, R06, R15, R19, R23      |
+| **Financial services**                             | R23 CFO                                      | Financed emissions (SFDR)                                                                         | R23, R24, R05                |
+| **Financial services — AI governance**             | R15 CISO                                     | EU AI Act high-risk AI decisions (credit scoring, insurance pricing)                              | R15, R06, R13, R19, R23      |
+| **Maritime / shipbuilding**                        | R12 Operations Director                      | FuelEU Maritime + ETS Maritime                                                                    | R12, R20, R07                |
+| **Public sector**                                  | R05 General Counsel                          | NIS2 + sovereign procurement                                                                      | R05, R13, R15                |
+| **Public sector — productisation / replicability** | R12 Operations Director (or programme owner) | VTV 10/2026 gap: funded AI must be replicable; the state has no factory to productise or share it | R12, R23, R13                |
+| **Data centres**                                   | R15 CISO                                     | EED + Data Centre Energy Reporting                                                                | R15, R13, R07                |
 
 Add new variants here when a new industry sales motion is developed. Do not fork the 25-role list itself.
+
+**Trophy Effect note (22.09.2026).** The R05 General Counsel row is the **pre-trophy** public-sector door and stays valid. Once a funded AI task force is standing, that door is closed to an AI-compliance offer — the budget already bought the trophy. Lead the productisation/replicability row instead, and do not lead first-touch with the word _compliance_ (`DWS_BRAND_STANDARD.md` §22 First-Touch Fence). Source: `docs/field-notes/2026-09-21-trophy-effect-stop-selling-compliance.md`; primary: `docs/PHD_VTV_RAHOITUSOHJELMA_ANALYYSI.md` §3.
 
 ---
 

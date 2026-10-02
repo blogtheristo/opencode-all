@@ -95,12 +95,14 @@ The MCP Hub (`mcp-hub-ts`, or Python `mcp-hub/server.py` where Redis streams / B
 
 > **Platform Strategy (2026-08-13):** OpenCode + DGX Spark is the default runtime for all new development and scheduled agent work. Claude Code serves as a **hot standby** (<10% usage) for rapid recovery if OpenCode is unavailable.
 
+> **Operator model (2026-09-17, ADMIN_MANUAL v3.16):** **Win11** = Cursor + VS Code (plan/review/small edits). **DGX** = Cursor CLI + Copilot CLI (interactive) + **OpenCode/opencode-all** (mandatory for large/multi-file work, translations, batch). Do not run bulk implementation on Win11 Cursor Cloud VMs. Canonical detail: `Admin/ADMIN_MANUAL.md` → *Two dev environments*, *Large work*, *Model economics*.
+
 #### Primary Platform
 
-**OpenCode + VS Code** (default runtime)
+**OpenCode + DGX agent CLIs** (default runtime on DGX; Win11 IDEs for review)
 
 - **Inference backend:** DGX Spark (NVIDIA Grace Blackwell, 1 PFLOPS FP4, 128 GB LPDDR5x)
-- **IDE:** VS Code with OpenCode Connector + remote DGX development
+- **Harness:** Cursor CLI + Copilot CLI on DGX; OpenCode + opencode-all for batch; Win11 uses Cursor + VS Code for review
 - **MCP servers:** Identical config to Claude Code (`.opencode/settings.json`)
 - **Usage pattern:** All new interactive development, skill iteration, ad-hoc debugging
 
@@ -869,15 +871,22 @@ cd mcp-hub && pip install -r requirements.txt && python server.py
 
 ---
 
-## Cursor Cloud specific instructions
+## Cursor IDE & agent instructions (Win11 + Cloud)
+
+
+**Production routing (v3.16):** Cursor on Win11 is for **planning, review, and small scoped edits**. Large work (3+ files, i18n, translations) → plan first, then **OpenCode agents on DGX** with free/Ollama models. On session start: read handoffs + opencode-all queue; see `.cursor/rules/dws-claude-pipeline-parity.mdc`.
+
 
 ### DWS standards (mandatory)
 
 Same as the block under the document header: Read `STANDARDS_ROUTING.md` + Truth + Roles + matches **before** writing files. `alwaysApply` rule: `.cursor/rules/dws-standards-always.mdc`.
 
-### Services overview
+
+
+### Services overview (local / Cloud dev sandbox)
 
 | Service         | Path                                      | Start command           | Port |
+
 | --------------- | ----------------------------------------- | ----------------------- | ---- |
 | Express Backend | `/workspace`                              | See startup notes below | 3001 |
 | React Dashboard | `dws6.com/dashboard/firehorse/v10-react/` | `npm run dev`           | 5173 |
@@ -920,6 +929,9 @@ All real `// TODO` markers in `src/` are triaged in [`docs/backlog/CODE_TODO_LED
 ---
 
 **Document Version:** 1.4  
-**Last Updated:** September 19, 2026  
+
+
+**Last Updated:** September 27, 2026  
+
 **Status:** Active  
 **Next Review:** October 10, 2026

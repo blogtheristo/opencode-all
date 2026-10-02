@@ -1,0 +1,26 @@
+{
+  "catalogVersion": "1.35",
+  "totalIds": 156,
+  "productsRecords": 138,
+  "subscriptionOnlyRecords": 16,
+  "discontinuedRecords": 2,
+  "onPriceList": 81,
+  "publicProducts": 72,
+  "activeSubscriptions": 9,
+  "blue": 65,
+  "archived": 8,
+  "discontinued": 2,
+  "smeCampaign": 3,
+  "serious": 16,
+  "groups": {
+    "SME": 3,
+    "DWS IQ": 19,
+    "Firehorse": 9,
+    "Data": 2,
+    "Services": 20,
+    "Hardware": 28,
+    "Other": 0
+  },
+  "expectedPriceListProducts": 72,
+  "reconciles": true
+}

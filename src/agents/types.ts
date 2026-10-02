@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-6-luna Agent=OpenClaw-Phase2 Date=2026-09-27
+// Audit trail: git log -- src/agents/types.ts
 /**
  * Shared Types for DWS IQ 6/7 AI Agent System
  *
@@ -69,6 +71,18 @@ export interface RuntimeKYAVerdict {
   trustScore?: number;
   policyVersion?: string;
   gate?: string;
+  /** Signed invocation scope for harness calls; never populated from agent input. */
+  scope?: {
+    agentId: string;
+    operatorId: string;
+    orgId: string;
+    sessionId: string;
+    capability: string;
+    paramsDigest: string;
+    authorizationId: string;
+  };
+  /** Short expiry bound into the KYA signature. */
+  expiresAt?: string;
   /**
    * HMAC-SHA256 signature over the verdict's other fields, produced only by
    * `issueKyaVerdict()` (src/security/runtime-auth.ts). A verdict without a
@@ -283,11 +297,7 @@ export interface AgentExecutionLog {
 
 /** Policy types for agent governance (extracted from awesome-llm-apps governance pattern) */
 export type PolicyType =
-  | 'rate-limit'
-  | 'cost-limit'
-  | 'approval-required'
-  | 'data-boundary'
-  | 'autonomy-tier';
+  'rate-limit' | 'cost-limit' | 'approval-required' | 'data-boundary' | 'autonomy-tier';
 
 /** A single governance policy applied to agent execution */
 export interface GovernancePolicy {

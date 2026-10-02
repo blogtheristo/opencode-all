@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/app.ts
 /**
  * DWS IQ Backend - Express Server
  * Google Cloud Run compatible
@@ -34,6 +36,7 @@ import climateAssistantGatedRoutes from './routes/climate-assistant-gated.routes
 import adminSupportRoutes from './routes/admin-support.routes.js';
 import adminCostAuditRoutes from './routes/admin-cost-audit.routes.js';
 import backofficeRoutes from './routes/backoffice.routes.js';
+import docsRoutes from './routes/docs.routes.js';
 import outreachRoutes from './routes/outreach.routes.js';
 import outreachSendRoutes from './routes/outreach-send.routes.js';
 import emailRoutes from './routes/email.routes.js';
@@ -41,14 +44,15 @@ import bookingRoutes from './routes/booking.routes.js';
 import supportRoutes from './routes/support.routes.js';
 import supportReviewRoutes from './routes/support-review.routes.js';
 import webhookRoutes from './routes/webhook.routes.js';
+import daprPubsubRoutes from './routes/dapr-pubsub.routes.js';
 import agentRoutes from './agents/routes.js';
 import nudgeRoutes from './routes/nudge.routes.js';
 import nudgeWebhookRoutes from './routes/nudge-webhook.routes.js';
 import bimRoutes from './routes/bim.routes.js';
 import hilRoutes from './routes/hil.routes.js';
 import situationRoomRoutes from './routes/situation-room.routes.js';
-// import grokConsentRoutes from './routes/grok-consent.routes.js'; // TODO: restore when grok-consent is available
 import paymentRoutes from './routes/payment.routes.js';
+import orderIntakeRoutes from './routes/order-intake.routes.js';
 import b2bPaymentRoutes from './routes/b2b-payment.routes.js';
 import stripeWebhookRoutes from './routes/stripe-webhook.routes.js';
 import captainRoutes from './routes/captain.routes.js';
@@ -77,6 +81,7 @@ import gapsRoutes from './routes/gaps.routes.js';
 import agentsRoutes from './routes/agents.routes.js';
 import constructionLeadsRoutes from './routes/construction-leads.routes.js';
 import { terminateChain } from './identity/kya-engine.js';
+import kyaInferenceRoutes from './routes/kya-inference.routes.js';
 import { outreachScheduler } from './outreach/index.js';
 import { sendBriefingNow } from './morning-briefing/index.js';
 import { emailQueue } from './services/email-queue.service.js';
@@ -219,6 +224,8 @@ const corsOptions = {
   allowedHeaders: [
     'Content-Type',
     'Authorization',
+    'Idempotency-Key',
+    'X-Operator-Id',
     'X-Session-Id',
     'X-Admin-Key',
     'X-Correlation-ID',
@@ -334,6 +341,7 @@ app.use('/api/v1/admin/support', adminSupportRoutes);
 app.use('/api/admin', adminCostAuditRoutes);
 
 app.use('/api/v1/backoffice', backofficeRoutes);
+app.use('/api/v1/docs', docsRoutes);
 
 // Outreach inbound intake (shared secret auth via X-Outreach-Key)
 app.use('/api/v1/outreach', outreachRoutes);
@@ -373,8 +381,11 @@ app.use('/api/v1/reports', reportExportRoutes);
 // API key management (MVP Feature 1)
 app.use('/api/v1/user/api-keys', apiKeyRoutes);
 
-// Payment proxy (PayPal, Revolut subscription checkout)
+// Payment proxy and public catalogue checkout. Keep /v1 aliases for dws10.com checkout.
 app.use('/api/v1/payments', paymentRoutes);
+app.use('/v1/payments', paymentRoutes);
+app.use('/api/v1/orders', orderIntakeRoutes);
+app.use('/v1/orders', orderIntakeRoutes);
 
 // B2B Payment Flow (Revolut deposit + Stripe invoice)
 app.use('/api/v1/b2b', b2bPaymentRoutes);
@@ -388,6 +399,10 @@ app.use('/webhooks/nudge', nudgeWebhookRoutes);
 
 // MCP Agent Server (DWS7: Fix #5 — exposes agents as MCP tools)
 app.use('/mcp', createMCPRouter());
+
+// Dapr pub/sub pilot — subscription callback, local sidecar only.
+// docs/field-notes/2026-09-22-dapr-use-cases-dws.md §3 Phase 1
+app.use('/dapr', daprPubsubRoutes);
 
 // Email sending API (queued via Redis Streams)
 app.use('/api/v1/email', emailRoutes);
@@ -485,6 +500,9 @@ app.post('/api/v1/kya/snap', async (req: Request, res: Response) => {
   }
 });
 
+// KYA+I Inference Jurisdiction Score (GET /api/v1/kya/inference/:sessionId)
+app.use('/api/v1/kya/inference', kyaInferenceRoutes);
+
 // BIM Pipeline (construction carbon compliance)
 app.use('/api/bim', bimRoutes);
 
@@ -497,8 +515,6 @@ app.use('/api/v1/erp', erpRoutes);
 // Situation Room (pipeline reports for dashboard)
 app.use('/api/situation-room', situationRoomRoutes);
 
-// Grok Consent — GDPR + EU AI Act Article 12 sovereignty dashboard
-// app.use('/api/grok-consent', grokConsentRoutes); // TODO: restore when grok-consent is available
 
 // Peachscore Accelerator — Cap Table & Financials
 app.use('/api/investor-reports/cap-table', capTableRouter);

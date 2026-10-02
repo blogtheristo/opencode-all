@@ -175,7 +175,7 @@ dws run emissions-data-analyst --input '{
 **Show on dashboard:**
 
 1. ATS drops from ~1.00 to ~0.75 (Amber tier) — single violation V=1: `1.0 - 1×0.25 = 0.75`
-2. Behavioral guardrail triggered in < 5ms
+2. Behavioral guardrail triggered (design target < 5 ms)
 3. Access denied at VMM layer (not at application)
 4. Firehorse audit trail records: violation type, timestamp, denied resource, agent identity
 5. Agent automatically restricted to Amber tier operations
@@ -258,7 +258,7 @@ dws run emissions-data-analyst --input '{
 | Question | Answer |
 |----------|--------|
 | "What if the agent needs to access a new resource?" | Capability manifest is versioned. New access requires manifest update → review → re-sandbox. No live patching |
-| "What's the performance overhead?" | < 5MB memory per MicroVM, < 125ms boot, sub-5ms guardrail checks. Negligible for industrial workloads |
+| "What's the performance overhead?" | < 5MB memory per MicroVM, < 125ms boot, guardrail checks with a sub-5 ms design target (measurement report pending). Negligible for industrial workloads |
 | "Does this work with our existing agents?" | BYO Agent Registration Flow — 6-stage pipeline. Your agents run unmodified inside KYA MicroVMs |
 | "What about non-EU markets?" | KYA is framework-agnostic. EU compliance is the first regulatory binding. NIST submission extends to US market |
 | "How is this different from Palantir AIP?" | Complementary. Palantir orchestrates; KYA governs at hardware level. Palantir AIP workflows can run inside KYA MicroVMs |

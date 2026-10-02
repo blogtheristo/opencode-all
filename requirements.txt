@@ -56,3 +56,6 @@ flake8>=6.1.0
 # - This file is used by CI/CD for security scanning
 # - For local development, install module-specific requirements
 # - Keep versions synchronized with security updates
+
+# NLP security floor
+nltk>=3.9.2

@@ -1,0 +1,25 @@
+{
+  "task": "Done gate: enforce task scope and require a compliance rationale in every spec",
+  "prompt": "Goal: make scope and 'why this change is allowed' command results, not review items (learning note docs/field-notes/2026-09-28-pilot-delivery-model-60-days.md §4 'Checks cannot see scope'). Change ONLY scripts/loop-task.mjs, scripts/agent-done-gate.mjs and add scripts/__tests__/agent-done-gate-scope.test.mjs (plus a one-paragraph note in the header comments of those two scripts). (1) loop-task.mjs: add repeatable --scope <path-or-glob> (written to spec.scope as an array) and a REQUIRED --rationale \"<text>\" (spec.rationale: why the change is allowed — which rule, standard or HIC decision permits it). Missing --rationale must exit non-zero with a message containing the word 'rationale'. (2) agent-done-gate.mjs: when the spec has scope, list files changed vs the spec base (default main; use git diff --name-only origin/<base>...HEAD) and add a FAIL row 'scope' naming every changed file that matches none of the scope entries (support exact paths, directory prefixes ending in '/', and simple * / ** globs without adding a dependency); the spec file itself (.claude/done/<branch>.json) is always in scope. When the spec has no scope, add a WARN row 'scope'. When the spec has no rationale, add a WARN row 'rationale'; when present, PASS and print it. Keep existing behaviour and output format otherwise. (3) Test file: vitest unit tests for the matcher and for a spec with scope where an out-of-scope file makes the gate report FAIL — export the matcher from the gate (or a small helper in the same file) so it is testable without git. Run prettier and eslint on the changed files. Do not edit CLAUDE.md or any other file.",
+  "base": "main",
+  "order": 90,
+  "maxRounds": 6,
+  "checks": [
+    {
+      "name": "scope test exists and passes",
+      "run": "test -f scripts/__tests__/agent-done-gate-scope.test.mjs && npx vitest run scripts/__tests__/agent-done-gate-scope.test.mjs"
+    },
+    {
+      "name": "loop-task requires a rationale",
+      "run": "! node scripts/loop-task.mjs --branch t/probe --task t --prompt p --check 'a::false' --dry-run >/dev/null 2>&1 && node scripts/loop-task.mjs --branch t/probe --task t --prompt p --check 'a::false' --dry-run 2>&1 | grep -qi rationale"
+    },
+    {
+      "name": "gate knows scope",
+      "run": "grep -q 'scope' scripts/agent-done-gate.mjs && test -f scripts/__tests__/agent-done-gate-scope.test.mjs"
+    },
+    {
+      "name": "stays in its own scope",
+      "run": "test -f scripts/__tests__/agent-done-gate-scope.test.mjs && test -z \"$(git diff --name-only origin/main...HEAD | grep -v -E '^(scripts/agent-done-gate\\.mjs|scripts/loop-task\\.mjs|scripts/__tests__/agent-done-gate-scope\\.test\\.mjs|\\.claude/done/)')\""
+    }
+  ]
+}

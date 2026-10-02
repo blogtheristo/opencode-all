@@ -17,7 +17,37 @@
     <title>DOCA Microservices — Networking & Storage Acceleration Package | Lifetime Firehorse™Store</title>
     <meta name="description" content="High-performance networking and storage: HBN (BGP routing for north-south), SNAP (NVMe-oF, virtio-fs storage acceleration), OVS-DOCA (Open vSwitch hardware offload). For T4 full-stack deployments with multi-site and high-throughput requirements. DOCA HBN: FRR BGP routing for MetalLB/LoadBalancer int">
     <meta name="author" content="Lifetime Oy">
-    <link rel="canonical" href="https://dws10.com/products/lf-doca-network-storage.de.html">
+    <link rel="canonical" href="https://dws10.com/products/lf-doca-network-storage.de.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/products/lf-doca-network-storage.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/products/lf-doca-network-storage.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://dws10.com/products/lf-doca-network-storage.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://dws10.com/products/lf-doca-network-storage.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://dws10.com/products/lf-doca-network-storage.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/products/lf-doca-network-storage.html"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <meta property="og:type" content="product">
     <meta property="og:title" content="DOCA Microservices — Networking &amp; Storage Acceleration Package">
@@ -65,6 +95,11 @@
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+        .delivery-section { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .delivery-section h2 { color: #93c5fd; font-size: 1.15rem; margin-bottom: 10px; }
+        .delivery-section ul { padding-left: 20px; }
+        .delivery-section li { margin-bottom: 6px; }
+        .fine-print { font-size: 0.85rem; color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -90,8 +125,33 @@
         <div class="content">
             <p>High-performance networking and storage: HBN (BGP routing for north-south), SNAP (NVMe-oF, virtio-fs storage acceleration), OVS-DOCA (Open vSwitch hardware offload). For T4 full-stack deployments with multi-site and high-throughput requirements.</p><ul><li>DOCA HBN: FRR BGP routing for MetalLB/LoadBalancer integration</li><li>DOCA SNAP: NVMe-oF targets, virtio-fs for 10x storage throughput</li><li>OVS-DOCA: Open vSwitch hardware offload for line-rate pod networking</li><li>Longhorn/NFS backend acceleration via SNAP</li></ul>
         </div>
-        <a href="mailto:risto@onelifetime.world?subject=Order Inquiry: DOCA Microservices — Networking & Storage Acceleration Package (LF-DOCA-NETWORK-STORAGE)" class="buy-btn">Vertrieb kontaktieren</a>
+
+        <div class="delivery-section">
+            <h2>Acceptance criteria</h2>
+            <p>The ordered cluster tier or service is provisioned, reachable, and passes the documented capability check for that tier.</p>
+            <ul><li>Cluster or service provisioned within the delivery window</li><li>Documented tier capabilities (operators, hardening, DPU services) verified active</li><li>Buyer receives access and a handover note</li></ul>
+            <p class="fine-print">All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU.</p>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Not included</h2>
+            <ul><li>Underlying compute hardware unless separately ordered</li><li>NVIDIA AI Enterprise or third-party subscriptions billed separately</li><li>Multi-cluster or multi-site scope beyond the ordered tier</li></ul>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Delivery</h2>
+            <ul>
+                <li>Delivered by: Lifetime Oy — Kubernetes, DOCA &amp; NIM Team</li>
+                <li>Acknowledged within: 1 business day</li>
+                <li>Managed cluster/service provisioning by a named engineer on buyer-supplied or Lifetime-supplied hardware; human-verified before handover.</li>
+            </ul>
+        </div>
+        <div style="margin-top: 24px;">
+            <a href="/checkout/?product=LF-DOCA-NETWORK-STORAGE" class="buy-btn" data-product-sku="LF-DOCA-NETWORK-STORAGE">Buy now — €2 000</a>
+        </div>
+        <a href="mailto:risto@onelifetime.world?subject=Question: DOCA Microservices — Networking & Storage Acceleration Package (LF-DOCA-NETWORK-STORAGE)" class="back-link">Questions before you buy? Contact sales</a>
     </div>
+    <script src="/shared-assets/nav/product-actions.js" defer></script>
     <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
         <p><strong>RECHTLICHER HINWEIS</strong></p>
         <p><strong>Verantwortlicher:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finnland).</p>
@@ -105,5 +165,5 @@
       <a href="/products/lf-doca-network-storage.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
     </nav>
 
-    </body>
+</body>
 </html>

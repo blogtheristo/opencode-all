@@ -1,11 +1,14 @@
 # google-oauth-keepalive.yml
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-terra Agent=copilot Date=2026-09-27
+# Audit trail: git log -- .github/workflows/google-oauth-keepalive.yml
 #
 # Prevents the dws6run6 Google Cloud OAuth 2.0 client from being
 # auto-deleted due to inactivity (Google policy: deleted after 6 months
 # of zero usage).
 #
-# Strategy: every 30 days perform an OAuth 2.0 token refresh call using
-# stored credentials, which counts as "activity" and resets the timer.
+# Scheduled execution moved to DGX Spark:
+# scripts/daily/google-oauth-keepalive-monthly-gate.sh. This workflow remains
+# available as a manually dispatched recovery path.
 #
 # Required GitHub secrets:
 #   GOOGLE_OAUTH_CLIENT_ID      — OAuth client ID from dws6run6 project
@@ -19,15 +22,12 @@
 name: Google OAuth Keep-Alive (dws6run6)
 
 on:
-  schedule:
-    # Run on the 1st of every month at 06:00 UTC (~monthly activity)
-    - cron: '0 6 1 * *'
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Dry run — validate secrets exist but skip the token call'
+        description: "Dry run — validate secrets exist but skip the token call"
         required: false
-        default: 'false'
+        default: "false"
         type: boolean
 
 permissions:
@@ -89,7 +89,7 @@ jobs:
             echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
             echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
             echo "| Project | dws6run6 |" >> "$GITHUB_STEP_SUMMARY"
-            echo "| Next run | 1st of next month 06:00 UTC |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Scheduled runtime | DGX day-runner monthly gate |" >> "$GITHUB_STEP_SUMMARY"
             echo "| Console | [OAuth credentials](https://console.cloud.google.com/apis/credentials?project=dws6run6) |" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "## OAuth keep-alive FAILED" >> "$GITHUB_STEP_SUMMARY"

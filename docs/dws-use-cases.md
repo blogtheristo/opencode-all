@@ -362,6 +362,38 @@ run temporal:schedules:setup` once to create the report-schedule poll Schedule. 
   wiring is done yet. None of this has been exercised against a live server in this
   session — see the Implementation status note above.
 
+## 13. Content refinement chain (lifetime.fi / onelifetime.world / social) — Proposed (2026-09-24, research only)
+
+- **Source:** HIC content-strategy session 24.09.2026; full design in
+  `docs/proposals/2026-09-24-lifetime-fi-tulossivu-ehdotus.md` §10–§12.
+- **Current tech:** `content-pipeline` Workflow v2 (Iris → Apollo → dead `emit-event`, 10 min
+  timeout); social queue `social_posts` + `publishSocialPostActivity` (#3);
+  `humanApprovalWorkflow` (#9); blog-draft-gate hook (chat-turn bound, not durable).
+- **Gaps:** the refinement chain (dws10 hub page → lifetime.fi conclusion → Journal deep
+  text → LinkedIn/Meta → seminar → product) lives days to weeks, waits on HIC decisions,
+  fans out to five languages and ends in external publishes — none of that is durable
+  today. HIC approval is a chat gate with no record; publishes are bare git pushes with no
+  retry; there is no per-language branch and no register of what has been refined.
+- **Proposed solution:** `contentRefinementChainWorkflow` (long-running Temporal Workflow,
+  one instance per source page) started by a weekly Temporal Schedule (Mon 08:00 EET,
+  same shape as `ensureReportSchedulePoll`). Steps: select-source → synthesize (parallel
+  drafts: conclusion, Journal fi, social) → guardrail (#12 hard rules extended with
+  "no prices on WHY/UNDERSTAND layers", `truth-check` banned claims) → **child
+  `humanApprovalWorkflow`** (#9, Signal + `condition()`, 7-day timeout, artefact link in
+  the request) → Standalone Activities keyed by slug/language: publish-journal (commit +
+  mirror → Cloudflare Pages), publish-conclusion (lifetime.fi), enqueue-social
+  (`enqueueDraft`, `startDelay` per weekday) → per-language child workflows sv/en/de/fr
+  (translate → lighter approval → publish) → event-hook (Calendar + seminars placeholder)
+  → register row in `docs/content-pipeline/chains.md` (the real subscriber that replaces
+  the dead `emit-event`). Query exposes per-language state for an HIC status Artifact.
+- **RED-zone note:** blog publishing is RED for Claude Code (Rule 13). The workflow does not
+  bypass the gate; step 4 _is_ the gate, made durable and audited. Cutover from the
+  blog-draft-gate hook to this workflow needs its own HIC decision, same caveat as #9.
+- **Status:** design only, no code. Same live-server caveat as #1–#12 (`TEMPORAL_ADDRESS`
+  unset in this sandbox). Implementation order if approved: definition
+  `src/agents/workflow/workflows/content-refinement-chain.ts` → Temporal workflow skeleton
+  - unit tests → Schedule → cutover decision.
+
 ## HIC decision needed
 
 Approve standing up a self-hosted Temporal server on DGX Spark so this code can actually
@@ -554,3 +586,49 @@ tool call's result — the agent's next observation, same as the demo's dispatch
   every other Workflow-level behavior this session). Full suite: 1349/1349 passing.
 - **Still NOT wired into `BaseAgent.runLoop()`** — same caution as #11 itself; this
   extends the already-deferred cutover's target shape, doesn't change its status.
+
+## 13. Cross-device credential mirror (Supabase `credentials_store`) — Proposed, not built
+
+- **Source:** Decision recorded by the DGX Spark deployment session in
+  `Admin/ADMIN_MANUAL.md` §"Decision — Supabase credential mirror scope (HIC, 2026-09-22)"
+  during PR #2070 (the same session that brought Temporal itself live on DGX Spark). That
+  entry states the implementation "is tracked as a new Temporal use case in
+  `docs/dws-use-cases.md`" — it wasn't actually added here until this entry. Recording it
+  now to close that gap between the two docs.
+- **Current tech:** Outbound API/service credentials (Stripe, Meta, LinkedIn, DocuSign,
+  SES/Proton, GitHub, Cloudflare, Google, etc.) live only in each environment's local
+  `.env`. Any environment without one — the ADMIN_MANUAL entry's example is a Chromebook
+  Claude Code session — cannot call an outbound API at all, even when the credential
+  already exists on DGX Spark.
+- **Gaps:** No cross-device path to a credential without manually copying `.env` contents
+  (itself a Secret Egress Rule risk — CLAUDE.md forbids reading secrets via Bash/`cat`, and
+  copying `.env` files by hand is exactly the failure mode that rule exists to prevent).
+- **Decision already made (not yet built):** a Supabase `credentials_store` table, **AES-256-GCM
+  ciphertext at rest** — not plaintext behind RLS, which is the pattern used elsewhere in
+  this repo's Supabase tables. Rejected specifically because this table's blast radius (every
+  mirrored API key at once, if the table itself leaked) is categorically larger than a normal
+  data table's. Decryption key `CREDENTIALS_STORE_ENC_KEY` lives only in `.env`, distributed
+  once out of band, never in the database. Mirror scope is **outbound API/service credentials
+  only** — explicitly excludes local-only settings with no cross-device reason to exist off-host
+  (DB pooler host/port, feature flags, `CLAUDE_CODE_GIT_BASH_PATH`, etc.).
+- **Why this belongs in `src/temporal/`, not a plain CRUD service:** the ADMIN_MANUAL entry
+  names "Temporal Activities/Workflow/Schedule, migration, dual-write to `.env` + Supabase" as
+  the implementation shape — i.e. writing/rotating a mirrored credential is itself a job with
+  the same durability needs as everything else in this document: a dual-write (local `.env` +
+  Supabase ciphertext) that must not partially fail silently, on a schedule (rotation), gated by
+  human approval for anything that touches a live credential. That's a Standalone Activity (the
+  write itself) plus a Schedule (periodic drift-check between `.env` and the mirror) plus
+  `humanApprovalWorkflow` (use case #9, already built) for any rotation that would invalidate a
+  credential currently in use elsewhere — not a speculative reuse, an actual fit for three
+  building blocks already shipped this session.
+- **Not built.** No Activity, Workflow, migration, or Supabase table exists yet — this is a
+  recorded decision awaiting its own scoped implementation session. Do not start it
+  speculatively; it touches secret handling directly, which CLAUDE.md's Secret Egress Rules and
+  Non-Negotiable Rule 1 make explicitly RED-zone-adjacent regardless of what builds it.
+
+## HIC decision needed (use case #13)
+
+Scope and schedule the `credentials_store` implementation as its own session — it touches
+secret handling directly (encryption key management, dual-write correctness, rotation
+approval flow) and deserves a dedicated review, not a fold-in to whatever picks up the next
+Temporal cutover.

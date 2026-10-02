@@ -62,11 +62,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-        import { getSupabaseClient } from '../../shared/js/supabase-client.js';
-        import { login, resetPassword } from '../../shared/js/auth-handler.js';
+        import { getBackofficeAccess, getSupabaseClient } from '../../shared/js/supabase-client.js';
+        import { login, logout, resetPassword } from '../../shared/js/auth-handler.js';
         import { handlePostLoginRedirect } from '../../shared/js/role-router.js';
 
-        const ROLE = 'backoffice_admin';
 
         window.addEventListener('DOMContentLoaded', () => {
             console.log('🔐 Back-Office Admin Login - Initializing...');
@@ -82,12 +81,27 @@
             loginBtn.disabled = true;
             loginBtn.innerHTML = '<span class="loading-spinner"></span> Authenticating...';
             
-            const result = await login(email, password, ROLE);
+            const result = await login(email, password);
             
             if (result.success) {
-                document.getElementById('successMessage').textContent = '✅ Admin access granted! Loading panel...';
-                document.getElementById('successMessage').classList.add('show');
-                setTimeout(() => handlePostLoginRedirect(), 1500);
+                if (result.requiresMfa) {
+                    window.location.href = '/mfa-verify/index.html';
+                    return;
+                }
+                try {
+                    const access = await getBackofficeAccess();
+                    if (!access.isAdmin) throw new Error('This account is not a backoffice administrator.');
+                    document.getElementById('successMessage').textContent = '✅ Admin access granted! Loading panel...';
+                    document.getElementById('successMessage').classList.add('show');
+                    setTimeout(() => handlePostLoginRedirect(), 1500);
+                    return;
+                } catch (error) {
+                    await logout();
+                    document.getElementById('errorMessage').textContent = error.message;
+                    document.getElementById('errorMessage').classList.add('show');
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Login to Admin Panel';
+                }
             } else {
                 document.getElementById('errorMessage').textContent = result.error || 'Access denied';
                 document.getElementById('errorMessage').classList.add('show');

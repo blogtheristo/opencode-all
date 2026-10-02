@@ -4,6 +4,7 @@ Status: PENDING-HIC-REVIEW
 Extracted-From: onelifetime.world/posts/brexit-interdependence-moat-us-eu.html
 Extracted-On: 2026-08-12
 Published: 2026-06-30
+claims_checked: 2026-09-30
 
 > This draft was reconstructed from the already-published page, because the
 > post went live without one (Rule 13). It is here so the text is reviewable,
@@ -20,7 +21,7 @@ for the Coalition of the Willing.
 The fact, in one line
 
 Ten years after the referendum, mainstream estimates put the long-run cost of Brexit at
-roughly 4 to 6 percent of UK GDP. The sovereignty goal was popular. The operational bill
+roughly 4 to 8 percent of UK GDP [1][2][3]. The sovereignty goal was popular. The operational bill
 was steep.
 
 Brexit asked a fair question: who decides?
@@ -35,8 +36,8 @@ And because the question was right, the answer deserves an honest look at what i
 ## The goal was partly right
 
 Sovereignty is real value. A country that cannot set its own rules cannot answer to its
-own voters. The EU itself now uses the same logic — data residency, the Cloud and AI
-Development Act, sovereign compute — to keep critical workloads under European law.
+own voters. The EU itself now uses the same logic — data residency, the proposed Cloud and AI
+Development Act [4], sovereign compute — to keep critical workloads under European law.
 That is sovereignty as strategy, and it is sound.
 
 So the disagreement with Brexit is not about the goal. It is about the price someone paid
@@ -49,7 +50,7 @@ friction. Thinner trade in goods and services. Fewer workers in the sectors that
 them. Investment that waited, then went elsewhere.
 
 None of that shows up on a single day. It shows up as a slow drag — a few tenths of
-a percent a year, compounding. Run that for a decade and the estimates land in the same
+a percent a year, compounding [1]. Run that for a decade and the estimates land in the same
 neighbourhood: a permanent output gap of several percent. Sovereignty arrived. So did the
 invoice.
 
@@ -66,8 +67,8 @@ talent, and still own the rules that matter.
 The honest part about the number
 
 "6 percent of GDP" is an estimate, not a meter reading. The UK's own Office for
-Budget Responsibility models a long-run productivity hit of about 4 percent; several
-independent analyses put the cumulative loss closer to 5 or 6. No one can run the
+Budget Responsibility models a long-run productivity hit of about 4 percent [1]; several
+independent analyses put the cumulative loss higher — about 5 percent in a 2023 estimate [2], 6 to 8 percent by 2025 in an NBER study [3]. No one can run the
 counterfactual where Britain stayed, so treat the figure as a range with a clear
 direction, not a settled fact.
 
@@ -106,7 +107,7 @@ Control by separation
 
 - Lost market access, slower investment
 
-- Cost: an estimated 4–6 percent of GDP
+- Cost: an estimated 4–8 percent of GDP
 
 Deep interdependence
 
@@ -132,7 +133,7 @@ political; it is economic. It is the set of jurisdictions and companies that pic
 interoperability over purity. Switzerland never joined the EU and never cut itself off
 from it — bilateral, sovereign, wired in. Singapore built a state on being the
 connective tissue of Asian trade. The Nordic states sit inside European rails while
-keeping their own currencies, their own defence calls, their own law.
+most keep their own currencies, their own defence calls, their own law.
 
 Each of them is sovereign and connected. None confused independence with
 strength. That confusion is the real losing trade — not just for the UK, but for
@@ -185,21 +186,21 @@ The short version
 
 - Brexit asked the right question: who decides? Sovereignty is real value.
 
-- It bought that sovereignty at the most expensive counter — an estimated 4 to 6
-percent of GDP, permanent and compounding.
+- It bought that sovereignty at the most expensive counter — an estimated 4 to 8
+  percent of GDP, permanent and compounding.
 
 - The cost was asymmetric: pain immediate and concentrated, benefit diffuse and
-theoretical. Sovereignty without interdependence has a negative return.
+  theoretical. Sovereignty without interdependence has a negative return.
 
 - The error was treating sovereignty as a switch. It is a setting — fork the stack
-and pay forever, or keep the substrate and own the governance layer.
+  and pay forever, or keep the substrate and own the governance layer.
 
 - The real coalition is economic, not political. Switzerland, Singapore, the Nordics
-stayed sovereign and connected. Autarky confused independence with strength.
+  stayed sovereign and connected. Autarky confused independence with strength.
 
 - Even China sits on the axis — its alternatives (autarky, a thinner parallel
-bloc) cost more. The democratic edge is not being connected, but being connected on
-rules allies trust.
+  bloc) cost more. The democratic edge is not being connected, but being connected on
+  rules allies trust.
 
 - Sovereign at the edge. Connected across the core. Both, or neither works.
 
@@ -213,13 +214,23 @@ Set your amount at checkout · Revolut · Lifetime Oy
 ## Read next
 
 - The Moat Is Not the Model — NVIDIA makes it possible, EU-sovereign deployment
-makes it defensible
+  makes it defensible
 
 - Europe's AI Factory Came Home — 35 supercomputers, and why the edge still
-needs a box
+  needs a box
 
 - Red Hat's EU Sovereign Move — and the three tiers it actually covers
 
 Risto Anton Paarni
 
 CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal
+
+## Sources
+
+[1] Office for Budget Responsibility (2024). Brexit analysis. OBR, Forecasts in depth. <https://obr.uk/forecasts-in-depth/the-economy-forecast/brexit-analysis/>
+
+[2] Springford, J. (2023). Cost of Brexit. Centre for European Reform. <https://www.cer.eu/research/cost-of-brexit>
+
+[3] Bloom, N., Bunn, P., Mizen, P., Smietanka, P., & Thwaites, G. (2025). The Economic Impact of Brexit. NBER Working Paper 34459. <https://www.nber.org/papers/w34459>
+
+[4] European Commission (2026). Proposal for the Cloud and AI Development Act (CADA). Shaping Europe's digital future. <https://digital-strategy.ec.europa.eu/en/library/proposal-cloud-and-ai-development-act-cada>

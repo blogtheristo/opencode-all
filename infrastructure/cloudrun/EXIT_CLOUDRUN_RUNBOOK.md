@@ -97,6 +97,10 @@ stable Scaleway window).
 - [ ] Confirm SCW\_\* secrets present (above).
 - [ ] Merge → trigger → verify Scaleway health 200.
 - [ ] `gcloud` teardown of `dws6run6` + `dws-iq-60` (after stable window).
+- [ ] **Deadline 28.03.2027:** Cloud Build worker VMs move to the `regular`
+      release channel. Tear down `dws6run6` before then, or run one test build
+      per `cloudbuild.yaml` on `regular`. See
+      `docs/field-notes/2026-09-29-cloud-build-release-channels-dws6run6.md`.
 - [ ] Decide mcp-hub-ts: migrate `cloudbuild.yaml` to Scaleway or retire.
 - [ ] Sub-processor / DPA edit + `/truth-check`.
 - [ ] Provide a Scaleway staging target if branch-preview staging is still wanted

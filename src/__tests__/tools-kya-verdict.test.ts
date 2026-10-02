@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/__tests__/tools-kya-verdict.test.ts
+
 /**
  * Tool-call KYA verdict threading — unit tests
  *
@@ -9,7 +12,7 @@
  * "ungated" default.
  */
 
-import { afterEach, beforeAll, describe, expect, it } from 'vitest';
+import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { context, trace } from '@opentelemetry/api';
 import { AsyncHooksContextManager } from '@opentelemetry/context-async-hooks';
 import {
@@ -69,7 +72,8 @@ describe('executeTool KYA verdict threading', () => {
   });
 
   it('stamps "denied" on the tool span when runtime-auth blocks an irreversible call', async () => {
-    registerToolHandler('database_delete', async () => ({ deleted: 5 }));
+    const handler = vi.fn(async () => ({ deleted: 5 }));
+    registerToolHandler('database_delete', handler);
     const call: ToolCall = { id: 'call-2', name: 'database_delete', arguments: { rows: 5 } };
 
     const result = await executeTool(call, testContext, {
@@ -80,6 +84,8 @@ describe('executeTool KYA verdict threading', () => {
     });
 
     expect(result.isError).toBe(true);
+    expect(handler).not.toHaveBeenCalled();
+    expect(result.result.approvalId).toMatch(/^appr_/);
     const spans = memoryExporter.getFinishedSpans();
     expect(spans).toHaveLength(1);
     expect(spans[0].attributes['dws.kya.verdict']).toBe('denied');
@@ -87,8 +93,26 @@ describe('executeTool KYA verdict threading', () => {
     expect(spans[0].attributes['dws.tool.outcome']).toBe('blocked');
   });
 
+  it('never invokes the handler when blast radius exceeds the hard ceiling', async () => {
+    const handler = vi.fn(async () => ({ updated: 50_000 }));
+    registerToolHandler('database_write', handler);
+    const call: ToolCall = { id: 'call-3', name: 'database_write', arguments: { rows: 50_000 } };
+
+    const result = await executeTool(call, testContext, {
+      chainPosition: 0,
+      chainLength: 1,
+      iterationIndex: 0,
+      agentName: 'compliance',
+    });
+
+    expect(result.isError).toBe(true);
+    expect(handler).not.toHaveBeenCalled();
+    expect(result.result.error).toBe('runtime_auth:deny');
+    expect(result.result.reason).toContain('blast_radius_exceeds_ceiling');
+  });
+
   it('no span at all for a tool with no registered handler — never reached the gate', async () => {
-    const call: ToolCall = { id: 'call-3', name: 'totally_unregistered_tool', arguments: {} };
+    const call: ToolCall = { id: 'call-4', name: 'totally_unregistered_tool', arguments: {} };
 
     const result = await executeTool(call, testContext, {
       chainPosition: 0,

@@ -1,0 +1,27 @@
+{
+  "task": "Aegis pilot: customer handler conformance check (G3/G6)",
+  "prompt": "Add a 'check-handlers' command to scripts/aegis-pilot.ts backed by src/aegis/pilot/handler-conformance.ts (export from index.ts). Read src/aegis/pilot/{workflow-runner,reference-workflow,scope}.ts and runbook §5 first. check-handlers --scope F [--handlers M] (same registry loading as 'run') reports, per scope step: 'registered' (handler key exists), 'honours-abort' (called with an already-aborted AbortSignal and minimal state it must reject or resolve within 500 ms without writing outside a tmp reportDir; a handler still pending after 500 ms fails), and for requiresNetwork steps 'network-errors-typed' (called with a fetchImpl/connector that throws must surface NetworkUnavailable, detected via instanceof). Output {ok, steps:[{step, checks:[{check, ok, detail}]}]}; exit 0 only when ok. Handlers run against a temp directory, never the site state dir. Add src/__tests__/aegis-pilot-handler-conformance.test.ts (>=5 cases incl. a handler that ignores abort is flagged and the reference registry passes). Reference runbook §5 to the new command. Do not touch package.json or package-lock.json. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 23,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "reference handlers conform: exit 0, top-level ok, one entry per scope step, each with registered + honours-abort + network-errors-typed all ok",
+      "run": "out=$(node --import tsx scripts/aegis-pilot.ts check-handlers --scope config/aegis-pilot/reference-scope.json 2>/dev/null); rc=$?; [ $rc -eq 0 ] || exit 1; echo \"$out\" | node -e \"const fs=require('fs');const j=JSON.parse(fs.readFileSync(0,'utf8'));const sc=JSON.parse(fs.readFileSync('config/aegis-pilot/reference-scope.json','utf8'));const n=sc.workflow.steps.length;if(j.ok!==true||j.steps.length!==n||n<1)process.exit(1);for(const s of j.steps){const c=s.checks.map(x=>x.check);for(const w of ['registered','honours-abort','network-errors-typed'])if(!c.includes(w))process.exit(1);if(!s.checks.every(x=>x.ok===true))process.exit(1)}\""
+    },
+    {
+      "name": "abort-ignoring handler module is flagged: exit nonzero, honours-abort fails, within 10 s",
+      "run": "d=$(mktemp -d); node -e \"const sc=JSON.parse(require('fs').readFileSync('config/aegis-pilot/reference-scope.json','utf8'));const names=sc.workflow.steps.map(s=>s.handler);require('fs').writeFileSync(process.argv[1],'export function createRegistry(){return Object.fromEntries('+JSON.stringify(names)+'.map(n=>[n,()=>new Promise(()=>{})]))}')\" $d/bad.mjs; out=$(timeout 10 node --import tsx scripts/aegis-pilot.ts check-handlers --scope config/aegis-pilot/reference-scope.json --handlers $d/bad.mjs 2>/dev/null); rc=$?; [ $rc -ne 0 ] && [ $rc -ne 124 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));const f=j.steps.flatMap(s=>s.checks).filter(x=>x.check==='honours-abort'&&x.ok===false);if(j.ok!==false||f.length<1)process.exit(1)\""
+    },
+    {
+      "name": "handler module that registers nothing: registered fails for every step, exit nonzero",
+      "run": "d=$(mktemp -d); echo \"export function createRegistry(){return {}}\" > $d/empty.mjs; out=$(node --import tsx scripts/aegis-pilot.ts check-handlers --scope config/aegis-pilot/reference-scope.json --handlers $d/empty.mjs 2>/dev/null); rc=$?; [ $rc -ne 0 ] || exit 1; echo \"$out\" | node -e \"const j=JSON.parse(require('fs').readFileSync(0,'utf8'));if(j.ok!==false||!j.steps.every(s=>s.checks.find(x=>x.check==='registered').ok===false))process.exit(1)\""
+    },
+    {
+      "name": "conformance suite passes with at least 5 cases, none todo or skipped",
+      "run": "out=$(npx vitest run src/__tests__/aegis-pilot-handler-conformance.test.ts --reporter=json 2>/dev/null); echo \"$out\" | node -e \"const t=require('fs').readFileSync(0,'utf8');const j=JSON.parse(t.slice(t.indexOf('{')));if(!j.success||j.numPassedTests<5||j.numFailedTests>0||j.numTodoTests>0||j.numPendingTests>0)process.exit(1)\""
+    }
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
+}

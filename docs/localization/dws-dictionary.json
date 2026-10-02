@@ -1,6 +1,6 @@
 {
   "version": "0.1",
-  "generatedAt": "2026-09-18",
+  "generatedAt": "2026-09-23",
   "enIsMaster": true,
   "article50": "Machine translations labelled until a named human reviews. Icon optional; label required.",
   "bannedTokens": {
@@ -52,9 +52,10 @@
       "sv": "Aegis",
       "de": "Aegis",
       "fr": "Aegis",
-      "ontologyId": "none",
+      "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "defence": {
       "en": "Defence",
@@ -106,9 +107,10 @@
       "sv": "Dubbelanvändning",
       "de": "Dual-Use",
       "fr": "Double usage",
-      "ontologyId": "none",
+      "ontologyId": "compliance_agent",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "dual_use_industries": {
       "en": "Dual-Use Industries",
@@ -126,9 +128,10 @@
       "sv": "CLOUD Act",
       "de": "CLOUD Act",
       "fr": "CLOUD Act",
-      "ontologyId": "none",
+      "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "eu_ai_act": {
       "en": "EU AI Act",
@@ -136,9 +139,10 @@
       "sv": "EU AI Act",
       "de": "EU AI Act",
       "fr": "AI Act de l'UE",
-      "ontologyId": "none",
+      "ontologyId": "compliance_agent",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "article_12": {
       "en": "Article 12",
@@ -146,19 +150,21 @@
       "sv": "Artikel 12",
       "de": "Artikel 12",
       "fr": "Article 12",
-      "ontologyId": "none",
+      "ontologyId": "agent_auditing",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "kya": {
       "en": "Know Your Agent",
-      "fi": "Tiedä agenttisi",
+      "fi": "Tunne agenttisi",
       "sv": "Känn din agent",
       "de": "Kenne deinen Agenten",
       "fr": "Connaissez votre agent",
-      "ontologyId": "none",
+      "ontologyId": "kya_governance",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "agent_isolation": {
       "en": "Agent Isolation",
@@ -166,9 +172,10 @@
       "sv": "Agent isolering",
       "de": "Agenten-Isolierung",
       "fr": "Isolation de l'agent",
-      "ontologyId": "none",
+      "ontologyId": "infrastructure",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "kubernetes": {
       "en": "Kubernetes",
@@ -212,7 +219,8 @@
       "forbidden": {
         "sv": ["Souverän", "spårighet"],
         "all": ["Monolocalisation"]
-      }
+      },
+      "seo": true
     },
     "technology_sovereignty": {
       "en": "Technology Sovereignty",
@@ -260,7 +268,8 @@
       "fr": "Infrastructures souveraines",
       "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "eu_regulated_industries": {
       "en": "EU-Regulated Industries",
@@ -288,9 +297,10 @@
       "sv": "DWS IQ",
       "de": "DWS IQ",
       "fr": "DWS IQ",
-      "ontologyId": "none",
+      "ontologyId": "dws_platform",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "deployment_mode": {
       "en": "Deployment Mode",
@@ -330,7 +340,8 @@
       "fr": "Cloud souverain européen",
       "ontologyId": "sovereignty",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "pilot_program": {
       "en": "Pilot Program",
@@ -358,9 +369,10 @@
       "sv": "Artikel 14",
       "de": "Artikel 14",
       "fr": "Article 14",
-      "ontologyId": "none",
+      "ontologyId": "kya_governance",
       "machineTranslationReview": "pending_named_human",
-      "article50": true
+      "article50": true,
+      "seo": true
     },
     "article_50": {
       "en": "Article 50",
@@ -418,13 +430,15 @@
       "source": "Store/PRODUCT_AEGIS.md + industries.json aegisProductIndustryCountNote"
     },
     "hic": {
-      "en": "Human-In-Command",
+      "en": "Human-in-Command",
       "fi": "Ihmisen johtamisvalta",
       "sv": "Mänsklig ledningsrätt",
       "de": "Menschliche Führung",
       "fr": "Commandement humain",
-      "ontologyId": "none",
-      "source": "ONTOLOGY.md §16"
+      "ontologyId": "kya_governance",
+      "source": "ONTOLOGY.md §16.5",
+      "code": "HIC",
+      "seo": true
     },
     "article50_label": {
       "en": "AI-generated content",
@@ -465,7 +479,8 @@
       "sv": "CSRD",
       "de": "CSRD",
       "fr": "CSRD",
-      "ontologyId": "compliance_agent"
+      "ontologyId": "compliance_agent",
+      "seo": true
     },
     "cbam": {
       "en": "CBAM",
@@ -473,7 +488,8 @@
       "sv": "CBAM",
       "de": "CBAM",
       "fr": "CBAM",
-      "ontologyId": "compliance_agent"
+      "ontologyId": "compliance_agent",
+      "seo": true
     },
     "ets": {
       "en": "EU ETS",
@@ -531,6 +547,279 @@
       "fr": "auto-déclaré, non calibré",
       "ontologyId": "none",
       "source": "docs/KYA_JEV_SPECIFICATION.md §7"
+    },
+    "kya_s1_spec": {
+      "en": "KYA-S1 Security Specification",
+      "fi": "KYA-S1-turvallisuusspesifikaatio",
+      "sv": "KYA-S1 Säkerhetsspecifikation",
+      "de": "KYA-S1 Sicherheitsspezifikation",
+      "fr": "Spécification de sécurité KYA-S1",
+      "ontologyId": "kya_governance",
+      "code": "KYA-S1",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_evidence_meta_rule": {
+      "en": "Evidence Meta-Rule (§3)",
+      "fi": "Näyttömetasääntö (§3)",
+      "sv": "Bevis-metaregel (§3)",
+      "de": "Evidenz-Metaregel (§3)",
+      "fr": "Méta-règle de preuve (§3)",
+      "ontologyId": "kya_governance",
+      "code": "§3",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "agentic_commerce": {
+      "en": "Agentic Commerce",
+      "fi": "Autonominen agenttikaupankäynti",
+      "sv": "Agentisk handel",
+      "de": "Agenten-Handel",
+      "fr": "Commerce agentique",
+      "ontologyId": "kya_governance",
+      "code": "—",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_idv": {
+      "en": "Verified Human Principal Binding",
+      "fi": "Todennettu ihmisjohtajan sidos",
+      "sv": "Verifierad mänsklig huvudmannakoppling",
+      "de": "Verifizierte menschliche Hauptverbindung",
+      "fr": "Liaison d'agent à un responsable humain vérifié",
+      "ontologyId": "kya_governance",
+      "code": "IDV",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_reg": {
+      "en": "Capability Manifest & Registry",
+      "fi": "Kyvykkyysmanifesti ja rekisteri",
+      "sv": "Kapacitetsmanifest och register",
+      "de": "Fähigkeitsmanifest & Register",
+      "fr": "Manifeste et registre des capacités",
+      "ontologyId": "kya_governance",
+      "code": "REG",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_bhm": {
+      "en": "Runtime Behavioral Modeling",
+      "fi": "Ajonaikainen käyttäytymisen valvonta",
+      "sv": "Beteendemodellering vid körning",
+      "de": "Laufzeit-Verhaltensmodellierung",
+      "fr": "Modélisation comportementale en temps réel",
+      "ontologyId": "kya_governance",
+      "code": "BHM",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_tc4": {
+      "en": "Chain Termination / Leash Snap",
+      "fi": "Ketjun keskeytys / hätäjarru",
+      "sv": "Kedjeavslutning / nödbroms",
+      "de": "Kettenabbruch / Notbremse",
+      "fr": "Terminaison de chaîne / frein d'urgence",
+      "ontologyId": "kya_governance",
+      "code": "TC4",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_flt": {
+      "en": "Bounded Fault Attribution",
+      "fi": "Aikarajoitettu virheattribuutio",
+      "sv": "Tidsbegränsad felattribuering",
+      "de": "Zeitbegrenzte Fehlerattribuierung",
+      "fr": "Attribution limitée des fautes",
+      "ontologyId": "kya_governance",
+      "code": "FLT",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_trs": {
+      "en": "Trust Score & Authorization",
+      "fi": "Luottamuspiste ja valtuutus",
+      "sv": "Förtroendepoäng och auktorisering",
+      "de": "Vertrauenswert & Autorisierung",
+      "fr": "Score de confiance et autorisation",
+      "ontologyId": "kya_governance",
+      "code": "TRS",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_prv": {
+      "en": "Decision Provenance & Audit Trail",
+      "fi": "Päätösten toistettavuus ja auditointijälki",
+      "sv": "Beslutsursprung och granskningskedja",
+      "de": "Entscheidungsherkunft & Prüfpfad",
+      "fr": "Provenance de la décision et piste d'audit",
+      "ontologyId": "kya_governance",
+      "code": "PRV",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_al1": {
+      "en": "Standard Assurance",
+      "fi": "Vakiotaso",
+      "sv": "Standardgaranti",
+      "de": "Standard-Garantie",
+      "fr": "Assurance standard",
+      "ontologyId": "kya_governance",
+      "code": "KYA-AL1",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_al2": {
+      "en": "Enhanced Assurance",
+      "fi": "Laajennettu taso",
+      "sv": "Förhöjd garanti",
+      "de": "Erweiterte Garantie",
+      "fr": "Assurance renforcée",
+      "ontologyId": "kya_governance",
+      "code": "KYA-AL2",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_al3": {
+      "en": "Critical Assurance",
+      "fi": "Kriittinen taso",
+      "sv": "Kritisk garanti",
+      "de": "Kritische Garantie",
+      "fr": "Assurance critique",
+      "ontologyId": "kya_governance",
+      "code": "KYA-AL3",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_lease_token": {
+      "en": "Atomic Single-Use Lease Token",
+      "fi": "Kertakäyttöinen valtuutusavain",
+      "sv": "Atomisk tidsbegränsad nyttjanderätts-token",
+      "de": "Atomares Einmal-Autorisierungs-Token",
+      "fr": "Jeton de bail atomique à usage unique",
+      "ontologyId": "kya_governance",
+      "code": "TRS-4",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_fail_closed": {
+      "en": "Fail-Closed Protection",
+      "fi": "Pakkosuojaus vikatilanteessa",
+      "sv": "Säker vid fel (fail-closed)",
+      "de": "Fehlersichere Sperre (fail-closed)",
+      "fr": "Verrouillage en cas de défaillance",
+      "ontologyId": "kya_governance",
+      "code": "TRS-5",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_leash_snap": {
+      "en": "Leash Snap Emergency Stop",
+      "fi": "Hätäjarru",
+      "sv": "Nödbroms",
+      "de": "Notbremse",
+      "fr": "Frein d'urgence",
+      "ontologyId": "kya_governance",
+      "code": "TC4",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_capture_precedes_release": {
+      "en": "Capture Precedes Release",
+      "fi": "Tallennus ennen resursseista luopumista",
+      "sv": "Lagring före frigörande",
+      "de": "Erfassung vor Freigabe",
+      "fr": "Capture avant libération des ressources",
+      "ontologyId": "kya_governance",
+      "code": "TC4-5",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_bounded_attribution_clock": {
+      "en": "Bounded Attribution Clock (72 h)",
+      "fi": "Aikarajoitettu virheattribuutio (72 h)",
+      "sv": "Tidsbegränsad felattribuering (72 h)",
+      "de": "Zeitbegrenzte Fehlerattribuierung (72 h)",
+      "fr": "Horloge d'attribution limitée (72 h)",
+      "ontologyId": "kya_governance",
+      "code": "FLT-4",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "hic_dashboard": {
+      "en": "Single Pane of Glass HIC Dashboard",
+      "fi": "Yhtenäinen valvomonäkymä",
+      "sv": "Enhetlig kontrollvy",
+      "de": "Zentrales Kontrollpanel",
+      "fr": "Panneau de contrôle unique",
+      "ontologyId": "kya_governance",
+      "code": "—",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "kya_human_decision_provenance": {
+      "en": "Human Decision Provenance",
+      "fi": "Ihmispäätöksen alkuperä ja kuittaus",
+      "sv": "Mänskligt beslutsursprung",
+      "de": "Menschliche Entscheidungsherkunft",
+      "fr": "Provenance de la décision humaine",
+      "ontologyId": "kya_governance",
+      "code": "PRV-4",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
+    },
+    "eudi_wallet": {
+      "en": "European Digital Identity Wallet / eIDAS 2.0",
+      "fi": "EU:n digitaalinen lompakko / eIDAS 2.0",
+      "sv": "EU:s digitala plånbok / eIDAS 2.0",
+      "de": "Digitale EU-Brieftasche / eIDAS 2.0",
+      "fr": "Portefeuille d'identité numérique de l'UE / eIDAS 2.0",
+      "ontologyId": "kya_governance",
+      "code": "IDV-1",
+      "machineTranslationReview": "hic_approved_2026-08-09",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6"
     },
     "thinkingbox": {
       "en": "ThinkingBox",
@@ -674,6 +963,400 @@
       "machineTranslationReview": "n/a_product_name",
       "article50": false,
       "source": "landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html"
+    },
+    "lwm": {
+      "en": "Lifetime World Model (LWM)",
+      "fi": "Lifetime World Model (LWM)",
+      "sv": "Lifetime World Model (LWM)",
+      "de": "Lifetime World Model (LWM)",
+      "fr": "Lifetime World Model (LWM)",
+      "ontologyId": "lwm",
+      "machineTranslationReview": "n/a_product_name",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §4"
+    },
+    "lwm_state_register": {
+      "en": "global state register and memory",
+      "fi": "globaali tilarekisteri ja muisti",
+      "sv": "globalt tillståndsregister och minne",
+      "de": "globales Zustandsregister und Gedächtnis",
+      "fr": "registre d’état global et mémoire",
+      "ontologyId": "lwm",
+      "source": "ONTOLOGY.md §4.1; KYA-S1 series part 9 title (HIC 09.08.2026)",
+      "seo": true
+    },
+    "skilled_agent": {
+      "en": "Skilled Agent",
+      "fi": "Skilled Agent",
+      "sv": "Skilled Agent",
+      "de": "Skilled Agent",
+      "fr": "Skilled Agent",
+      "ontologyId": "agent_taxonomy",
+      "machineTranslationReview": "n/a_product_term",
+      "article50": false,
+      "seo": true,
+      "source": "ONTOLOGY.md §13"
+    },
+    "bpmn_service_task": {
+      "en": "BPMN Service Task (automatic lane)",
+      "fi": "BPMN Service Task (automaattinen kaista)",
+      "sv": "BPMN Service Task (automatiskt spår)",
+      "de": "BPMN Service Task (automatische Spur)",
+      "fr": "BPMN Service Task (voie automatique)",
+      "ontologyId": "kya_governance",
+      "source": "ONTOLOGY.md §16.5",
+      "seo": true
+    },
+    "bpmn_user_task": {
+      "en": "BPMN User Task (human sign-off)",
+      "fi": "BPMN User Task (ihmisen kuittaus)",
+      "sv": "BPMN User Task (mänskligt godkännande)",
+      "de": "BPMN User Task (menschliche Freigabe)",
+      "fr": "BPMN User Task (validation humaine)",
+      "ontologyId": "kya_governance",
+      "source": "ONTOLOGY.md §16.5",
+      "seo": true
+    },
+    "isa_95": {
+      "en": "ISA-95 enterprise–control integration",
+      "fi": "ISA-95 (yritys- ja ohjausjärjestelmien integraatio)",
+      "sv": "ISA-95 (integration av affärs- och styrsystem)",
+      "de": "ISA-95 (Integration von Unternehmens- und Leitsystemen)",
+      "fr": "ISA-95 (intégration entreprise–contrôle)",
+      "ontologyId": "process_model",
+      "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
+      "seo": true
+    },
+    "sysml": {
+      "en": "SysML (systems modelling language)",
+      "fi": "SysML (järjestelmämallinnuskieli)",
+      "sv": "SysML (systemmodelleringsspråk)",
+      "de": "SysML (Systemmodellierungssprache)",
+      "fr": "SysML (langage de modélisation de systèmes)",
+      "ontologyId": "process_model",
+      "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
+      "seo": true
+    },
+    "vsm": {
+      "en": "Value Stream Mapping (VSM)",
+      "fi": "Arvovirtakuvaus (VSM)",
+      "sv": "Värdeflödesanalys (VSM)",
+      "de": "Wertstromanalyse (VSM)",
+      "fr": "Cartographie de la chaîne de valeur (VSM)",
+      "ontologyId": "process_model",
+      "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
+      "seo": true
+    },
+    "sipoc": {
+      "en": "SIPOC",
+      "fi": "SIPOC",
+      "sv": "SIPOC",
+      "de": "SIPOC",
+      "fr": "SIPOC",
+      "ontologyId": "process_model",
+      "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md",
+      "seo": true
+    },
+    "rup": {
+      "en": "Rational Unified Process (RUP)",
+      "fi": "Rational Unified Process (RUP)",
+      "sv": "Rational Unified Process (RUP)",
+      "de": "Rational Unified Process (RUP)",
+      "fr": "Rational Unified Process (RUP)",
+      "ontologyId": "none",
+      "source": "docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md"
+    },
+    "tagline_dws10": {
+      "en": "Complex Workflow Specialists",
+      "fi": "Complex Workflow Specialists",
+      "sv": "Complex Workflow Specialists",
+      "de": "Complex Workflow Specialists",
+      "fr": "Complex Workflow Specialists",
+      "ontologyId": "none",
+      "machineTranslationReview": "n/a_brand_line",
+      "article50": false,
+      "domain": "dws10.com"
+    },
+    "tagline_lifetime_fi": {
+      "en": "Specialist store for digital products",
+      "fi": "Digitaalisten tuotteiden erikoisliike",
+      "sv": "Specialbutik för digitala produkter",
+      "de": "Fachgeschäft für digitale Produkte",
+      "fr": "Boutique spécialisée en produits numériques",
+      "ontologyId": "none",
+      "domain": "lifetime.fi",
+      "source": "lifetime.fi/shared-assets/vertical-lang-bar.js"
+    },
+    "tagline_olw": {
+      "en": "Sovereign AI and Compliance for Industrial Use. Built in Finland.",
+      "fi": "Suvereeni tekoäly ja vaatimustenmukaisuus teollisuuskäyttöön. Rakennettu Suomessa.",
+      "sv": "Suverän AI och regelefterlevnad för industriellt bruk. Byggd i Finland.",
+      "de": "Souveräne KI und Compliance für den industriellen Einsatz. Entwickelt in Finnland.",
+      "fr": "IA souveraine et conformité pour un usage industriel. Conçue en Finlande.",
+      "ontologyId": "sovereignty",
+      "domain": "onelifetime.world",
+      "source": "onelifetime.world/shared-assets/olw-vertical-lang-bar.js"
+    },
+    "product_tag_sme": {
+      "en": "SME",
+      "fi": "Pk-yritys",
+      "sv": "Små och medelstora företag",
+      "de": "KMU",
+      "fr": "PME",
+      "ontologyId": "none",
+      "productTag": "SME",
+      "kind": "group",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_dws_iq": {
+      "en": "DWS IQ",
+      "fi": "DWS IQ",
+      "sv": "DWS IQ",
+      "de": "DWS IQ",
+      "fr": "DWS IQ",
+      "ontologyId": "none",
+      "productTag": "DWS IQ",
+      "kind": "group",
+      "brand": true,
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_firehorse": {
+      "en": "Firehorse",
+      "fi": "Firehorse",
+      "sv": "Firehorse",
+      "de": "Firehorse",
+      "fr": "Firehorse",
+      "ontologyId": "none",
+      "productTag": "Firehorse",
+      "kind": "group",
+      "brand": true,
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_hardware": {
+      "en": "Hardware",
+      "fi": "Laitteisto",
+      "sv": "Hårdvara",
+      "de": "Hardware",
+      "fr": "Matériel",
+      "ontologyId": "none",
+      "productTag": "Hardware",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_sovereign": {
+      "en": "Sovereign",
+      "fi": "Suvereeni",
+      "sv": "Suverän",
+      "de": "Souverän",
+      "fr": "Souverain",
+      "ontologyId": "sovereignty",
+      "productTag": "Sovereign",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "seo": true,
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_air_gapped": {
+      "en": "Air-Gapped",
+      "fi": "Ilmaeristetty (air-gapped)",
+      "sv": "Fysiskt isolerad (air-gapped)",
+      "de": "Physisch isoliert (Air-Gapped)",
+      "fr": "Isolé physiquement (air gap)",
+      "ontologyId": "sovereignty",
+      "productTag": "Air-Gapped",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "seo": true,
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_sovereign_cloud": {
+      "en": "Sovereign Cloud",
+      "fi": "Suvereeni pilvi",
+      "sv": "Suveränt moln",
+      "de": "Souveräne Cloud",
+      "fr": "Cloud souverain",
+      "ontologyId": "sovereignty",
+      "productTag": "Sovereign Cloud",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "seo": true,
+      "note": "Not on the DWS IQ US Cloud offers (DWS-US-STARTER, DWS-US-PILOT): they run on US infrastructure.",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "acceptance_test": {
+      "en": "Acceptance test",
+      "fi": "Hyväksymistesti",
+      "sv": "Acceptanstest",
+      "de": "Abnahmetest",
+      "fr": "Test de réception",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true,
+      "note": "Customer-run: offline continuity, ledger integrity, stop authority."
+    },
+    "stop_authority": {
+      "en": "Stop authority",
+      "fi": "Pysäytysvalta",
+      "sv": "Stoppbefogenhet",
+      "de": "Stoppbefugnis",
+      "fr": "Autorité d’arrêt",
+      "ontologyId": "kya_governance",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true
+    },
+    "evidence_bundle": {
+      "en": "Evidence bundle",
+      "fi": "Todistepaketti",
+      "sv": "Bevispaket",
+      "de": "Nachweispaket",
+      "fr": "Dossier de preuves",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "seo": true
+    },
+    "retention_lock": {
+      "en": "Retention lock",
+      "fi": "Säilytyslukko",
+      "sv": "Lagringslås",
+      "de": "Aufbewahrungssperre",
+      "fr": "Verrou de conservation",
+      "ontologyId": "agent_auditing",
+      "source": "ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md",
+      "note": "Can be extended, never shortened or removed."
+    },
+    "whitepaper_on_request": {
+      "en": "Whitepaper on request",
+      "fi": "Whitepaper pyynnöstä",
+      "sv": "Whitepaper på begäran",
+      "de": "Whitepaper auf Anfrage",
+      "fr": "Livre blanc sur demande",
+      "ontologyId": "none",
+      "source": "DWS_TRUTH_STANDARD.md §2J"
+    },
+    "product_tag_us_sovereign_cloud": {
+      "en": "US Sovereign Cloud",
+      "fi": "Yhdysvaltain suvereeni pilvi",
+      "sv": "Amerikanskt suveränt moln",
+      "de": "US-souveräne Cloud",
+      "fr": "Cloud souverain américain",
+      "ontologyId": "sovereignty",
+      "productTag": "US Sovereign Cloud",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_on_prem": {
+      "en": "On-Prem",
+      "fi": "Omissa tiloissa (on-prem)",
+      "sv": "I egna lokaler (on-prem)",
+      "de": "On-Premises",
+      "fr": "Sur site (on-prem)",
+      "ontologyId": "sovereignty",
+      "productTag": "On-Prem",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_gov_ready": {
+      "en": "Gov Ready",
+      "fi": "Viranomaisvalmis (Gov Ready)",
+      "sv": "Myndighetsredo (Gov Ready)",
+      "de": "Behördentauglich (Gov Ready)",
+      "fr": "Prêt pour le secteur public (Gov Ready)",
+      "ontologyId": "none",
+      "productTag": "Gov Ready",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_licence": {
+      "en": "Licence",
+      "fi": "Lisenssi",
+      "sv": "Licens",
+      "de": "Lizenz",
+      "fr": "Licence",
+      "ontologyId": "none",
+      "productTag": "Licence",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_subscription": {
+      "en": "Subscription",
+      "fi": "Tilaus",
+      "sv": "Prenumeration",
+      "de": "Abonnement",
+      "fr": "Abonnement",
+      "ontologyId": "none",
+      "productTag": "Subscription",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_installation": {
+      "en": "Installation",
+      "fi": "Asennus",
+      "sv": "Installation",
+      "de": "Installation",
+      "fr": "Installation",
+      "ontologyId": "none",
+      "productTag": "Installation",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_pilot": {
+      "en": "Pilot",
+      "fi": "Pilotti",
+      "sv": "Pilot",
+      "de": "Pilot",
+      "fr": "Pilote",
+      "ontologyId": "none",
+      "productTag": "Pilot",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_free": {
+      "en": "Free",
+      "fi": "Maksuton",
+      "sv": "Kostnadsfri",
+      "de": "Kostenlos",
+      "fr": "Gratuit",
+      "ontologyId": "none",
+      "productTag": "Free",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_training": {
+      "en": "Training",
+      "fi": "Koulutus",
+      "sv": "Utbildning",
+      "de": "Schulung",
+      "fr": "Formation",
+      "ontologyId": "none",
+      "productTag": "Training",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
+    },
+    "product_tag_early_access": {
+      "en": "Early Access",
+      "fi": "Varhainen käyttö (early access)",
+      "sv": "Tidig åtkomst (early access)",
+      "de": "Early Access",
+      "fr": "Accès anticipé",
+      "ontologyId": "none",
+      "productTag": "Early Access",
+      "kind": "attribute",
+      "source": "ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags",
+      "machineTranslationReview": "pending_named_human"
     }
   },
   "industries": {

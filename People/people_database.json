@@ -863,5 +863,132 @@
       "created_by": "claude-code",
       "updated_by": "claude-code"
     }
+  },
+  {
+    "id": "kadri-tammai-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Kadri",
+      "last_name": "Tammai",
+      "full_name": "Kadri Tammai",
+      "title": "NATO DIANA, Regional Director (Tallinn Regional Hub)",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "NATO DIANA",
+      "department": "Regional Hub (Tallinn)",
+      "role": "Regional Director",
+      "location": {
+        "city": "Tallinn",
+        "country": "Estonia",
+        "region": "Nordic"
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [
+        "Defence innovation",
+        "Alliance-wide capability adoption"
+      ],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "nato-diana",
+        "prospect",
+        "defence"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "NATO DIANA ecosystem engagement"
+      ],
+      "engagement_level": "low",
+      "last_contact": "",
+      "next_action": "Founder checked LinkedIn directly 2026-07-29: she most likely surfaced due to a post hiring an Administrative Manager for DIANA Estonia, not as a BD contact. Do not lead with an Aegis pitch on the strength of this LinkedIn appearance alone — use the Tehnopol/DIANA-HQ channels already drafted instead.",
+      "notes": "Sourced from a LinkedIn screenshot supplied by the founder 2026-07-29 (2nd-degree connection). Outranks the site-level accelerator contacts already drafted (VTT, Tehnopol, INCIBE) — see People/partners/nato-diana/kadri-tammai.md."
+    },
+    "business": {
+      "contract_value": null,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-29",
+      "updated_at": "2026-07-29",
+      "created_by": "claude-code",
+      "updated_by": "claude-code"
+    }
+  },
+  {
+    "id": "kaari-kink-001",
+    "type": "partner",
+    "status": "prospect",
+    "personal": {
+      "first_name": "Kaari",
+      "last_name": "Kink",
+      "full_name": "Kaari Kink",
+      "title": "NATO DIANA (exact role unconfirmed beyond LinkedIn tagline)",
+      "email": "",
+      "phone": "",
+      "linkedin": "",
+      "photo_url": ""
+    },
+    "organization": {
+      "company": "NATO DIANA",
+      "department": "",
+      "role": "",
+      "location": {
+        "city": "",
+        "country": "",
+        "region": ""
+      }
+    },
+    "professional": {
+      "education": "",
+      "expertise": [],
+      "languages": [],
+      "certifications": []
+    },
+    "relationship": {
+      "tags": [
+        "partner",
+        "nato-diana",
+        "prospect",
+        "defence"
+      ],
+      "products": [
+        "dws-iq"
+      ],
+      "interests": [
+        "NATO DIANA ecosystem engagement"
+      ],
+      "engagement_level": "low",
+      "last_contact": "",
+      "next_action": "Founder checked LinkedIn directly 2026-07-29: most likely surfaced due to a post hiring an Administrative Manager for DIANA Estonia. No outreach planned to her specifically.",
+      "notes": "Sourced from a LinkedIn screenshot supplied by the founder 2026-07-29 (2nd-degree connection), alongside Kadri Tammai. See People/partners/nato-diana/kaari-kink.md."
+    },
+    "business": {
+      "contract_value": null,
+      "contract_start": "",
+      "contract_end": "",
+      "payment_terms": "",
+      "projects": []
+    },
+    "metadata": {
+      "created_at": "2026-07-29",
+      "updated_at": "2026-07-29",
+      "created_by": "claude-code",
+      "updated_by": "claude-code"
+    }
   }
 ]

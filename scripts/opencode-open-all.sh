@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Evidence: Tool=OpenCode 1.18.21 Model=opencode/x-preview-f-free (ox-alpha) Date=2026-08-24
+# Evidence: Tool=Claude Code Model=anthropic Agent=opencode-worktree-per-window Date=2026-09-27
 # Audit trail: git log -- scripts/opencode-open-all.sh
 set -euo pipefail
 
@@ -13,10 +13,14 @@ STATUS=false
 WATCH=false
 WATCH_INTERVAL="${OPENCODE_ALL_WATCH_INTERVAL:-30}"
 AUTO=false
+PRS=false
+PRS_ARGS=()
 STATE_DIR="${HOME}/.local/state/opencode-all"
 
 usage() {
   echo "usage: opencode-all [--dry-run] [--max N] [--pick] [--kill] [--status] [--watch [SECONDS]] [--auto] [-n|--name TMUX_SESSION]"
+  echo "       opencode-all --prs [--dry-run] [--approve N,N] [--note N \"text\"] [--close N,N] [--reset N]"
+  echo "            queue every open PR for opencode-loop to finish; HIC-gated PRs are listed until you --approve, --note or --close them"
   exit 1
 }
 
@@ -30,6 +34,7 @@ while [[ $# -gt 0 ]]; do
     --status) STATUS=true; shift ;;
     --watch) WATCH=true; shift; [[ $# -gt 0 && "$1" =~ ^[0-9]+$ ]] && { WATCH_INTERVAL="$1"; shift; } ;;
     --auto) AUTO=true; shift ;;
+    --prs) PRS=true; shift; PRS_ARGS=("$@"); break ;; # rest goes to opencode-pr-specs.mjs
     *) usage ;;
   esac
 done
@@ -133,24 +138,47 @@ state_of() { # <kind> <target>  ->  finished | working | gone
   echo gone
 }
 
+# Done gate (CLAUDE.md Done Gate Rule): "finished" only means the model stopped talking.
+# gate_of runs scripts/agent-done-gate.mjs where the session really worked and prints
+# DONE | NOT-DONE | SHARED (session ran in the shared checkout, cannot be judged alone) | NO-DIR.
+session_dir() { # <kind> <target> -> directory the session worked in
+  case "$1" in
+    resume) opencode export "$2" 2>/dev/null | jq -r '.info.directory // empty' 2>/dev/null ;;
+    clauderesume)
+      local f; f=$(grep -rl "\"$2\"" "$HOME/.claude/projects/-home-admin100-dws6/"*.jsonl 2>/dev/null | head -1)
+      [[ -n "$f" ]] && jq -r 'select(.cwd) | .cwd' "$f" 2>/dev/null | tail -1 ;;
+  esac
+}
+gate_of() { # <kind> <target> [--full]
+  local dir; dir=$(session_dir "$1" "$2")
+  [[ -n "$dir" && -d "$dir" ]] || { echo NO-DIR; return; }
+  [[ "$(cd "$dir" && pwd -P)" == "$(cd "$REPO" && pwd -P)" ]] && { echo SHARED; return; }
+  if (cd "$dir" && node "$REPO/scripts/agent-done-gate.mjs" ${3:-} >/dev/null 2>&1); then echo DONE; else echo NOT-DONE; fi
+}
+
 run_status() {
   local plan="$STATE_DIR/plan.tsv"
   if [[ ! -s "$plan" ]]; then
     echo "opencode-all: no active run found ($plan missing) — launch windows first"
     exit 0
   fi
-  printf '%-13s %-9s %-16s %s\n' "KIND" "STATE" "LAST-ACTIVITY" "AGENT"
-  local n_finished=0
+  printf '%-13s %-9s %-9s %-16s %s\n' "KIND" "STATE" "GATE" "LAST-ACTIVITY" "AGENT"
+  local n_finished=0 n_done=0
   while IFS=$'\t' read -r kind target name updated src; do
     [[ "$kind" == "handoff" ]] && continue
     local st; st=$(state_of "$kind" "$target")
     local d; d=$(date -d "@$((updated / 1000))" "+%Y-%m-%d %H:%M" 2>/dev/null || echo "?")
-    printf '%-13s %-9s %-16s %s\n' "$kind" "${st^^}" "$d" "$name"
-    [[ "$st" == "finished" ]] && n_finished=$((n_finished+1))
+    local g="-"
+    if [[ "$st" == "finished" ]]; then
+      n_finished=$((n_finished+1)); g=$(gate_of "$kind" "$target")
+      [[ "$g" == "DONE" ]] && n_done=$((n_done+1))
+    fi
+    printf '%-13s %-9s %-9s %-16s %s\n' "$kind" "${st^^}" "$g" "$d" "$name"
   done < "$plan"
   if (( n_finished > 0 )); then
     echo ""
-    echo "HIC ACTION: $n_finished agent(s) FINISHED — review their output, then confirm the merge."
+    echo "HIC ACTION: $n_finished agent(s) FINISHED; $n_done pass the done gate (GATE=DONE) — review and merge only those."
+    echo "  NOT-DONE = the repo contradicts the summary; SHARED = worked in ~/dws6, judge by hand; run: node scripts/agent-done-gate.mjs in its directory for details."
   else
     echo ""
     echo "opencode-all: no agents finished yet — rerun with --watch to get notified."
@@ -174,7 +202,13 @@ run_watch() {
       local st; st=$(state_of "$kind" "$target")
       if [[ "$st" == "finished" ]]; then
         echo "$target" >> "$seen"
-        local msg="✅ AGENT FINISHED: '$name' — HIC: review & confirm MERGE | cmd: opencode-all --status ($(date +%H:%M))"
+        local g; g=$(gate_of "$kind" "$target" --full)
+        local msg
+        if [[ "$g" == "DONE" ]]; then
+          msg="✅ AGENT FINISHED + GATE DONE: '$name' — HIC: review & confirm MERGE | cmd: opencode-all --status ($(date +%H:%M))"
+        else
+          msg="⚠️ AGENT FINISHED, GATE $g: '$name' — not merge-ready | cmd: opencode-all --status ($(date +%H:%M))"
+        fi
         notify_aspire "$msg"
         printf '\a'
         tmux display-message -t "$TMUX_NAME" "$msg" 2>/dev/null || true
@@ -186,6 +220,11 @@ run_watch() {
   done
 }
 
+if $PRS; then
+  node "$REPO/scripts/opencode-pr-specs.mjs" "${PRS_ARGS[@]}" $($DRY_RUN && echo --dry-run) || exit 1
+  [[ " ${PRS_ARGS[*]} " == *" --dry-run "* ]] || $DRY_RUN || echo -e "\nopencode-all: start or keep running the loop to work them: opencode-loop   (progress: opencode-loop status)"
+  exit 0
+fi
 if $STATUS; then run_status; exit 0; fi
 if $WATCH; then run_watch; exit 0; fi
 
@@ -302,6 +341,23 @@ if $DRY_RUN; then
   exit 0
 fi
 
+# One git worktree per opencode window (WORKTREE_POLICY.md). Windows used to
+# all `cd "$REPO"`, so parallel sessions shared one index — the 2026-08-22
+# staged-index race. Each window now gets ~/.opencode-worktrees/<repo>/session-<name>,
+# created once by scripts/new-opencode-worktree.sh and reused on later runs.
+# OPENCODE_ALL_SHARED=1 restores the old shared-checkout behaviour.
+window_dir() { # <window name> -> prints worktree path, non-zero on failure
+  local slug path
+  slug=$(printf '%s' "$1" | tr -c 'A-Za-z0-9._-' '-' | tr -s '-' | cut -c1-48)
+  slug="session-${slug#-}"; slug="${slug%-}"
+  path="$HOME/.opencode-worktrees/$(basename "$REPO")/$slug"
+  if [[ ! -d "$path" ]]; then
+    # --link-deps shares node_modules instead of 8 parallel npm installs.
+    bash "$REPO/scripts/new-opencode-worktree.sh" "$slug" main --link-deps >&2 || return 1
+  fi
+  printf '%s\n' "$path"
+}
+
 tmux kill-session -t "$TMUX_NAME" 2>/dev/null || true
 tmux new-session -d -s "$TMUX_NAME" -x 200 -y 50 bash
 
@@ -309,10 +365,19 @@ n=0
 while IFS=$'\t' read -r kind target name _updated; do
   n=$((n+1))
   wscript="$TMP/win_$n.sh"
+  # Claude Code resolves --resume from the cwd it was started in, so claude
+  # windows stay in $REPO; opencode windows each get their own worktree.
+  wdir="$REPO"
+  if [[ "$kind" != clauderesume && "${OPENCODE_ALL_SHARED:-0}" != 1 ]]; then
+    if ! wdir=$(window_dir "$name"); then
+      echo "opencode-all: WARN could not create a worktree for '$name' — window skipped (never falls back to the shared checkout)" >&2
+      continue
+    fi
+  fi
   case "$kind" in
     resume)
       cat > "$wscript" <<EOF
-cd "$REPO"
+cd "$wdir"
 echo "[resuming $target${AUTO:+ — auto-approve}]"
 exec opencode $AUTO_FLAG -s "$target"
 EOF
@@ -326,7 +391,7 @@ EOF
       ;;
     handoff)
       cat > "$wscript" <<EOF
-cd "$REPO"
+cd "$wdir"
 echo "[post-merge handoff: $target]"
 exec opencode run $AUTO_FLAG -i --title "$name" "\$(cat "$target")"
 EOF

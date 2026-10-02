@@ -1,4 +1,7 @@
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
+// Audit trail: git log -- src/__tests__/nemoclaw-bridge.test.ts
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { randomUUID } from 'node:crypto';
 
 const logger = {
   info: vi.fn(),
@@ -19,6 +22,7 @@ beforeEach(() => {
   delete process.env.NEMOCLAW_TIMEOUT_MS;
   delete process.env.NEMOCLAW_MAX_RESPONSE_BYTES;
   delete process.env.NEMOCLAW_LOG_BASE_PATH;
+  process.env.KYA_VERDICT_SIGNING_SECRET = 'test-secret-a';
 
   logger.info.mockReset();
   logger.warn.mockReset();
@@ -48,7 +52,13 @@ describe('NemoClawBridge.fromEnv', () => {
     vi.stubGlobal('fetch', fetchMock);
 
     const { NemoClawBridge } = await import('../mcp/nemoclaw-bridge.js');
-    const bridge = NemoClawBridge.fromEnv();
+    const { digestOf } = await import('../security/canonical-digest.js');
+    const { signThemisVerdictForTest } = await import('./helpers/themis-verdict.js');
+    const auditSink = {
+      logInvocation: vi.fn(async () => ({ traceId: 'trace-1' })),
+      logResult: vi.fn(async () => undefined),
+    };
+    const bridge = NemoClawBridge.fromEnv({}, { auditSink });
 
     bridge.registerSkill({
       name: 'search-docs',
@@ -60,15 +70,29 @@ describe('NemoClawBridge.fromEnv', () => {
       minimumATS: 10,
     });
 
-    const result = await bridge.invoke(
-      {
-        method: 'search-docs',
-        params: { query: 'cbam' },
-        callerAgentId: 'agent-1',
-        kyaSessionId: 'kya-1',
-      },
-      90,
-    );
+    const params = { query: 'cbam' };
+    const result = await bridge.invoke({
+      method: 'search-docs',
+      params,
+      callerAgentId: 'agent-1',
+      operatorId: 'operator-1',
+      orgId: 'tenant-1',
+      kyaSessionId: 'kya-1',
+      kyaVerdict: signThemisVerdictForTest({
+        trustScore: 90,
+        policyVersion: 'themis-v1',
+        scope: {
+          agentId: 'agent-1',
+          operatorId: 'operator-1',
+          orgId: 'tenant-1',
+          sessionId: 'kya-1',
+          capability: 'search-docs',
+          paramsDigest: digestOf(params),
+          authorizationId: randomUUID(),
+        },
+        expiresAt: new Date(Date.now() + 30_000).toISOString(),
+      }),
+    });
 
     expect(result.success).toBe(true);
     expect(fetchMock).toHaveBeenCalledWith(

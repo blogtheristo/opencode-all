@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-30-copilot-coverage-gaps</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-30-copilot-coverage-gaps</h1>
+</header>
+<h1 id="copilot-coverage-gaps-security-and-billing">Copilot coverage gaps — security and billing</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.0 [Latest]</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.0 [Latest] | Tool: GitHub Copilot CLI 1.0.88 | Model: openai/gpt-5.6-sol | Session: opencode/lane-c-coverage | Date: 27.09.2026 | Changes: Measured <code>src/</code> coverage, ranked the ten lowest-covered security and billing files, and added tests for the top three. | Harness: GitHub Copilot CLI + CLAUDE.md + AGENTS.md + matched DWS standards | HIC-approved-drift: none</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 27.09.2026</li>
+<li>Last Modified: 27.09.2026</li>
+<li>Language: English</li>
+<li>Languages Available: English</li>
+<li>Publication Status: PENDING_REVIEW</li>
+<li>Classification: INTERNAL</li>
+</ul>
+<hr />
+<h2 id="context">Context</h2>
+<ul>
+<li><strong>Project:</strong> DWS IQ 6</li>
+<li><strong>System:</strong> TypeScript backend security and billing test coverage</li>
+<li><strong>Location:</strong> Finland / DGX development environment</li>
+<li><strong>Requested artifact:</strong> <code>docs/field-notes/2026-09-30-copilot-coverage-gaps.md</code></li>
+<li><strong>Measurement date:</strong> 27.09.2026</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> EU &gt; Finland</li>
+<li><strong>Sector:</strong> Enterprise_Software &gt; Security_and_Billing &gt; Test_Coverage</li>
+<li><strong>Entities:</strong> DWS-IQ6, Vitest, Stripe, PayPal, Cloudflare Workers, Supabase</li>
+<li><strong>Temporal Context:</strong> 2026-Q3</li>
+<li><strong>Confidence:</strong> High</li>
+</ul>
+<h2 id="the-story">The Story</h2>
+<p>The first full coverage attempt was blocked by inherited Git configuration variables in four poisoned-tree fixture suites. A clean-environment retry reached the application suites but hit one pre-existing five-second timeout in <code>src/__tests__/agents/aegis.test.ts</code>. The authoritative measurement therefore ran the remaining suite with that one flaky test file explicitly excluded: 157 test files passed, four were skipped, 1,615 tests passed, and 33 were skipped.</p>
+<p>Before the new tests, <code>src/</code> coverage was 32.81% statements, 26.96% branches, 36.91% functions, and 33.05% lines. The ten lowest-covered security or billing files were all at 0% line coverage; ranking ties by uncovered executable lines produced:</p>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 56%" />
+<col style="width: 20%" />
+<col style="width: 17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Rank</th>
+<th>File</th>
+<th style="text-align: right;">Executable lines</th>
+<th style="text-align: right;">Covered before</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td><code>src/cloudflare/billing-integration.ts</code></td>
+<td style="text-align: right;">184</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td><code>src/routes/payment.routes.ts</code></td>
+<td style="text-align: right;">144</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td><code>src/routes/b2b-payment.routes.ts</code></td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td><code>src/routes/stripe-webhook.routes.ts</code></td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td><code>src/services/billing.service.ts</code></td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td><code>src/autoresearch/kya-tuner.ts</code></td>
+<td style="text-align: right;">76</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td><code>src/identity/kya-engine.ts</code></td>
+<td style="text-align: right;">66</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td><code>src/services/redis-rate-limiter.service.ts</code></td>
+<td style="text-align: right;">63</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td><code>src/middleware/rate-limiter.middleware.ts</code></td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td><code>src/routes/admin-cost-audit.routes.ts</code></td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">0%</td>
+</tr>
+</tbody>
+</table>
+<p>Three new suites add 18 behavior tests. They cover the Cloudflare billing worker’s public routing, usage aggregation, unsigned-webhook rejection, missing-billing failures, and scheduled error isolation; the payment proxy’s authentication, validation, verified-identity forwarding, and HMAC webhook path; and the B2B routes’ authentication boundary, profile creation/listing, ownership filter, and no-op event behavior.</p>
+<p>After the tests, coverage increased to 33.50% statements, 27.48% branches, 37.40% functions, and 33.75% lines. The three target files reached:</p>
+<table>
+<colgroup>
+<col style="width: 58%" />
+<col style="width: 28%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th style="text-align: right;">Lines covered after</th>
+<th style="text-align: right;">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>src/cloudflare/billing-integration.ts</code></td>
+<td style="text-align: right;">40.21% (74/184)</td>
+<td style="text-align: right;">+40.21 pp</td>
+</tr>
+<tr class="even">
+<td><code>src/routes/payment.routes.ts</code></td>
+<td style="text-align: right;">43.75% (63/144)</td>
+<td style="text-align: right;">+43.75 pp</td>
+</tr>
+<tr class="odd">
+<td><code>src/routes/b2b-payment.routes.ts</code></td>
+<td style="text-align: right;">33.85% (43/127)</td>
+<td style="text-align: right;">+33.85 pp</td>
+</tr>
+</tbody>
+</table>
+<p>The repository-wide coverage thresholds remain unmet: 60% statements, 50% branches, 55% functions, and 60% lines. This is existing debt, not a failure introduced by the new tests.</p>
+<h2 id="the-insight">The Insight</h2>
+<p>Percentage-only ranking hides risk. Sorting equal-zero files by uncovered executable lines surfaced the billing worker and payment routes first, which added 180 covered lines in one bounded change. The tests also made two architectural risks visible without silently changing production behavior: the B2B webhook accepts events without an endpoint-local signature check, and the Cloudflare billing worker exposes broad CORS headers. Both require an explicit integration decision because changing them can break deployed webhook or browser clients.</p>
+<h2 id="verification">Verification</h2>
+<ul>
+<li>New focused suites: 3 files, 18 tests passed.</li>
+<li>TypeScript build: passed before the final full coverage rerun.</li>
+<li>Full coverage run excluding one pre-existing flaky Aegis suite: 157 files passed, four skipped; 1,615 tests passed, 33 skipped.</li>
+<li>Final coverage: 33.50% statements, 27.48% branches, 37.40% functions, 33.75% lines.</li>
+<li>Generated report: <code>coverage/coverage-summary.json</code> (local ignored artifact, not committed).</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<p><strong>Q1 (two-way door; RECOMMEND: yes):</strong> Should the next security slice add endpoint-local signature verification to <code>/api/v1/b2b/webhook</code> and replace wildcard CORS in the Cloudflare billing worker with an explicit production-origin allowlist, with compatibility tests for deployed callers?</p>
+<h2 id="learning-outcome-steps">Learning-outcome steps</h2>
+<ul>
+<li>Step 1 — KB: N/A — coverage percentages are branch-scoped engineering measurements, not durable domain facts.</li>
+<li>Step 2 — Field note: this document.</li>
+<li>Step 3 — Learn HTML: generated as <code>Learn/2026-09-30-copilot-coverage-gaps.html</code>.</li>
+<li>Step 4 — Drive export: N/A — no Google Drive tool is available in this session.</li>
+<li>Step 5 — HIC decision: Q1 above, queued as <code>PENDING_REVIEW</code>.</li>
+<li>Step 6 — Calendar: N/A — no new dated commitment was created; the work-order cutoff remains recorded in its canonical handoff.</li>
+</ul>
+<hr />
+<p>Version 1.0 | 27.09.2026 | © 2026 Lifetime Oy | INTERNAL</p>
+</body>
+</html>

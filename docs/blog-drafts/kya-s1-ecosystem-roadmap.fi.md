@@ -10,7 +10,8 @@ author: Risto Anton Päärni
 date: 2026-08-08
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Teksti tallennettu sanatarkasti; ei agentin uudelleenkirjoitusta.
 note: >-
@@ -22,6 +23,44 @@ typos_corrected: >-
   korjattu -parit; alkuperäinen Ground Truth -muotoilu säilyy tässä tietueessa (Rule 12).
 typos_corrected_list:
   - "ostajan työkykyinen työkalu → ostajan työkalu (Johdanto)"
+claims_checked: 2026-09-30
+sources:
+  - title: "System and Organization Controls (SOC) 2 Type 2"
+    authors: "Microsoft"
+    year: 2026
+    venue: "Microsoft Learn — Compliance offerings"
+    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+    type: industry
+  - title: "ISO/IEC 42001:2023 Artificial intelligence management system"
+    authors: "Microsoft"
+    year: 2026
+    venue: "Microsoft Learn — Compliance offerings"
+    url: https://learn.microsoft.com/en-us/compliance/regulatory/offering-iso-42001
+    type: industry
+  - title: "Department of Defense (DoD) Impact Level 5 (IL5)"
+    authors: "Microsoft"
+    year: 2026
+    venue: "Microsoft Learn — Azure compliance offerings"
+    url: https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5
+    type: industry
+  - title: "Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem"
+    authors: "Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J."
+    year: 2023
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2310.02521
+    type: academic
+  - title: "AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A"
+    authors: "Prakash, S."
+    year: 2026
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2603.24775
+    type: academic
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
 ---
 
 # KYA-S1 Ekosysteemi & Tuotanto-Roadmap
@@ -34,9 +73,9 @@ Sarjan edellisissä osissa rakensimme teknisen ja ohjelmistotason pohjan tekoäl
 
 Kysymys kuuluu nyt: miten tämä malli tuodaan kooditasolta osaksi organisaation hankintaa, toimittajahallintaa ja tuotanto-roadmapia?
 
-KYA-S1 v1.3 ei ole vain tekninen protokolla, vaan se on ostajan työkalu toimittajahallintaan. Tässä osassa kuvaamme, miten KYA-S1 Specification v1.3 otetaan käyttöön vaiheittain teollisuuden virallisilla KYA-AL-varmuustasoilla.
+KYA-S1 v1.3 ei ole vain tekninen protokolla, vaan se on ostajan työkalu toimittajahallintaan. Tässä osassa kuvaamme, miten KYA-S1 Specification v1.3 otetaan käyttöön vaiheittain KYA-S1:n omilla KYA-AL-varmuustasoilla.
 
-## Teollisuuden KYA-AL-varmuustasot (Assurance Levels)
+## KYA-S1:n KYA-AL-varmuustasot (Assurance Levels)
 
 Tekoälyagenttien hallintaa ei tarvitse — eikä voi — rakentaa hetkessä täydelliseksi. KYA-S1 §8 määrittelee kolme KYA-AL-varmuustasoa (KYA-AL1 Standard, KYA-AL2 Enhanced ja KYA-AL3 Critical), jotka muodostavat luontevan roadmapin organisaatiotasoiselle käyttöönotolle:
 
@@ -58,7 +97,7 @@ Toimittajahallinnassa suurin heikkous on itsearviointi (self-attestation). KYA-S
 
 > **Ehdoton sääntö (§3):** Itsearviointi ei ole hyväksyttävä todiste KYA-S1-yhteensopivuudesta. Paperi on täsmälleen niin arvokas kuin sen toisella allekirjoitusrivillä oleva nimi.
 
-Hyväksyttäväksi todisteeksi kelpaa ainoastaan akkreditoidun kolmannen osapuolen auditointiraportti tai kryptografisesti varmennettu alustatelemetria, jota säilytetään muuttamattomassa lokirekisterissä.
+Hyväksyttäväksi todisteeksi kelpaa ainoastaan akkreditoidun kolmannen osapuolen auditointiraportti tai kryptografisesti varmennettu alustatelemetria, jota säilytetään muuttamattomassa lokirekisterissä [4].
 
 Tämä sääntö sitoo yhtäläisesti myös spesifikaation laatijaa: Lifetime Oy ei myönnä KYA-S1-sertifikaattia omalle DWS IQ -alustalleen ennen kuin riippumaton, ulkopuolinen arvioija on sen allekirjoittanut.
 
@@ -82,14 +121,14 @@ Sijoittuessaan yrityksen hankintaprosessiin KYA-S1 ei korvaa olemassa olevia sta
 └──────────────────────────┴─────────────────────────────────────────────┘
 ```
 
-Standardit kuten SOC 2 tai ISO 27001 varmentavat organisaation prosessit. GDPR ja ISO 27701 varmentavat datan käsittelyn. KYA-S1 v1.3 on ainoa dokumentti, joka varmentaa autonomisen agentin ajonaikaisen identiteetin, toimintavaltuudet ja pika-ajoisen pysäyttämisen.
+Standardit kuten SOC 2 tai ISO 27001 varmentavat organisaation prosessit [1]. ISO/IEC 42001 varmentaa organisaation tekoälyn hallintajärjestelmän [2], FedRAMP ja DISA:n vaikutustasot pilvialustan [3]. GDPR ja ISO 27701 varmentavat datan käsittelyn. KYA-S1 v1.3 on tietääksemme ainoa dokumentti, joka varmentaa autonomisen agentin ajonaikaisen identiteetin, toimintavaltuudet ja pika-ajoisen pysäyttämisen; agenttien yleisimmät protokollat eivät itse todenna agentin identiteettiä [5].
 
 ## Yhteenveto
 
 - **Vaiheittainen roadmap:** Varmuustasot (KYA-AL1, KYA-AL2, KYA-AL3) mahdollistavat järjestelmän tuotantoonviennin asteittain kiristyvillä SLA-rajoilla.
 - **Ei itsearviointia (§3):** KYA-S1-todistus edellyttää aina riippumattoman kolmannen osapuolen arviointia ja allekirjoitusta.
 - **Tietoturvakansion uusi sivu:** KYA-S1 täyttää aukon, jota SOC 2 tai ISO 27001 eivät kata — autonomisen agentin ajonaikaisen käyttäytymisen.
-- **Suora HIC-kytkentä:** Jokainen taso takaa aikarajoitetun reagoinnin (IDV/TC4) poikkeamatilanteissa.
+- **Suora HIC-kytkentä:** Jokainen taso takaa aikarajoitetun reagoinnin (IDV/TC4) poikkeamatilanteissa [6].
 
 ## Katso sarjan muut osat
 
@@ -112,3 +151,17 @@ Risto Anton Päärni
 Perustaja & toimitusjohtaja, Lifetime Oy
 
 Päätoimittaja, Lifetime Scope Journal
+
+## Lähteet
+
+[1] Microsoft (2026). System and Organization Controls (SOC) 2 Type 2. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+
+[2] Microsoft (2026). ISO/IEC 42001:2023 Artificial intelligence management system. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-iso-42001
+
+[3] Microsoft (2026). Department of Defense (DoD) Impact Level 5 (IL5). Microsoft Learn — Azure compliance offerings. https://learn.microsoft.com/en-us/azure/compliance/offerings/offering-dod-il5
+
+[4] Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J. (2023). Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem. arXiv. https://arxiv.org/abs/2310.02521
+
+[5] Prakash, S. (2026). AIP: Agent Identity Protocol for Verifiable Delegation Across MCP and A2A. arXiv. https://arxiv.org/abs/2603.24775
+
+[6] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj

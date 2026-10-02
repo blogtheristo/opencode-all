@@ -1,0 +1,60 @@
+---
+slug: hic-hallintamalli-ja-dws-iq-agentit
+title: "HIC-hallintamalli ja DWS IQ -agentit"
+subtitle: "Älykäs prosessiautomaatio teollisuudessa — Copilot-ohjausmalli yhdistettynä DWS IQ -osaaja-agentteihin"
+lang: fi
+site: onelifetime.world
+author: Risto Anton Päärni
+date: 2026-08-07
+Status: DRAFT
+source: HIC-kirjoittama teksti (sessio claude/agent-use-cases-comparison-h7vl25), tarkistettu KYA-S1:tä vasten
+series: "Blogi 2/11 · DWS IQ & Lifetime World Model"
+---
+
+# HIC-hallintamalli ja DWS IQ -agentit
+
+### Älykäs prosessiautomaatio teollisuudessa — Copilot-ohjausmalli yhdistettynä DWS IQ -osaaja-agentteihin
+
+_Arkkitehtuuritiivistelmä & HIC-toimintamalli · 1 A4 -esittely_
+
+---
+
+## 1. Agenttiluokkien vertailu: Kehittäjän avustajasta teollisuuden tausta-agenttiin
+
+Tekoälyagentit jakautuvat kahteen päänäkökulmaan, joiden valvontatarve ja toimintaympäristö eroavat toisistaan perustavanlaatuisesti:
+
+| Ominaisuus      | GitHub Copilot Agent                                                               | DWS IQ -agentit                                                          |
+| --------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Rooli**       | Kehittäjän interaktiivinen pari (IDE-ympäristö).                                   | Teollisuuden & tietovarastojen tausta-agentti.                           |
+| **Autonomia**   | Mikrotaso: ehdottaa koodia, ajaa testejä kehittäjän silmän alla.                   | Makrotaso: suorittaa monivaiheisia liiketoiminta- ja tuotantoprosesseja. |
+| **HIC-malli**   | Luonnollinen ihmisvalvonta (_Human-in-Command_) jokaisessa käyttöliittymäaktoissa. | Vaatii erillisen hallintakerroksen, jotta valvonta säilyy tausta-ajossa. |
+| **Kriittisyys** | Koodimuutos vaatii aina review'n ennen commitia.                                   | Suora vaikutus tuotantoketjuihin, rajapintoihin ja tietokantoihin.       |
+
+---
+
+## 2. Hallintamalli (HIC): Copilot-ohjaus tuotuna DWS IQ -ympäristöön
+
+Jotta teollisuudessa saavutetaan sekä korkea automaatioaste että EU AI Actin artiklan 14 vaatima ihmisen valvonta — DWS:n toteutuksessa _Human-in-Command_ (HIC) —, DWS IQ -agentteja hallitaan **GitHub Copilot -tyylisellä yhdellä Dashboardilla (Single Pane of Glass)**:
+
+- **Yksi käynnistysnäkymä (Dashboard):** Ihminen toimii prosessin johtajana. Hän käynnistää agenttitoiminnon työnkulun (_workflow_) yhdestä selkeästä näkymästä ja näkee prosessin tilanteen reaaliaikaisesti.
+- **DWS IQ Skilled Agents (Osaaja-agentit):** Dashboard reitittää ja valitsee työnkulun eri vaiheisiin tarkoitukseen erikoistuneet agentit (_Skilled Agents_) — esimerkiksi laadunvalvonta-, data-analyysi- tai logistiikka-agentin — aina kyseisen työvaiheen vaatimusten mukaisesti.
+- **Aukoton KYA-kytkentä:** Jokainen Dashboardilta käynnistetty agentti noudattaa KYA-spesifikaatiota: tietoturva tuntee agentin taustahenkilön (IDV), luottamustason (TRS) ja tarjoaa välittömän hätäjarrun (TC4) koko agenttiketjulle.
+
+---
+
+## 3. Teollisuuden prosessikuvaukset: RUP-metodologian soveltaminen
+
+Agenttiyhteistyöstä tehdään teollisuudessa ennakoitavaa ja hyväksyttyä yhdistämällä liiketoiminnan käyttötapaukset (Use Cases), niitä toteuttava Workflow V2 sekä Active Ontology — liiketoimintaobjektit, niiden väliset suhteet, säännöt ja sallitut toiminnot. RUP-metodologia ja UML-aktiviteettikaaviot kuvaavat tämän kokonaisuuden hallittuna elinkaarena:
+
+```
+[Inception]              [Elaboration]                 [Construction]                 [Transition]
+Use Case ja tavoite -->  Workflow V2 muodostaa  -->   Active Ontology rajaa    -->   HIC hyväksyy tuloksen
+HIC määrittää raamit      vaiheet ja agenttiroolit      objektit ja toiminnot          KYA tallentaa auditointijäljen
+```
+
+- **Inception (Aloitus):** Ihminen kirjaa liiketoiminnan käyttötapauksen (Use Case), sen tavoitteen ja raamit Dashboardilla (HIC-aloitus).
+- **Elaboration (Tarkennus):** Workflow V2 muodostaa käyttötapauksesta vaiheet ja valitsee niihin tarvittavat _DWS IQ Skilled Agents_ -roolit; prosessikaavio esitetään ihmiselle ennen käynnistystä.
+- **Construction (Toteutus):** Agentit suorittavat työvaiheet Active Ontologyn rajoissa — vain sallituilla toiminnoilla sallittuihin liiketoimintaobjekteihin. Kriittisissä tarkastuspisteissä (_Gateways_) järjestelmä pyytää ihmisen kuittauksen ennen seuraavaan vaiheeseen siirtymistä.
+- **Transition (Luovutus):** Ihminen hyväksyy lopputuloksen, ja KYA-S1-spesifikaation mukainen päätöksentekojälki tallennetaan automaattisesti myöhempää tarkastelua varten.
+
+> **Yhteenveto:** Tuomalla GitHub Copilotin tuttu ja turvallinen ohjausmalli DWS IQ -tausta-agenteille ja kuvaamalla työnkulut teollisuuden rakastamilla RUP-prosessikaavioilla, tekoälyn johtamisvelvoite muuttuu lakitekstistä kirkkaaksi, käytännölliseksi ja skaalautuvaksi kilpailueduksi.

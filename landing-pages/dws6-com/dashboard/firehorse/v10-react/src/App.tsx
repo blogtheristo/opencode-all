@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- dws6.com/dashboard/firehorse/v10-react/src/App.tsx
 /**
  * Dashboard V10 React Main Application
  * DWS IQ Climate Intelligence Dashboard with routing and AI Assistant
@@ -44,6 +46,9 @@ const BillingPage = lazy(() =>
 );
 const HealthPage = lazy(() =>
   import('./pages/HealthPage').then((m) => ({ default: m.HealthPage })),
+);
+const DocumentationPage = lazy(() =>
+  import('./pages/DocumentationPage').then((m) => ({ default: m.DocumentationPage })),
 );
 const AgentMonitorDashboard = lazy(() =>
   import('./components/agent-monitor/AgentMonitorDashboard').then((m) => ({
@@ -114,12 +119,7 @@ function DashboardFooter() {
         <div className="flex items-center justify-between text-sm text-fg-muted">
           <p>&copy; 2026 DWS IQ &middot; Climate Intelligence Platform</p>
           <div className="flex items-center gap-4">
-            <a
-              href="https://dws10.com/get-started/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground"
-            >
+            <a href={`${import.meta.env.BASE_URL}documentation`} className="hover:text-foreground">
               Documentation
             </a>
             <a href="/api" className="hover:text-foreground">
@@ -162,6 +162,9 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
         break;
       case 'billing':
         navigate('/billing');
+        break;
+      case 'documentation':
+        navigate('/documentation');
         break;
     }
   };
@@ -255,6 +258,9 @@ function DashboardWithPanels() {
         break;
       case 'billing':
         navigate('/billing');
+        break;
+      case 'documentation':
+        navigate('/documentation');
         break;
     }
   };
@@ -585,6 +591,18 @@ function App() {
               <DashboardLayout>
                 <Suspense fallback={<PageLoader />}>
                   <HealthPage />
+                </Suspense>
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/documentation"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <Suspense fallback={<PageLoader />}>
+                  <DocumentationPage />
                 </Suspense>
               </DashboardLayout>
             </ProtectedRoute>

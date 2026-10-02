@@ -11,6 +11,7 @@
 ## Build, Test, and Validation (CRITICAL - Always Follow This Sequence)
 
 ### First Time Setup
+
 ```bash
 # 1. ALWAYS install dependencies first (required before any build/test)
 npm install
@@ -28,6 +29,7 @@ npm test
 **IMPORTANT:** Build will fail with TypeScript errors if you run `npm run build` before `npm install`. Always install dependencies first.
 
 ### Development Workflow
+
 ```bash
 # Start backend with hot reload (PREFERRED for development)
 npm run dev              # Uses tsx watch - auto-reloads on changes
@@ -44,6 +46,7 @@ npm run lint            # Currently just echoes "No linter configured"
 ```
 
 ### Python Scripts (Firehorse/)
+
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
@@ -62,6 +65,7 @@ safety check                    # Dependency vulnerability scan
 ```
 
 ### Frontend Dashboard (dws6.com/dashboard/firehorse/v9-react/)
+
 ```bash
 cd dws6.com/dashboard/firehorse/v9-react/
 npm install
@@ -72,6 +76,7 @@ npm run build            # Production build
 ## Repository Architecture
 
 ### Key Directories
+
 ```
 /
 ├── src/                          # Backend Express API (TypeScript)
@@ -102,6 +107,7 @@ npm run build            # Production build
 ```
 
 ### Configuration Files
+
 - `tsconfig.json` - TypeScript compiler config (strict mode)
 - `vitest.config.ts` - Vitest test runner config
 - `pyproject.toml` - Python project config (Ruff, Bandit)
@@ -113,12 +119,14 @@ npm run build            # Production build
 Located in `.github/workflows/` - these run automatically on PRs and commits:
 
 **Critical workflows that must pass:**
+
 1. `security-check-pr.yml` - Security scans (runs on all PRs)
 2. `deploy-pilot.yml` - Deployment to pilot environment
-3. `deploy-scaleway.yml` - Primary production deployment
+3. `infrastructure/dgx-spark/day-runner.sh` - Primary production deployment (DGX Spark, pull-based; Scaleway retired 26.09.2026)
 4. `morning-briefing.yml` - Scheduled email automation
 
 **Before committing:** Ensure your changes won't break these workflows. Common failures:
+
 - Missing environment variables in code
 - TypeScript compilation errors (run `npm run build` first)
 - Test failures (run `npm test` first)
@@ -127,28 +135,32 @@ Located in `.github/workflows/` - these run automatically on PRs and commits:
 ## Code Style and Conventions
 
 ### TypeScript
+
 - **Strict TypeScript:** No `any` types, prefer `unknown` for dynamic data
 - **Validation:** Use Zod schemas for runtime validation (not just TypeScript types)
 - **Interfaces:** Define interfaces for all API contracts
-- **Naming:** 
+- **Naming:**
   - Files: `kebab-case.ts` (utils), `PascalCase.tsx` (React components)
   - Variables: `camelCase`
   - Constants: `SCREAMING_SNAKE_CASE`
   - Types/Interfaces: `PascalCase`
 
 ### React (v9-react dashboard)
+
 - Functional components with hooks (no class components)
 - TailwindCSS for styling (no inline styles or CSS-in-JS)
 - Co-locate components with their styles
 - Use Zod for form validation
 
 ### Python (Firehorse/)
+
 - Follow PEP 8 (enforced by Ruff)
 - Use type hints (enforced by mypy in pyproject.toml)
 - **Security:** Use `simpleeval` library's `simple_eval()` for formula evaluation, NEVER use `eval()` or `ast.literal_eval()`
 - Add `# nosec` comments only for verified false positives
 
 ### Email Rules (CRITICAL)
+
 - **NEVER use `noreply@` addresses** - all emails must be replyable
 - Default sender: `risto@onelifetime.world` (verified in Amazon SES and Resend.com)
 - Default recipient: `risto@lifetime.fi`
@@ -157,6 +169,7 @@ Located in `.github/workflows/` - these run automatically on PRs and commits:
 ## Security (NEVER COMMIT SECRETS)
 
 ### Prohibited Actions
+
 - ❌ Commit secrets, API keys, passwords to any file
 - ❌ Commit PII or customer data (GDPR violation)
 - ❌ Skip input validation on user inputs
@@ -165,6 +178,7 @@ Located in `.github/workflows/` - these run automatically on PRs and commits:
 - ❌ Force push to main/master branches
 
 ### Required Actions
+
 - ✅ Use environment variables for ALL secrets (see `.env.example`)
 - ✅ Validate all inputs with express-validator or Zod
 - ✅ Use parameterized queries (never string concatenation for SQL)
@@ -172,7 +186,9 @@ Located in `.github/workflows/` - these run automatically on PRs and commits:
 - ✅ Run security scans before committing (`bandit`, `safety`)
 
 ### .gitignore Patterns (VERIFIED)
+
 These patterns prevent accidental secret commits:
+
 ```gitignore
 .env*                    # All environment files
 *.secret, *.key, *.pem   # Secret files
@@ -187,20 +203,25 @@ dist/, build/            # Build artifacts
 ## Common Pitfalls and Workarounds
 
 ### Issue: TypeScript Build Fails with "Cannot find name 'process'"
+
 **Cause:** Missing the Node.js type definitions package  
 **Fix:** Ensure `npm install` was run first. The error appears if you build before installing dependencies.
 
 ### Issue: Morning Briefing Runs Twice During DST Transitions
+
 **Cause:** GitHub Actions cron uses UTC, Finland observes DST  
 **Fix:** Use dual cron entries with time-guard in script (see `.github/workflows/morning-briefing.yml:6-11`)
 
 ### Issue: node-cron Doesn't Work in Serverless (Cloud Run, Scaleway)
+
 **Cause:** In-process schedulers incompatible with scale-to-zero platforms  
 **Fix:** Use external triggers (GitHub Actions, Cloud Scheduler) instead of in-process cron
 
 ### Issue: ML/DS Pipeline Artifacts Appear in Git Status
+
 **Cause:** Generated files not in .gitignore  
 **Fix:** These patterns are already in .gitignore (lines 104-110):
+
 ```gitignore
 reports/figures/*.png
 reports/*.json
@@ -208,11 +229,13 @@ models/*.pkl
 data/raw_dataset.csv
 data/cleaned_dataset.csv
 ```
+
 Never commit these runtime artifacts.
 
 ## Testing Guidance
 
 ### Test Structure
+
 ```
 src/__tests__/           # Vitest tests co-located with source
 ├── auth.test.ts         # Authentication tests
@@ -221,20 +244,22 @@ src/__tests__/           # Vitest tests co-located with source
 ```
 
 ### Writing Tests
+
 ```typescript
 // ALWAYS mock auth middleware to avoid JWT_SECRET requirements
-import { vi } from 'vitest';
+import { vi } from "vitest";
 
 // Mock BEFORE imports
-vi.mock('../middleware/auth.middleware.js', () => ({
-  authenticateJWT: vi.fn((req, res, next) => next())
+vi.mock("../middleware/auth.middleware.js", () => ({
+  authenticateJWT: vi.fn((req, res, next) => next()),
 }));
 
 // THEN import routes (after mock)
-const { default: router } = await import('../routes/bim.routes.js');
+const { default: router } = await import("../routes/bim.routes.js");
 ```
 
 ### Running Tests
+
 ```bash
 npm test                # Run all tests
 npm test -- --watch     # Watch mode
@@ -245,11 +270,13 @@ npm run test:ui         # Interactive UI
 ## Git Workflow
 
 ### Branch Naming
+
 - `claude/<feature>-<session-id>` - AI-assisted work (e.g., `claude/auth-fix-abc123`)
 - `feature/<name>` - Human-developed features
 - `fix/<description>` - Bug fixes
 
 ### Commit Messages
+
 ```
 <type>: <description>
 
@@ -266,13 +293,14 @@ feat: add BIM emission factor validation endpoint
 **Database:** Supabase (EU-hosted, PostgreSQL + pgvector)  
 **AI Inference:** Groq API (Llama 3.1 70B), Claude Sonnet 4.5
 
-**Deployment trigger:** Push to `main` branch runs `.github/workflows/deploy-scaleway.yml`
+**Deployment trigger:** Push to `main`; the DGX day-runner pulls and rebuilds within 5 min (`infrastructure/dgx-spark/day-runner.sh`)
 
 ## Automated PR Workflow (HIL Automation)
 
 This repo uses a fully automated multi-agent PR workflow that **replaces manual human-in-the-loop review**.
 
 ### Flow
+
 1. **Claude Code** generates implementation on a feature branch and opens a draft PR
 2. **AI Code Review (HIL)** workflow triggers automatically (`.github/workflows/ai-pr-review.yml`)
    - **Claude** does quick sanity check (security, correctness, breaking changes)
@@ -295,29 +323,33 @@ This repo uses a fully automated multi-agent PR workflow that **replaces manual 
 6. **Human override**: Add `do-not-merge` or `needs-human-review` labels to pause
 
 ### Copilot Coding Agent
+
 - Setup steps defined in `.github/copilot-setup-steps.yml`
 - Copilot agent runs `npm install`, installs Python tools, builds TypeScript
 - When tagged in PR comments, it implements requested changes autonomously
 
 ### Gemini MCP Integration
+
 - Gemini MCP server is registered in `mcp-hub/server.py` (currently disabled, port 8768)
 - The PR review workflow uses Gemini API directly via `GOOGLE_AI_API_KEY` secret
 - Model: `gemini-2.0-flash` (fast, strong on code critique)
 
 ### Labels Used
-| Label | Meaning |
-|-------|---------|
-| `ai-reviewed` | AI review has been performed (dual-model) |
-| `ai-approved` | Both Claude + Gemini approved |
-| `ai-changes-requested` | One or both reviewers found issues |
-| `ready-to-merge` | All checks passed, safe to merge |
-| `do-not-merge` | Blocks auto-merge (human override) |
-| `needs-human-review` | Pauses automation for manual review |
+
+| Label                  | Meaning                                   |
+| ---------------------- | ----------------------------------------- |
+| `ai-reviewed`          | AI review has been performed (dual-model) |
+| `ai-approved`          | Both Claude + Gemini approved             |
+| `ai-changes-requested` | One or both reviewers found issues        |
+| `ready-to-merge`       | All checks passed, safe to merge          |
+| `do-not-merge`         | Blocks auto-merge (human override)        |
+| `needs-human-review`   | Pauses automation for manual review       |
 
 ### Required Secrets
-| Secret | Purpose |
-|--------|---------|
-| `ANTHROPIC_API_KEY` | Claude API — quick sanity review |
+
+| Secret              | Purpose                                |
+| ------------------- | -------------------------------------- |
+| `ANTHROPIC_API_KEY` | Claude API — quick sanity review       |
 | `GOOGLE_AI_API_KEY` | Gemini API — mandatory HIL review gate |
 
 ## Additional Documentation
@@ -329,3 +361,9 @@ This repo uses a fully automated multi-agent PR workflow that **replaces manual 
 - `README.md` - Project overview and sales documentation
 
 **When in doubt:** Check CLAUDE.md for detailed guidance on security, git workflows, and best practices.
+
+## Coding delegation (HIC 28.09.2026)
+
+Multi-file coding runs on the DGX through `opencode-loop`, not in paid Copilot sessions. Write a
+task spec with `node scripts/loop-task.mjs` (see `CLAUDE.md` → Coding Delegation Rule) and open a
+PR with it; code directly only for one-file fixes or security work.

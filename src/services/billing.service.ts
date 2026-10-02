@@ -109,6 +109,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     remainder_amount_cents,
     product_price_cents,
     deposit_amount_cents,
+    product_id,
   } = params;
 
   // Create or retrieve Stripe customer
@@ -135,7 +136,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     amount: product_price_cents,
     currency: 'eur',
     description: `DWS Platform Deployment - Order #${order_id}`,
-    metadata: { order_id },
+    metadata: { order_id, product_id },
   });
 
   await stripe.invoiceItems.create({
@@ -143,7 +144,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     amount: -deposit_amount_cents,
     currency: 'eur',
     description: 'Deposit Credit - Payment received via Revolut',
-    metadata: { order_id },
+    metadata: { order_id, product_id },
   });
 
   // Step 2: Create invoice (automatically includes pending invoice items)
@@ -151,6 +152,7 @@ export async function createStripeInvoice(params: InvoiceParams): Promise<Stripe
     customer: customer_id,
     metadata: {
       order_id,
+      product_id,
       dws_company: company_name,
       vat_number,
     },
@@ -343,19 +345,19 @@ export async function handleInvoicePaymentSucceeded(invoice_id: string): Promise
     });
 
     await sendPaymentConfirmationEmail(order);
-    
+
     // Activate service/product access
     try {
       // Here we'd call any downstream services like provisioning
       // For now, we just log the action
-      logger.info('Service access activation triggered for order', { 
+      logger.info('Service access activation triggered for order', {
         order_id: order.id,
-        invoice_id
+        invoice_id,
       });
     } catch (error) {
-      logger.error('Failed to activate service access', { 
-        error, 
-        order_id: order.id 
+      logger.error('Failed to activate service access', {
+        error,
+        order_id: order.id,
       });
     }
   } catch (error) {

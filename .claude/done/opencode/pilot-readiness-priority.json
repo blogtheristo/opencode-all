@@ -1,0 +1,63 @@
+{
+  "task": "Prioritize price-list pilot products for V1 completion",
+  "prompt": "Create a pilot-first readiness execution plan using immutable snapshot dws10.com/price-list/versions/price-list-v1.33.html as the first and controlling source. It lists 81 active public offers and exactly five explicit pilot offers. Extract terms from the snapshot first: DWS-AEGIS-PILOT-001 (€19,990 fixed / 3 months, credited against Aegis licence), DWS-US-PILOT (€799/month + €2,490 setup, four-week evaluation), DWS-EU-PILOT (€1,499/month + €3,990 setup), AIS-OUTCOME-PILOT (€9,990 / 6 weeks, refundable if named KPI does not move), LF-ONTOLOGY-PILOT (€15,000–€25,000 / site / 3 months, credited to first licence year). Then use catalogue/readiness evidence: Aegis 56%, US 55%, EU 55%, AIS 55%, LF Ontology Not scored. HIC decision 28.09.2026: active ontology is still maturing and LF-ONTOLOGY-PILOT must be LAST in pilot prioritization, not one of the active WIP slots. Enforce maximum three active pilots: P0 active = DWS-AEGIS-PILOT-001, AIS-OUTCOME-PILOT, DWS-EU-PILOT. P1 next = DWS-US-PILOT. P2 last/maturation hold = LF-ONTOLOGY-PILOT; its work is limited to maturity/scoring prerequisites until the first four pilot priorities are closed or HIC explicitly promotes it. Do not claim Outokumpu is committed; it is a named sales motion/prospect. List CMP-T0, MO-T0, SS-T0, LAND-OPS as later catalogue-pilot work absent from price-list v1.33. Create docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md and add a concise price-list-first pointer to docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md. For every pilot include group, exact terms, readiness, next gate, evidence, conversion target, dependency, stop condition. Define Sunday HIC cadence plus weekday 1–2h DGX morning gate, OpenCode-loop autonomous implementation. Preserve content; do not edit catalogue, frozen snapshot, prices, public pages. Commit, push, open PR. Staff review of PR #2222 found a gate-integrity and content failure. Do not weaken, replace, or commit a different acceptance spec. Correct the plan and update docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md with the required concise pointer. Use the exact price-list groups: DWS-AEGIS-PILOT-001, DWS-US-PILOT, and DWS-EU-PILOT are DWS IQ platform; AIS-OUTCOME-PILOT is Services, consulting and training; LF-ONTOLOGY-PILOT is Independent data products. Remove unsupported 'Zero CLOUD Act exposure' and change 'derived exclusively' so it applies only to commercial terms, because readiness uses separate evidence. Encode the agreed timing: active three technically ready 4–6 weeks; all five G0–G9 8–10 weeks; first four with customer/deployment evidence 14–18 weeks; all five including ontology G10 22–26 weeks. Sunday is a 10-hour HIC batch day; weekday mornings are 1–2 hours for DGX loop health, failures, and approvals. Keep ontology last. Commit and push corrections to existing PR #2222.",
+  "base": "main",
+  "order": 10,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "pilot plan exists",
+      "run": "test -f docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "price-list snapshot is primary",
+      "run": "rg -q 'price-list/versions/price-list-v1.33.html' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q '81 active public offers' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "active three are correct",
+      "run": "rg -q 'DWS-AEGIS-PILOT-001' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'AIS-OUTCOME-PILOT' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'DWS-EU-PILOT' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -qi 'three active|WIP.*3' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "ontology explicitly last",
+      "run": "rg -qi 'LF-ONTOLOGY-PILOT.*last|last.*LF-ONTOLOGY-PILOT' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'LF-ONTOLOGY-PILOT.*Not scored|Not scored.*LF-ONTOLOGY-PILOT' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "all five and later wave retained",
+      "run": "for id in DWS-AEGIS-PILOT-001 AIS-OUTCOME-PILOT DWS-EU-PILOT DWS-US-PILOT LF-ONTOLOGY-PILOT CMP-T0 MO-T0 SS-T0 LAND-OPS; do rg -q \"$id\" docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md || exit 1; done"
+    },
+    {
+      "name": "commercial terms retained",
+      "run": "rg -q '19,990' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q '9,990' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q '15,000.*25,000|15,000–25,000' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q '1,499' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q '799' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "cadence and portfolio link",
+      "run": "rg -q 'Sunday' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'OpenCode-loop' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'PILOT_PRODUCT_READINESS_PRIORITY' docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md"
+    },
+    {
+      "name": "readiness programme points to pilot plan",
+      "run": "rg -q 'PILOT_PRODUCT_READINESS_PRIORITY.md' docs/plans/PRODUCT_PRODUCTION_READINESS_PROGRAM.md"
+    },
+    {
+      "name": "price-list groups exact",
+      "run": "rg -q 'DWS-AEGIS-PILOT-001.*DWS IQ platform' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'AIS-OUTCOME-PILOT.*Services, consulting and training' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -q 'LF-ONTOLOGY-PILOT.*Independent data products' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "timing is explicit",
+      "run": "for span in '4–6 weeks' '8–10 weeks' '14–18 weeks' '22–26 weeks'; do rg -q \"$span\" docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md || exit 1; done"
+    },
+    {
+      "name": "hic cadence is accurate",
+      "run": "rg -qi '10-hour.*Sunday|Sunday.*10-hour' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md && rg -qi 'weekday.*1–2.*hour|1–2.*hour.*weekday' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "no unsupported sovereignty claim",
+      "run": "! rg -q 'Zero CLOUD Act exposure' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    },
+    {
+      "name": "source scope is honest",
+      "run": "! rg -q 'plan is derived exclusively from that snapshot' docs/plans/PILOT_PRODUCT_READINESS_PRIORITY.md"
+    }
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
+}

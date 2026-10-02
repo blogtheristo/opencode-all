@@ -3,14 +3,15 @@
 ***
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1
 
 Sessions & Modifications:
+  - Version: 1.1 | Tool: Claude Code | Session: claude/wizardly-johnson-m6cgww | Date: 27.09.2026 | Changes: Corrected the CLOUD Act claim to match DWS_SECURITY_STANDARD.md §17.5. See docs/architecture/DATABASE_DECISION_POSTGRESQL.md.
   - Version: 1.0 | Tool: Claude Code | Session: claude/amazon-ses-google-drive | Date: 10.03.2026 | Changes: Decision to use Aiven Developer + Startup for V1 EU-sovereign migration
 
 Document Status:
   - Created: 10.03.2026
-  - Last Modified: 10.03.2026
+  - Last Modified: 27.09.2026
   - Language: English
   - Publication Status: ACTIVE
 
@@ -31,7 +32,7 @@ Document Status:
 
 - **Developer** — Cost-effective for non-production; always on (no power-off when idle)
 - **Startup** — Production-grade SLA, high availability for customer data
-- **EU sovereignty** — Aiven is Finnish (Helsinki), ISO 27001, no CLOUD Act exposure
+- **EU sovereignty** — Aiven is Finnish (Helsinki), ISO 27001. _Corrected 27.09.2026:_ the original "no CLOUD Act exposure" claim is superseded by `DWS_SECURITY_STANDARD.md` §17.5 (02.07.2026), which rates Aiven an explicit exception with residual risk (US-VC ownership, GCP infrastructure).
 - **pgvector** — Same extension as Supabase; minimal migration friction
 
 ## V1 Feature List

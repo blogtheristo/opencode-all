@@ -45,7 +45,7 @@ US-alustat (Palantir, C3.ai) altistuvat CLOUD Actille. Compliance tehdään käs
 - **ArgusAgent** — ICEYE SAR -satelliittidatan analyysi (tiedustelu, muutostunnistus)
 - **SovereigntyMonitor** — CLOUD Act -altistumisen pisteytys, NIS2
 - **Article12Logger** — EU AI Act -auditointiketju
-- **KYA Engine** — agenttien hallinta; kill-switch sub-5 ms / laivasto alle 50 ms
+- **KYA Engine** — agenttien hallinta; kill-switch (suunnittelutavoite alle 5 ms / laivasto alle 50 ms)
 - **ComplianceAgent** — kaksoiskäyttö + CSRD/CBAM/ETS
 - **SiteSenseAgent** — puolustusrakentamisen ja -logistiikan turvallisuus
 

@@ -5,10 +5,10 @@
  * to prevent IP spoofing vulnerabilities.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
-  validateTrustSubnet,
   getTrustSubnetExplanation,
+  validateTrustSubnet,
 } from '../middleware/proxy-trust-validator.middleware.js';
 
 describe('Proxy Trust Validator', () => {

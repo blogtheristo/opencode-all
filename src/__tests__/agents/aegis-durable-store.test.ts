@@ -21,7 +21,7 @@
  * including the mid-operation-failure and reconnection tests.
  */
 
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { Pool } from 'pg';
 import { AegisDurableStore } from '../../agents/aegis-durable-store.js';
 

@@ -1,13 +1,15 @@
+# Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=lane-d-dgx-persistence Date=2026-09-27
+# Audit trail: git log -- .github/workflows/flake-detector.yml
 # Flake Detector — surfaces order-dependent / intermittent tests
 # Runs the full suite 3x with shuffled sequence weekly; any non-deterministic
 # test fails loudly here instead of during housekeeping or releases.
-# DGX Spark primary, GitHub-hosted failover (mirrors agents-md-freshness.yml).
+# DGX Spark primary, GitHub-hosted manual failover.
 
 name: Flake Detector
 
 on:
-  schedule:
-    - cron: '0 4 * * 6' # Saturdays 04:00 UTC
+  # Schedule REMOVED 2026-09-27 — DGX Spark is primary (scripts/weekly/flake-detector.sh)
+  # Was: cron '0 4 * * 6' (Saturday at 04:00 UTC)
   workflow_dispatch: {}
 
 concurrency:
@@ -25,14 +27,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: DGX Spark failover check
+        id: failover
+        uses: ./.github/actions/dgx-failover-check
         with:
-          node-version: '24'
-          cache: 'npm'
+          heartbeat_url: ${{ vars.DGX_SPARK_HEARTBEAT_URL }}
 
-      - run: npm ci
+      - name: Skip if DGX is primary
+        if: steps.failover.outputs.dgx_alive == 'true'
+        run: echo "DGX Spark is healthy — flake detection runs there."
+
+      - uses: actions/setup-node@v4
+        if: steps.failover.outputs.dgx_alive != 'true'
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - if: steps.failover.outputs.dgx_alive != 'true'
+        run: npm ci --ignore-scripts
 
       - name: Vitest (shuffled, run ${{ matrix.run }})
+        if: steps.failover.outputs.dgx_alive != 'true'
         run: npx vitest run --sequence.shuffle --reporter=verbose
         env:
           NODE_ENV: test

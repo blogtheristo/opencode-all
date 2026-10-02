@@ -1,9 +1,12 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/routes/b2b-payment.routes.ts
 import { type NextFunction, type Request, type Response, Router } from 'express';
+import { body, validationResult } from 'express-validator';
 import { supabase } from '../services/supabase.service.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import logger from '../utils/logger.js';
+import { parseCatalogueProducts } from '../services/product-catalog.service.js';
 import Stripe from 'stripe';
-import { sendPaymentConfirmationEmail } from '../services/billing.service.js';
 
 const router = Router();
 let stripeClient: Stripe | null = null;
@@ -110,71 +113,96 @@ router.get(
  * POST /api/v1/b2b/orders
  * Create order after Revolut deposit confirmation
  */
-router.post('/orders', requireAuth, async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const userId = req.user?.id;
-    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+router.post(
+  '/orders',
+  requireAuth,
+  [
+    body('product_id')
+      .isString()
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .matches(/^[A-Za-z0-9._-]+$/),
+    body('company_billing_profile_id').isUUID(),
+    body('deposit_amount_cents').isInt({ min: 1, max: 1_000_000_000 }).toInt(),
+  ],
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) return res.status(401).json({ error: 'Unauthorized' });
 
-    const { product_id, company_billing_profile_id, deposit_amount_cents } = req.body;
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ error: 'Validation Error', details: errors.array() });
+      }
 
-    // Verify billing profile belongs to user
-    const { data: profile, error: profileError } = await supabase
-      .from('company_billing_profiles')
-      .select('*')
-      .eq('id', company_billing_profile_id)
-      .eq('user_id', userId)
-      .single();
+      const { product_id, company_billing_profile_id, deposit_amount_cents } = req.body as {
+        product_id: string;
+        company_billing_profile_id: string;
+        deposit_amount_cents: number;
+      };
 
-    if (profileError || !profile) {
-      return res.status(404).json({ error: 'Billing profile not found' });
+      // Verify billing profile belongs to user
+      const { data: profile, error: profileError } = await supabase
+        .from('company_billing_profiles')
+        .select('*')
+        .eq('id', company_billing_profile_id)
+        .eq('user_id', userId)
+        .single();
+
+      if (profileError || !profile) {
+        return res.status(404).json({ error: 'Billing profile not found' });
+      }
+
+      // Get product price from products.json (fetch from config)
+      const { data: productsData, error: configError } = await supabase.storage
+        .from('dws10-config')
+        .download('products.json');
+
+      if (configError) {
+        logger.error('Failed to fetch products.json', { error: configError });
+        return res.status(500).json({ error: 'Failed to fetch product pricing' });
+      }
+
+      let product;
+      try {
+        product = parseCatalogueProducts(JSON.parse(await productsData.text()))[product_id];
+      } catch (error) {
+        logger.error('Invalid canonical products.json payload', { error });
+        return res.status(500).json({ error: 'Failed to parse product pricing' });
+      }
+
+      if (!product || product.archived || product.productType === 'archived') {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      const productPriceCents = Math.round(product.price * 100);
+
+      // Validate deposit doesn't exceed product price
+      if (deposit_amount_cents > productPriceCents) {
+        return res.status(400).json({ error: 'Deposit exceeds product price' });
+      }
+
+      // Create order via Supabase function
+      const { data: order, error: orderError } = await supabase.rpc('create_b2b_order', {
+        p_user_id: userId,
+        p_product_id: product_id,
+        p_company_billing_profile_id: company_billing_profile_id,
+        p_product_price_cents: productPriceCents,
+        p_deposit_amount_cents: deposit_amount_cents,
+      });
+
+      if (orderError) {
+        logger.error('Failed to create order', { error: orderError, userId });
+        return res.status(500).json({ error: 'Failed to create order' });
+      }
+
+      logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
+      return res.status(201).json(order);
+    } catch (err) {
+      return next(err);
     }
-
-    // Get product price from products.json (fetch from config)
-    const { data: productsData, error: configError } = await supabase.storage
-      .from('dws10-config')
-      .download('products.json');
-
-    if (configError) {
-      logger.error('Failed to fetch products.json', { error: configError });
-      return res.status(500).json({ error: 'Failed to fetch product pricing' });
-    }
-
-    const products = JSON.parse(await productsData.text()) as {
-      data?: Array<{ id?: string; price?: number; [key: string]: unknown }>;
-    };
-    const product = products.data?.find((p) => p.id === product_id);
-
-    if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
-    }
-
-    const productPriceCents = Math.round((product.price as number) * 100);
-
-    // Validate deposit doesn't exceed product price
-    if (deposit_amount_cents > productPriceCents) {
-      return res.status(400).json({ error: 'Deposit exceeds product price' });
-    }
-
-    // Create order via Supabase function
-    const { data: order, error: orderError } = await supabase.rpc('create_b2b_order', {
-      p_user_id: userId,
-      p_product_id: product_id,
-      p_company_billing_profile_id: company_billing_profile_id,
-      p_product_price_cents: productPriceCents,
-      p_deposit_amount_cents: deposit_amount_cents,
-    });
-
-    if (orderError) {
-      logger.error('Failed to create order', { error: orderError, userId });
-      return res.status(500).json({ error: 'Failed to create order' });
-    }
-
-    logger.info('Order created', { orderId: order.id, userId, deposit: deposit_amount_cents });
-    return res.status(201).json(order);
-  } catch (err) {
-    return next(err);
-  }
-});
+  },
+);
 
 /**
  * GET /api/v1/b2b/orders/:id
@@ -284,6 +312,7 @@ router.post(
           description: `Remainder for order ${id} - ${profile.company_name}`,
           metadata: {
             order_id: id,
+            product_id: order.product_id,
           },
         });
 
@@ -296,6 +325,7 @@ router.post(
           ),
           metadata: {
             order_id: id,
+            product_id: order.product_id,
             dws_company: profile.company_name,
           },
           expand: ['charge'],
@@ -333,77 +363,35 @@ router.post(
 );
 
 /**
- * POST /api/v1/payments/webhook
- * Handle Revolut + Stripe webhooks
+ * POST /api/v1/b2b/webhook
+ *
+ * Unsigned endpoint: it must never change billing state. Stripe invoice events
+ * (invoice.payment_succeeded, invoice.marked_uncollectible) are accepted only
+ * at the signed /webhooks/stripe route (stripe-webhook.routes.ts), which checks
+ * the Stripe HMAC signature, timestamp and idempotency. Before 27.09.2026 this
+ * route marked an order paid for any caller who knew its stripe_invoice_id.
  */
-router.post('/webhook', async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const { type, payment_id, invoice_id } = req.body;
+const STRIPE_INVOICE_EVENTS = new Set([
+  'invoice.payment_succeeded',
+  'invoice.marked_uncollectible',
+]);
 
-    logger.info('Payment webhook received', { type, payment_id, invoice_id });
+router.post('/webhook', (req: Request, res: Response) => {
+  const { type, payment_id } = (req.body ?? {}) as { type?: unknown; payment_id?: unknown };
 
-    if (type === 'payment.success' && payment_id) {
-      // Handle Revolut payment success (already handled in confirm-deposit endpoint)
-      logger.info('Revolut payment success acknowledged', { payment_id });
-    } else if (type === 'invoice.payment_succeeded' && invoice_id) {
-      // Handle Stripe invoice payment
-      const { data: order, error: orderError } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('stripe_invoice_id', invoice_id)
-        .single();
-
-      if (orderError) {
-        logger.warn('Order not found for Stripe invoice', { invoice_id });
-        return res.status(404).json({ error: 'Order not found' });
-      }
-
-      // Mark order as paid
-      const { error: updateError } = await supabase.rpc('mark_order_paid', {
-        p_order_id: order.id,
-      });
-
-      if (updateError) {
-        logger.error('Failed to mark order paid', { error: updateError, orderId: order.id });
-        return res.status(500).json({ error: 'Failed to mark order paid' });
-      }
-
-      logger.info('Order marked as paid', { orderId: order.id, invoiceId: invoice_id });
-
-      await sendPaymentConfirmationEmail(order);
-    } else if (type === 'invoice.marked_uncollectible' && invoice_id) {
-      // Handle Stripe invoice failure
-      const { data: order } = await supabase
-        .from('orders')
-        .select('*')
-        .eq('stripe_invoice_id', invoice_id)
-        .single();
-
-      if (order) {
-        logger.warn('Stripe invoice marked uncollectible', {
-          orderId: order.id,
-          invoiceId: invoice_id,
-        });
-        // TODO: Notify admin, send customer reminder email
-        try {
-          // This would use sendEmail and notification services
-          logger.info('Admin notification + customer reminder placeholder (not implemented)', {
-            order_id: order.id,
-            invoice_id: invoice_id,
-          });
-        } catch (error) {
-          logger.error('Failed to notify admin and remind customer', {
-            error,
-            order_id: order.id,
-          });
-        }
-      }
-    }
-
-    return res.json({ success: true });
-  } catch (err) {
-    return next(err);
+  if (typeof type === 'string' && STRIPE_INVOICE_EVENTS.has(type)) {
+    logger.warn('Rejected unsigned Stripe invoice event on /api/v1/b2b/webhook', { type });
+    return res.status(410).json({
+      error: 'Stripe invoice events are accepted only at the signed /webhooks/stripe endpoint.',
+    });
   }
+
+  if (type === 'payment.success' && typeof payment_id === 'string') {
+    // Revolut payment success is handled by the confirm-deposit endpoint; acknowledge only.
+    logger.info('Revolut payment success acknowledged', { payment_id });
+  }
+
+  return res.json({ success: true });
 });
 
 export default router;

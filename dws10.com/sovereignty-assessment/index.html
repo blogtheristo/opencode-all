@@ -458,10 +458,10 @@
             </p>
           </div>
           <div class="card">
-            <h3>Firecracker MicroVM Isolation</h3>
+            <h3>Sandbox Isolation per Agent</h3>
             <p>
-              Each agent runs in its own hardware-isolated sandbox. No shared memory, no lateral
-              movement. Defence-grade containment.
+              Each agent step runs in its own OpenShell sandbox (Landlock, seccomp, network
+              namespace): no network unless allowed, no lateral movement. Firecracker MicroVMs are on the roadmap.
             </p>
           </div>
           <div class="card">

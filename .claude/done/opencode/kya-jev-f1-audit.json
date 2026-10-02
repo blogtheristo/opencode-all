@@ -1,0 +1,27 @@
+{
+  "task": "kya-jev F1: every advisory consumer writes an Article 12 audit record",
+  "prompt": "Close finding F1 in docs/KYA_JEV_SPECIFICATION.md (§4, §9 item 3): adviseDictionaryTerm (src/agents/dictionary-kya-jev.ts), adviseModelRoute (src/agents/model-route-kya-jev.ts) and adviseBrowseStep (src/agents/browse-step-kya-jev.ts) produce kya-jev decisions with no Article 12 audit record. 1) In src/agents/kya-jev.ts export type KyaJevAuditRecord (the same fields BaseAgent.logKyaJevCall takes in src/agents/base.agent.ts: questionKind, questionPrompt, decision, probabilities?, confidence, calibration, abstained, model?) and type KyaJevAuditSink = (record: KyaJevAuditRecord) => Promise<void>. 2) Give each of the three advise* functions an optional last parameter audit?: KyaJevAuditSink; after makeTypedDecision returns, build the record from the result and await audit(record) inside try/catch — an audit failure is logged and never thrown, exactly like logKyaJevCall. Do not change the decision logic, the signed-verdict requirement, or actionable:false. 3) New test file src/__tests__/agents/kya-jev-audit.test.ts using the same test signing secret setup as src/__tests__/agents/kya-jev.test.ts and a mocked LLMClient (no network): for each of the three functions, the sink receives one record whose decision and questionKind match the result; a sink that throws does not make the function throw; no sink = unchanged behaviour. 4) Add a v0.12 entry to the spec's VERSION AND AGENT HISTORY (mark it [Latest], previous [not latest]) and change F1 to Pass, noting that call sites must pass (r) => this.logKyaJevCall(context, r). Do not touch package.json or package-lock.json; prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 30,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "audit types exported from kya-jev.ts",
+      "run": "grep -qE 'export (type|interface) KyaJevAuditRecord' src/agents/kya-jev.ts && grep -q 'export type KyaJevAuditSink' src/agents/kya-jev.ts"
+    },
+    {
+      "name": "all three advisory functions take an audit sink",
+      "run": "for f in dictionary model-route browse-step; do grep -qE 'KyaJevAuditRecord|audit\\?' src/agents/$f-kya-jev.ts || { echo \"missing in $f\"; exit 1; }; done"
+    },
+    {
+      "name": "audit test suite with at least 6 cases passes",
+      "run": "t=src/__tests__/agents/kya-jev-audit.test.ts; test -f $t && [ $(grep -cE '^\\s*(it|test)\\(' $t) -ge 6 ] && npx vitest run $t src/__tests__/agents/kya-jev.test.ts src/__tests__/agents/browse-step-kya-jev.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "spec marks F1 as Pass",
+      "run": "grep -qE 'F1.*\\*\\*Pass\\*\\*|F1.*\\| Pass' docs/KYA_JEV_SPECIFICATION.md"
+    }
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
+}

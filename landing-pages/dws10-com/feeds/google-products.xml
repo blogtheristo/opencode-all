@@ -4,14 +4,14 @@
     <title>Lifetime Firehorse Store — Sovereign AI Products &amp; Services</title>
     <link>https://dws10.com/buy/</link>
     <description>Sovereign AI products and services for enterprises and SMEs. EU-hosted, designed to reduce CLOUD Act exposure. Climate compliance, industrial AI, and expert advisory by Lifetime Oy.</description>
-    <lastBuildDate>Sun, 20 Sep 2026 17:55:36 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 01 Oct 2026 22:07:22 GMT</lastBuildDate>
     <g:feedVersion>2.0</g:feedVersion>
 
     <item>
       <g:id>DWS-IQ-006</g:id>
       <g:title>Lifetime DWS IQ Platform (Version 6)</g:title>
-      <g:description>Stop risking fines and lost tenders. DWS IQ 6 is the orchestration platform that turns Fit for 55, CSRD, and EPBD obligations into audit-ready compliance outcomes — coordinating a governed skilled-agent fleet with KYA/Article-12 traceability across EU industries, with agentic loops (observe-think-act) that cut 90% of manual compliance hours. MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.</g:description>
-      <g:link>https://dws10.com/products/dwsiq.html</g:link>
+      <g:description>Ship signed work that releases money. DWS IQ 6 is the orchestration platform that produces the signed artifact your counterparty accepts — so a tender, a shipment, an invoice or a grant can move, in days not quarters. A governed skilled-agent fleet runs the loop with KYA/Article-12 traceability across EU industries (Fit for 55, CSRD, EPBD and the rest stay inside the engine, where they make the artifact stand up). MCP-native, CLI-accessible, EU-hosted. Supports up to 50 production agents concurrently across 25 industry verticals.</g:description>
+      <g:link>https://dws10.com/products/dws-iq-006.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-IQ-006.png</g:image_link>
       <g:price>4999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -32,7 +32,7 @@
       <g:id>FH-AUTO-001</g:id>
       <g:title>Firehorse Amplify</g:title>
       <g:description>Manual data entry is where compliance fines start. Firehorse Amplify eliminates human error with event-driven workflows for Fit for 55, CSRD, and EPBD 2028 — capturing ESG data directly from your systems with a complete audit trail.</g:description>
-      <g:link>https://dws10.com/products/firehorse-amplify.html</g:link>
+      <g:link>https://dws10.com/products/fh-auto-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/firehorse-amplify-hero.png</g:image_link>
       <g:price>4950.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -52,7 +52,7 @@
       <g:id>LIFETIME-BUNDLE-2026</g:id>
       <g:title>Climate Reporting Starter Bundle</g:title>
       <g:description>Everything you need to go from zero to compliant. Includes DWS IQ Base Platform, Firehorse Report Module, and a hands-on Kickoff Workshop. Built for companies facing their first CSRD reporting deadline. Operational in 30 days.</g:description>
-      <g:link>https://dws10.com/products/bundle.html</g:link>
+      <g:link>https://dws10.com/products/lifetime-bundle-2026.html</g:link>
       <g:image_link>https://dws10.com/static/images/8_Industries.png</g:image_link>
       <g:price>6500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -73,7 +73,7 @@
       <g:id>FH-OMNI-001</g:id>
       <g:title>Firehorse Omnichannel Next</g:title>
       <g:description>Launch climate-tech products without greenwashing risk. AI-powered marketing engine that ensures every claim meets EU AI Act and Green Claims Directive requirements. Includes 4-week pilot campaign with measurable results.</g:description>
-      <g:link>https://dws10.com/products/firehorse-omnichannel.html</g:link>
+      <g:link>https://dws10.com/products/fh-omni-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/FH-OMNI-001.png</g:image_link>
       <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -93,7 +93,7 @@
       <g:id>FH-RPT-001</g:id>
       <g:title>DWS IQ Report</g:title>
       <g:description>Replace 200+ hours of manual report building with one automated template. Fit for 55 compliant dashboards with SAP integration, real-time data feeds, and 4-week validation included. Your compliance team gets their weekends back.</g:description>
-      <g:link>https://dws10.com/products/firehorse-reports.html</g:link>
+      <g:link>https://dws10.com/products/fh-rpt-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/FH-RPT-001.png</g:image_link>
       <g:price>1999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -113,7 +113,7 @@
       <g:id>FH-CMS-001</g:id>
       <g:title>Firehorse Content Management</g:title>
       <g:description>When auditors ask for proof, find it in seconds — not days. Evidence Vault auto-tags compliance documents, alerts before certificates expire, and provides semantic search across all your audit-ready documentation.</g:description>
-      <g:link>https://dws10.com/products/firehorse-content-management.html</g:link>
+      <g:link>https://dws10.com/products/fh-cms-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/FH-CMS-001.png</g:image_link>
       <g:price>2999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -133,7 +133,7 @@
       <g:id>consulting-hourly</g:id>
       <g:title>Senior Compliance Specialist — Retainer + Outcomes</g:title>
       <g:description>Three-pillar consulting: (1) capability training on the full agent-capability library across 10 ontology classes, (2) industry-specific compliance workflow development and production deployment, (3) disruption-free project continuity with Keskeytyslaskuri integration. Retainer model with hours mapped to captain-hat outcomes across 25+ EU regulated industries. €250/h backstop; default to outcome-priced packages.</g:description>
-      <g:link>https://dws10.com/products/consulting.html</g:link>
+      <g:link>https://dws10.com/products/consulting-hourly.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/consulting-hourly.png</g:image_link>
       <g:price>250.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -153,7 +153,7 @@
       <g:id>aws-consultancy</g:id>
       <g:title>EU-Sovereign AI Engineering &amp; Cloud Consultancy</g:title>
       <g:description>EU-sovereign AI engineering — 25 hours of senior architect time deploying Claude / Mistral / Llama on Scaleway, OVH, or owned DGX Spark. ZDR contracts, NIS2-aligned network design, and CLOUD Act exposure assessment included. The Anthropic-aligned US services firms can&apos;t ship this; we can. Multi-cloud across AWS, Azure, GCP for hybrid sovereignty workloads.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/aws-consultancy.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/aws-consultancy.png</g:image_link>
       <g:price>3750.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -173,7 +173,7 @@
       <g:id>conversational-agent</g:id>
       <g:title>EU-Hosted Conversational Agent</g:title>
       <g:description>Deploy AI agents on Teams, WhatsApp, Zoom, or secure webhook with EU-sovereign hosting. GDPR + EU AI Act Article 50 (transparency) baked in. Customer choice of LLM — Claude, Mistral, Groq, or self-hosted on DGX Spark — so you control where the prompt lands. Live in 25 hours.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/conversational-agent.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/conversational-agent.png</g:image_link>
       <g:price>3500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -193,7 +193,7 @@
       <g:id>ai-agent-engineering</g:id>
       <g:title>AI &amp; Agent Engineering — Outcome-Backed Hourly</g:title>
       <g:description>Senior AI engineer on demand — but billed against captain-hat outcomes, not consultant hours. €200/h backstop; we prefer the outcome-priced SKUs (€49 site safety scan, €499 LCA report, €999 CSRD gap) because you only pay when the artefact ships. Skip the 3-month hiring cycle and the T&amp;M lock-in.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/ai-agent-engineering.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/ai-agent-engineering.png</g:image_link>
       <g:price>200.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -213,7 +213,7 @@
       <g:id>lean-project</g:id>
       <g:title>EU AI Project Accelerator (Fixed Price)</g:title>
       <g:description>Fixed-price AI project delivery for EU teams who don&apos;t want a Fractional-style T&amp;M engagement. Sovereign deployment, captain-hat-aligned outcomes, Kanban + roadmap included. Lean AI methodology — 2x delivery speed from sprint 1, with the artefacts mapped to Fit for 55 / CSRD / EU AI Act obligations from day one.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/lean-project.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/lean-project.png</g:image_link>
       <g:price>4960.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -233,7 +233,7 @@
       <g:id>ai-consultant-day</g:id>
       <g:title>Captain Day — One-Day AI Outcome</g:title>
       <g:description>One day, one captain-hat outcome shipped. Senior consultant on-site or remote — frame your AI strategy against the 16-captain-hat operating model, prototype with Claude / GPT / Gemini / Copilot, and leave with a working artefact (compliance gap report, agent prototype, or sovereignty assessment). Outcome-first: if we can&apos;t ship in a day, you don&apos;t pay full rate.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/ai-consultant-day.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/ai-consultant-day.png</g:image_link>
       <g:price>1200.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -253,7 +253,7 @@
       <g:id>business-mentor-30</g:id>
       <g:title>Claude Code AI Coaching — 30 Hours</g:title>
       <g:description>30 hours of strategic Claude Code coaching, scheduled on your terms. Covers AI strategy, business process redesign with agents, and Claude Code adoption in flexible 4–8 hour sessions over 12 months. Ideal for leadership teams navigating AI transformation with Claude Code.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/business-mentor-30.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/business-mentor-30.png</g:image_link>
       <g:price>4960.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -273,7 +273,7 @@
       <g:id>firehorse-coach</g:id>
       <g:title>EU AI Act Literacy Training</g:title>
       <g:description>Pillar 1: Capability Training. Your leadership team needs AI fluency — not just your engineers. EU AI Act Article 4 now requires AI literacy across your organization. Train your team on the full agent-capability library across 10 ontology classes. In-house coaching with a free 3-hour workshop to assess readiness. Personal, team, or remote.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/firehorse-coach.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/firehorse-coach.png</g:image_link>
       <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -294,7 +294,7 @@
       <g:id>firehorse-flow</g:id>
       <g:title>AI Customer Agent</g:title>
       <g:description>Turn every customer interaction into a conversion opportunity. AI-powered prompt flow agent that continuously optimizes your service experience and drives measurable sales growth. Setup and first results in under 2 weeks.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/firehorse-flow.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/firehorse-flow.png</g:image_link>
       <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -311,30 +311,10 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>professional-web-pages</g:id>
-      <g:title>Kotisivut pk-yritykselle</g:title>
-      <g:description>Ammattimainen verkkosivu pk-yritykselle — livenä 12 tunnissa. Sama toimintamalli, jolla rakensimme cari.fi:n asiakkaallemme. Kerrot mitä yrityksesi tarvitsee, me hoidamme loput.</g:description>
-      <g:link>https://dws10.com/products/professional-web-pages.html</g:link>
-      <g:image_link>https://dws10.com/static/images/products/professional-web-pages.png</g:image_link>
-      <g:price>750.00 EUR</g:price>
-      <g:availability>in_stock</g:availability>
-      <g:condition>new</g:condition>
-      <g:brand>Lifetime</g:brand>
-      <g:mpn>ATK-APU-PK-2026</g:mpn>
-      <g:google_product_category>Business &amp; Industrial &gt; Business Services</g:google_product_category>
-      <g:custom_label_1>one-time</g:custom_label_1>
-      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
-      <g:shipping>
-        <g:country>FI</g:country>
-        <g:service>Digital Delivery</g:service>
-        <g:price>0.00 EUR</g:price>
-      </g:shipping>
-    </item>
-    <item>
       <g:id>firehorse-data-services</g:id>
       <g:title>Firehorse Data Services</g:title>
       <g:description>Your data is worth more than you think. API-driven data products, brokerage strategy, and enrichment services that turn raw operational data into revenue and compliance insights. Remote and on-site consulting available.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/firehorse-data-services.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/firehorse-data-services.png</g:image_link>
       <g:price>899.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -354,7 +334,7 @@
       <g:id>devops-lead</g:id>
       <g:title>Assessment</g:title>
       <g:description>Find out if your factory floor is AI-ready in 2 weeks. Complete manufacturing intelligence assessment with workflow scoring, ROI projection, automated deployment, performance dashboard, and 30-day monitoring. Clear go/no-go for your next investment.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/devops-lead.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/devops-lead.png</g:image_link>
       <g:price>2500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -374,7 +354,7 @@
       <g:id>ai-koulutus-3d</g:id>
       <g:title>AI Koulutus 3 Days Programme</g:title>
       <g:description>Transform your team from AI-curious to AI-productive in 3 days. In-house training covering strategy, hands-on implementation, and tool adoption. EU AI Act Article 4 requires AI literacy — this programme gets you compliant and productive.</g:description>
-      <g:link>https://dws10.com/https://dws10.com/contact/</g:link>
+      <g:link>https://dws10.com/products/ai-koulutus-3d.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/ai-koulutus-3d.png</g:image_link>
       <g:price>6250.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -394,7 +374,7 @@
       <g:id>claude-code-coaching-3day</g:id>
       <g:title>Claude Code Coaching — Lecture + Workshop (3 Days)</g:title>
       <g:description>The complete Claude Code Coaching programme: a 1-day foundations lecture plus a 2-day hands-on workshop. Your engineering team goes from AI-curious to shipping real changes through a governed plan → review → ship workflow — without your code or IP leaving the EU jurisdiction. EU AI Act Article 4 AI-literacy evidence included.</g:description>
-      <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+      <g:link>https://dws10.com/products/claude-code-coaching-3day.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/claude-code-coaching-3day.png</g:image_link>
       <g:price>5900.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -415,7 +395,7 @@
       <g:id>claude-code-coaching-lecture</g:id>
       <g:title>Claude Code Coaching — 1-Day Lecture</g:title>
       <g:description>A 1-day in-house lecture that gives leadership and engineers a shared vocabulary for agentic engineering with Claude Code: the 12 rules of engineering discipline, context engineering, MCP tools, and the GREEN/YELLOW/RED trust boundary. Establishes EU AI Act Article 4 AI literacy across the team.</g:description>
-      <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+      <g:link>https://dws10.com/products/claude-code-coaching-lecture.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/claude-code-coaching-lecture.png</g:image_link>
       <g:price>1900.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -435,7 +415,7 @@
       <g:id>claude-code-coaching-workshop</g:id>
       <g:title>Claude Code Coaching — 2-Day Workshop</g:title>
       <g:description>A 2-day hands-on workshop where your team makes Claude Code productive on your own repository: authoring CLAUDE.md project memory, building skills and slash commands, wiring MCP tools, and running the plan → qa → review → ship discipline gates. Each participant ships a real change in a capstone.</g:description>
-      <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+      <g:link>https://dws10.com/products/claude-code-coaching-workshop.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/claude-code-coaching-workshop.png</g:image_link>
       <g:price>4500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -455,7 +435,7 @@
       <g:id>claude-code-coaching-project</g:id>
       <g:title>Claude Code Coaching — Client Project Work</g:title>
       <g:description>Optional embedded delivery: senior engineers apply Claude Code to a real backlog item end-to-end alongside your team — co-building skills and agents, setting up CI discipline gates, and transferring knowledge. EU-sovereign throughout. Scoped and quoted per engagement.</g:description>
-      <g:link>https://dws10.com/products/claude-code-coaching.html</g:link>
+      <g:link>https://dws10.com/products/claude-code-coaching-project.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/claude-code-coaching-project.png</g:image_link>
       <g:price>7500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -475,7 +455,7 @@
       <g:id>ai-consulting-agentic</g:id>
       <g:title>Agentic Software Development for EU Teams</g:title>
       <g:description>Pillar 2: Industry-Specific Compliance Workflow Development. Anthropic&apos;s Skills paradigm + Claude Code + Codex, deployed inside EU-sovereign perimeter. We develop and deploy industry-specific intelligent compliance workflows to production — from assessment through AGENTS.md workshops to quality governance — without your IP leaving the jurisdiction.</g:description>
-      <g:link>https://dws10.com/products/ai-consulting.html</g:link>
+      <g:link>https://dws10.com/products/ai-consulting-agentic.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/ai-consulting-agentic.png</g:image_link>
       <g:price>2500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -516,10 +496,10 @@
     <item>
       <g:id>LF-SITROOM-001</g:id>
       <g:title>Situation Room — Two Sovereign AI Nodes</g:title>
-      <g:description>Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €11,598 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
+      <g:description>Two customer-controlled sovereign AI nodes bridged for parallel inference and redundancy. The €16,016 catalog price covers the selected hardware pair; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
       <g:link>https://dws10.com/products/situation-room.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-SITROOM-001.png</g:image_link>
-      <g:price>11598.00 EUR</g:price>
+      <g:price>16016.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Acer</g:brand>
@@ -579,7 +559,7 @@
       <g:id>LF-JETSON-NANO</g:id>
       <g:title>Jetson Sensor Node — Orin Nano Super + Install &amp; Service</g:title>
       <g:description>Compact sovereign-AI sensor node for the edge of your operation: 1× NVIDIA Jetson Orin Nano Super Developer Kit (67 TOPS, 8 GB, 1024-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Drop one at each camera / acoustic / IoT location and feed events back to the central Control Room or Situation Room. Includes operator training, 24/7 support, warranty servicing, and remote configuration via the €299/mo Sovereign Model Updates Subscription. NVIDIA-priced at USD 249; we deliver turnkey on-site in the EU for €764.</g:description>
-      <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+      <g:link>https://dws10.com/products/lf-jetson-nano.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-JETSON-NANO.png</g:image_link>
       <g:price>764.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -599,7 +579,7 @@
       <g:id>LF-JETSON-AGX</g:id>
       <g:title>Jetson Sensor Concentrator — AGX Orin 64GB + Install &amp; Service</g:title>
       <g:description>Multi-sensor concentrator for heavy edge workloads: 1× NVIDIA Jetson AGX Orin 64 GB (275 TOPS, 64 GB, 2048-CUDA-core Ampere GPU) + on-site install + full Lifetime service wrap. Aggregates 4-8 sensor lanes (cameras, LiDAR, acoustic, IoT) and runs YOLOv8 / Cosmos Reason / Whisper locally before forwarding only events to the central Control Room or Situation Room. EMEA channel hardware pricing + Lifetime reseller margin. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
-      <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+      <g:link>https://dws10.com/products/lf-jetson-agx.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-JETSON-AGX.png</g:image_link>
       <g:price>2694.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -621,7 +601,7 @@
       <g:description>NVIDIA&apos;s GB10 Grace Blackwell desktop AI workstation — the same silicon class as the Acer Veriton GN100 (1 PFLOPS FP4, 128 GB LPDDR5x, 20-core Arm). The catalog price covers hardware; NVIDIA model installation and specialist support are purchased separately. Finnish / EU B2B (VAT 0% reverse charge).</g:description>
       <g:link>https://dws10.com/products/dgx-spark.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-DGX-SPARK.png</g:image_link>
-      <g:price>6109.00 EUR</g:price>
+      <g:price>8008.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>NVIDIA</g:brand>
@@ -639,7 +619,7 @@
       <g:id>LF-JETSON-NX</g:id>
       <g:title>Jetson Sensor Mid — Orin NX 16 GB + Install &amp; Service</g:title>
       <g:description>The middle Jetson tier between Orin Nano Super and AGX Orin. 100 TOPS, 16 GB, configurable 10–40 W. Smaller form factor than AGX but enough headroom for multi-stream camera + acoustic + RAG locally. On-site install + Lifetime service wrap. Hardware via NVIDIA distributor channel (USD 899 module + carrier).</g:description>
-      <g:link>https://dws10.com/products/jetson-sensor.html</g:link>
+      <g:link>https://dws10.com/products/lf-jetson-nx.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-JETSON-NX.png</g:image_link>
       <g:price>1990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -679,7 +659,7 @@
       <g:id>LF-K8S-T1</g:id>
       <g:title>Kubernetes Orchestration — Single-Node k3s (Tier 1)</g:title>
       <g:description>Deploy k3s + GPU Operator + NIM Operator on a single DGX Spark / Control Room node. Includes GPU time-slicing (up to 4x), NIM model caching, and automated GPU provisioning. NVIDIA AI Enterprise subscription required separately (€4,500/GPU/yr).</g:description>
-      <g:link>https://dws10.com/products/k8s-orchestration.html</g:link>
+      <g:link>https://dws10.com/products/lf-k8s-t1.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-K8S-T1.png</g:image_link>
       <g:price>1500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -699,7 +679,7 @@
       <g:id>LF-K8S-T2</g:id>
       <g:title>Kubernetes Orchestration — HA Cluster k3s (Tier 2)</g:title>
       <g:description>3-node HA k3s cluster with embedded etcd, Longhorn persistent storage, MetalLB LoadBalancer, and NGINX Ingress. Includes GPU Operator + NIM Operator + Network Operator across all nodes. Enables multi-node NIM scaling and workload distribution. NVIDIA AI Enterprise subscription required (€4,500/GPU/yr × nodes).</g:description>
-      <g:link>https://dws10.com/products/k8s-orchestration.html</g:link>
+      <g:link>https://dws10.com/products/lf-k8s-t2.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-K8S-T2.png</g:image_link>
       <g:price>4500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -719,7 +699,7 @@
       <g:id>LF-K8S-T3</g:id>
       <g:title>Kubernetes Orchestration — Gov Ready RKE2 (Tier 3)</g:title>
       <g:description>Government-ready RKE2 cluster with FIPS 140-3 crypto, STIG-hardened Ubuntu 24.04, CIS benchmark compliance. Includes GPU Operator Gov Ready (x86 management node), Network Operator Gov Ready, NIM Operator Gov Ready. Required for defence, regulated, and FedRAMP-aligned deployments. NVIDIA AI Enterprise subscription required.</g:description>
-      <g:link>https://dws10.com/products/k8s-orchestration.html</g:link>
+      <g:link>https://dws10.com/products/lf-k8s-t3.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-K8S-T3.png</g:image_link>
       <g:price>7500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -739,7 +719,7 @@
       <g:id>LF-K8S-T4</g:id>
       <g:title>Kubernetes Orchestration — Full Infra Stack (Tier 4)</g:title>
       <g:description>Complete NVIDIA AI Enterprise Infra 7.8 stack: GPU Operator + NIM Operator + Network Operator + DPU Operator + Base Command Manager + DOCA Microservices. Includes BlueField-3 DPU integration for north-south acceleration, DOCA Telemetry/Argus/HBN/SNAP services, and Run:ai workload scheduling. For large-scale multi-tenant sovereign AI factories.</g:description>
-      <g:link>https://dws10.com/products/k8s-orchestration.html</g:link>
+      <g:link>https://dws10.com/products/lf-k8s-t4.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-K8S-T4.png</g:image_link>
       <g:price>12000.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -759,7 +739,7 @@
       <g:id>LF-GOV-READY-SETUP</g:id>
       <g:title>Government Ready Cluster Setup</g:title>
       <g:description>Deploy and validate Government Ready cluster: RKE2 FIPS/STIG, GPU Operator Gov Ready (x86 mgmt), Network Operator Gov Ready, NIM Operator Gov Ready. Generates STIG compliance report, FIPS 140-3 certificate references, SBOM (SPDX 2.3), vulnerability scan (SARIF), deployment attestation, and Article 12 audit trail.</g:description>
-      <g:link>https://dws10.com/products/gov-ready.html</g:link>
+      <g:link>https://dws10.com/products/lf-gov-ready-setup.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-GOV-READY-SETUP.png</g:image_link>
       <g:price>7500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -779,7 +759,7 @@
       <g:id>LF-GOV-AIRGAP-BUNDLE</g:id>
       <g:title>Air-Gapped Gov Ready Image Bundle</g:title>
       <g:description>Pre-packaged Gov Ready container images + Helm charts + YAML manifests + install scripts for offline/air-gapped deployment. Includes all Gov Ready images (GPU Operator, Network Operator, NIM Operator, DOCA Driver) bundled as .tar archives with ctr import scripts.</g:description>
-      <g:link>https://dws10.com/products/gov-ready.html</g:link>
+      <g:link>https://dws10.com/products/lf-gov-airgap-bundle.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-GOV-AIRGAP-BUNDLE.png</g:image_link>
       <g:price>1500.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -799,7 +779,7 @@
       <g:id>LF-FIPS-VALIDATION</g:id>
       <g:title>FIPS 140-3 Validation Service</g:title>
       <g:description>FIPS 140-3 cryptographic module verification, crypto policy configuration, and attestation for Gov Ready deployments. Includes module inventory, policy enforcement (fips=1 kernel mode), and signed attestation for auditors.</g:description>
-      <g:link>https://dws10.com/products/gov-ready.html</g:link>
+      <g:link>https://dws10.com/products/lf-fips-validation.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-FIPS-VALIDATION.png</g:image_link>
       <g:price>2000.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -819,7 +799,7 @@
       <g:id>LF-IPCMAX-IPC409</g:id>
       <g:title>iPCMax IPC-409 — Compact Fanless Sensor Gateway</g:title>
       <g:description>Intel Alder Lake-N N100 (4-core, 6W), 2× 2.5GbE LAN, dual HDMI, fanless. Industrial-grade DIN-rail sensor gateway for Modbus/MQTT protocol conversion. Pairs with DGX Spark for field-level telemetry ingestion. Sourced from iPCMax Finland — local stock, EU B2B.</g:description>
-      <g:link>https://dws10.com/products/ipcmax-gateways.html</g:link>
+      <g:link>https://dws10.com/products/lf-ipcmax-ipc409.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-IPCMAX-IPC409.png</g:image_link>
       <g:price>345.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -839,7 +819,7 @@
       <g:id>LF-IPCMAX-IPCP68</g:id>
       <g:title>iPCMax IPC-P68 — Vision Gateway with PoE</g:title>
       <g:description>Intel 12th Gen i5-1235U, 4× GbE PoE+ ports, 9-36V DC, fanless. Powers and connects GigE/PoE machine vision cameras directly. Forwards RTSP/video streams to DGX Spark for real-time inference (SiteSense, YOLOv8, Cosmos Reason). iPCMax Finland sourcing.</g:description>
-      <g:link>https://dws10.com/products/ipcmax-gateways.html</g:link>
+      <g:link>https://dws10.com/products/lf-ipcmax-ipcp68.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-IPCMAX-IPCP68.png</g:image_link>
       <g:price>680.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -859,7 +839,7 @@
       <g:id>LF-IPCMAX-CINCOZE-DA1200</g:id>
       <g:title>Cincoze DA-1200 — Rugged Expandable Edge Computer</g:title>
       <g:description>Intel Alder Lake-N / 13th-12th Gen Core, -40°C to 70°C operating range, CMI/CFM modular I/O expansion (isolated DIO, CAN, COM, LAN). For harsh industrial environments requiring local control loops with DGX Spark uplink. Cincoze via iPCMax Finland.</g:description>
-      <g:link>https://dws10.com/products/ipcmax-gateways.html</g:link>
+      <g:link>https://dws10.com/products/lf-ipcmax-cincoze-da1200.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LF-IPCMAX-CINCOZE-DA1200.png</g:image_link>
       <g:price>1850.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -898,9 +878,9 @@
     </item>
     <item>
       <g:id>DWS-AEGIS-001</g:id>
-      <g:title>DWS IQ Aegis</g:title>
-      <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Designed to reduce CLOUD Act exposure. Available September 2026.</g:description>
-      <g:link>https://dws10.com/products/aegis.html</g:link>
+      <g:title>DWS IQ 7 Aegis</g:title>
+      <g:description>Single-tenant sovereign AI platform on Finnish infrastructure (UpCloud Kubernetes, Helsinki DC). Agent coverage across 21 EU-regulated industries including dual-use critical raw materials. Three tiers: Standard, Defence (GPU + SAR), Sovereign (air-gapped). EDIP-ready (Article 9 eligible). Cross-vertical signal propagation, KYA agent governance, EU AI Act Article 12 compliance. Designed to reduce CLOUD Act exposure. Release candidate in 2026; general availability Q1 2027, after the first pilot acceptance record. Start with the pilot DWS-AEGIS-PILOT-001.</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-001.png</g:image_link>
       <g:price>59990.00 EUR</g:price>
       <g:availability>preorder</g:availability>
@@ -919,9 +899,9 @@
     </item>
     <item>
       <g:id>DWS-AEGIS-PILOT-001</g:id>
-      <g:title>DWS IQ Aegis Pilot (3 months)</g:title>
-      <g:description>A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of Aegis onboarding — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: LWM integration; any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against Aegis onboarding, and lapses if the customer does not proceed within 6 months.</g:description>
-      <g:link>https://dws10.com/products/aegis-pilot.html</g:link>
+      <g:title>DWS IQ 7 Aegis Pilot (3 months)</g:title>
+      <g:description>A 3-month engagement that proves the complete local-first operational path for Aegis on your existing infrastructure or a compact edge appliance, before any DGX procurement. A bounded subset of an Aegis deployment — not a rollout. INCLUDED: one site, one control-room workflow, one deployment-mode recommendation; only the agent set that workflow requires; local execution, evidence capture, identity verification, audit logs and human kill authority stood up on existing customer hardware or a compact edge appliance; Lifetime World Model (LWM v2) training to the customer environment; production hardware sizing derived from measured behaviour on that workload. ACCEPTANCE KPI (binary): with the uplink severed for an agreed window — (i) the piloted workflow runs to completion, (ii) the EU AI Act Article 12 record continues to be written locally, (iii) an operator can still stop a running agent. All three must pass. A pilot that does not pass has delivered a negative result, which is a valid outcome and not a defect. OUTSIDE THE CREDIT: any hardware; multi-site rollout; industries beyond the one piloted; custom ERP/BIM/SCADA integrations; and the separate DWS-AEGIS-IMPL-001 implementation programme. The credit is capped at €19,990, applies only against the Aegis licence, and lapses if the customer does not proceed within 6 months.</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-pilot-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-PILOT-001.png</g:image_link>
       <g:price>19990.00 EUR</g:price>
       <g:availability>preorder</g:availability>
@@ -940,8 +920,8 @@
     <item>
       <g:id>DWS-AEGIS-IMPL-001</g:id>
       <g:title>DWS IQ Aegis Implementation Programme (3 phases)</g:title>
-      <g:description>A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, €5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, €15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, €25,000): world-model integration so operational knowledge accumulates. ADDITIVE to Aegis onboarding and licence — this programme is NOT credited against onboarding, because Phase 3 is integration work that onboarding does not include.</g:description>
-      <g:link>https://dws10.com/products/aegis-implementation.html</g:link>
+      <g:description>A three-phase implementation engagement delivered alongside DWS IQ Aegis. Phase 1 Audit (2 weeks, €5,000): current state to gap analysis. Phase 2 Agent-in-production (6 weeks, €15,000): one skilled agent live and EU-compliant. Phase 3 LWM integration (8 weeks, €25,000): world-model integration so operational knowledge accumulates. ADDITIVE to the Aegis licence and maintenance subscription — this programme is NOT credited against the licence, because Phase 3 is integration work that the licence does not include.</g:description>
+      <g:link>https://dws10.com/products/dws-aegis-impl-001.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/DWS-AEGIS-IMPL-001.png</g:image_link>
       <g:price>45000.00 EUR</g:price>
       <g:availability>preorder</g:availability>
@@ -961,7 +941,7 @@
       <g:id>CMP-OC-STD</g:id>
       <g:title>Outcome — CSRD/CBAM/AI Act gap (Standard)</g:title>
       <g:description>Single-domain compliance gap analysis.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/cmp-oc-std.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/CMP-OC-STD.png</g:image_link>
       <g:price>999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -981,7 +961,7 @@
       <g:id>CMP-OC-ENT</g:id>
       <g:title>Outcome — CSRD/CBAM/AI Act gap (Enterprise)</g:title>
       <g:description>Audit-pack signed-off compliance gap analysis.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/cmp-oc-ent.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/CMP-OC-ENT.png</g:image_link>
       <g:price>2499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1001,7 +981,7 @@
       <g:id>SS-OC-STD</g:id>
       <g:title>Outcome — Site safety assessment (Standard)</g:title>
       <g:description>Daily site safety score, single site.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/ss-oc-std.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/SS-OC-STD.png</g:image_link>
       <g:price>49.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1021,7 +1001,7 @@
       <g:id>SS-OC-ENT</g:id>
       <g:title>Outcome — Site safety assessment (Enterprise)</g:title>
       <g:description>Signed-off insurance-ready daily site safety score.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/ss-oc-ent.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/SS-OC-ENT.png</g:image_link>
       <g:price>99.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1041,7 +1021,7 @@
       <g:id>MO-OC-STD</g:id>
       <g:title>Outcome — LCA report (Standard)</g:title>
       <g:description>Single-project EN 15978 LCA report.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/mo-oc-std.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/MO-OC-STD.png</g:image_link>
       <g:price>499.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1061,7 +1041,7 @@
       <g:id>MO-OC-ENT</g:id>
       <g:title>Outcome — LCA report (Enterprise)</g:title>
       <g:description>Signed and supplier-data-validated EN 15978 LCA report.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/mo-oc-ent.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/MO-OC-ENT.png</g:image_link>
       <g:price>999.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1081,7 +1061,7 @@
       <g:id>LAND-AIL</g:id>
       <g:title>AI Literacy Bridge</g:title>
       <g:description>EU AI Act Literacy programme (20 seats) + 12-month T2 Compliance agent.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-ail.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-AIL.png</g:image_link>
       <g:price>34990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1101,7 +1081,7 @@
       <g:id>LAND-EUAI</g:id>
       <g:title>EU AI Act Compliance Sprint</g:title>
       <g:description>5-day senior compliance sprint + 12-month T2 Compliance agent.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-euai.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-EUAI.png</g:image_link>
       <g:price>39990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1122,7 +1102,7 @@
       <g:id>LAND-HSE</g:id>
       <g:title>Site Safety Bootcamp</g:title>
       <g:description>3-day site-safety training + 2-day audit + 12-month T2 SiteSense.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-hse.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-HSE.png</g:image_link>
       <g:price>29990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1142,7 +1122,7 @@
       <g:id>LAND-CSRD</g:id>
       <g:title>CSRD Reporting Accelerator</g:title>
       <g:description>10-day ESG accelerator + 12-month T3 ESG bundle.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-csrd.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-CSRD.png</g:image_link>
       <g:price>89990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1163,7 +1143,7 @@
       <g:id>LAND-LCA</g:id>
       <g:title>Carbon Reporting Sprint</g:title>
       <g:description>5-day LCA sprint + 12-month T2 Material Oracle/Emissions Data.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-lca.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-LCA.png</g:image_link>
       <g:price>49990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1183,7 +1163,7 @@
       <g:id>LAND-SOV</g:id>
       <g:title>Sovereignty &amp; NIS2 Sprint</g:title>
       <g:description>5-day sovereignty audit + 12-month T3 Sovereignty pack.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-sov.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-SOV.png</g:image_link>
       <g:price>69990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1204,7 +1184,7 @@
       <g:id>LAND-OPS</g:id>
       <g:title>Construction Ops Pilot</g:title>
       <g:description>4–8 week site pilot + 12-month T3 Construction Ops Pod.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-ops.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-OPS.png</g:image_link>
       <g:price>109990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1224,7 +1204,7 @@
       <g:id>LAND-GTM</g:id>
       <g:title>Go-to-Market Sprint</g:title>
       <g:description>5-day GTM sprint + 12-month T3 GTM pod.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-gtm.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-GTM.png</g:image_link>
       <g:price>49990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1244,7 +1224,7 @@
       <g:id>LAND-WF</g:id>
       <g:title>Full Workforce Onboarding</g:title>
       <g:description>20-day onboarding + 12-month T4 Full Skilled Workforce.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/land-wf.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/LAND-WF.png</g:image_link>
       <g:price>249990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1264,7 +1244,7 @@
       <g:id>AIS-EU-SOV-OC</g:id>
       <g:title>EU-Sovereign AI Migration — Per Workload</g:title>
       <g:description>Move one production AI workload off a US-controlled LLM stack onto EU-sovereign Claude / Mistral / DGX Spark — fixed price per workload. Includes ZDR contract review, GDPR Article 44–49 documentation, NIS2 control mapping, and EU AI Act Article 13/50 transparency artefacts. The Anthropic-aligned US services firms cannot ship this outcome — sovereignty is structural, not a feature flag.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/ais-eu-sov-oc.html</g:link>
       <g:image_link>https://dws10.com/static/images/dws_sovereign_db.png</g:image_link>
       <g:price>4990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1285,7 +1265,7 @@
       <g:id>AIS-OUTCOME-PILOT</g:id>
       <g:title>Outcome-Priced Applied-AI Pilot (6 weeks)</g:title>
       <g:description>Six-week fixed-price applied-AI pilot — refunded if the named KPI does not move. Pick one captain-hat outcome (CSRD report cycle time, site-safety incident rate, lead-to-quote latency, LCA report turnaround), we ship the agent, you ship the KPI. Built specifically for buyers tired of T&amp;M decks from generic &apos;deploy Claude&apos; services firms.</g:description>
-      <g:link>https://dws10.com/products/skilled-agents.html</g:link>
+      <g:link>https://dws10.com/products/ais-outcome-pilot.html</g:link>
       <g:image_link>https://dws10.com/static/images/products/AIS-OUTCOME-PILOT.png</g:image_link>
       <g:price>9990.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
@@ -1306,13 +1286,70 @@
       <g:id>DWS-IQ-ESS-SETUP</g:id>
       <g:title>DWS IQ Essentials — Setup</g:title>
       <g:description>One-time onboarding for DWS IQ Essentials: install, connect GitHub and one operational-runtime connector, first inventory snapshot, and the first evidenced safe update with rollback tested.</g:description>
-      <g:link>https://dws10.com/buy/</g:link>
+      <g:link>https://dws10.com/products/dws-iq-ess-setup.html</g:link>
       <g:image_link></g:image_link>
       <g:price>799.00 EUR</g:price>
       <g:availability>in_stock</g:availability>
       <g:condition>new</g:condition>
       <g:brand>Lifetime</g:brand>
       <g:mpn>DWSIQ-ESS-SETUP-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-WEB-STARTER</g:id>
+      <g:title>Website Starter — Modern Business Site</g:title>
+      <g:description>Professional business website for new entrepreneurs. Modern design, mobile-optimized, SEO-ready. cari.fi-inspired template for quick setup and publishing. Perfect for showcasing your business online.</g:description>
+      <g:link>https://dws10.com/products/lifetime-web-starter.html</g:link>
+      <g:image_link></g:image_link>
+      <g:price>650.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>WEB-STARTER-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-WEBSTORE-MINI</g:id>
+      <g:title>Small Online Store with Price List</g:title>
+      <g:description>Compact e-commerce solution for small businesses. Includes online store setup, product catalog, and integrated price list. Ideal for entrepreneurs looking to start selling online.</g:description>
+      <g:link>https://dws10.com/products/lifetime-webstore-mini.html</g:link>
+      <g:image_link></g:image_link>
+      <g:price>350.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>WEBSTORE-MINI-2026</g:mpn>
+      <g:custom_label_1>one-time</g:custom_label_1>
+      <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
+      <g:shipping>
+        <g:country>FI</g:country>
+        <g:service>Digital Delivery</g:service>
+        <g:price>0.00 EUR</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>LIFETIME-IT-TUKI-10H</g:id>
+      <g:title>IT Support Hour Bank for SMEs — 10 h</g:title>
+      <g:description>IT support for small and medium-sized businesses from one number: a 10-hour bank at €75/h. Senior Finnish-speaking specialist, no subcontracting. Espoo and the Helsinki region.</g:description>
+      <g:link>https://dws10.com/products/lifetime-it-tuki-10h.html</g:link>
+      <g:image_link></g:image_link>
+      <g:price>750.00 EUR</g:price>
+      <g:availability>in_stock</g:availability>
+      <g:condition>new</g:condition>
+      <g:brand>Lifetime</g:brand>
+      <g:mpn>IT-TUKI-10H-2026</g:mpn>
       <g:custom_label_1>one-time</g:custom_label_1>
       <g:checkout_link_template>https://revolut.me/lifetimeoy</g:checkout_link_template>
       <g:shipping>

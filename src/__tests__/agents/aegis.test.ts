@@ -10,7 +10,7 @@
  * in vuln-patch-sla-triage-vesta.test.ts.
  */
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { AegisAgent } from '../../agents/aegis.agent.js';
 import type { AgentContext } from '../../agents/types.js';
 

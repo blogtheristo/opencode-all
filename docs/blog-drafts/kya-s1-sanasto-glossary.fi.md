@@ -10,7 +10,8 @@ author: Risto Anton Päärni
 date: 2026-08-09
 hero_image: ../static/images/blog/kya-s1-series-01-hero-fi.png
 hero_image_alt: "Sarjakartta: KYA-S1 -blogisarjan 12 osaa"
-Status: APPROVED
+Status: REAPPROVAL_NEEDED
+reapproval_note: text corrected 30.09.2026 by external sourcing (BLOG_STANDARD §17); previously APPROVED. The published page is unchanged.
 approved_by: HIC (Risto Anton Päärni), 09.08.2026 — kanoninen Ground Truth -teksti
 source: HIC-kirjoittama Ground Truth. Sisältö tallennettu sanatarkasti; kolme käännösvirhettä korjattu ja merkitty (ks. corrections).
 note: >-
@@ -23,6 +24,50 @@ corrections:
   - "SV/BHM: 'Beteendemodellering i speltid' → 'vid körning' (speltid = peliaika/kesto, ei ohjelmiston ajonaika)"
   - "FR/TC4: 'Termination de chaîne' → 'Terminaison de chaîne' (termination ei ole ranskaa tässä merkityksessä)"
   - "DE/TRS: 'Vertrauenspunkt' → 'Vertrauenswert' (Punkt = piste sijaintina, ei pistemäärä)"
+claims_checked: 2026-09-30
+sources:
+  - title: "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act)"
+    authors: "European Parliament and Council of the European Union"
+    year: 2024
+    venue: "Official Journal of the European Union"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+    type: regulation
+  - title: "Assessment List for Trustworthy Artificial Intelligence (ALTAI) for self-assessment"
+    authors: "High-Level Expert Group on Artificial Intelligence"
+    year: 2020
+    venue: "European Commission"
+    url: https://digital-strategy.ec.europa.eu/en/library/assessment-list-trustworthy-artificial-intelligence-altai-self-assessment
+    type: standard
+  - title: "European Digital Identity Wallet — Architecture and Reference Framework (ARF)"
+    authors: "European Commission and European Digital Identity Cooperation Group"
+    year: 2026
+    venue: "eu-digital-identity-wallet (GitHub)"
+    url: https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework
+    type: standard
+  - title: "Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection"
+    authors: "Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., Fritz, M."
+    year: 2023
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2302.12173
+    type: academic
+  - title: "MCPTox: A Benchmark for Tool Poisoning Attack on Real-World MCP Servers"
+    authors: "Wang, Z., Gao, Y., Wang, Y., Liu, S., Sun, H., Cheng, H., Shi, G., Du, H., Li, X."
+    year: 2025
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2508.14925
+    type: academic
+  - title: "The Balkanization of Execution-Security Research for AI Coding Agents: Isolation, Access Control, and Time-of-Check-to-Time-of-Use Vulnerabilities"
+    authors: "Rashidi, M."
+    year: 2026
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2607.05743
+    type: academic
+  - title: "International Standards on Combating Money Laundering and the Financing of Terrorism & Proliferation — The FATF Recommendations (updated February 2025)"
+    authors: "Financial Action Task Force (FATF)"
+    year: 2025
+    venue: "FATF"
+    url: https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html
+    type: standard
 ---
 
 # KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto
@@ -34,10 +79,10 @@ Tämä sanasto kokoaa yhteen KYA-S1 Specification v1.3 -turvallisuusstandardin, 
 ## 1. Ydinkäsitteet ja standardit
 
 **KYA (Know Your Agent)**
-Tekoälyagenttien ajonaikaisen käyttäytymisen, identiteetin, toimintamandaatin ja turvallisuuden varmentava hallintakehikko (KYC-periaatteen vastine tekoälymaailmassa).
+Tekoälyagenttien ajonaikaisen käyttäytymisen, identiteetin, toimintamandaatin ja turvallisuuden varmentava hallintakehikko (KYC-periaatteen [7] vastine tekoälymaailmassa).
 
 **KYA-S1 Specification v1.3**
-Tekoälyagenttien ajonaikaisen turvallisuuden ja hallinnan virallinen standardiehdotus/spesifikaatio, joka määrittelee 7 kontrollialuetta, 3 varmuustasoa (KYA-AL) sekä auditoitavuusvaatimukset.
+Tekoälyagenttien ajonaikaisen turvallisuuden ja hallinnan Lifetime Oy:n julkaisema standardiehdotus/spesifikaatio, joka määrittelee 7 kontrollialuetta, 3 varmuustasoa (KYA-AL) sekä auditoitavuusvaatimukset.
 
 **Evidence Meta-Rule (§3)**
 KYA-S1-spesifikaation ehdoton sääntö, joka kieltää itsearvioinnin (self-attestation) hyväksymisen yhteensopivuustodisteeksi. Hyväksyttäväksi todisteeksi kelpaa vain kolmannen osapuolen auditointiraportti tai kryptografisesti allekirjoitettu alustatelemetria.
@@ -51,13 +96,13 @@ Tekoälyagenttien välinen autonominen kaupankäynti-, hankinta- ja maksuliikenn
 | --------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **IDV**   | Identity Verification       | **Todennettu ihmisjohtajan sidos:** Kytkee jokaisen agenttisession, työkaluvaatimuksen ja päätöksen kryptografisesti varmennettuun ihmiseen (IDV-1..4).                         |
 | **REG**   | Capability Registration     | **Kyvykkyysmanifesti ja rekisteri:** Määrittelee agentin sallitut työkalut, API-osoitteet ja suoritusrajat (REG-1..2) ennen kuin agentti päästetään ajoon.                      |
-| **BHM**   | Behavioral Modeling         | **Ajonaikainen käyttäytymisen valvonta:** Seuraa agentin suorituspolkuja reaaliaikaisesti ja havaitsee poikkeamat (esim. prompt injection tai työkalumyrkytys).                 |
+| **BHM**   | Behavioral Modeling         | **Ajonaikainen käyttäytymisen valvonta:** Seuraa agentin suorituspolkuja reaaliaikaisesti ja havaitsee poikkeamat (esim. prompt injection [4] tai työkalumyrkytys [5]).         |
 | **TC4**   | Chain Termination           | **Ketjun keskeytys / hätäjarru:** Suorittaa agenttiketjun atomisen eliminoinnin (leash snap) ja mitätöi aktiiviset valtuutusavaimet pika-ajassa.                                |
 | **FLT**   | Fault Attribution           | **Aikarajoitettu virheattribuutio:** Tuottaa allekirjoitetun luokittelun virheen syystä 72 tunnissa tapauksen sulkemisesta (FLT-4).                                             |
 | **TRS**   | Trust Score & Authorization | **Luottamuspiste ja valtuutus:** Laskee ajonaikaisen luottamustason (TRS) ja myöntää atomiset suoritusluvat.                                                                    |
 | **PRV**   | Provenance & Audit Trail    | **Päätösten toistettavuus ja auditointijälki:** Tallentaa päätöksentekoketjun, mallitilan ja ihmisohjauksen kuittauksen (PRV-4) muuttumattomaan historiatietoon (PRV-2 Replay). |
 
-## 3. Teollisuuden KYA-AL-varmuustasot (Assurance Levels)
+## 3. KYA-S1:n KYA-AL-varmuustasot (Assurance Levels)
 
 | Varmuustaso            | Auditointitiheys       | Todisteiden vaadittu syvyys                                                      | SLA-reagointiaika (IDV & TC4) | PRV-replay saatavuus |
 | ---------------------- | ---------------------- | -------------------------------------------------------------------------------- | ----------------------------- | -------------------- |
@@ -68,7 +113,7 @@ Tekoälyagenttien välinen autonominen kaupankäynti-, hankinta- ja maksuliikenn
 ## 4. Tekniset mekanismit ja ajonaikaiset käsitteet
 
 **Lease Token (TRS-4)**
-Kertakäyttöinen, aikaan sidottu ja kryptografisesti allekirjoitettu valtuutusavain. Agentin delegaatti kuluttaa tokenin atomisesti `consumeAndExecute`-kutsulla suorituksen alussa, mikä estää kilpailutilanteet (race condition) ja kaksoisveloitukset.
+Kertakäyttöinen, aikaan sidottu ja kryptografisesti allekirjoitettu valtuutusavain. Agentin delegaatti kuluttaa tokenin atomisesti `consumeAndExecute`-kutsulla suorituksen alussa, mikä estää kilpailutilanteet (race condition, TOCTOU) [6] ja kaksoisveloitukset.
 
 **Fail-Closed (TRS-5)**
 Vikaturvallisuusperiaate, joka estää automaattisuorituksen ja reitittää tehtävän poikkeuksetta ihmiselle (User Task / HIC Dashboard), jos luottamusmoottori (Trust Engine) ei vastaa aikarajassa (esim. > 500 ms) tai palauttaa virheen.
@@ -91,7 +136,7 @@ Tehtäväkohtaisesti määritelty vähimmäisluottamustaso, joka agentin on saav
 ## 5. Prosessi- ja integraatiokäsitteet
 
 **HIC (Human-in-Command)**
-Ihmisen todellinen johtamis-, valvonta- ja kumoamisvalta tekoälyprosessissa (EU AI Actin artiklan 14 mukainen vaatimus).
+Ihmisen todellinen johtamis-, valvonta- ja kumoamisvalta tekoälyprosessissa. Termi on EU:n tekoälyn korkean tason asiantuntijaryhmän eettisistä ohjeista [2]; EU AI Actin artikla 14 edellyttää korkean riskin järjestelmiltä tehokasta ihmisen valvontaa [1].
 
 **HIC Dashboard / Single Pane of Glass**
 Ihmisjohtajan yhtenäinen valvomonäkymä, josta poikkeamat, TRS-pisteet ja ihmisen kuittausta vaativat tehtävät (User Tasks) hallitaan.
@@ -103,7 +148,7 @@ Auditoitava merkintä ihmisoperaattorin tekemästä kuittauksesta, joka sisält�
 Suoritettava prosessimoottori (esim. Camunda), joka ohjaa työnkulun ajonaikaisesti automaattiselle kaistalle (Service Task) tai ihmiselle (User Task) agentin TRS-pisteiden perusteella.
 
 **EUDI Wallet / eIDAS 2.0**
-EU:n virallinen digitaalinen lompakko, johon ihmisjohtajan perusidentiteetti (IDV-1) ja nimenkirjoitusoikeus (QEAA/QES) ankkuroidaan viranomaistasolla.
+EU:n virallinen digitaalinen lompakko, johon ihmisjohtajan perusidentiteetti (IDV-1) ja nimenkirjoitusoikeus (QEAA/QES) ankkuroidaan viranomaistasolla [3].
 
 ## 6. Viiden kielen käännöstaulukko
 
@@ -165,3 +210,19 @@ Risto Anton Päärni
 Perustaja & toimitusjohtaja, Lifetime Oy
 
 Päätoimittaja, Lifetime Scope Journal
+
+## Lähteet
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] High-Level Expert Group on Artificial Intelligence (2020). Assessment List for Trustworthy Artificial Intelligence (ALTAI) for self-assessment. European Commission. https://digital-strategy.ec.europa.eu/en/library/assessment-list-trustworthy-artificial-intelligence-altai-self-assessment
+
+[3] European Commission and European Digital Identity Cooperation Group (2026). European Digital Identity Wallet — Architecture and Reference Framework (ARF). eu-digital-identity-wallet (GitHub). https://github.com/eu-digital-identity-wallet/eudi-doc-architecture-and-reference-framework
+
+[4] Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., Fritz, M. (2023). Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv. https://arxiv.org/abs/2302.12173
+
+[5] Wang, Z., Gao, Y., Wang, Y., Liu, S., Sun, H., Cheng, H., Shi, G., Du, H., Li, X. (2025). MCPTox: A Benchmark for Tool Poisoning Attack on Real-World MCP Servers. arXiv. https://arxiv.org/abs/2508.14925
+
+[6] Rashidi, M. (2026). The Balkanization of Execution-Security Research for AI Coding Agents: Isolation, Access Control, and Time-of-Check-to-Time-of-Use Vulnerabilities. arXiv. https://arxiv.org/abs/2607.05743
+
+[7] Financial Action Task Force (FATF) (2025). International Standards on Combating Money Laundering and the Financing of Terrorism & Proliferation — The FATF Recommendations (updated February 2025). FATF. https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html

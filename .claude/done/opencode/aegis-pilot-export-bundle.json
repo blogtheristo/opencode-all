@@ -1,0 +1,17 @@
+{
+  "task": "Aegis pilot: auditor evidence bundle export + verify (G7/G10)",
+  "prompt": "Add 'export' and 'verify-bundle' commands to scripts/aegis-pilot.ts backed by src/aegis/pilot/bundle.ts (export from index.ts). Read src/aegis/pilot/{crypto,identity,evidence-ledger,acceptance}.ts first and reuse their primitives; add no dependency. export --state-dir D --out DIR copies ledger/article12.jsonl, site/site.json, acceptance/*.json and credentials/*.json (never site/site.key, never anything under kill/ or any *.key) into DIR, and writes DIR/manifest.json {v:1, siteId, keyId, createdAt, ledgerHead, files:[{path, sha256, bytes}]} plus DIR/manifest.sig (site-key signature over the canonical manifest via SiteAuthority.sign). Refuse if DIR exists and is non-empty. verify-bundle --bundle DIR [--expect-key-id K] needs no state dir: verifies every file hash, the manifest signature against the bundled site.json public key, the ledger chain + signatures, every acceptance record signature, and the key pin when given; prints {ok, failures:[...]}; exit 0 only when ok. Add src/__tests__/aegis-pilot-bundle.test.ts (>=6 cases: clean bundle ok, edited ledger line fails, removed file fails, extra file fails, wrong pin fails, private key never exported). Add an 'Evidence handover' subsection to docs/runbooks/AEGIS_PILOT_RUNBOOK.md §7. Ledger segments exist since plan item C2 (src/aegis/pilot/ledger-segments.ts): export also copies ledger/segments/*.jsonl and ledger/segments/*.seal.json (skip dotfiles and *.lock), and verify-bundle runs the same checks as verifySegments against the bundled site.json public key (seal signatures, prevSeal chain, file hashes, prev_segment genesis links; a missing segment file is accepted only after its seal's retention.retainUntil). Add one test case: a bundle taken after 'seal --force' verifies, and removing a sealed segment from it fails. Do not touch package.json or package-lock.json. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 22,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "bundle round-trip verifies and detects tamper",
+      "run": "d=$(mktemp -d); node --import tsx scripts/aegis-pilot.ts init --state-dir $d/s --site-id bundle-test >/dev/null && node --import tsx scripts/aegis-pilot.ts export --state-dir $d/s --out $d/b >/dev/null && node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b --allow-unpinned | grep -q '\"ok\": true' && test ! -e $d/b/site/site.key && echo x >> $d/b/ledger/article12.jsonl && ! node --import tsx scripts/aegis-pilot.ts verify-bundle --bundle $d/b --allow-unpinned >/dev/null"
+    },
+    {
+      "name": "bundle suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-bundle.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    }
+  ]
+}

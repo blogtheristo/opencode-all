@@ -1,3 +1,6 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- dws6.com/shared/js/supabase-client.js
+
 /**
  * Supabase Client Initialization
  *
@@ -108,15 +111,85 @@ export async function isAuthenticated() {
   return session !== null;
 }
 
+const SELF_ASSIGNABLE_USER_METADATA_ROLES = new Set(['community_user']);
+
 /**
- * Get user role from metadata
+ * Read dashboard authorization from the server-owned organization membership table.
+ * @returns {Promise<{isAdmin: boolean, orgs: string[]}>}
+ */
+export async function getBackofficeAccess() {
+  const session = await getCurrentSession();
+  if (!session?.access_token) throw new Error('No authenticated session');
+
+  const localHosts = new Set(['localhost', '127.0.0.1', '']);
+  const apiBase =
+    window.DWS_API_BASE ||
+    (localHosts.has(window.location.hostname) ? 'http://localhost:3001' : 'https://api.dws6.com');
+  const response = await fetch(`${apiBase}/api/v1/backoffice/me`, {
+    headers: { Authorization: `Bearer ${session.access_token}` },
+  });
+  if (!response.ok) throw new Error(`Dashboard access check failed (HTTP ${response.status})`);
+
+  const access = await response.json();
+  if (
+    typeof access?.isAdmin !== 'boolean' ||
+    !Array.isArray(access?.orgs) ||
+    !access.orgs.every((org) => typeof org === 'string')
+  ) {
+    throw new Error('Dashboard access response is invalid');
+  }
+  return access;
+}
+
+export function hasBackofficeSection(access, sectionName) {
+  if (access.isAdmin) return true;
+  const expected = String(sectionName).trim().toLocaleLowerCase();
+  return access.orgs.some((org) => org.trim().toLocaleLowerCase() === expected);
+}
+
+/**
+ * Resolve a role without accepting a user-editable privileged claim.
+ * Supabase users can update user_metadata themselves; app_metadata and active
+ * organization membership are server-controlled. Only the explicitly non-privileged
+ * community onboarding role remains compatible in user_metadata.
+ * @param {Object|null} user - Supabase user
+ * @param {boolean} hasBackofficeAccess - Result of the server-controlled is_backoffice_admin() check
+ * @returns {string|null} Trusted role or null
+ */
+export function resolveUserRole(user, hasBackofficeAccess = false) {
+  if (!user) return null;
+
+  const appRole = user.app_metadata?.role;
+  const userRole = user.user_metadata?.role;
+  if (appRole === 'backoffice_admin' || userRole === 'backoffice_admin') {
+    return hasBackofficeAccess ? 'backoffice_admin' : null;
+  }
+  if (typeof appRole === 'string' && appRole) return appRole;
+  return SELF_ASSIGNABLE_USER_METADATA_ROLES.has(userRole) ? userRole : null;
+}
+
+/**
+ * Get the current user's effective role.
  * @returns {Promise<string|null>} User role or null
  */
 export async function getUserRole() {
   const user = await getCurrentUser();
-  if (!user || !user.user_metadata) return null;
+  const resolvedRole = resolveUserRole(user);
+  const claimedBackofficeRole =
+    user?.app_metadata?.role === 'backoffice_admin' ||
+    user?.user_metadata?.role === 'backoffice_admin';
+  if (resolvedRole || !claimedBackofficeRole) return resolvedRole;
 
-  return user.user_metadata.role || null;
+  const client = getSupabaseClient();
+  if (!client) return null;
+
+  const { data, error } = await client.rpc('is_backoffice_admin');
+  if (error) {
+    console.error('Error verifying Back-Office role:', error.message);
+    return null;
+  }
+
+  return resolveUserRole(user, data === true);
 }
 
 /**

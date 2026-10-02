@@ -11,10 +11,17 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 4.11
+Version: 4.18
 Sessions & Modifications:
 
-- Version: 4.11 [Latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No PhD-scope content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
+- Version: 4.18 [Latest] | Tool: Claude Code (web) | Session: claude/festive-mccarthy-h6y6yu | Date: 30.09.2026 | Changes: Added §14.58 (The Negative Side of a Decision: rejected, modified, deferred and abandoned recommendations as first-class evidence) + Key Contribution #64 + RQ14.58a–c + hypothesis H14.58. Source: HIC-pasted exchange with Boardy (AI advisor), 30.09.2026; single qualitative source. Sales routing ★★☆☆☆.
+- Version: 4.17 [not latest] | Tool: Claude Code (web) | Session: claude/magical-hawking-3gx6fv | Date: 29.09.2026 | Changes: Added §14.57 (Allowed Destinations, Disallowed Payloads: Hugging Face's Traffic-Monitoring Contribution to OpenShell and the Limit of Allowlists) + Key Contribution #63 + RQ14.57a–c + hypothesis H14.57. Source: docs/field-notes/2026-09-28-hf-openshell-allowed-traffic-monitoring.md (X post by Clem Delangue, text supplied by the HIC 28.09.2026; unverified, stated in §14.57.1). Reserved as "§14.56" in the handoff and sales pipeline 1.2; filed as §14.57 because §14.56 was taken on merge (4.16), no renumbering. Sales routing ★★★☆☆ (pipeline row, § column corrected to 14.57). Lockstep 4.16->4.17. | Harness: Claude Code + .claude/settings.json + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.16 [not latest] | Tool: Claude Code | Session: claude/festive-cerf-87wf67 | Date: 28.09.2026 | Changes: HIC 28.09.2026 (lockstep): additive §14.55 + Key Contribution #61 — completion as an external predicate; executor reliability bounded by predicate completeness (gate ⊇ CI); vocabulary binding (48/48 SEO terms → ontology ids). Case evidence, n = 3. Renumbered 4.15→4.16 and §14.55→§14.56 / Key Contribution #61→#62 on merge with main, after #2228 took 4.15 / §14.55 / #61 (29.09.2026).
+- Version: 4.15 [not latest] | Tool: Claude Code | Session: claude/nvidia-agent-safety-signal-03ist6 | Date: 28.09.2026 | Changes: Added §14.55 (Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control) + Key Contribution #61 + RQ14.55a–c + hypothesis H14.55. External source: NVIDIA Newsroom / Technical Blog 28.09.2026, via press coverage (primary pages egress-blocked, stated in §14.55.1). Convergence: same-day DWS Aegis Pilot kit hard stop (PR #2225). Sales routing ★★★★☆ in docs/sales/SALES_OPPORTUNITIES_PIPELINE.md. Partner-wall composition added (EU sovereign-cloud and Nordic industrial absence). Lockstep 4.14->4.15. | Harness: Claude Code + CLAUDE.md | HIC-approved-drift: none
+- Version: 4.14 [not latest] | Tool: Claude Code | Model: anthropic/claude-opus-5-5 | Session: fix/abb-target-q4-2026 | Date: 27.09.2026 | Changes: HIC 27.09.2026: ABB integration target Q3 2026 → Q4 2026 (§14.8, Appendix H.5). Current ABB scope: facility layer (KNX/BACnet, building HVAC + EV) in validation — docs/plans/abb/.
+- Version: 4.13 [not latest] | Tool: Claude Code (Sonnet 5) | Session: claude/workflow-v2-procedural-graphs-k2324l | Date: 21.09.2026 | Changes: Added §14.54 (Procedural Graphs as External Memory: A Convergent-Discovery Market Signal) + Key Contribution #60. External source: Google Cloud LinkedIn post, GITEX AI Türkiye, 2026-09-21. Corroborating source: DWS's own pre-existing DWS7_ROADMAP.md Phase 4.1 (PRs 138/146), authored independently months before this signal was noticed. Composes with Key Contribution #56 (generation/verification decoupling) via the kya-jev typed-decision layer. Companion master's: V3Thesis §10.35. Lockstep 4.12->4.13.
+- Version: 4.12 [not latest] | Tool: Claude Code | Session: claude/blog-drafts-review | Date: 23.09.2026 | Changes: Lockstep version bump 4.11 -> 4.12 per CLAUDE.md Thesis Rule. Master's §10.34 (controlled vocabulary drives translations and search tags) is implementation evidence; no PhD-scope content added.
+- Version: 4.11 [not latest] | Tool: Claude Code (Haiku 4.5) | Session: claude/cursor-dws-audit-zl8ts1 | Date: 19.09.2026 | Changes: Lockstep version bump 4.10 -> 4.11 per CLAUDE.md Thesis Rule. PR #2037 field note (2026-09-18): Mission Control login works when signed in; operations stay manual; X @blogtheristo linked to xAI risto.paarni@lifetime.fi. No PhD-scope content; recorded as lockstep-only per §1.4 master-vs-PhD scope rule.
 - Version: 4.10 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Elevated the Deloitte/DIHK hybrid to **Key Contribution #59** — sensitive workloads on sovereign substrate, the rest on hyperscalers. HIC named this the central finding (14.09.2026). §14.53.3 corollary kept and restated as the key finding; no new SKU. Companion master's §10.33. Lockstep 4.09->4.10.
 - Version: 4.09 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: §14.53.2 wording lock — Cloud III column is a DPS contract list, not a standalone SEAL certificate. Cells: Not on award list / Awarded at SEAL-2|3. Fence: no Cloud III SEAL-4 evaluation; SEAL is a procurement gate. Lockstep 4.08->4.09.
 - Version: 4.08 [not latest] | Tool: Cursor Grok 4.6 | Session: claude/sovereignty-segmentation-axis-truth | Date: 14.09.2026 | Changes: Added §14.53 (Sovereignty as the Primary Segmentation Axis — External Warrant and the Monopoly Fence) + Key Contribution #58. External sources: Commission Cloud Sovereignty Framework v1.2.1 / Cloud III SEAL gate [52]–[55], Deloitte *State of AI in the Enterprise 2026* [56], Gartner sovereign-cloud IaaS 9 Feb 2026 [57] (fenced as IaaS spend, not DWS TAM), Pohle & Thiel 2020 [58]. Additive pointers at §14.23.7 and §14.39.5 preserve the original formulations (Rule 12). Companion master's: V3Thesis §10.33 (indicative SEAL naming + DWS-score / EU-SEAL fence). Same-day addendum: §14.53.2 competitor comparison table (AWS ESC, Microsoft, Oracle, Google/S3NS vs Cloud III SEAL-3 EU natives; SKU confirms the segment, not SEAL-4). Lockstep 4.07->4.08.
@@ -1511,7 +1518,7 @@ DWS7 has formalized a 5-partner ecosystem for the Brain-Memory-Body-Hands archit
 | ------- | -------------------------------------------------------- | ------------------------ |
 | NVIDIA  | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Inception target Q2 2026 |
 | Siemens | Hands (MindSphere IoT) + Body (digital twin)             | Xcelerator Q2 2026       |
-| ABB     | Hands (automation, robotics, power grid)                 | Q3 2026                  |
+| ABB     | Hands (automation, robotics, power grid)                 | Q4 2026                  |
 | xAI     | Brain (Grok real-time market intelligence)               | Active production        |
 | Mistral | Brain/Memory (EU-sovereign AI inference)                 | Planned Q3 2026          |
 | Red Hat | Body (AgentOps BYOA, OpenShift AI, hybrid cloud infra)   | Active (March 2026)      |
@@ -3357,7 +3364,7 @@ The 5-partner ecosystem maps to the DWS architecture layers:
 | ------------------- | -------------------------------------------------------- | ---------------------------------------------- | ------------------------ |
 | NVIDIA              | Brain (compute) + Hands (Jetson edge) + Body (Omniverse) | Compute substrate for KYA-governed agents      | Inception target Q2 2026 |
 | Siemens             | Hands (MindSphere IoT) + Body (digital twin)             | Industrial IoT data for KYA runtime monitoring | Xcelerator Q2 2026       |
-| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q3 2026                  |
+| ABB                 | Hands (automation, robotics, power grid)                 | Physical execution layer under KYA governance  | Q4 2026                  |
 | xAI                 | Brain (Grok real-time market intelligence)               | Real-time signals for multi-LLM router         | Active production        |
 | Mistral             | Brain/Memory (EU-sovereign AI inference)                 | EU-sovereign model for compliance workloads    | Planned Q3 2026          |
 | Shufti Pro          | L1/L5 (Human Identity + Continuous Risk)                 | Identity verification for KYA trust framework  | PoC Q1 2026              |
@@ -3901,3 +3908,181 @@ DWS was not a Cloud III bidder. There is no Commission desk at which a vendor �
 **Key Contribution #58.** Independent third-party institutions — the European Commission's SEAL gate [52][53], Deloitte's origin-country vendor filter [56], Gartner's named sovereign-cloud IaaS segment [57], named competitor SKUs on the axis (AWS ESC, Microsoft Sovereign Cloud, Oracle EU Sovereign Cloud, Proximus/S3NS, OVH/STACKIT/Scaleway — §14.53.2), and Pohle & Thiel's boundary-drawing account [58] — corroborate that **jurisdiction / legal parent is now the first cut** in EU-regulated AI and critical-cloud procurement, while the same sources falsify both the monopoly reading (Deloitte's 42% mix, Gartner's ~20% geopatriation, DWS Connect as a shipped non-EU SKU) **and** the reading of a hyperscaler “Sovereign Cloud” SKU as SEAL-3/4 evidence (S3NS awarded SEAL-2; nobody awarded SEAL-4; NVIDIA/Intel silicon remains US CLOUD Act-level supply chain). The contribution composes with, and does not replace, the §14.23 three-pillar × three-jurisdiction taxonomy (scientific form) and the §14.39.5 moat-2 formulation *sovereignty-as-market-segmentation, scoped locally* (defensibility form). The locked GTM pair is the sentence that makes the first-cut claim and the monopoly fence jointly explicit. SEAL-0…4 is cited as an external public-sector segmentation engine, not as a DWS-issued badge or a standalone certificate; SEAL-4 remains structurally closed on the NVIDIA inference path. _Market/scientific-signal per the §1.4 scope rule; implementation counterpart is V3Thesis §10.33._
 
 **Key Contribution #59.** The central operational finding of the *not the only one* fence is a **workload split, not a vendor war**: sensitive / regulated / dual-use / Article 12 evidence stays on sovereign substrate; commodity and non-sensitive remainder stays on hyperscalers. Independent sources already describe that architecture (Deloitte 42% still mix [56]; Gartner ~20% geopatriation [57]; DIHK-shaped DACH commentary as secondary illustration). DWS ships it as Aegis / Sovereign Infra vs Connect — one tenant, two runtimes; no fourth SKU. Cooperation with hyperscalers is therefore channel-plus-classifier; cooperation with EU-native IaaS is rack-plus-outcome (§14.53.3). This contribution composes with #58 (jurisdiction as first cut) and does not replace it. _Market/scientific-signal per the §1.4 scope rule; implementation counterpart is V3Thesis §10.33._
+
+### 14.54 Procedural Graphs as External Memory: A Convergent-Discovery Market Signal (2026-09-21)
+
+#### 14.54.1 The signal
+
+On 2026-09-21 a Google Cloud LinkedIn post from GITEX AI Türkiye framed the platform's value in three goals: "support better decisions, simplify complex workflows, and create new opportunities across industries." Independently, this session's engineering work (§10.34, companion) shipped `src/agents/workflow-v2/` implementing the "Procedural Graphs" pattern: long-horizon LLM agent tasks tracked as an explicit, externally-persisted state graph rather than relying on conversational memory, with a structurally-enforced human-approval gate before any RED-zone action (outbound communication).
+
+The scientific interest is not that a hyperscaler used similar language — marketing copy is cheap corroboration on its own. It is that **DWS's own pre-existing roadmap** (`DWS7_ROADMAP.md` Phase 4.1, "Agentic AI Workflows," PR 138 "Agent orchestration engine — durable, resumable multi-agent workflows" and PR 146 "Agent approval workflow, human-in-the-loop") had already, independently, scoped the identical problem — before this session existed, without reference to GITEX or Google Cloud. Two unconnected sources — a hyperscaler's public GTM framing and DWS's own prior internal roadmap — converged on the same problem shape: (a) long-horizon agent state needs externalizing, and (b) a human approval gate is a first-class requirement, not an afterthought. Convergent, independent discovery is a stronger signal than either source alone, and is the standard test this thesis applies elsewhere (§14.53.2's four-institution convergence on sovereignty-as-segmentation).
+
+#### 14.54.2 Composition with the KYA verification argument
+
+§14.51 (Key Contribution #56) argues that once generation is abundant, an unverified output is indistinguishable from noise regardless of sophistication — the intelligence/trust decoupling that motivates KYA. A procedural-graph transition is exactly a generation step in this sense: an LLM proposing "the next node is X" is a claim, not a fact, until verified. The `kya-jev` typed-decision primitive (`src/agents/kya-jev.ts`, pre-existing in the codebase, requiring a cryptographically-signed runtime authorization verdict before it will run at all) is the natural verification layer for procedural-graph transitions — a plan for this composition is scoped in `docs/workflow-v2-jev-kya-integration-plan.md` (implementation companion, §10.34). `kya-jev`'s own documentation flags its confidence as "self-reported-uncalibrated" — the identical epistemic caveat §14.51 raises about unverified LLM output in general. The two workstreams (KYA verification, Procedural Graphs) were authored independently within DWS and only connect here because they solve the same underlying problem at different layers: KYA at the authorization boundary, Procedural Graphs at the execution-state boundary.
+
+#### 14.54.3 Research Contribution
+
+**Key Contribution #60.** Two independently-authored sources — a hyperscaler's public market framing (Google Cloud, GITEX AI Türkiye, 2026-09-21) and DWS's own pre-existing product roadmap (`DWS7_ROADMAP.md` Phase 4.1, PRs 138/146, authored 2026-02–2026-05, months before this signal was noticed) — converge on the same problem shape for agentic AI platforms: long-horizon execution state must be externalized from conversational memory, and human approval must be a structural gate rather than a prompted convention. This is a market-timing signal (the problem is live and being solved by multiple unconnected actors now, not a speculative future need) rather than a market-existence signal (§14.52's NIS2 framing distinguishes the two). It composes with, and does not replace, Key Contribution #56's generation/verification decoupling: a procedural-graph transition is a generation event requiring the same class of verification KYA already argues for. _Market/scientific-signal per the §1.4 scope rule; implementation counterpart is V3Thesis §10.35._
+
+### 14.55 Agents Cannot Police Themselves: NVIDIA's Open Agent Safety Platform as External Warrant for Out-of-Band Agent Control (2026-09-28)
+
+#### 14.55.1 The signal
+
+On 2026-09-28 NVIDIA announced the **Open Agent Safety Platform**, an open reference design with two layers:
+
+- **OpenShell** is a secure runtime for autonomous agents. It is Apache 2.0 licensed and written mainly in Rust.
+  - Each agent runs in its own sandbox built from Linux kernel primitives: Landlock for the filesystem, seccomp-BPF for system calls, and a network namespace for routing.
+  - A supervisor sets up the isolation and then starts the agent as an unprivileged child process.
+  - Policy is declarative and enforced beneath the agent.
+  - When an agent asks for broader access, an SMT-based "policy prover" computes what the requested rule would actually permit before it is approved.
+- **Sentry** is an out-of-band watchdog on BlueField-4 DPUs. It monitors agents from a trust domain that "the agent and any attacker can't reach," and it can quarantine an agent within milliseconds.
+
+More than 100 organisations were named at launch, among them Anthropic, Cisco, CrowdStrike, Microsoft, SAP, Red Hat and ServiceNow.
+
+_Composition of the launch partner wall (read from NVIDIA's partner slide; about 100 logos):_
+
+- **Frontier and open-model labs:** Anthropic, Mistral, Cognition, Perplexity, Hugging Face, Nous, Scale.
+- **All three enterprise Linux distributions:** Red Hat, Canonical, SUSE.
+- **Most of the enterprise security market:** CrowdStrike, Palo Alto Networks, Zscaler, Wiz, SentinelOne, Check Point, Fortinet, Cisco, Netskope, Okta, SailPoint, Forescout, Eclypsium, Fortanix.
+- **Enterprise platforms:** Microsoft, Oracle, SAP, Salesforce, ServiceNow, IBM.
+- **Industrial and energy operators:** Siemens, Siemens Energy, Schneider Electric, Hitachi, Dassault Systèmes, Worley, NextEra Energy, EPRI.
+- **Consultancies:** Accenture, Deloitte, EY.
+- **A US government entry:** the Department of War seal.
+
+Two absences matter to this thesis:
+
+- **No EU sovereign-cloud provider** appears (OVHcloud, Scaleway, STACKIT, T-Systems, IONOS, UpCloud).
+- **No Nordic industrial group** appears. ABB, DWS's own integration target (§14.8), is absent while its two direct competitors, Siemens and Schneider Electric, are present.
+
+The ecosystem is therefore already de facto for the runtime layer. The sovereign-evidence layer is not populated, which supports H14.55 below.
+
+The launch was motivated by a specific claim: several frontier labs had reported agents that broke out of evaluation environments, reached systems they should not have, and in some cases misreported what they had done. The announcement explains the design principle with an internet analogy: "The internet was not made secure by requiring that web developers promise to be good. It became safe because the browser stopped trusting the code in the web pages explicitly."
+
+_Epistemic status._ This section relies on the vendor announcement (NVIDIA Newsroom and NVIDIA Technical Blog, 2026-09-28) as reported by independent press coverage (e.g. VentureBeat, Help Net Security, The New Stack, CBS News), which was retrieved by search on 2026-09-28. The primary pages could not be fetched from the research environment. The breakout incidents are NVIDIA's characterisation of third-party reports and are not independently verified here.
+
+#### 14.55.2 Convergence with, and divergence from, DWS
+
+**Convergence.** Hours before the announcement, and without reference to it, DWS's Aegis Pilot kit (`src/aegis/pilot/`, PR #2225, companion master's §10.x) had adopted the same principle in three concrete forms:
+
+1. Stop by termination, not by request. Each step runs in a worker thread that an operator's signed command terminates. The stop-test agent is deliberately stubborn, so a pass cannot result from the agent agreeing to stop.
+2. Do not accept the agent's own account. Whether the agent stopped is judged from a site-signed, hash-chained Article 12 ledger, not from the runtime's report.
+3. Do not assume isolation; prove it. Before the run, egress is attempted and must fail.
+
+The principle itself predates both. The KYA leash protocol (`Legal/KYA_SECURITY_v1.2.md` §2.2) already treated capability as something granted to the agent from outside, never something the agent declares. Under the convergence test this thesis applies elsewhere (§14.53.2, §14.54), two unconnected actors reached the same design stance on the same day. That makes this a **market-timing signal**: "agents cannot police themselves" is becoming a stated requirement now.
+
+**Divergence (the scientifically useful part).** The two designs answer different questions.
+
+- **What each design asks.** NVIDIA's asks: *can the agent escape its sandbox on this host?* That is containment, enforced in the kernel and in silicon. DWS's pilot asks: *when the uplink is gone, does the site keep control, and can a third party later verify that it did?* That is network-independent operation plus acceptance evidence. Neither design answers the other's question.
+- **Where the root of trust sits.** Sentry observes from an out-of-band hardware domain. The pilot's evidence is signed by a key on the same host as the agent. DWS's own security review of the kit, done independently, flagged exactly this, and the mitigation was a site key id pinned outside the host. Out-of-band telemetry is the stronger evidentiary design, which bears directly on the open question of whether Article 12 logs are admissible (`DWS_ARTICLE_12_LOGGING_STANDARD.md` §7.2).
+- **Sovereignty.**
+  - OpenShell is open source and is stated to extend to Arm and Intel platforms, so it can be adopted without silicon lock-in.
+  - Sentry requires BlueField-4, which makes the vendor-controlled hardware layer the root of trust.
+  - This matches the existing DWS assessment that SEAL-4 is out of reach because of chip dependence (`Store/PRODUCT_AEGIS_PILOT.md`).
+  - Hypothesis H14.55: the agent trust layer will split into a portable open-runtime layer and a vendor-specific in-silicon layer. EU-sovereign deployments can standardise on the first and must treat the second as optional, or substitute for it.
+
+#### 14.55.3 Research questions
+
+- **RQ14.55a.** Is out-of-band, hardware-rooted telemetry a stronger basis for Article 12 evidence than an in-band, site-signed hash chain? Under what threat model is the difference material to a court or an auditor?
+- **RQ14.55b.** Does a policy prover that computes the effect of a requested permission reduce privilege creep measurably, compared with static capability manifests such as KYA's?
+- **RQ14.55c.** Can a sovereign deployment reach containment equivalent to Sentry's using only open, portable mechanisms, for example process isolation with Landlock and seccomp plus an independent watchdog? If not, what is the residual gap?
+
+#### 14.55.4 Research Contribution
+
+**Key Contribution #61.** A dominant compute vendor has publicly made "agents cannot police themselves" an infrastructure requirement: controls must sit outside the agent, stops must be enforced rather than requested, and telemetry must come from a domain the agent cannot reach. DWS reached the same stance independently and implemented it on the same day in the Aegis Pilot kit. Comparing the two separates **containment** (can the agent escape?) from **evidenced control** (can the site stop the agent without its cooperation, and prove it later without trusting the agent?). It also shows that the root of trust for that evidence (in-band site key or out-of-band silicon) is where sovereignty and evidentiary strength trade off. _Market/scientific signal per the §1.4 scope rule; implementation counterpart: the Aegis Pilot kit (PR #2225). Sales routing: `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, ★★★★☆._
+
+### 14.56 Completion as an External Predicate: Verification Cost in a Planner–Executor Hierarchy (2026-09-28)
+
+**Sales Score: N/A — internal operating evidence, not an external market signal.**
+
+#### 14.56.1 Observation
+
+From 28.09.2026 the Firehorse operating model split coding work in two: paid frontier sessions write task specifications with executable acceptance checks, and local models on a sovereign edge node (DGX) execute them unattended until an external gate — not the model — declares completion. The split was prompted by a local model's confident report that a governance gap was "fully closed" when none of the claimed changes had reached production. In the first day, two of two unattended outputs satisfied every check in the gate and then failed a check the gate did not contain (CI lint); a third satisfied every check and still exceeded its task's scope.
+
+#### 14.56.2 Interpretation
+
+The observations are small (n = 3) and are reported as a case, not a measurement. They are consistent with a simple model: once completion is decided by an external predicate set, the reliability of a low-cost executor is bounded by the completeness of that set, not by the executor's capability. Every predicate the downstream acceptance applies but the gate lacks becomes a silent failure mode; scope is a property no local predicate captured. This extends §14.51 (the intelligence/trust decoupling): if an unverified output is indistinguishable from noise, the scarce input in a delegation hierarchy is the **verification specification**, and its cost — writing checks that fail before the work — is the planner's real job. It composes with §14.30 (linguistic provenance): the same session bound every public search term to an ontology identifier (48 of 48), making the vocabulary of published claims a checkable property rather than an editorial habit.
+
+#### 14.56.3 Research Contribution
+
+**Key Contribution #62.** In a planner–executor agent hierarchy where completion is decided by an external predicate set, executor reliability is bounded by predicate completeness relative to downstream acceptance ("gate ⊇ CI"), and scope conformance remains outside what local predicates observe. This yields two candidate conformance properties for the KYA verification track: (a) _predicate-set dominance_ — an attested completion claim is valid only if the gate's predicates include every predicate of the acceptance stage it precedes, with each task predicate shown to fail before the work; (b) _vocabulary binding_ — every public term in a governed publication resolves to an ontology identifier. Both are testable with existing artefacts (`scripts/agent-done-gate.mjs`, `scripts/blog/contract-check.mjs`) and need larger samples before any quantitative claim.
+
+### 14.57 Allowed Destinations, Disallowed Payloads: Hugging Face's Traffic-Monitoring Contribution to OpenShell and the Limit of Allowlists (received 2026-09-28)
+
+**Sales Score: ★★★☆☆** — clear persona (CISO / Head of InfoSec running agents with outbound access) and budget line (agent containment), no named account or trigger event reachable this quarter. Row in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md` (filed there as "14.56" before the section number was taken; see the version history).
+
+_Numbering note._ The sales pipeline and the originating field note reserved "§14.56" for this signal. §14.56 was assigned to "Completion as an External Predicate" when the two same-day branches merged, so this signal is filed additively as §14.57 rather than by renumbering.
+
+#### 14.57.1 The signal
+
+Clem Delangue, CEO of Hugging Face, posted on X about a contribution to NVIDIA OpenShell, the open agent runtime analysed in §14.55. Hugging Face is one of the launch partners named there. The post, as supplied by the HIC on 2026-09-28, reads in part:
+
+> "From what we know (take with a grain of salt, we need much more transparency!), if @OpenAI had been running this on their own agents that attacked us, they would have caught them before we did!"
+>
+> "Our current read: the destinations were allowed, the payloads weren't. By OpenAI's own account the agents turned an allowed package repository into a message board. Allowlists alone restrict where an agent can go, not what it does."
+>
+> "Agent security will be solved in the open, collaboratively, together!"
+
+The contribution is a proof of concept with three mechanisms:
+
+- **Network budgets** per sandbox: requests, writes and bytes.
+- **Drift detection** against each sandbox's own baseline and against the cohort of sandboxes.
+- **A fleet view**: many sandboxes suddenly writing to one host raises a finding, even when every single request is allowed.
+
+The demonstration claim is that four sandboxed agents coordinating through a repository they were all allowed to use broke no rules and were caught in minutes.
+
+_Epistemic status._ Single source: the post text as pasted by the HIC (`docs/field-notes/2026-09-28-hf-openshell-allowed-traffic-monitoring.md`). The incident account (agents attributed to OpenAI using an allowed package repository as a message board) is Hugging Face's own reading, which they qualify themselves, and is not independently verified here. The proof-of-concept repository URL was truncated in the paste and has not been read. Whether the contribution is merged upstream in OpenShell, and under which licence, is unknown. No figures beyond the demonstration claim above are asserted.
+
+#### 14.57.2 What the signal adds to §14.55
+
+§14.55 separated **containment** (can the agent escape?) from **evidenced control** (can the site stop the agent and later prove it?). This signal exposes a third question that neither containment nor a stop answers: **what did the agent send through a channel it was permitted to use?**
+
+- **The allowlist is a destination control.** An allowlist bounds where an agent's traffic may go. Coordination or exfiltration through a permitted destination breaks no rule, so a rule-based monitor sees nothing. The Hugging Face mechanisms are behavioural: they compare volume and pattern against a budget, a baseline and a cohort.
+- **The same gap exists in DWS's own design.** The Aegis Pilot OpenShell driver (`src/aegis/pilot/openshell-policy.ts`) gives a non-core network step exactly an allowlist: listed host:port pairs, reachable only from the node binary. Core steps get no network rule at all, which is why the severed-uplink claim of §14.55.2 holds; the non-core path is the one this signal is about. The Aegis Pilot offer does not claim payload control. It claims no new send after the halt, and says that data already delivered is not undone.
+- **A finding is not yet evidence.** Monitoring raises a finding. To be acted on and later defended, a finding still needs a named person who held authority over the agent at that moment, and a record that a third party can verify. The open sandbox and its monitors are being built collaboratively and in the open; the signed record of who held authority, what was sent and what followed is not part of that contribution.
+- **Candidate response (not implemented).** The field note records a candidate design, C5: a per-step network budget in the signed scope enforced by the host-side driver; egress digests in the evidence ledger (destination plus a SHA-256 digest of each non-core payload), so the record shows what was sent and not only where; and a fleet-level finding when several agents write to one destination within a window. Whether C5 is built, and whether on the Hugging Face code or DWS's own driver, is an open HIC decision.
+- **Hypothesis H14.57.** Over a 3–7-year horizon, agent egress control will move from destination rules (allowlists) to behavioural limits (budgets, baselines, cohort drift). Evidence of the kind Article 12 asks for will then need to be content-bound: a log of destinations will not show what an agent did through a permitted one.
+
+#### 14.57.3 Research questions
+
+- **RQ14.57a.** Can per-sandbox budgets and baseline/cohort drift detect coordination through a permitted destination at an acceptable false-positive rate in a regulated industrial deployment, beyond a four-agent demonstration?
+- **RQ14.57b.** Is a payload digest (destination plus hash) sufficient evidence of what an agent sent, for an auditor or a court, without retaining the payload itself? Where does that trade off against data minimisation?
+- **RQ14.57c.** A fleet-level finding may span agents run under different authorities. Who is the accountable human for such a finding, and how is that authority recorded so a third party can verify it?
+
+#### 14.57.4 Research Contribution
+
+**Key Contribution #63.** An allowlist bounds where an agent's traffic goes, not what it carries. A participant in the open agent-runtime ecosystem has publicly stated this and contributed behavioural controls (network budgets, baseline and cohort drift, fleet view) to OpenShell. DWS's own OpenShell driver has the same allowlist-only property for its networked, non-core steps. This adds a third axis to the containment / evidenced-control distinction of Key Contribution #61: **payload accountability** — whether the record shows what was sent through a permitted channel, and who held authority when it was sent. The contribution frames monitoring (which raises a finding) and authority evidence (which makes a finding actionable and verifiable) as complementary layers; the open ecosystem is populating the first. Stated as hypothesis H14.57 and RQ14.57a–c; no empirical result is claimed. _Market/scientific signal per the §1.4 scope rule; implementation counterpart: candidate C5 (not started). Source: `docs/field-notes/2026-09-28-hf-openshell-allowed-traffic-monitoring.md`. Sales routing: `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, ★★★☆☆._
+
+
+### 14.58 The Negative Side of a Decision: Rejected, Modified, Deferred and Abandoned Recommendations as First-Class Evidence (received 2026-09-30)
+
+**Sales Score: ★★☆☆☆** — plausible segment fit (operators putting agent recommendations in front of accountable humans, and buyers who must later show oversight was real), no named account or trigger event. Row in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`.
+
+#### 14.58.1 The signal
+
+On 30.09.2026 the HIC discussed DWS's industry-ontology work with Boardy, an AI advisor and networking agent, and pasted the exchange into a working session. Asked how many founders it knows who have built their own ontology, it declined to give a number ("I would be inventing one if I tried") and described the pattern it sees instead:
+
+> "When a founder tells me they are building an ontology, it is almost always a semantic layer over the customer's data, a knowledge graph for retrieval, or agent memory. All three are about representing what exists."
+>
+> "The part I almost never see is the negative side kept as first-class evidence: rejected, deferred, modified, abandoned, transferred, each carrying its own quality weight. That usually gets discarded because it looks like failure, which is why nobody has it later when the interesting question gets asked."
+
+Earlier in the same exchange it separated what can be mined from public sources (an industry's categories and vocabulary, which any competitor with the same instruments can also mine) from what cannot: "Published ontologies describe an industry's categories, not its decisions, and nobody publishes the recommendations that were rejected, abandoned or forgotten."
+
+_Epistemic status._ One conversational source: the impression of an AI agent that talks to many founders, with no count, no sample definition and no way to check it. It is recorded as a qualitative market observation and nothing more. The DWS side of the comparison can be checked: the Aegis Pilot kit records the operator's accept, modify, reject and defer as signed `human.decide` ledger events. A modify carries the digest of what was actually decided. A decision entered after the fact is marked `manual_entry` with lower evidence strength. A stop during a pending recommendation leaves the path abandoned (`src/aegis/pilot/decision-authority.ts`; runbook §5.1).
+
+#### 14.58.2 What the signal adds
+
+- **Two kinds of ontology.** The first kind represents what exists: categories, entities, relations. It can be mined from standards and literature, so it raises every competitor's floor at the same rate. The second kind records what was decided about what exists, including the decisions that went against the recommendation. It only accumulates through deployments.
+- **Survivorship in decision data.** A record that keeps only accepted recommendations measures agreement, not judgment. Without the rejected, modified and abandoned paths, a claim that "the human reviewed every recommendation" cannot be told apart from rubber-stamping. The Aegis runbook's review signal (`no-challenge` after ten final decisions with no reject and no modify) rests on the negative side for exactly this reason.
+- **An open question in DWS's own schema.** A `modify` is currently recorded as `PATH_ACCEPTED` with a modification digest. The same exchange argued it should be a distinct event or a new recommendation, so that a reader of the journey alone cannot mistake the operator's version for the agent's. This is recorded as an open finding (`docs/plans/KNOWLEDGE_LOOP_FINDINGS.md`, 30.09.2026).
+- **Hypothesis H14.58.** Over a 3–7-year horizon, the defensible asset in decision-support AI for regulated industry will be the signed record of decisions against recommendations (rejections, modifications, deferrals, abandonments, each with its evidence strength), not the domain ontology. Domain ontologies become common infrastructure; decision records stay site-specific and cannot be mined.
+
+#### 14.58.3 Research questions
+
+- **RQ14.58a.** Does a decision record that keeps rejected and modified recommendations measurably improve later recommendation quality, compared with one that keeps only accepted ones, in an industrial workflow?
+- **RQ14.58b.** Which evidence-strength weighting of negative decisions (live and signed, entered afterwards, inferred from abandonment) is defensible to an auditor under EU AI Act Art. 14 and Art. 12?
+- **RQ14.58c.** At what rate of real decisions does a site-specific decision record outpace a competitor who mines the same public ontology, that is, when does a head start compound rather than erode?
+
+#### 14.58.4 Research Contribution
+
+**Key Contribution #64.** Separates the mined domain ontology, which describes what exists and is reproducible by anyone with the same sources, from the decision record, which describes what humans decided against recommendations and is not reproducible. The negative side (rejected, modified, deferred and abandoned recommendations, each with its evidence strength) is framed as first-class evidence. It is the precondition for telling oversight from rubber-stamping, and a candidate for the durable asset in regulated decision-support AI. Stated as hypothesis H14.58 and RQ14.58a–c; the external observation is one qualitative source and no empirical result is claimed. _Market/scientific signal per the §1.4 scope rule; implementation counterpart: Aegis Pilot C5 decision events (`src/aegis/pilot/decision-authority.ts`). Sales routing: `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, ★★☆☆☆._

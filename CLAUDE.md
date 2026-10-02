@@ -1,13 +1,13 @@
 ---
 title: CLAUDE.md — Operational Rules for AI Agents
-version: 1.3
+version: 1.6
 status: Active
-last_updated: 2026-09-19
+last_updated: 2026-09-27
 applies_to:
   ["Claude Code", "OpenCode", "BaseAgent", "MCP tools", "Cursor", "Cursor Cloud", "all agents"]
 language: en
 schema: DWS_DOCUMENT_STANDARD
-changes_in_this_version: "HIC 19.09.2026: retire *** Pandoc delimiter; HIC makes PDFs from HTML"
+changes_in_this_version: "HIC 27.09.2026: Market Signal → Sales Pipeline Rule (dual-route signals to PhD §14.x and docs/sales/SALES_OPPORTUNITIES_PIPELINE.md, 1–5 star score)"
 source_control_url: "https://github.com/blogtheristo/dws6/blob/main/CLAUDE.md"
 ---
 
@@ -21,7 +21,7 @@ This file is loaded by:
 
 | Tool                      | Load Mechanism                                                                                                           | Reference                                                                        |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------- |
-| **OpenCode**              | `opencode.json` line 3: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
+| **OpenCode**              | `opencode.json` line 4: `"instructions": ["CLAUDE.md"]`                                                                  | [opencode.json](opencode.json)                                                   |
 | **Claude Code**           | Hooks system via `session-start.sh`                                                                                      | [.claude/settings.json](.claude/settings.json)                                   |
 | **BaseAgent**             | Runtime environment + `AI_AGENT_GUIDELINES.md` §0                                                                        | [src/agents/BaseAgent.ts](src/agents/BaseAgent.ts) (reference)                   |
 | **MCP tools**             | Via agent context + session startup                                                                                      | [.mcp.json](.mcp.json)                                                           |
@@ -41,6 +41,7 @@ Ship reliable outcomes fast, but never past security, compliance, or source-of-t
 - **OpenCode Permissions:** YELLOW zone for blog publishing, thesis edits, migration application, learning outcome deferral. See [OpenCode Permission Elevation](#opencode-permission-elevation-yellow-zone).
 - **Non-Negotiable Rules:** 13 rules governing secrets, git, identity, destructive actions. See below.
 - **Session Learning Outcome:** HIC oversight required. See [Session Learning Outcome Rule](#session-learning-outcome-rule-eu-ai-act-art-14).
+- **Market Signal Routing:** Commercially-relevant signals dual-route to PhD thesis §14.x AND `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5. See [Market Signal → Sales Pipeline Rule](#market-signal--sales-pipeline-rule).
 
 ## Engineering Discipline — The 12 Rules
 
@@ -62,6 +63,33 @@ The 12 rules are canonical and apply to all agents. **Quick summary:**
 
 ---
 
+## Resolver — Ontology → Admin Documentation
+
+**Before asserting how any DWS system works, look up the term.** The ontology is bound to
+the admin documentation by a generated pointer index:
+
+```bash
+npm run ontology:lookup channel      # → Admin/*.md file:line + heading
+npm run ontology:index               # regenerate after editing Admin/ or ONTOLOGY.md
+```
+
+`●` means the section is _about_ that term; `○` means it mentions it. Read the `●` hits
+before describing infrastructure, integrations, or operational procedure. A hit is a
+pointer, not an answer — open the file.
+
+**Why this rule exists:** on 24.09.2026 an agent gave the HIC three rounds of confidently
+wrong Cloudflare Tunnel instructions, sourced from a compose-file comment describing an
+_intended_ deployment, while `Admin/ADMIN_MANUAL.md` carried the correct runbook the whole
+time. A comment describes what someone planned; the admin manuals describe what is
+running. `npm run ontology:lookup tunnel` would have found it on the first try.
+
+Index lives at `docs/ontology/admin-term-index.json` — generated and gitignored, built
+automatically on first lookup, so a cold checkout needs no setup. Terms come from
+`ONTOLOGY.md`'s CCP seed, `kb/wiki/concepts/`, and every heading under `Admin/`. It stores
+pointers only; `Admin/` stays source-of-truth.
+
+---
+
 ## Operational Rules (Detailed)
 
 ### Sender Identity
@@ -80,6 +108,8 @@ Every email, letter, intro note, signature block, or first-person draft produced
 | Lifetime Oy outbound (partner, investor, sales, public contact)               | `risto.paarni@lifetime.fi`     |
 | DWS IQ product (platform From/Reply-To)                                       | `risto@onelifetime.world`      |
 | Google Workspace login **only** (never a From:, Reply-To:, or public contact) | `risto.paarni2024@lifetime.fi` |
+
+**Inbound (Proton catch-all):** Proton receives mail for any address on our domains — `risto.anton@lifetime.fi`, `security@dws10.com`, etc. An address that only receives mail is not an error; the table above governs `From:`/`Reply-To:` only. See `docs/field-notes/2026-09-28-mail-inbound-catch-all-address-map.md`.
 
 **Authority:** `lifetime.fi` DNS authorizes Proton (MX, SPF, DKIM) exclusively; Google is not authorized. Mail sent from Google with a `@lifetime.fi` From fails SPF/DKIM and is quarantined per the domain's DMARC policy. Evidence: `docs/field-notes/2026-08-04-lifetime-fi-outbound-dmarc-proton.md`.
 
@@ -147,7 +177,7 @@ OpenCode operates with elevated permissions beyond Claude Code. These items move
 11. **`gcloud` uses CMD syntax only** — `^` continuation, never backtick. `.ps1` scripts invoke via `powershell -ExecutionPolicy Bypass -File .\script.ps1` from CMD.
 12. **Never lose eloquent formulations.** Preserve philosophical passages, quotes, mottos, wisdom in rewrites. See `DWS_DOCUMENT_STANDARD.md` §21.
 13. **Blog publishing:** Claude Code requires HIC approval (show text, stop, ask). OpenCode publishes via YELLOW zone. All posts: `/blog-draft` to `docs/blog-drafts/<slug>.md` → HIC approval before publish.
-14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. Full audit trail required. See `DWS_COST_POLICY_STANDARD.md`.
+14. **Cost governance — DGX-first agentic compute:** All AI agent workloads (Cursor, Grok, Claude Code, OpenCode) must default to DGX (local sandbox). Cloud agents are secondary and require documented justification. Free-credit window: 2026-09-20 through 2026-10-11 (21 days); after 2026-10-12, cloud agents are blocked. HIC exception 27.09.2026: Claude Code pre-M1 feature work capped at $250 USD. Full audit trail required. See `docs/DWS_COST_POLICY_STANDARD.md`.
 
 ---
 
@@ -197,6 +227,31 @@ Regenerate `Learn/` HTML versions; never delete old HTML versions. `Learn/V3Thes
 
 ---
 
+### Done Gate Rule ("done" is a command result, not a sentence)
+
+An agent may report work as done, fixed, or passing only with the raw output of
+`node scripts/agent-done-gate.mjs --full` showing `DONE`. It checks: committed, pushed,
+formatted, no new `it.todo`, typecheck, related tests, and the task's own acceptance checks in
+`.claude/done/<branch>.json` (write one for every handed-off task; the spec may live on `main`).
+In OpenCode the `.opencode/plugin/done-gate.ts` plugin runs the gate whenever an answer claims
+completion and sends every FAIL back into the session. The HIC reads the gate output, not the
+summary. Why: 28.09.2026 a local model reported the REVAL_LEASH gap "fully closed" while the
+commit was unpushed, production never called the new store, and the gap's `it.todo` remained.
+
+### Coding Delegation Rule (paid sessions plan, the DGX codes)
+
+HIC 28.09.2026. Paid sessions (Claude Code, GitHub Copilot) do judgment, review, security and
+**task specs**; multi-file coding goes to `opencode-loop` on the DGX (local models, no paid tokens).
+
+- **Hand off:** `node scripts/loop-task.mjs --branch opencode/<name> --task … --prompt … --check "name::cmd"`
+  writes `.claude/done/<branch>.json`. Every check must fail on today's code (the script refuses
+  one that already passes). Merge the spec to `main` via PR; the loop picks it up, works it until
+  `agent-done-gate` passes, opens the result PR, and keeps it fresh until the HIC merges it.
+- **Code it yourself only** for a one-file fix, security/RED-zone work, or when the loop has
+  BLOCKED on the task twice.
+- **`opencode-all`** is for catching up after Claude sessions have run for days: `--status`
+  (gated), `--prs` to queue the open-PR backlog, with HIC `--approve` / `--note` / `--close`.
+
 ### Deliverable Handoff Rule
 
 Never ask users to copy-paste from rendered chat (no copy button). For copyable content: **fenced code block** (one block, full content, no preamble scrolling) or `SendUserFile`. File/PDF/Gamma is an addition on request, never instead of the code block.
@@ -231,6 +286,17 @@ When gated on HIC approval (Rule 13 blogs, document rewrites, customer-facing ar
 - **No false provenance:** if you didn't change it, don't claim it.
 - **Thesis files:** require `--force-thesis` override for structural edits.
 - **Checker:** `scripts/evidence-audit.mjs <paths…>` before commit.
+
+### Tool Git Identity Rule
+
+Every commit shows which tool made it (HIC 27.09.2026). Git author and committer:
+
+- **Name:** `Risto Anton Päärni (<tool>)` · **Email:** `<tool>@lifetime.fi` — `<tool>` is `copilot`, `opencode`, `cursor`, `claude`, …
+- **Human commits** (no tool): `Risto Anton Päärni <risto.paarni@lifetime.fi>`, the global git config.
+- **Mechanism:** set `GIT_AUTHOR_*` / `GIT_COMMITTER_*` when the tool starts (shell wrapper in `~/.bashrc` on DGX), never a repo-local `user.name` / `user.email`. A repo-local identity overrides everyone; the 2026-08-25 test-fixture leak signed 118+ commits as `Unit Fixture <dev@lifetime.fi>` this way.
+- **Cloud agents** that set their own identity (Claude Code on the web: `noreply@anthropic.com`) keep it; the tool is still identifiable.
+- **Check:** `git log -1 --format='%an <%ae>'` after the first commit of a session. `git config --local --get user.name` must print nothing.
+- Never rewrite history to fix past authorship.
 
 ---
 
@@ -297,6 +363,25 @@ Repeating judgment work becomes a skill:
 Skipped steps → `N/A — <reason>` in field note (Rule 12, Fail Loud).
 
 **OpenCode async timing:** HIC reviews queued outcomes at `/retro`, `/learn`, or on-demand weekly. OpenCode continues; no per-session sync gate.
+
+---
+
+### Market Signal → Sales Pipeline Rule
+
+**Every market signal is dual-routed, not thesis-only.** A signal (conference session, competitor move, regulatory shift, industry report) that is scientifically noteworthy AND has commercial bearing on a DWS IQ product must be logged in **both** places in the same pass — never PhD-only by default.
+
+1. **Score at intake.** Every signal gets a 1–5 star **Sales Opportunity Score**: does it name a buyer pain, a budget line, a buyer persona/segment, or a competitive wedge for an existing DWS IQ product (Firehorse, KYA+I, LWM, token/human/edge-control-room capital, Ops Manager)? No product tie → 0 stars, PhD-only, skip sales routing.
+2. **Dual-route ≥1 star.** Any signal scoring 1★ or higher gets:
+   - **PhD thesis** — `docs/PHD_FIREHORSE_EN/FI.md` §14.x market-signal section (Additive/GREEN, four-file lockstep per Thesis Rule), scientific framing, no sprint detail.
+   - **Sales pipeline** — one row in `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md` (or successor CRM handoff per `docs/SEO_CRM_HANDOFF_SCHEMA.md`): star score, target product, buyer segment, next outreach action.
+3. **Star scale:**
+   - ★☆☆☆☆ — thematic adjacency only, no near-term buyer.
+   - ★★☆☆☆ — plausible segment fit, no named account/trigger event.
+   - ★★★☆☆ — clear buyer persona + budget line, no active trigger.
+   - ★★★★☆ — active trigger event (deadline, incident, competitor loss) naming a segment we can reach this quarter.
+   - ★★★★★ — named account or warm channel + trigger event + product fit confirmed — ready for `/investor-outreach`-style pipeline entry or direct outbound this week.
+4. **No thesis-only parking for commercial signals.** A signal filed to PhD §14.x with an unscored or skipped sales pass is a Rule 12 (Fail Loud) violation — mark `Sales Score: N/A — <reason>` explicitly if genuinely non-commercial (e.g., pure regulatory-philosophy signal).
+5. **Review cadence:** sales pipeline file reviewed at the same cadence as `/retro` and PhD thesis lockstep updates — not a separate process.
 
 ---
 
@@ -428,9 +513,16 @@ Use these for full detail when needed:
 
 ## Version History
 
-| Version | Date       | Changes                                                                                                                                                                                            | Author      |
-| ------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                            | Cursor      |
-| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                        | Cursor      |
-| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning | Claude Code |
-| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                   | HIC         |
+| Version | Date       | Changes                                                                                                                                                                                                           | Author             |
+| ------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 1.10    | 2026-09-28 | HIC: Proton inbound catch-all line under Sender Identity — any address on our domains is a valid receive address; outbound table unchanged.                                                                       | Claude Code        |
+| 1.9     | 2026-09-28 | HIC: Coding Delegation Rule — paid sessions write task specs (`scripts/loop-task.mjs`); `opencode-loop` on the DGX does multi-file coding; `opencode-all` for multi-day catch-up.                                 | Claude Code        |
+| 1.8     | 2026-09-28 | Done Gate Rule: completion claims require `scripts/agent-done-gate.mjs --full` output; per-task specs in `.claude/done/<branch>.json`; OpenCode plugin re-prompts on FAIL.                                        | Claude Code        |
+| 1.7     | 2026-09-27 | Resolver — Ontology → Admin Documentation: look up a term (`npm run ontology:lookup`) before asserting how a system works. Salvaged from closed PR #2075 (written 24.09.2026); pending HIC approval at PR review. | Claude Code        |
+| 1.6     | 2026-09-27 | HIC: Market Signal → Sales Pipeline Rule — commercially relevant signals go to PhD §14.x and `docs/sales/SALES_OPPORTUNITIES_PIPELINE.md`, star-scored 1–5.                                                       | Claude Code        |
+| 1.5     | 2026-09-27 | HIC: Tool Git Identity rule — `<tool>@lifetime.fi`, set per tool at launch; no repo-local identity. Moved misplaced 1.4 row here.                                                                                 | Claude Code        |
+| 1.4     | 2026-09-27 | Corrected the DWS Cost Policy Standard reference to its canonical `docs/` path.                                                                                                                                   | GitHub Copilot CLI |
+| 1.3     | 2026-09-19 | HIC: retire `***` / Pandoc-from-markdown PDF. VAH uses `---`. HIC prints PDF from HTML.                                                                                                                           | Cursor             |
+| 1.2     | 2026-09-19 | Cursor/Cloud: standards resolver is mandatory file Reads; `dws-standards-always.mdc` is the harness Cursor actually injects                                                                                       | Cursor             |
+| 1.1     | 2026-09-07 | Extracted long specs (Discipline, Standards Routing) to separate indexed files; added multi-tool acknowledgment and system file ecosystem cross-references; added DWS Document Standard versioning                | Claude Code        |
+| 1.0     | Prior      | Original consolidated rules file                                                                                                                                                                                  | HIC                |

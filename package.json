@@ -8,6 +8,7 @@
     "node": ">=24.17.0"
   },
   "scripts": {
+    "blog:tracked": "node scripts/blog/check-tracked-sources.mjs",
     "docker:build:carbon-api": "docker build -t dws6-carbon-api:latest ./mcp-servers/supabase",
     "docker:build:supabase-official-mcp": "docker build -t dws6-supabase-official-mcp:latest ./mcp-servers/supabase-official",
     "db:migrate:042": "tsx scripts/apply-migration-042.ts",
@@ -22,6 +23,13 @@
     "train:status": "bash scripts/deploy-acer-training.sh status",
     "train:smoke": "python3 -m pytest infrastructure/llm-training/tests -v",
     "diag:ses": "node --import tsx scripts/test-ses-smtp.ts",
+    "learn:archive-index": "node scripts/build-learn-archive-index.mjs",
+    "learn:check-links": "node scripts/check-learn-links.mjs",
+    "learn:fix-links": "node scripts/fix-learn-links.mjs",
+    "ontology:index": "node scripts/ontology-admin-index.mjs build",
+    "ontology:lookup": "node scripts/ontology-admin-index.mjs lookup",
+    "aegis:pilot": "node --import tsx scripts/aegis-pilot.ts",
+    "aegis:pilot:rehearse-isolated": "bash scripts/aegis-pilot-isolated-rehearsal.sh",
     "morning:briefing": "node --import tsx scripts/send-morning-brief-v2.ts",
     "morning:briefing:force": "node --import tsx scripts/send-morning-brief-v2.ts --force",
     "ted:fetch": "node --import tsx scripts/ted-fetch.ts",
@@ -33,6 +41,7 @@
     "funding:rss": "node --import tsx scripts/eu-funding-rss.ts",
     "revolut:generate-links": "node --import tsx scripts/generate-revolut-links.ts",
     "diag:supabase-rest": "tsx scripts/test-supabase-rest.ts",
+    "preflight:product-orders": "tsx scripts/preflight-product-orders.ts",
     "vault:push": "tsx scripts/provision-secrets-aiven.ts",
     "vault:push:dry": "tsx scripts/provision-secrets-aiven.ts --dry-run",
     "db:push": "bash scripts/db_push.sh",
@@ -72,7 +81,11 @@
     "temporal:agent-question": "node --import tsx scripts/temporal-answer-agent-question.ts",
     "opencode:check": "node .claude/hooks/opencode-check.js",
     "opencode:status": "git -C opencode-all status --short 2>/dev/null || echo 'OpenCode not found'",
-    "opencode:update": "cd opencode-all && git pull origin dev && cd - && echo '✅ OpenCode updated'"
+    "opencode:update": "bash scripts/update-opencode-all.sh",
+    "diag:nemoclaw": "node scripts/verify-nemoclaw-runtime.mjs",
+    "build:learning-hub": "node scripts/build-learning-hub.mjs",
+    "validate:learning-hub": "node scripts/build-learning-hub.mjs --validate",
+    "check:live-versions": "node scripts/check-live-versions.mjs"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -105,17 +118,18 @@
     "luxon": "^3.7.2",
     "markdown-it": "^14.1.1",
     "node-cron": "^4.5.0",
-    "nodemailer": "^9.0.3",
+    "nodemailer": "^10.0.13",
     "pg": "^8.20.0",
     "pino": "^9.3.2",
     "pino-pretty": "^11.2.2",
     "playwright": "^1.62.1",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.4",
     "stripe": "^22.1.0",
     "zod": "^4.3.6"
   },
   "overrides": {
-    "undici": "7.29.0"
+    "undici": "7.30.0",
+    "qs": ">=6.16.0"
   },
   "devDependencies": {
     "@anthropic-ai/claude-code": "^2.1.258",
@@ -130,7 +144,6 @@
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^25.6.0",
     "@types/node-cron": "^3.0.11",
-    "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.15.6",
     "@types/supertest": "^6.0.3",
     "@vitest/coverage-v8": "^4.1.11",

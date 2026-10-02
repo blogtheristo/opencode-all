@@ -146,6 +146,17 @@
           <p class="muted">Legacy V9 interface for continuity.</p>
           <a class="btn" href="/dashboard/v9/">Open V9</a>
         </div>
+        <div class="card">
+          <h3>Learn</h3>
+          <p class="muted">
+            Daily learning dashboard, and a Markdown reader for docs on the road — opens a .md from
+            your phone and renders it, no signal needed.
+          </p>
+          <a class="btn" href="/dashboard/learn/">Open Learn</a>
+          <a class="btn" href="/dashboard/learn/md-viewer.html" style="margin-left: 8px"
+            >📄 Read Markdown</a
+          >
+        </div>
       </div>
 
       <div class="card">
@@ -223,7 +234,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module">
-      import { getCurrentUser, getUserRole } from "../shared/js/supabase-client.js";
+      import { getBackofficeAccess, getCurrentUser } from "../shared/js/supabase-client.js";
       import { logout, handleOAuthCallback } from "../shared/js/auth-handler.js";
 
       const DELIVERY_STATUS_FALLBACK = {
@@ -450,15 +461,18 @@
         document.getElementById("authLine").textContent = "Not logged in. Redirecting to login...";
         setTimeout(() => (window.location.href = "/login/"), 1200);
       } else {
-        const role = await getUserRole();
-        document.getElementById("authLine").textContent =
-          `Logged in as ${user.email} | role: ${role || "unassigned"}`;
-        if (role === "backoffice_admin" || role === "hub_admin") {
-          document.getElementById("adminToolsCard").classList.remove("hidden");
-          document.getElementById("containerCard").classList.remove("hidden");
-          document.getElementById("briefAdminActions").classList.remove("hidden");
-          await loadContainerStatus();
-          document.getElementById("sendBriefBtn").addEventListener("click", sendMorningBriefNow);
+        document.getElementById("authLine").textContent = `Logged in as ${user.email}`;
+        try {
+          const access = await getBackofficeAccess();
+          if (access.isAdmin) {
+            document.getElementById("adminToolsCard").classList.remove("hidden");
+            document.getElementById("containerCard").classList.remove("hidden");
+            document.getElementById("briefAdminActions").classList.remove("hidden");
+            await loadContainerStatus();
+            document.getElementById("sendBriefBtn").addEventListener("click", sendMorningBriefNow);
+          }
+        } catch (error) {
+          console.error("Dashboard access check failed:", error);
         }
       }
 

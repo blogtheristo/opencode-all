@@ -318,18 +318,18 @@ def render(blocks,out,version,classification,title_display):
 
 # (source, kind, WPnum, slug, display-title, version-template{cls}, classification)
 JOBS=[
-  ("Learn/sovereign-industrial-intelligence-whitepaper-v1.0.html","html",1,"Sovereign_Industrial_Intelligence",
+  ("Learn/sovereign-industrial-intelligence-whitepaper-v1.2.html","html",1,"Sovereign_Industrial_Intelligence",
    "European Sovereign Industrial Intelligence",
-   "Whitepaper · Version 1.0 · 2026 · Lifetime Oy · Classification: {cls}","Confidential"),
-  ("Learn/KYA-IDV-CERT-Whitepaper-v1.0.html","html",2,"KYA_IDV_CERT",
-   "KYA Standard — IDV Provider Certification",
-   "Whitepaper · KYA-IDV-CERT · Version 1.0 · 2026 · Lifetime Oy · Classification: {cls}","Confidential"),
-  ("Learn/2026-03-17-shufti-kya-whitepaper_v1.0.html","html",3,"Shufti_KYA",
-   "KYA Standard — Shufti IDV Certification",
-   "Whitepaper · Version 1.0 · 2026-03-17 · Lifetime Oy · Classification: {cls}","Confidential"),
+   "Whitepaper · Version 1.2 · 30.09.2026 · Lifetime Oy · Classification: {cls}","Confidential"),
+  ("Learn/KYA-IDV-CERT-Whitepaper-v1.2.html","html",2,"KYA_IDV_CERT",
+   "KYA Specification — IDV Provider Certification",
+   "Whitepaper v1.2 · Specification KYA-IDV-CERT v1.0 · 30.09.2026 · Lifetime Oy · Classification: {cls}","Confidential"),
+  ("Learn/2026-03-17-shufti-kya-whitepaper_v1.2.html","html",3,"Shufti_KYA",
+   "KYA Specification — Shufti IDV Certification",
+   "Whitepaper · Version 1.2 · 30.09.2026 · Lifetime Oy · Classification: {cls}","Confidential"),
   ("docs/lifetime-fleet/WHITEPAPER_COMPLIANT_BY_CONSTRUCTION.md","md",4,"Compliant_by_Construction",
    "Compliant by Construction",
-   "Whitepaper · Version 1.0 · 2026-06-24 · Lifetime Oy / DWS IQ 6 · Classification: {cls}","Public"),
+   "Whitepaper · Version 1.1 · 2026-07-10 · Lifetime Oy / DWS IQ 6 · Classification: {cls}","Public"),
 ]
 
 def main():

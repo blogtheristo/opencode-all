@@ -1,0 +1,19 @@
+{
+  "task": "Aegis pilot: nightly isolated rehearsal on DGX (G6/G7)",
+  "prompt": "Add scripts/daily/aegis-pilot-rehearsal.sh (runs once a day via infrastructure/dgx-spark/day-runner.sh — read scripts/daily/README.md and one existing daily script first). It runs scripts/aegis-pilot-isolated-rehearsal.sh against a fresh mktemp state dir, captures the JSON verdict, and appends one line {date, outcome, conditions, commit} to logs/aegis-pilot-rehearsal.jsonl (create logs/ if missing; logs/ is gitignored — check). Exit non-zero and print 'AEGIS REHEARSAL FAILED' unless outcome is PASS. Must support --dry-run that prints the planned commands and exits 0 without running them. Header per CLAUDE.md Code Evidence Layer; set -euo pipefail; quote variables; clean only its own mktemp dirs. Add a short 'Nightly rehearsal' note to docs/runbooks/AEGIS_PILOT_RUNBOOK.md §4. Do not touch package.json or package-lock.json; commit and push.",
+  "base": "main",
+  "order": 24,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "nightly script exists and dry-runs",
+      "run": "test -x scripts/daily/aegis-pilot-rehearsal.sh && bash -n scripts/daily/aegis-pilot-rehearsal.sh && bash scripts/daily/aegis-pilot-rehearsal.sh --dry-run | grep -q aegis-pilot-isolated-rehearsal"
+    },
+    {
+      "name": "nightly run records a PASS",
+      "run": "command -v unshare >/dev/null || exit 0; bash scripts/daily/aegis-pilot-rehearsal.sh >/dev/null 2>&1 && tail -1 logs/aegis-pilot-rehearsal.jsonl | grep -q '\"outcome\": *\"PASS\"'"
+    }
+  ],
+  "enabled": false,
+  "disabledReason": "merged to main (HIC audit 30.09.2026) — rerunning opened duplicate PRs #2262/#2264/#2265/#2215/#2259"
+}

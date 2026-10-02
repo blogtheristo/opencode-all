@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "status": "proposed-not-enforced",
+  "profiles": [
+    {
+      "id": "connect",
+      "modelRoute": "policy-routed",
+      "cloudFallback": true,
+      "externalControlPlane": "optional",
+      "network": { "mode": "allowlist", "allowedDomains": ["graph.microsoft.com"] },
+      "skills": { "installation": "signed-allowlist" },
+      "audit": { "article12": "required", "failClosed": true }
+    },
+    {
+      "id": "sovereign",
+      "modelRoute": "local-sovereign",
+      "cloudFallback": false,
+      "externalControlPlane": "forbidden",
+      "network": { "mode": "allowlist", "allowedDomains": [] },
+      "skills": { "installation": "signed-allowlist" },
+      "audit": { "article12": "required", "failClosed": true }
+    },
+    {
+      "id": "aegis",
+      "modelRoute": "local-sovereign",
+      "cloudFallback": false,
+      "externalControlPlane": "forbidden",
+      "network": { "mode": "deny-all", "allowedDomains": [] },
+      "skills": { "installation": "disabled" },
+      "audit": { "article12": "required", "failClosed": true }
+    }
+  ]
+}

@@ -140,7 +140,7 @@ Click **"Go to Mission Control"** (Learn Dashboard sidebar button).
 
 In Mission Control:
 
-- Hand anonymized items to **Grok** (Cursor/Windows 11)
+- Hand anonymized items to the **daily-ops bot** (VS Code + Copilot Chat / Claude Max on Win11 — not Cursor)
 - Hand raw PII items to **OpenCode** (EU-resident processor)
 - Queue complex work for **async processing** (overnight agents)
 
@@ -185,7 +185,7 @@ Any new PRIORITY 1 arrived during morning? Learn Dashboard auto-refreshes — ch
 2. **Go to Mission Control** (click button)
 
 3. **Triage each item:**
-   - Item A: Anonymized bid context → **Hand to Grok**
+   - Item A: Anonymized bid context → **Hand to daily-ops bot** (Mission Control may still label this "Hand to Grok")
    - Item B: Raw contract with customer data → **Open in OpenCode**
 
 4. **See queue status update:**
@@ -392,7 +392,7 @@ A: Not yet. The color coding comes from Google Calendar tags, which we plan to s
 A: The Learn Dashboard will still show it (even if time has passed). Review it in Mission Control and note what happened in `.claude/handoffs/` for the learning outcome.
 
 **Q: Can Grok see Google Calendar?**
-A: No. Grok runs in Cursor (Windows) and doesn't have API access to your Google Calendar. Only OpenCode (local) and Learn Dashboard (this browser) see it.
+A: No. The Win11 daily-ops bot (VS Code + Copilot Chat / Claude Max) does not have API access to your Google Calendar. Only OpenCode (local/DGX) and Learn Dashboard (this browser) see it. Cursor Pro was cancelled 28.09.2026.
 
 **Q: How do I export queue results?**
 A: Results are in `.claude/handoffs/opencode-batch/*.md` files. Read them directly or copy to a report.

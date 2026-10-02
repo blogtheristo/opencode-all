@@ -1,0 +1,17 @@
+{
+  "task": "Aegis Pilot decision-authority record: who held authority and what followed; restored error-path cleanup in the acceptance run",
+  "checks": [
+    {
+      "name": "authority suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-authority.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "pilot suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "isolated rehearsal record carries the authority chain with a proven stop",
+      "run": "command -v unshare >/dev/null || { echo 'SKIP: unshare missing'; exit 0; }; d=$(mktemp -d); bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/state\" >/dev/null 2>&1; r=$(ls -t \"$d\"/state/acceptance/*.json | head -1); node -e \"const a=require(process.argv[1]).record.authority; const s=a.find(x=>x.stop); process.exit(a.length===2 && s && s.afterStop.agentWorkEvents===0 && s.afterStop.terminated && a[0].granted.scopeDigest ? 0 : 1)\" \"$r\""
+    }
+  ]
+}

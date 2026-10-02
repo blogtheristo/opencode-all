@@ -1835,11 +1835,11 @@ SELECT create_hypertable('events', 'time');
 <strong>V1.0 Release Target:</strong> 23 February 2026
 <strong>Languages:</strong> English, Suomi
 <strong>Related Documents:</strong>
-<li><a href="../fi/V3Thesis_FI.md">Finnish Version</a></li>
-<li><a href="../../../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md">Agent Signal Instructions</a></li>
+<li><a href="V3Thesis_FI.md">Finnish Version</a></li>
+<li><a href="../.workflows/agents/AGENT_SIGNAL_INSTRUCTIONS.md">Agent Signal Instructions</a></li>
 <li><a href="../../../AgentFoundry/AGENT_FOUNDRY_ARCHITECTURE_STANDARD.md">AgentFoundry Architecture</a></li>
-<li><a href="../../../product-catalog/LWM/training-manual.md">LWM Training Manual</a></li>
-<li><a href="../../../Admin/ADMIN_MANUAL.md">System Administrator Manual</a></li>
+<li><a href="../product-catalog/LWM/training-manual.md">LWM Training Manual</a></li>
+<li><a href="../Admin/ADMIN_MANUAL.md">System Administrator Manual</a></li>
 <h3>10.26 Cryptographic Review of the Verified-Done Attestation Signing Path: Two Findings, and Falsification as a Test-Quality Gate</h3>
 <strong>Implementation under review.</strong> The verified-done attestation signing path (KYA §14.7.1) was implemented as `src/identity/attestation-signing.ts`, delivering EdDSA detached-JWS proofs over W3C Verifiable Credential attestations, with an accompanying store, issuance orchestration and evidence-chain writer. The suite carried 47 passing tests, a clean `tsc --noEmit`, and clean formatting. A deliberate dependency decision is recorded: <strong>Ed25519 via Node's built-in `node:crypto` rather than the `jose` library</strong>, on the reasoning that a product whose value proposition is a narrow trusted computing base should not widen that base with a third-party package in order to sign its own sovereignty claims.
 <strong>Finding F1 (HIGH) — the signature did not cover the proof options.</strong> The signing-bytes function stripped the entire `proof` block from the credential before signing. Consequently `proof.created`, `proof.verificationMethod`, `proof.proofPurpose` and `proof.type` could each be modified after signing and the credential would still verify. Two consequences follow directly:

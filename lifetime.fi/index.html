@@ -3,1491 +3,257 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lifetime Oy — The Compliance Outcome Company</title>
-    <meta
-      name="description"
-      content="Lifetime Oy delivers compliance outcomes through provably controlled automation. CBAM, CSRD, ETS, NIS2 — fully inspectable, governed by you, verified by audit. 25 EU industries."
-    />
+    <title>One Lifetime — AI learns. An understanding human bears responsibility for the decision.</title>
+    <meta name="description" content="AI learns. An understanding human bears responsibility for the decision. We build systems in which observations, learning, decisions and their effects remain traceable years later. Lifetime Oy, Espoo, Finland." />
     <meta name="author" content="Lifetime Oy" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Lifetime Oy — The Compliance Outcome Company" />
-    <meta
-      property="og:description"
-      content="Compliance outcomes through provably controlled automation. Inspectable reasoning. Your control. External audit."
-    />
+    <meta name="theme-color" content="#0f172a" />
+    <meta property="og:title" content="One Lifetime — AI learns. An understanding human bears responsibility for the decision." />
+    <meta property="og:description" content="Technology changes. Models change. Responsibility stays with people. Why this matters, where the world is heading and how companies take part in the change." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lifetime.fi/" />
-    <meta property="og:image" content="https://dws10.com/DWS_IQ2026.png" />
-    <meta property="og:site_name" content="Lifetime Oy" />
+    <meta property="og:image" content="https://lifetime.fi/static/images/OneLifetime_Logo_Final.png" />
+    <meta property="og:site_name" content="One Lifetime" />
     <link rel="canonical" href="https://lifetime.fi/" />
     <link rel="alternate" hreflang="en" href="https://lifetime.fi/" />
     <link rel="alternate" hreflang="fi" href="https://lifetime.fi/fi/" />
     <link rel="alternate" hreflang="sv" href="https://lifetime.fi/sv/" />
     <link rel="alternate" hreflang="de" href="https://lifetime.fi/de/" />
     <link rel="alternate" hreflang="fr" href="https://lifetime.fi/fr/" />
-    <link rel="icon" type="image/png" href="https://dws10.com/DWS_IQ2026.png" />
-    <style>
-      :root {
-        --bg-primary: #0f172a;
-        --bg-surface: rgba(30, 41, 59, 0.7);
-        --border-subtle: rgba(255, 255, 255, 0.1);
-        --text-primary: #e2e8f0;
-        --text-secondary: #94a3b8;
-        --text-accent: #60a5fa;
-        --color-gold: #b8860b;
-        --color-gold-light: #d4a843;
-        --radius-md: 8px;
-        --radius-lg: 12px;
-        --radius-xl: 16px;
-        --radius-full: 9999px;
-        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
-        color: var(--text-primary);
-        background: var(--bg-primary);
-        min-height: 100vh;
-        line-height: 1.7;
-      }
-
-      /* Corporate nav */
-      .corp-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 100;
-        background: rgba(15, 23, 42, 0.95);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border-subtle);
-      }
-
-      .corp-nav-inner {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-        height: 64px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      .corp-logo {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        text-decoration: none;
-        letter-spacing: -0.01em;
-      }
-
-      .corp-logo span {
-        color: var(--color-gold);
-      }
-
-      .corp-links {
-        display: flex;
-        gap: 32px;
-        list-style: none;
-      }
-
-      .corp-links a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: 500;
-        transition: color var(--transition-base);
-      }
-
-      .corp-links a:hover {
-        color: var(--text-primary);
-      }
-      .corp-links a.active {
-        color: var(--color-gold-light);
-      }
-
-      @media (max-width: 768px) {
-        .corp-links {
-          gap: 16px;
-        }
-        .corp-links a {
-          font-size: 0.8rem;
-        }
-      }
-
-      /* Hero */
-      .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        background: linear-gradient(165deg, #0f172a 0%, #1a1a2e 40%, #0f172a 100%);
-      }
-
-      .hero::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background:
-          radial-gradient(ellipse at 30% 60%, rgba(184, 134, 11, 0.08) 0%, transparent 60%),
-          radial-gradient(ellipse at 70% 40%, rgba(96, 165, 250, 0.04) 0%, transparent 50%);
-        pointer-events: none;
-      }
-
-      .hero-grid {
-        position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(184, 134, 11, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(184, 134, 11, 0.02) 1px, transparent 1px);
-        background-size: 80px 80px;
-      }
-
-      .hero-inner {
-        position: relative;
-        z-index: 1;
-        max-width: 800px;
-        padding: 120px 24px 80px;
-        text-align: center;
-      }
-
-      .hero-overline {
-        font-size: 0.8rem;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        color: var(--color-gold);
-        font-weight: 600;
-        margin-bottom: 24px;
-      }
-
-      .hero h1 {
-        font-size: clamp(2.8rem, 6vw, 4.5rem);
-        font-weight: 800;
-        line-height: 1.05;
-        margin-bottom: 12px;
-        letter-spacing: -0.03em;
-      }
-
-      .hero-accent {
-        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .hero-tagline {
-        font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-        color: var(--text-secondary);
-        max-width: 600px;
-        margin: 24px auto 40px;
-        line-height: 1.7;
-        font-weight: 400;
-      }
-
-      .hero-stats {
-        display: flex;
-        gap: 40px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-bottom: 48px;
-      }
-
-      .hero-stat {
-        text-align: center;
-      }
-
-      .hero-stat-value {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--color-gold-light);
-        display: block;
-      }
-
-      .hero-stat-label {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-weight: 500;
-      }
-
-      .hero-actions {
-        display: flex;
-        gap: 16px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .btn-gold {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 16px 36px;
-        background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
-        color: #0f172a;
-        font-size: 1rem;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: var(--radius-full);
-        box-shadow: 0 10px 30px rgba(184, 134, 11, 0.25);
-        transition: all var(--transition-base);
-      }
-
-      .btn-gold:hover {
-        box-shadow: 0 15px 40px rgba(184, 134, 11, 0.35);
-        transform: translateY(-2px);
-      }
-
-      .btn-outline {
-        display: inline-flex;
-        align-items: center;
-        padding: 16px 36px;
-        background: transparent;
-        color: var(--text-primary);
-        font-size: 1rem;
-        font-weight: 600;
-        text-decoration: none;
-        border: 1.5px solid rgba(255, 255, 255, 0.15);
-        border-radius: var(--radius-full);
-        transition: all var(--transition-base);
-      }
-
-      .btn-outline:hover {
-        border-color: rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.03);
-      }
-
-      /* Sections */
-      .section {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 100px 24px;
-      }
-
-      .section-divider {
-        border: none;
-        border-top: 1px solid var(--border-subtle);
-        margin: 0;
-      }
-
-      .section-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 2.5px;
-        color: var(--color-gold);
-        font-weight: 600;
-        margin-bottom: 12px;
-      }
-
-      .section-title {
-        font-size: clamp(1.6rem, 3vw, 2.2rem);
-        font-weight: 700;
-        color: var(--text-primary);
-        margin-bottom: 20px;
-        letter-spacing: -0.01em;
-      }
-
-      .section-body {
-        font-size: 1.05rem;
-        color: var(--text-secondary);
-        line-height: 1.8;
-        max-width: 700px;
-      }
-
-      .section-body strong {
-        color: var(--text-primary);
-      }
-
-      /* What we build */
-      .platform-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 24px;
-        margin-top: 48px;
-      }
-
-      @media (max-width: 768px) {
-        .platform-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .platform-card {
-        background: var(--bg-surface);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-lg);
-        padding: 36px 28px;
-        transition: all var(--transition-base);
-      }
-
-      .platform-card:hover {
-        border-color: rgba(184, 134, 11, 0.25);
-        transform: translateY(-3px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-      }
-
-      .platform-card .card-label {
-        font-size: 0.7rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        font-weight: 600;
-        margin-bottom: 12px;
-      }
-
-      .label-defence {
-        color: var(--color-gold-light);
-      }
-      .label-climate {
-        color: #4ade80;
-      }
-      .label-distribution {
-        color: var(--text-accent);
-      }
-
-      .platform-card h3 {
-        font-size: 1.15rem;
-        color: var(--text-primary);
-        margin-bottom: 12px;
-        font-weight: 700;
-      }
-
-      .platform-card p {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        line-height: 1.6;
-      }
-
-      .platform-card .card-link {
-        display: inline-block;
-        margin-top: 16px;
-        font-size: 0.85rem;
-        color: var(--color-gold);
-        text-decoration: none;
-        font-weight: 600;
-        transition: color var(--transition-base);
-      }
-
-      .platform-card .card-link:hover {
-        color: var(--color-gold-light);
-      }
-
-      /* Industry Agents */
-      .industry-agent-section {
-        background: linear-gradient(180deg, rgba(184, 134, 11, 0.04) 0%, transparent 100%);
-      }
-
-      .industry-agent-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-        margin-top: 32px;
-      }
-
-      .industry-agent-chip {
-        padding: 10px 16px;
-        background: var(--bg-surface);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-md);
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: var(--text-secondary);
-        text-align: center;
-        transition: all var(--transition-base);
-      }
-
-      .industry-agent-chip:hover {
-        border-color: rgba(184, 134, 11, 0.3);
-        color: var(--color-gold-light);
-      }
-
-      /* Architecture */
-      .arch-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        margin-top: 40px;
-      }
-
-      @media (max-width: 768px) {
-        .arch-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      .arch-card {
-        background: var(--bg-surface);
-        border: 1px solid var(--border-subtle);
-        border-top: 3px solid var(--color-gold);
-        border-radius: var(--radius-lg);
-        padding: 28px 20px;
-        text-align: center;
-      }
-
-      .arch-card h4 {
-        font-size: 1rem;
-        color: var(--color-gold-light);
-        margin-bottom: 6px;
-      }
-
-      .arch-card .arch-name {
-        font-size: 0.8rem;
-        color: var(--text-accent);
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-
-      .arch-card p {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        line-height: 1.5;
-      }
-
-      /* Sovereignty */
-      .sov-badges {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-        margin-top: 28px;
-      }
-
-      .sov-badge {
-        padding: 8px 16px;
-        background: rgba(184, 134, 11, 0.08);
-        border: 1px solid rgba(184, 134, 11, 0.2);
-        border-radius: var(--radius-md);
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--color-gold-light);
-      }
-
-      /* Maturity ladder */
-      .maturity-ladder {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-      }
-
-      .maturity-rung {
-        flex: 1 1 120px;
-        padding: 16px 12px;
-        background: rgba(15, 23, 42, 0.5);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-md);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-      }
-
-      .maturity-rung .rung-level {
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        color: var(--text-secondary);
-      }
-
-      .maturity-rung .rung-name {
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: var(--text-primary);
-      }
-
-      .maturity-rung.rung-active {
-        background: rgba(184, 134, 11, 0.12);
-        border-color: rgba(184, 134, 11, 0.4);
-      }
-
-      .maturity-rung.rung-active .rung-level {
-        color: var(--color-gold);
-      }
-
-      .maturity-rung.rung-active .rung-name {
-        color: var(--color-gold-light);
-      }
-
-      /* Invest section */
-      .invest-box {
-        background: var(--bg-surface);
-        border: 1px solid rgba(184, 134, 11, 0.2);
-        border-radius: var(--radius-xl);
-        padding: 48px 40px;
-        margin-top: 40px;
-      }
-
-      .invest-box h3 {
-        font-size: 1.3rem;
-        color: var(--color-gold-light);
-        margin-bottom: 16px;
-      }
-
-      .invest-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-top: 24px;
-      }
-
-      @media (max-width: 768px) {
-        .invest-grid {
-          grid-template-columns: 1fr;
-        }
-        .invest-box {
-          padding: 32px 24px;
-        }
-      }
-
-      .invest-tier {
-        text-align: center;
-        padding: 24px 16px;
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-lg);
-      }
-
-      .invest-tier h4 {
-        font-size: 0.9rem;
-        color: var(--text-primary);
-        margin-bottom: 4px;
-      }
-
-      .invest-tier .tier-price {
-        font-size: 1.4rem;
-        font-weight: 800;
-        color: var(--color-gold-light);
-        margin-bottom: 8px;
-      }
-
-      .invest-tier p {
-        font-size: 0.8rem;
-        color: var(--text-secondary);
-        line-height: 1.5;
-      }
-
-      /* Footer */
-      .corp-footer {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 0 24px 80px;
-      }
-
-      .footer-inner {
-        border-top: 1px solid var(--border-subtle);
-        padding-top: 40px;
-        display: grid;
-        grid-template-columns: 2fr 1fr 1fr;
-        gap: 40px;
-      }
-
-      @media (max-width: 768px) {
-        .footer-inner {
-          grid-template-columns: 1fr;
-          gap: 32px;
-        }
-      }
-
-      .footer-col h4 {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        color: var(--text-secondary);
-        margin-bottom: 16px;
-      }
-
-      .footer-col p {
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        line-height: 1.7;
-        margin-bottom: 8px;
-      }
-
-      .footer-col a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 0.85rem;
-        display: block;
-        padding: 4px 0;
-        transition: color var(--transition-base);
-      }
-
-      .footer-col a:hover {
-        color: var(--text-primary);
-      }
-
-      .footer-legal {
-        margin-top: 40px;
-        padding-top: 24px;
-        border-top: 1px solid var(--border-subtle);
-        font-size: 0.75rem;
-        color: #475569;
-      }
-    </style>
+    <link rel="alternate" hreflang="x-default" href="https://lifetime.fi/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/shared-assets/front-page.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Lifetime Oy",
+        "alternateName": "One Lifetime",
+        "url": "https://lifetime.fi/",
+        "slogan": "AI can learn. Only a human can bear responsibility for the decision.",
+        "telephone": "+358400319010",
+        "email": "risto.paarni@lifetime.fi",
+        "vatID": "FI07724079",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Laidunmaanraitti 2 A 25",
+          "postalCode": "02330",
+          "addressLocality": "Espoo",
+          "addressCountry": "FI"
+        },
+        "founder": { "@type": "Person", "name": "Risto Anton Päärni" }
+      }
+    </script>
   </head>
   <body>
-    <script src="/shared-assets/nav/ironclad-nav.js"></script>
+    <nav class="ol-nav" aria-label="One Lifetime">
+      <a class="ol-nav-brand" href="/">One Lifetime</a>
+      <div class="ol-nav-links">
+        <a href="#mita-uskomme">What we believe</a>
+        <a href="#mihin-maailma-on-menossa">Where the world is heading</a>
+        <a href="#toimialat">Industries</a>
+        <a href="#ihminen">The person</a>
+        <a href="https://onelifetime.world/blog/">Understand</a>
+        <a href="https://dws10.com/">Implement</a>
+      </div>
+      <div class="ol-nav-langs" aria-label="Language">
+        <a href="/" lang="en" aria-current="page">en</a>
+        <a href="/fi/" lang="fi">fi</a>
+        <a href="/sv/" lang="sv">sv</a>
+        <a href="/de/" lang="de">de</a>
+        <a href="/fr/" lang="fr">fr</a>
+      </div>
+    </nav>
     <script src="/shared-assets/vertical-lang-bar.js"></script>
 
-    <!-- Hero -->
-    <style>
-      .hero-subline {
-        font-size: clamp(1rem, 2vw, 1.25rem);
-        color: var(--text-secondary, #9fb3d1);
-        max-width: 640px;
-        margin: 18px auto 0;
-        line-height: 1.6;
-      }
-      .hero-subline strong {
-        color: var(--color-gold, #e8b64c);
-      }
-      .hero-stat-label small {
-        display: block;
-        font-size: 0.7em;
-        opacity: 0.75;
-        letter-spacing: 1px;
-        margin-top: 2px;
-      }
-      .control {
-        padding: 64px 24px;
-        max-width: 1080px;
-        margin: 0 auto;
-      }
-      .control-title {
-        text-align: center;
-        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-        font-weight: 800;
-        margin-bottom: 36px;
-      }
-      .control-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 20px;
-      }
-      .control-item {
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 14px;
-        padding: 22px;
-      }
-      .control-item strong {
-        display: block;
-        color: var(--color-gold, #e8b64c);
-        font-size: 1.05rem;
-        margin-bottom: 8px;
-      }
-      .control-item span {
-        color: var(--text-secondary, #9fb3d1);
-        font-size: 0.98rem;
-        line-height: 1.5;
-      }
-    </style>
+    <!-- Hero D (HIC decision v2.0, 24.09.2026) -->
     <section class="hero">
       <div class="hero-grid"></div>
       <div class="hero-inner">
-        <div class="hero-overline">Lifetime Oy &mdash; Espoo, Finland</div>
-        <h1>The <span class="hero-accent">Compliance</span><br />Outcome Company</h1>
+        <div class="hero-overline">One Lifetime — Lifetime Oy · The Agent Outcome Company · Espoo, Finland</div>
+        <h1>AI learns.<br /><span class="hero-accent">An understanding human bears responsibility for the decision.</span></h1>
         <p class="hero-tagline">
-          Measurable compliance outcomes for EU-regulated industries — CBAM, CSRD, ETS, NIS2.
-          <strong>Inspectable reasoning. Your control. Governed by audit.</strong>
+          We build systems in which observations, learning, decisions and their effects remain traceable years later.
+          <strong>Technology changes. Models change. Responsibility stays with people.</strong>
         </p>
-        <p class="hero-subline">
-          Controlled automation workflows that deliver audit-ready compliance. You see the data
-          analyzed, the logic applied, and the conclusion reached.
-          <strong>Outcomes made dependable by control.</strong>
+        <p class="hero-tagline">
+          <strong>Continuity creates security. Understanding creates competitiveness. Learning enables growth.</strong>
+          A sense of security does not come from promises. It comes from facts that stand the test of time. What a customer buys is a sense of security grounded in facts and evidence: to retain and develop understanding, to secure continuity, to stay competitive and to grow the business without a change of technology breaking the chain of learning or decision-making.
         </p>
-
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-value">25</span>
-            <span class="hero-stat-label">EU Industries</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-value">50</span>
-            <span class="hero-stat-label">Production Agents</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-value">3</span>
-            <span class="hero-stat-label">Platforms</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-value">3</span>
-            <span class="hero-stat-label"
-              >Deployment Tiers<br /><small>Cloud &middot; Own DGX &middot; Hybrid</small></span
-            >
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-value">0</span>
-            <span class="hero-stat-label">Aegis path CLOUD Act</span>
-          </div>
-        </div>
-
         <div class="hero-actions">
-          <a href="https://dws10.com/buy/" class="btn-gold">Explore Products</a>
-          <a href="https://dws10.com/fleet-admiral/" class="btn-outline">Invest</a>
+          <a href="#mita-uskomme" class="btn-gold">What we believe</a>
+          <a href="#kaksi-ovea" class="btn-outline">Want to understand more?</a>
         </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
-    <!-- Who's in control? — the agent trust layer (all live in production) -->
-    <section class="control">
-      <div class="control-inner">
-        <h2 class="control-title">
-          How Compliance Outcomes Get <span class="hero-accent">Delivered</span>
-        </h2>
-        <div class="control-grid">
-          <div class="control-item">
-            <strong>1. Outcome</strong
-            ><span
-              >CBAM exposure. CSRD materiality. ETS coverage. Measurable compliance result, not
-              opinions.</span
-            >
-          </div>
-          <div class="control-item">
-            <strong>2. Proof</strong
-            ><span
-              >Full reasoning transparency. You see the data analyzed, logic applied, conclusion
-              reached. Cryptographically signed audit trail.</span
-            >
-          </div>
-          <div class="control-item">
-            <strong>3. Mechanism</strong
-            ><span
-              >Controlled workflows (not agents). Bounded automation under your authority. Kill
-              switch. Revocable power. Instantly.</span
-            >
-          </div>
-          <div class="control-item">
-            <strong>4. Foundation</strong
-            ><span
-              >Governance proves outcomes are real. Article 55 incident reporting (72 hours).
-              External audit. Sovereignty. Verification, not trust.</span
-            >
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- Featured product: Claude Code Coaching -->
-    <section class="section">
-      <div class="section-label">New &middot; Featured</div>
-      <h2 class="section-title">Claude Code Coaching</h2>
-      <div class="section-body">
-        <p>
-          Disciplined agentic engineering for EU teams &mdash; a 1-day lecture, a 2-day workshop,
-          and optional client project work. EU-sovereign: your code and IP never leave the
-          jurisdiction. Cohorts run <strong>July&ndash;December 2026, Fridays</strong>, live over
-          Microsoft Teams. All prices VAT&nbsp;0%.
-        </p>
-      </div>
-      <div style="display: flex; gap: 32px; align-items: center; flex-wrap: wrap; margin-top: 24px">
-        <img
-          src="static/images/claude-code-coaching-hero.png"
-          alt="Claude Code Coaching &mdash; sovereign agentic engineering coaching, at a glance"
-          style="
-            flex: 0 0 280px;
-            max-width: 300px;
-            width: 100%;
-            height: auto;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 209, 102, 0.3);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-          "
-        />
-        <div style="flex: 1 1 280px">
-          <div class="hero-actions">
-            <a href="https://dws10.com/products/claude-code-coaching.html" class="btn-gold"
-              >Coaching (EN)</a
-            >
-            <a href="https://dws10.com/products/claude-code-coaching-fi.html" class="btn-outline"
-              >Valmennus (FI)</a
-            >
-          </div>
-          <p style="margin-top: 16px; opacity: 0.75; font-size: 0.95rem">
-            Also in Svenska, Deutsch &amp; Fran&ccedil;ais.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- What we build -->
-    <section class="section">
-      <div class="section-label">What We Build</div>
-      <h2 class="section-title">Three platforms. One mission.</h2>
-      <div class="section-body">
-        <p>
-          Every EU company with over 250 employees must comply with CSRD, CBAM, ETS, EU AI Act, and
-          NIS2. That is <strong>50,000+ companies by 2028</strong>. We built the factory that
-          produces their compliance outcomes &mdash; autonomous AI agents that observe, think, and
-          act.
-        </p>
-      </div>
-
+    <section class="section" id="mita-uskomme">
+      <div class="section-label">What we believe</div>
+      <h2 class="section-title">AI can observe change, analyse options and propose the next step. But responsibility for the decision belongs to people.</h2>
+      <div class="section-body"><p>Technology helps us understand the world better. People decide what is done in the world. Competitiveness does not come from a single technology. It comes from the ability to learn, retain understanding and make better decisions year after year. Each belief below is also a promise about how we work.</p></div>
       <div class="platform-grid">
         <div class="platform-card">
-          <div class="card-label label-defence">Defence &amp; Dual-Use</div>
-          <h3>DWS IQ Aegis</h3>
-          <p>
-            Dual-use AI platform for government agencies, military industry, and defence
-            manufacturing. 21 EU industries. Sovereignty monitoring, orbital intelligence (ICEYE
-            SAR), KYA agent governance. EU-only. Software-only.
-          </p>
-          <a href="https://dws10.com/dual-use/" class="card-link">Learn more &rarr;</a>
+          <h3>Technology must serve people.</h3>
+          <p>A tool is only good if, afterwards, people have more time for customers, family and thinking.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">Read why →</a>
         </div>
-
         <div class="platform-card">
-          <div class="card-label label-climate">Climate Compliance</div>
-          <h3>DWS IQ Climate Intelligence</h3>
-          <p>
-            A fleet of skilled agents automates EU climate compliance &mdash; ETS, CBAM, CSRD, ESRS,
-            carbon accounting. Deterministic scoring. Audit-ready outcomes. Replaces &euro;200k
-            consultant engagements.
-          </p>
-          <a href="https://dws10.com/buy/" class="card-link">Learn more &rarr;</a>
+          <h3>Decisions must rest on knowledge.</h3>
+          <p>And the knowledge must be visible: what was observed, what was learned, who decided and on what grounds.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">Read why →</a>
         </div>
-
         <div class="platform-card">
-          <div class="card-label label-distribution">ERP Distribution</div>
-          <h3>Firehorse V2</h3>
-          <p>
-            Omnichannel sales, report engine, content DMS. The distribution vehicle that puts
-            Skilled Agents into every connected ERP store &mdash; IFS, Visma, SAP, Monitor, Jeeves.
-          </p>
-          <a href="https://dws10.com/buy/" class="card-link">Learn more &rarr;</a>
+          <h3>Waste of resources can be reduced.</h3>
+          <p>Time, material, energy. Seeing waste is the first step; removing it is business.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">Read why →</a>
+        </div>
+        <div class="platform-card">
+          <h3>Companies can grow more sustainably.</h3>
+          <p>Growth that does not consume people or nature is the only growth that will last the next decade.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">Read why →</a>
+        </div>
+        <div class="platform-card">
+          <h3>The effects of climate change can be curbed with technology.</h3>
+          <p>We have one life and one living planet. The company of the future is part of the solution, not the problem.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">Read why →</a>
         </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
-    <!-- Agents · Loops · Workflows -->
-    <section class="section" id="agents-loops-workflows">
-      <div class="section-label">The AI-Native Stack</div>
-      <h2 class="section-title">Agents. Loops. Workflows.</h2>
-      <div class="section-body">
-        <p>
-          Three layers. All live. The foundation is 50 production Skilled Agents — each extending
-          BaseAgent, emitting a ledger-native output contract (audit trail, regulatory artifact,
-          lineage). On top: self-correcting Loops and multi-agent Workflows that chain them into
-          outcomes.
-        </p>
-      </div>
-
+    <section class="section" id="mihin-maailma-on-menossa">
+      <div class="section-label">Where the world is heading</div>
+      <h2 class="section-title">Models change. Technology changes. Systems evolve. But the chain of observation, learning and decision must endure.</h2>
+      <div class="section-body"><p>AI can learn. People can learn. The best results come when both learn and understand why decisions are made. Five directions we follow and write about.</p></div>
       <div class="platform-grid">
         <div class="platform-card">
-          <div class="card-label label-defence">Foundation</div>
-          <h3>Agents</h3>
-          <p>
-            50 production Skilled Agents, live. Orchestrators (Atlas, Athena, Apollo) coordinate
-            Industrial Specialist Agents per vertical. BaseAgent architecture. Ledger-native output
-            on every execution.
-          </p>
+          <h3>One planet, one set of accounts</h3>
+          <p>Companies are beginning to measure their environmental impact as precisely as their financial result. Impact data is the new financial data.</p>
         </div>
-
         <div class="platform-card">
-          <div class="card-label label-climate">Shipped June 2026</div>
-          <h3>Loops</h3>
-          <p>
-            Maker&ndash;Checker cycles. Disk-persisted state, budget gate, safety gate, resumable. A
-            Skilled Agent proposes; a second validates; the loop continues until the outcome is
-            correct or the budget stops it.
-          </p>
+          <h3>Knowledge is the new carrying capacity</h3>
+          <p>A company whose knowledge is under control and whose decisions can be traced withstands changes in which others lose their bearings.</p>
         </div>
-
         <div class="platform-card">
-          <div class="card-label label-distribution">Orchestration</div>
-          <h3>Workflows</h3>
-          <p>
-            Multi-agent orchestration via the <code>/workflow</code> skill. Fan-out, sequential, and
-            reflection patterns. MCP Hub integration. Compliance assessments, Smart Factory
-            pipelines, and KYA governance chains &mdash; all live.
-          </p>
+          <h3>Automation gives time back to people</h3>
+          <p>Repetitive steps disappear from the working day. People keep what only people can do: the customer, judgement, responsibility.</p>
         </div>
-      </div>
-
-      <div style="margin-top: 32px; text-align: center">
-        <a href="/agents-loops-workflows/" class="btn-gold">Read the milestone update &rarr;</a>
-        &nbsp;&nbsp;
-        <a href="/agentit-silmukat-tyonkulut/" class="btn-outline">Lue suomeksi &rarr;</a>
-        &nbsp;&nbsp;
-        <a href="/laskuri/" class="btn-outline">Keskeytyslaskuri &rarr;</a>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- Industry Agents -->
-    <section class="section industry-agent-section">
-      <div class="section-label">Industry Agents</div>
-      <h2 class="section-title">One Industrial Specialist Agent per industry.</h2>
-      <div class="section-body">
-        <p>
-          Industrial Specialist Agents are industry-specific Skilled Agents &mdash; the specialists
-          of each vertical. Each one knows the regulations, emission factors, sector benchmarks, and
-          reporting requirements for its industry. They don't assist. They
-          <strong>deliver outcomes</strong>. The platform serves 25 EU-regulated industries: 20 with
-          a dedicated Industrial Specialist Agent, and 5 served at platform level.
-        </p>
-      </div>
-
-      <div class="industry-agent-grid">
-        <div class="industry-agent-chip">Dual-Use &amp; Defence</div>
-        <div class="industry-agent-chip">Construction</div>
-        <div class="industry-agent-chip">Energy</div>
-        <div class="industry-agent-chip">Iron &amp; Steel</div>
-        <div class="industry-agent-chip">Cement &amp; Lime</div>
-        <div class="industry-agent-chip">Chemicals</div>
-        <div class="industry-agent-chip">Aviation</div>
-        <div class="industry-agent-chip">Maritime</div>
-        <div class="industry-agent-chip">Road Transport</div>
-        <div class="industry-agent-chip">Automotive</div>
-        <div class="industry-agent-chip">Agriculture</div>
-        <div class="industry-agent-chip">Textiles</div>
-        <div class="industry-agent-chip">Mining</div>
-        <div class="industry-agent-chip">Food &amp; Beverage</div>
-        <div class="industry-agent-chip">Pulp &amp; Paper</div>
-        <div class="industry-agent-chip">Real Estate</div>
-        <div class="industry-agent-chip">Waste &amp; Recycling</div>
-        <div class="industry-agent-chip">Aluminium</div>
-        <div class="industry-agent-chip">Petroleum Refining</div>
-        <div class="industry-agent-chip">Glass &amp; Ceramics</div>
-      </div>
-
-      <div style="margin-top: 20px">
-        <p
-          style="
-            font-size: 0.8rem;
-            color: var(--text-muted, rgba(226, 232, 240, 0.5));
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-weight: 600;
-          "
-        >
-          Platform-served (5) — no dedicated specialist agent
-        </p>
-        <div class="industry-agent-grid" style="opacity: 0.55">
-          <div class="industry-agent-chip">Manufacturing (cross-sector)</div>
-          <div class="industry-agent-chip">Healthcare</div>
-          <div class="industry-agent-chip">Financial Services</div>
-          <div class="industry-agent-chip">Public Sector</div>
-          <div class="industry-agent-chip">Data Centres</div>
+        <div class="platform-card">
+          <h3>AI and the future of expert work</h3>
+          <p>The expert's value shifts from producing answers to understanding them and answering for them.</p>
+        </div>
+        <div class="platform-card">
+          <h3>The Finnish company as part of the solution</h3>
+          <p>A small country where trust is infrastructure can show what responsible and competitive digitalisation looks like.</p>
         </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
-    <!-- Architecture -->
-    <section class="section">
-      <div class="section-label">Architecture</div>
-      <h2 class="section-title">Brain &middot; Memory &middot; Body &middot; Hands</h2>
-      <div class="section-body">
-        <p>
-          Four layers. The Brain orchestrates 50 production Skilled Agents. Memory holds the EU
-          regulatory model. Body delivers through Firehorse. Hands execute in the physical world.
-        </p>
-      </div>
-
-      <div class="arch-grid">
-        <div class="arch-card">
-          <h4>Brain</h4>
-          <div class="arch-name">DWS IQ 6</div>
-          <p>
-            Multi-agent orchestration via MCP. 50 production Skilled Agents running concurrently.
-          </p>
+    <section class="section" id="toimialat">
+      <div class="section-label">How this shows in practice</div>
+      <h2 class="section-title">What changes and why it matters.</h2>
+      <div class="platform-grid">
+        <div class="platform-card">
+          <h3>Construction</h3>
+          <p>Projects move faster, documentation stays current and management sees the situation without extra reporting. Construction does not buy reporting; it buys less waste.</p>
+          <a href="https://dws10.com/construction/" class="card-link">See how it is done →</a>
         </div>
-        <div class="arch-card">
-          <h4>Memory</h4>
-          <div class="arch-name">World Model</div>
-          <p>EU regulations, industry models, emission factors. The knowledge layer.</p>
+        <div class="platform-card">
+          <h3>Energy</h3>
+          <p>Production and use of energy become visible as decisions, not as after-the-fact reports. The transition is business, not an obligation.</p>
+          <a href="https://dws10.com/energy/" class="card-link">See how it is done →</a>
         </div>
-        <div class="arch-card">
-          <h4>Body</h4>
-          <div class="arch-name">Firehorse</div>
-          <p>Omnichannel sales, signed reports, automation, content DMS.</p>
+        <div class="platform-card">
+          <h3>Logistics</h3>
+          <p>Fleet in use, information flowing, and administration that does not grow with revenue.</p>
+          <a href="https://dws10.com/logistics/" class="card-link">See how it is done →</a>
         </div>
-        <div class="arch-card">
-          <h4>Hands</h4>
-          <div class="arch-name">Lifetime Fleet</div>
-          <p>IoT, edge AI, physical execution. NVIDIA Jetson. Specification phase.</p>
+        <div class="platform-card">
+          <h3>Industry</h3>
+          <p>Emissions and obligations are known and provable. Management steers production toward a smaller footprint, not toward reporting.</p>
+          <a href="https://dws10.com/manufacturing/" class="card-link">See how it is done →</a>
+        </div>
+        <div class="platform-card">
+          <h3>Online business</h3>
+          <p>The company is found when the customer searches. Content comes easily, and time goes to customers, not systems.</p>
+          <a href="https://dws10.com/" class="card-link">See how it is done →</a>
         </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
-    <!-- Sovereignty -->
-    <section class="section">
-      <div class="section-label">Sovereignty First</div>
-      <h2 class="section-title">Sovereignty is the primary segmentation axis &mdash; not the only one.</h2>
-      <div class="section-body">
-        <p>
-          The commercial core is a compliance outcome. Sensitive load goes on the sovereign Aegis / EU infra path.
-          Other load stays on the hyperscaler your contract and jurisdiction allow.
-          <strong>DWS IQ Connect produces signed, auditable results from both.</strong>
-          An EU region on a US parent is not the sovereign cut.
-          Lifetime Oy maps each function to an indicative nearest SEAL and ships the split.
-          We do not issue Commission SEAL evaluations.
-        </p>
-      </div>
-
-      <div class="sov-badges">
-        <span class="sov-badge">EU Data Residency (Finland)</span>
-        <span class="sov-badge">Aegis path: CLOUD Act-free</span>
-        <span class="sov-badge">EU AI Act Article 12</span>
-        <span class="sov-badge">NIS2 Aligned</span>
-        <span class="sov-badge">GDPR Native</span>
-        <span class="sov-badge">KYA Agent Governance</span>
+    <section class="section" id="kaksi-ovea">
+      <div class="section-label">Two doors</div>
+      <h2 class="section-title">Understand first. Then implement.</h2>
+      <div class="platform-grid">
+        <div class="platform-card">
+          <h3>Want to understand more?</h3>
+          <p>Lifetime Scope Journal explains in detail what this page says briefly: concepts, research, case studies and seminars in five languages.</p>
+          <a href="https://onelifetime.world/blog/" class="card-link">onelifetime.world &rarr;</a>
+        </div>
+        <div class="platform-card">
+          <h3>Want to implement the change?</h3>
+          <p>Solutions, industry-specific implementation and procurement live on their own site. That is where we talk about how this is done in practice and what it costs.</p>
+          <a href="https://dws10.com/" class="card-link">dws10.com &rarr;</a>
+        </div>
       </div>
     </section>
 
     <hr class="section-divider" />
 
-    <!-- Lifetime Consulting — Three Pillars -->
-    <section class="section" id="consulting">
-      <div class="section-label">Lifetime Consulting</div>
-      <h2 class="section-title">Capability, not headcount. Outcomes, not hours.</h2>
+    <section class="section" id="ihminen">
+      <div class="section-label">The person</div>
+      <h2 class="section-title">Risto Anton Päärni</h2>
       <div class="section-body">
+        <p>I have worked for more than twenty years with both large corporations and small companies, and seen how the same technologies can be brought, practically, into the hands of smaller businesses. My aim is not to sell technology but to solve business problems so that the solution holds even when the tools change.</p>
+        <p>One Lifetime exists because we have one life and one living planet. I believe a healthy person can live in balance with nature in a digital economy too, and that responsibility for what is done with what has been learned always belongs to a human being.</p>
         <p>
-          We don&rsquo;t sell staff. We bring <strong>capability and readiness for change</strong>
-          &mdash; and support when disruption hits. A fleet of skilled agent capabilities across 10
-          ontology classes, available immediately. No recruitment. No onboarding. No layoffs. Your
-          people stay &mdash; they get digital colleagues that eliminate routine and free thinking
-          for strategic work.
+          <strong>+358 400 319 010</strong> &middot; risto.paarni@lifetime.fi &middot;
+          <a href="https://wa.me/358400319010" class="card-link">WhatsApp &rarr;</a>
         </p>
-        <p style="margin-top: 16px">
-          We help you move sensitive workloads onto the sovereign Aegis/Infra path and keep other
-          workloads on the hyperscaler required by contract, risk and jurisdiction.
-          DWS IQ Connect produces KYA-compliant, signed, auditable outcomes from both.
-          The customer sets the minimum level; Lifetime implements a risk-based split onto
-          Aegis/Infra and onto Connect or a suitable hyperscaler.
-          Lifetime Oy maps each function to an indicative nearest SEAL and ships the split.
-          We do not issue Commission SEAL evaluations.
-        </p>
-      </div>
-
-      <div class="platform-grid" style="margin-top: 48px">
-        <!-- Pillar 1 -->
-        <div class="platform-card" style="border-top: 3px solid var(--color-gold)">
-          <div class="card-label label-defence">Pillar 1</div>
-          <h3>We train your team to use agent capabilities</h3>
-          <p>
-            Your team learns which agents to use for which tasks. Customised learning paths per role
-            &mdash; compliance teams get different training than IT teams. Hands-on exercises with
-            real data from day one. EU AI Act Article&nbsp;4 literacy included.
-          </p>
-          <ul
-            style="
-              margin-top: 12px;
-              padding-left: 16px;
-              font-size: 0.85rem;
-              color: var(--text-secondary);
-              line-height: 1.7;
-            "
-          >
-            <li>Role-based training paths (compliance, IT, operations, management)</li>
-            <li>
-              <strong style="color: var(--text-primary)">Claude Code Coaching</strong> &mdash; 1-day
-              lecture, 2-day workshop, embedded project work (&euro;1,900&ndash;&euro;7,500)
-            </li>
-            <li>
-              <strong style="color: var(--text-primary)">NVIDIA sovereign computing</strong> &mdash;
-              DGX Spark, Jetson, NVIDIA AI Workbench, local World Model build
-            </li>
-            <li>
-              <strong style="color: var(--text-primary)">Sovereign AI infrastructure</strong>
-              &mdash; classify first: Aegis / EU infra for the sensitive cut (CLOUD Act-free on that path);
-              DWS IQ Connect produces signed, auditable outcomes from both paths
-            </li>
-            <li>EU AI Act Article 4 literacy certification</li>
-            <li>Results from the first day &mdash; not theory, outcomes</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 2 -->
-        <div class="platform-card" style="border-top: 3px solid #4ade80">
-          <div class="card-label label-climate">Pillar 2</div>
-          <h3>
-            We develop industry-specific intelligent compliance workflows &mdash; and ship them to
-            production
-          </h3>
-          <p>
-            We map your industry&rsquo;s regulatory landscape and identify the critical compliance
-            workflows. Then we build them: the right agents, in the right order, at the right
-            autonomy level. Scoping &rarr; pilot &rarr; validation &rarr; production. It
-            doesn&rsquo;t stay a prototype.
-          </p>
-          <ul
-            style="
-              margin-top: 12px;
-              padding-left: 16px;
-              font-size: 0.85rem;
-              color: var(--text-secondary);
-              line-height: 1.7;
-            "
-          >
-            <li>Industry-specific workflow design (CBAM, CSRD, ETS, NIS2&hellip;)</li>
-            <li>ERP integration (SAP, IFS, Visma, Monitor, Jeeves)</li>
-            <li>Lifetime World Model ontology from your own data</li>
-            <li>Continuous optimisation: measure, identify bottlenecks, scale</li>
-          </ul>
-        </div>
-
-        <!-- Pillar 3 -->
-        <div class="platform-card" style="border-top: 3px solid var(--text-accent)">
-          <div class="card-label label-distribution">Pillar 3</div>
-          <h3>We ensure the project progresses without interruptions</h3>
-          <p>
-            The
-            <a href="/laskuri/" style="color: var(--color-gold)">Interruption Cost Calculator</a>
-            quantifies what capability gaps cost: context rebuilding, momentum loss, key-person
-            risk. Our agents continue working when regulations change, supply chains break, or key
-            people move. Disruption support is built in &mdash; not bolted on.
-          </p>
-          <ul
-            style="
-              margin-top: 12px;
-              padding-left: 16px;
-              font-size: 0.85rem;
-              color: var(--text-secondary);
-              line-height: 1.7;
-            "
-          >
-            <li>Proactive disruption management &mdash; agents work through change</li>
-            <li>Change readiness assessment (Disruption Response Agent)</li>
-            <li>Human-in-the-loop: people decide, agents handle routine</li>
-            <li>Project Manager Agent: schedules, JIRA, documentation &mdash; always current</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Ontology classes -->
-      <div
-        style="
-          margin-top: 48px;
-          padding: 36px 28px;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-xl);
-        "
-      >
-        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
-          Capability Ontology &mdash; 10 knowledge classes
-        </h3>
-        <p
-          style="
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.7;
-          "
-        >
-          Capabilities are structured as an ontology &mdash; a Lifetime World Model knowledge graph
-          where each class connects to others through inter-agent communication. New capabilities
-          always attach to the existing structure. The catalogue grows continuously.
-        </p>
-        <div class="industry-agent-grid">
-          <div class="industry-agent-chip">1. Consulting</div>
-          <div class="industry-agent-chip">2. Regulation &amp; Compliance</div>
-          <div class="industry-agent-chip">3. Industry</div>
-          <div class="industry-agent-chip">4. Orchestration</div>
-          <div class="industry-agent-chip">5. Field &amp; Project</div>
-          <div class="industry-agent-chip">6. Sales &amp; Communication</div>
-          <div class="industry-agent-chip">7. Knowledge &amp; Memory</div>
-          <div class="industry-agent-chip">8. System</div>
-          <div class="industry-agent-chip">9. Defence &amp; Security</div>
-          <div class="industry-agent-chip">10. Change &amp; Continuity</div>
-        </div>
-      </div>
-
-      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
-        <a href="https://dws10.com/contact/" class="btn-gold">Book a Consultation</a>
-        <a href="/laskuri/" class="btn-outline">Keskeytyslaskuri &rarr;</a>
       </div>
     </section>
 
-    <hr class="section-divider" />
-
-    <!-- DWS IQ Adoption Framework -->
-    <section class="section" id="adoption-framework">
-      <div class="section-label">DWS IQ Adoption Framework</div>
-      <h2 class="section-title">Microsoft&rsquo;s AI Adoption Framework &mdash; accelerated.</h2>
-      <div class="section-body">
-        <p>
-          Microsoft&rsquo;s <strong>AI Adoption Framework</strong> &mdash; part of the Cloud
-          Adoption Framework for Azure &mdash; is the blueprint EU enterprises use to move from
-          ad-hoc AI experiments to secure, scaled, value-driven production. Engineers trust it and
-          Microsoft is a primary supplier, so we meet you where you already are: Lifetime Consulting
-          runs your DWS IQ deployment along the <strong>same four lifecycle phases</strong>. The
-          difference is the landing: we <strong>classify the workload</strong> first. Sensitive,
-          dual-use and Article&nbsp;12 evidence go to sovereign substrate; other load stays on the
-          hyperscaler your contract and jurisdiction allow. DWS IQ Connect produces signed, auditable
-          outcomes from both &mdash; not a war on Azure.
-        </p>
-      </div>
-
-      <div class="arch-grid" style="grid-template-columns: repeat(4, 1fr)">
-        <div class="arch-card">
-          <div class="arch-name">Phase 1</div>
-          <h4>AI Strategy</h4>
-          <p>
-            Start with the business problem, not the technology. We translate regulatory and
-            operational gaps &mdash; CBAM, CSRD, ETS, NIS2 &mdash; into concrete use cases, and pick
-            generative or deterministic AI per task. Deterministic scoring wherever an audit demands
-            it.
-          </p>
-        </div>
-        <div class="arch-card">
-          <div class="arch-name">Phase 2</div>
-          <h4>Plan &amp; Ready</h4>
-          <p>
-            Microsoft calls it the AI Landing Zone. We stand up the sovereign half &mdash; EU-hosted
-            in Finland or on-prem edge (NVIDIA Jetson, L40S) &mdash; for the sensitive cut. DWS IQ
-            Connect produces signed, auditable outcomes from that path and from the hyperscaler your
-            contract allows. Governance and EU AI Act Article&nbsp;12 logging are wired before a
-            single agent runs on the sovereign path.
-          </p>
-        </div>
-        <div class="arch-card">
-          <div class="arch-name">Phase 3</div>
-          <h4>Adopt &middot; Build</h4>
-          <p>
-            Integrate AI into the flow of work. Ready-to-use Skilled Agents through to custom
-            agentic workflows inside your ERP (SAP, Visma, IFS, Monitor, Jeeves) &mdash; the
-            sovereign counterpart to the M365&nbsp;Copilot and Azure AI Foundry adoption paths.
-          </p>
-        </div>
-        <div class="arch-card">
-          <div class="arch-name">Phase 4</div>
-          <h4>Govern, Secure &amp; Manage</h4>
-          <p>
-            Zero Trust: never trust, always verify. KYA agent governance, strict internal/external
-            workload boundaries, prompt-injection and data-leakage controls, and Responsible-AI / EU
-            AI Act compliance &mdash; grounded in the platform, not bolted on.
-          </p>
-        </div>
-      </div>
-
-      <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-secondary)">
-        Reference:
-        <a
-          href="https://learn.microsoft.com/azure/cloud-adoption-framework/scenarios/ai/"
-          style="color: var(--color-gold)"
-          target="_blank"
-          rel="noopener"
-          >Microsoft Cloud Adoption Framework for AI &rarr;</a
-        >
-        &nbsp; DWS IQ is an EU-sovereign accelerator layer on top of the same lifecycle &mdash; not
-        a replacement for it.
-      </p>
-
-      <!-- Maturity ladder -->
-      <div
-        style="
-          margin-top: 48px;
-          padding: 36px 28px;
-          background: var(--bg-surface);
-          border: 1px solid var(--border-subtle);
-          border-radius: var(--radius-xl);
-        "
-      >
-        <h3 style="font-size: 1.1rem; color: var(--color-gold-light); margin-bottom: 8px">
-          Where DWS IQ lands you on the maturity curve
-        </h3>
-        <p
-          style="
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            line-height: 1.7;
-          "
-        >
-          Evaluated against the standard AI maturity model &mdash; from Exploring to
-          Transformational &mdash; most enterprises stall in Microsoft&rsquo;s
-          <em>Govern &amp; Secure</em> phase, blocked by data leakage, shadow AI, and
-          US&nbsp;CLOUD&nbsp;Act exposure on <em>sensitive</em> workloads. DWS IQ classifies that cut
-          onto sovereign substrate, leaves other load on the hyperscaler your contract allows, and
-          produces signed, auditable outcomes from both, so you skip the trial-and-error rungs and
-          start near the top.
-        </p>
-
-        <div class="maturity-ladder">
-          <div class="maturity-rung">
-            <span class="rung-level">L1</span><span class="rung-name">Exploring</span>
-          </div>
-          <div class="maturity-rung">
-            <span class="rung-level">L2</span><span class="rung-name">Experimenting</span>
-          </div>
-          <div class="maturity-rung">
-            <span class="rung-level">L3</span><span class="rung-name">Process Optimisation</span>
-          </div>
-          <div class="maturity-rung rung-active">
-            <span class="rung-level">L4</span><span class="rung-name">Advanced &amp; Scaled</span>
-          </div>
-          <div class="maturity-rung rung-active">
-            <span class="rung-level">L5</span><span class="rung-name">Transformational</span>
-          </div>
-        </div>
-        <p
-          style="
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 12px;
-            text-align: right;
-            opacity: 0.85;
-          "
-        >
-          &#9632;&nbsp; DWS IQ deployments land here
-        </p>
-
-        <div class="platform-grid" style="margin-top: 32px">
-          <div class="platform-card">
-            <div class="card-label label-defence">Level 5 &middot; Industry-leading</div>
-            <h3>Security &amp; Governance</h3>
-            <p>
-              Finnish-hosted sovereign cloud plus on-prem edge for the <strong>sensitive cut</strong>
-              = CLOUD&nbsp;Act-free path. Commodity remainder can stay on hyperscalers. EU AI
-              Act (incl. Article&nbsp;12 logging), CSRD and CBAM native on the sovereign half.
-            </p>
-          </div>
-          <div class="platform-card">
-            <div class="card-label label-climate">Level 4 &middot; Advanced / Scaled</div>
-            <h3>Infrastructure &amp; Operations</h3>
-            <p>
-              No per-token API bottleneck. You own the compute and run sub-100&nbsp;ms inference
-              offline at the edge &mdash; secure network boundaries and continuous availability,
-              with predictable operating economics.
-            </p>
-          </div>
-          <div class="platform-card">
-            <div class="card-label label-distribution">Level 3&rarr;4 &middot; Optimising</div>
-            <h3>Business Adoption &amp; Automation</h3>
-            <p>
-              Past the pilot phase with active industrial customers. Not chatbots &mdash; agentic
-              compliance workflows that integrate directly into ERP systems (SAP, Visma) and deliver
-              audit-ready outcomes.
-            </p>
-          </div>
-        </div>
-
-        <p
-          style="
-            margin-top: 24px;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            line-height: 1.7;
-            border-left: 3px solid var(--color-gold);
-            padding-left: 16px;
-          "
-        >
-          <strong>Bottom line:</strong> for a European industrial company following
-          Microsoft&rsquo;s AI Adoption Framework, DWS IQ is a maturity accelerator &mdash; skip the
-          risky trial-and-error and land immediately in a fully governed, secure, cost-predictable
-          production environment.
-        </p>
-      </div>
-
-      <div style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap">
-        <a href="https://dws10.com/contact/" class="btn-gold">Book an Adoption Assessment</a>
-        <a href="#consulting" class="btn-outline">See the three consulting pillars &rarr;</a>
-      </div>
-    </section>
-
-    <hr class="section-divider" />
-
-    <!-- Invest -->
-    <section class="section">
-      <div class="section-label">Invest</div>
-      <h2 class="section-title">The regulatory wave is legislated, not speculated.</h2>
-      <div class="section-body">
-        <p>
-          CBAM, CSRD, ETS, EU AI Act, NIS2 &mdash; every EU industrial company must comply. We built
-          the factory. Three product lines prove breadth. 21-moat fortress across 4 tiers proves
-          defensibility.
-        </p>
-      </div>
-
-      <div class="invest-box">
-        <h3>Investor Ladder</h3>
-        <div class="invest-grid">
-          <div class="invest-tier">
-            <h4>Deputy</h4>
-            <div class="tier-price">&euro;5,000</div>
-            <p>SAFE. Apprentice seat. Quarterly briefings. Upgrade right to Captain.</p>
-          </div>
-          <div class="invest-tier" style="border-color: var(--color-gold)">
-            <h4>Captain</h4>
-            <div class="tier-price">&euro;50,000</div>
-            <p>SAFE. Own one industry vertical. 9 seats, 1st tranche at &euro;3.8M cap.</p>
-          </div>
-          <div class="invest-tier">
-            <h4>Admiral</h4>
-            <div class="tier-price">&euro;250,000+</div>
-            <p>Premium. Full platform access. Strategic board advisory. Shapes Series A.</p>
-          </div>
-        </div>
-
-        <div style="text-align: center; margin-top: 28px">
-          <a href="https://dws10.com/fleet-admiral/" class="btn-gold"
-            >Fleet Admiral Investor Page</a
-          >
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="corp-footer">
       <div class="footer-inner">
         <div class="footer-col">
-          <h4>Lifetime Oy</h4>
-          <p>
-            Creator of the Firehorse Product Line and DWS IQ Product Platform &mdash; sovereign
-            compliance intelligence for EU-regulated industry. Consulting and training in Claude
-            Code, NVIDIA sovereign computing, and EU-sovereign AI infrastructure. Based in Espoo.
-          </p>
+          <h4>One Lifetime</h4>
+          <p>AI can learn. Only a human can bear responsibility for the decision.</p>
           <p style="margin-top: 12px">
-            <strong style="color: var(--text-primary)">Risto Anton P&auml;&auml;rni</strong><br />
-            Founder &amp; CEO<br />
-            M.Sc. (Tech), Industrial Management<br />
-            risto@onelifetime.world
+            <strong style="color: var(--text-primary)">Risto Anton Päärni</strong><br />
+            Founder, CEO · Lifetime Oy<br />
+            risto.paarni@lifetime.fi &middot; +358 400 319 010
           </p>
         </div>
         <div class="footer-col">
-          <h4>Platforms</h4>
-          <a href="https://dws10.com">DWS IQ Platform</a>
-          <a href="https://dws10.com/dual-use/">DWS IQ Aegis</a>
-          <a href="https://dws10.com/buy/">Product Store</a>
-          <a href="https://dws10.com/fleet-admiral/">Fleet Admiral</a>
-          <a href="https://dws10.com/captain/">Industry Captains</a>
-          <a href="https://onelifetime.world">Lifetime World</a>
-          <a href="/laskuri/">Keskeytyslaskuri</a>
+          <h4>Two doors</h4>
+          <a href="https://onelifetime.world/blog/">Understand — Lifetime Scope Journal</a>
+          <a href="https://dws10.com/">Implement — solutions and procurement</a>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
           <a href="https://dws10.com/terms/">Terms of Service</a>
           <a href="https://dws10.com/privacy-policy/">Privacy Policy</a>
           <a href="https://dws10.com/legal/">Legal Hub</a>
-          <a href="https://dws10.com/compliance/">Compliance</a>
         </div>
       </div>
-
       <div class="footer-legal">
-        <p>&copy; 2026 Lifetime Oy &middot; Y-tunnus 0772407-9 &middot; VAT FI07724079</p>
+        <p>&copy; 2026 Lifetime Oy &middot; Business ID 0772407-9 &middot; VAT FI07724079</p>
         <p>Laidunmaanraitti 2 A 25, 02330 Espoo, Finland</p>
       </div>
     </footer>
+
     <script src="/shared-assets/motion/reveal.js" defer></script>
   </body>
 </html>

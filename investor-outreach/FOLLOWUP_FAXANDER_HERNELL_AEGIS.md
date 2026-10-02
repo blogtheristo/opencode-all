@@ -50,7 +50,7 @@ Key facts:
 - Zero CLOUD Act exposure — no US parent, no US cloud
 - 13x cheaper than Palantir in Year 1 (EUR 72K vs EUR 920K+)
 - EU AI Act Article 12 native — every agent decision logged with reasoning lineage
-- PiTuKri audited, ISO 27001 Q3 2026, SOC 2 Type II Q4 2026
+- PiTuKri v1.1 self-assessed (81 %; independent audit planned), ISO 27001 target Q3 2026, SOC 2 Type II target Q4 2026
 
 I have attached the Aegis investor memo. The platform page is at https://dws10.com/aegis/
 
@@ -89,7 +89,7 @@ Key facts:
 - Zero CLOUD Act exposure — Finnish-owned, no US dependency
 - KYA Standard v1.6 — hardware-attested agent governance, court-defensible
 - 13x cheaper than Palantir (EUR 72K vs EUR 920K+ Year 1)
-- PiTuKri audited, ISO 27001 Q3 2026
+- PiTuKri v1.1 self-assessed, ISO 27001 target Q3 2026
 
 I have attached the Aegis investor memo. Platform page: https://dws10.com/aegis/
 

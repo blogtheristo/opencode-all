@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026-09-26-jev-dws-use-cases</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+background-color: #1a1a1a;
+border: none;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026-09-26-jev-dws-use-cases</h1>
+</header>
+<h1 id="jev-typesafe-ai-dws-iq-use-case-recommendations">Jev (TypeSafe AI) — DWS IQ use-case recommendations</h1>
+<hr />
+<h1 id="version-and-agent-history">VERSION AND AGENT HISTORY</h1>
+<p>Version: 1.1</p>
+<p>Sessions &amp; Modifications:</p>
+<ul>
+<li>Version: 1.1 | Tool: GitHub Copilot CLI 1.0.88 | Session: opencode/b3-2125 | Date: 27.09.2026 | Changes: Added DWS Document Standard metadata during PR #2125 review.</li>
+<li>Version: 1.0 | Tool: Claude Code 2.1.283 | Session: claude/jev-api-tools-iu40re | Date: 26.09.2026 | Changes: Initial research note.</li>
+</ul>
+<p>Document Status:</p>
+<ul>
+<li>Created: 26.09.2026</li>
+<li>Last Modified: 27.09.2026</li>
+<li>Language: Finnish</li>
+<li>Languages Available: Finnish</li>
+<li>Publication Status: ACTIVE</li>
+<li>Status: PENDING_REVIEW</li>
+</ul>
+<hr />
+<ul>
+<li><strong>Date:</strong> 2026-09-26</li>
+<li><strong>Author:</strong> Risto Anton Päärni</li>
+<li><strong>Location:</strong> DWS6 repository</li>
+<li><strong>Context:</strong> Jev decision-layer use cases for DWS IQ and the <code>/browse</code> step-advisor pilot.</li>
+</ul>
+<h2 id="ontology-tags">Ontology Tags</h2>
+<ul>
+<li><strong>Geography:</strong> Europe &gt; Finland</li>
+<li><strong>Sector:</strong> Software &gt; AI Governance</li>
+<li><strong>Entities:</strong> Jev, TypeSafe AI, KYA+I, DWS IQ</li>
+<li><strong>Systems:</strong> <code>src/agents/kya-jev.ts</code>, <code>src/agents/browse-step-kya-jev.ts</code></li>
+<li><strong>Temporal Context:</strong> 2026-Q3</li>
+<li><strong>Confidence:</strong> Mixed; verified claims and explicit unverified limitations are separated in the note.</li>
+</ul>
+<p><strong>Päivä:</strong> 2026-09-26 <strong>Laatija:</strong> Risto Anton Päärni (kooste, verified via WebSearch — x.com itself is proxy-blocked in this session) <strong>Status:</strong> PENDING_REVIEW <strong>Edellinen muistio:</strong> <code>docs/field-notes/2026-09-21-jev-api-tools.md</code> (20 community-projektin lista)</p>
+<h2 id="mikä-jev-on-varmennettu">Mikä Jev on (varmennettu)</h2>
+<p>TypeSafe AI:n “system one” -päätösmalli (Kahneman-termistö: system one = nopea/halpa/automaattinen, system two = LLM = hidas/analyyttinen). Jev ei kirjoita tekstiä — se <strong>päättää seuraavan askeleen</strong>: reititys, suodatus, go/no-go, relevanssi. Julkiset suorituskykyväitteet (TypeSafe, ei riippumattomasti auditoitu): jopa 193x nopeampi, 444x halvempi kuin Claude Fable 5.1 / GPT-6 Astra samassa päätöspisteessä. Tuotantokäyttöjä: Vercel (fx auto-mode safety reviewer), LangChain (AutoModeMiddleware), RAG-chunk-suodatus per Sydney Runkle.</p>
+<p>Lähteet: <a href="https://x.com/sydneyrunkle/status/2102058954482225520">Sydney Runkle <span class="citation" data-cites="sydneyrunkle">@sydneyrunkle</span></a>, <a href="https://x.com/mvanhorn/status/2100788572316139655">Matt Van Horn recap</a>, <a href="https://x.com/0xCodila/status/2100984487802708306">codila <span class="citation" data-cites="0xCodila">@0xCodila</span></a>, <a href="https://madewithjev.com/">Made with Jev</a>, <a href="https://ciyo.ai/blog/jev-agent-loop-decision-layer">Ciyo: Jev in an Agent Loop</a>.</p>
+<h2 id="suositellut-dws-iq--käyttötapaukset-uusia-ei-päällekkäisiä-20-listan-kanssa">Suositellut DWS IQ -käyttötapaukset (uusia, ei päällekkäisiä 20-listan kanssa)</h2>
+<table>
+<colgroup>
+<col style="width: 1%" />
+<col style="width: 23%" />
+<col style="width: 38%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>DWS-kohde</th>
+<th>Jev-rooli</th>
+<th>Hyöty</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td><code>authorizeToolCall()</code> (KYA tool-call gate, <code>src/agents/BaseAgent.ts</code>)</td>
+<td>Jev tekee ensimmäisen nopean allow/deny/escalate-päätöksen ennen kalliimpaa KYA-verdiktiä</td>
+<td>Latenssi + kustannus alas jokaisessa työkalukutsussa — suorin osuma “system one ennen system two” -malliin</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>/compliance-check</code>, <code>/regulatory-radar</code></td>
+<td>Jev esisuodattaa saapuvat EU-regulaatiosignaalit (EUR-Lex, EFRAG) → vain relevantit menevät LLM-analyysiin</td>
+<td>Vähentää turhaa mallikutsua massadatavirrassa</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td><code>/helpdesk-triage</code></td>
+<td>Jev luokittelee tiketin kiireellisyyden/kategorian ennen kuin Helpdesk-agentti kirjoittaa vastausluonnoksen</td>
+<td>Nopeampi triage, LLM vain siellä missä tarvitaan kirjoitustyötä</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td><code>/site-safety</code> (SiteSense), edge-control-room-capital</td>
+<td>Jev reaaliaikaisena go/no-go-kerroksena sensoridatalle (tuuli/nosturi-kynnys) ennen LLM-selostusta</td>
+<td>Sopii fyysiseen sense-and-actuate-substraattiin — päätös millisekunneissa, ei mallikutsua joka sensorilukemalle</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td><code>/kb</code> RAG-haku</td>
+<td>Jev suodattaa haetut chunkit relevanssin mukaan ennen synteesiä (sama kuvio kuin Sydney Runklen LangChain-esimerkki)</td>
+<td>Pienempi konteksti → halvempi + tarkempi vastaus</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td><code>/truth-check</code></td>
+<td>Jev esiseulontaa lauseet: “tarvitsee syvätarkistuksen” -lippu ennen LLM-lintausta</td>
+<td>Skaalautuu suurille sisältömäärille (blogit, myyntimateriaali)</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td><code>/cron</code>, <code>/workflow</code> mallireititys</td>
+<td>Jev päättää DGX-vs-pilvi-tason per job (linjassa Cost Governance -säännön DGX-first-periaatteen kanssa)</td>
+<td>Deterministinen reititys ilman LLM-kutsua reititykseen itseensä</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><code>/investor-outreach</code> triage</td>
+<td>Jev esiluokittelee saapuvat intro-viestit (ready/followup/skip) ennen LLM-vastausluonnosta</td>
+<td>Nopeampi putki suurella volyymilla</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ei-suositella-vielä">Ei suositella (vielä)</h2>
+<ul>
+<li>Tuotantoon asti kriittiset päätökset (esim. RED-zone migraatioiden hyväksyntä, laskutuspäätökset) — Jev on kolmannen osapuolen, auditoimaton “system one”; pidä HIC/KYA-portti näissä kunnes malli on riippumattomasti evaluoitu.</li>
+<li>Ei korvaa <code>code-reviewer</code>/<code>security-reviewer</code>-agentteja — Jev on reititin/suodatin, ei syväanalyysi.</li>
+</ul>
+<h2 id="varaukset">Varaukset</h2>
+<ul>
+<li>x.com esti WebFetch-yhteyden tässä sessiossa (proxy); tiedot varmennettu WebSearchin kautta toisen käden lähteistä (Substack, Medium, Ciyo, madewithjev.com) — ei suoraa alkuperäistekstiä X-postauksista.</li>
+<li>Suorituskykyluvut (193x/444x) ovat TypeSafe AI:n omia, ei riippumattomasti toistettuja.</li>
+</ul>
+<p>N/A — KB/HTML-render/Drive-export ohitettu: tutkimusmuistio, ei koodimuutos.</p>
+<hr />
+<p>Version 1.1 · 27.09.2026 Copyright © 2026 Lifetime Oy Classification: INTERNAL</p>
+</body>
+</html>

@@ -1,3 +1,4 @@
+import { ViewTransition } from 'react';
 import type { ContentItem } from '../types';
 
 const PRIORITY_DOT: Record<string, string> = {
@@ -33,55 +34,57 @@ export default function ContentCard({ item, selected, onSelect, onDragStart }: C
   const reviewCount = item.reviewNotes.length;
 
   return (
-    <div
-      className={`content-card ${selected ? 'selected' : ''}`}
-      draggable
-      onDragStart={(e) => onDragStart(e, item.id)}
-      onClick={() => onSelect(item.id)}
-    >
-      {/* Header: priority dot + type badge */}
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${PRIORITY_DOT[item.priority]}`} />
-          <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${TYPE_BADGE[item.type]}`}>
-            {item.type}
-          </span>
-        </div>
-        {item.assignee && (
-          <span className="text-[10px] text-gray-500 truncate max-w-[80px]">{item.assignee}</span>
-        )}
-      </div>
-
-      {/* Title */}
-      <h4 className="text-sm font-medium text-gray-100 mb-1 line-clamp-2">{item.title}</h4>
-
-      {/* Idea preview */}
-      {item.idea && (
-        <p className="text-xs text-gray-500 mb-2 line-clamp-2">{item.idea}</p>
-      )}
-
-      {/* Tags */}
-      {item.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 mb-2">
-          {item.tags.slice(0, 3).map((tag) => (
-            <span key={tag} className="tag-chip text-[10px]">
-              {tag}
+    <ViewTransition name={item.id}>
+      <div
+        className={`content-card ${selected ? 'selected' : ''}`}
+        draggable
+        onDragStart={(e) => onDragStart(e, item.id)}
+        onClick={() => onSelect(item.id)}
+      >
+        {/* Header: priority dot + type badge */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+            <span className={`w-2 h-2 rounded-full ${PRIORITY_DOT[item.priority]}`} />
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${TYPE_BADGE[item.type]}`}
+            >
+              {item.type}
             </span>
-          ))}
-          {item.tags.length > 3 && (
-            <span className="tag-chip text-[10px]">+{item.tags.length - 3}</span>
+          </div>
+          {item.assignee && (
+            <span className="text-[10px] text-gray-500 truncate max-w-[80px]">{item.assignee}</span>
           )}
         </div>
-      )}
 
-      {/* Status indicators */}
-      <div className="flex items-center gap-3 text-[10px] text-gray-500">
-        {researchCount > 0 && <span>🔍 {researchCount}</span>}
-        {hasScript && <span>✏️ draft</span>}
-        {mediaCount > 0 && <span>🖼️ {mediaCount}</span>}
-        {reviewCount > 0 && <span>💬 {reviewCount}</span>}
-        {item.platforms.length > 0 && <span>📢 {item.platforms.length}</span>}
+        {/* Title */}
+        <h4 className="text-sm font-medium text-gray-100 mb-1 line-clamp-2">{item.title}</h4>
+
+        {/* Idea preview */}
+        {item.idea && <p className="text-xs text-gray-500 mb-2 line-clamp-2">{item.idea}</p>}
+
+        {/* Tags */}
+        {item.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-2">
+            {item.tags.slice(0, 3).map((tag) => (
+              <span key={tag} className="tag-chip text-[10px]">
+                {tag}
+              </span>
+            ))}
+            {item.tags.length > 3 && (
+              <span className="tag-chip text-[10px]">+{item.tags.length - 3}</span>
+            )}
+          </div>
+        )}
+
+        {/* Status indicators */}
+        <div className="flex items-center gap-3 text-[10px] text-gray-500">
+          {researchCount > 0 && <span>🔍 {researchCount}</span>}
+          {hasScript && <span>✏️ draft</span>}
+          {mediaCount > 0 && <span>🖼️ {mediaCount}</span>}
+          {reviewCount > 0 && <span>💬 {reviewCount}</span>}
+          {item.platforms.length > 0 && <span>📢 {item.platforms.length}</span>}
+        </div>
       </div>
-    </div>
+    </ViewTransition>
   );
 }

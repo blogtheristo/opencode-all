@@ -276,7 +276,7 @@ const posts = [
   },
   {
     file: 'know-your-agent-kya-s1.fr.html',
-    title: 'Connaissez votre agent (KYA-S1) — Une page signée sur l\'IA',
+    title: "Connaissez votre agent (KYA-S1) — Une page signée sur l'IA",
     date: '8 Aug 2026',
   },
   {
@@ -333,6 +333,17 @@ const posts = [
     file: 'kya-s1-sanasto-glossary.fi.html',
     title: 'KYA-S1 Sanasto — KYA (Know Your Agent): Käsitteistö ja sanasto',
     date: '9 Aug 2026',
+  },
+  {
+    file: 'mita-one-lifetime-tarkoittaa.fi.html',
+    title:
+      'Mitä One Lifetime tarkoittaa? — Yksi elämä, yksi planeetta, yritys osana ratkaisua ja teknologia välineenä',
+    date: '24 Sep 2026',
+  },
+  {
+    file: 'proof-that-outlives-the-vendor.html',
+    title: 'Proof that outlives the vendor',
+    date: '1 Oct 2026',
   },
 ];
 

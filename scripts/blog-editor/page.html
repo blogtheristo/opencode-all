@@ -1,0 +1,1103 @@
+<title>Blog editor</title>
+<meta name="apple-mobile-web-app-title" content="Blog editor" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap"
+/>
+<style>
+  :root {
+    --bg: #f5f7f9;
+    --card: #ffffff;
+    --ink: #1b2430;
+    --muted: #5e6b7a;
+    --line: #dde2e8;
+    --accent: #1f6f8b;
+    --accent-ink: #ffffff;
+    --ok: #2e7d4f;
+    --draft: #a45f00;
+    --err: #b3261e;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #10151b;
+      --card: #18202a;
+      --ink: #e6ebf0;
+      --muted: #92a0ae;
+      --line: #27313d;
+      --accent: #5fb3cf;
+      --accent-ink: #0c1318;
+      --ok: #5cc285;
+      --draft: #e3a449;
+      --err: #f08a82;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #10151b;
+    --card: #18202a;
+    --ink: #e6ebf0;
+    --muted: #92a0ae;
+    --line: #27313d;
+    --accent: #5fb3cf;
+    --accent-ink: #0c1318;
+    --ok: #5cc285;
+    --draft: #e3a449;
+    --err: #f08a82;
+  }
+  html,
+  body {
+    height: 100%;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 var(--ui);
+    padding-inline: 16px;
+  }
+  .bar {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .bar h1 {
+    flex: 1 1 8rem;
+    min-width: 0;
+    margin: 0;
+    font: 600 1.05rem/1.3 var(--ui);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .tabs {
+    display: flex;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 3px;
+    gap: 3px;
+  }
+  .tabs button {
+    border: 0;
+    background: transparent;
+    min-height: 36px;
+  }
+  .tabs.centres {
+    flex-basis: 100%;
+    flex-wrap: wrap;
+  }
+  .tabs.centres button {
+    font-size: 0.85rem;
+    min-height: 32px;
+  }
+  .tabs button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  button {
+    font: 500 0.95rem var(--ui);
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 0 14px;
+    min-height: 44px;
+    cursor: pointer;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+  button.approve {
+    background: var(--ok);
+    border-color: var(--ok);
+    color: #fff;
+  }
+  button:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .search {
+    width: 100%;
+    font: 16px var(--ui);
+    padding: 11px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--ink);
+    margin-block: 12px 4px;
+  }
+  .note {
+    color: var(--muted);
+    font-size: 0.88rem;
+    margin-block: 6px;
+  }
+  .note.err {
+    color: var(--err);
+  }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .list li {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    gap: 2px 8px;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+  }
+  .list .t {
+    font: 600 1rem/1.35 var(--serif);
+  }
+  .list .m {
+    grid-column: 1 / -1;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .pill {
+    align-self: start;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 99px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .pill.APPROVED {
+    color: var(--ok);
+  }
+  .pill.DRAFT,
+  .pill.edited,
+  .pill.gaps {
+    color: var(--draft);
+  }
+  .pill.complete {
+    color: var(--ok);
+  }
+  details.contract {
+    margin-block: 8px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  details.contract summary {
+    cursor: pointer;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+  }
+  .contract ul {
+    list-style: none;
+    margin: 6px 0 2px;
+    padding: 0;
+  }
+  .contract li {
+    padding: 4px 0;
+    border-top: 1px solid var(--line);
+  }
+  .contract .ok::before {
+    content: "✓ ";
+    color: var(--ok);
+  }
+  .contract .no::before {
+    content: "✗ ";
+    color: var(--err);
+  }
+  .contract .opt::before {
+    content: "○ ";
+    color: var(--muted);
+  }
+  .contract .d {
+    display: block;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-left: 1.2em;
+  }
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: calc(100vh - 12rem);
+    margin-block: 10px;
+    padding: 12px;
+    font: 16px/1.6 var(--mono);
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    resize: vertical;
+  }
+  .reading {
+    font: 1.06rem/1.7 var(--serif);
+    max-width: 38rem;
+    margin-block: 14px 40px;
+  }
+  .reading h1,
+  .reading h2,
+  .reading h3 {
+    font-family: var(--serif);
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+  .reading blockquote {
+    margin: 0;
+    padding-left: 14px;
+    border-left: 3px solid var(--line);
+    color: var(--muted);
+  }
+  .reading code {
+    font: 0.9em var(--mono);
+  }
+  .reading a {
+    color: var(--accent);
+  }
+  .fm {
+    font: 0.8rem/1.5 var(--mono);
+    color: var(--muted);
+    white-space: pre-wrap;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 10px;
+    overflow-x: auto;
+  }
+  /* Fixed to the viewport: on the iPhone a panel below the tall textarea never came into view. */
+  .sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: var(--card);
+    border-top: 2px solid var(--ok);
+    padding: 14px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.18);
+  }
+  .sheet[hidden] {
+    display: none;
+  }
+  .sheet p {
+    margin: 0 0 10px;
+  }
+  .sheet .err {
+    color: var(--err);
+  }
+  .sheet button {
+    flex: 1 1 8rem;
+  }
+  .row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .ver {
+    color: var(--muted);
+    font: 0.72rem/1 var(--mono);
+    white-space: nowrap;
+  }
+  .onto {
+    font: 500 0.85rem var(--ui);
+    color: var(--accent);
+    text-decoration: none;
+    padding: 8px 4px;
+    white-space: nowrap;
+  }
+  .onto:focus-visible {
+    outline: 2px solid var(--accent);
+  }
+  .langbar {
+    display: flex;
+    gap: 6px;
+    margin-block: 8px;
+  }
+  .langbar button {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0;
+    font-weight: 600;
+  }
+  .langbar button[aria-pressed="true"] {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border-color: transparent;
+  }
+  .langbar button.missing {
+    opacity: 0.55;
+    border-style: dashed;
+  }
+  iframe {
+    display: block;
+    width: 100%;
+    height: calc(100vh - 7rem);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-block: 10px;
+    background: #fff;
+  }
+</style>
+
+<div class="bar">
+  <button id="back" hidden aria-label="Back">‹ Back</button>
+  <h1 id="title">Blog editor</h1>
+  <span
+    class="ver"
+    id="ver"
+    title="Page version (commit of scripts/blog-editor/page.html) and build date"
+    >__BE_VERSION__</span
+  >
+  <a
+    class="onto"
+    id="onto"
+    href="https://claude.ai/artifact/2C5kDZLzbBkYH8vxA6qXQD"
+    target="_blank"
+    rel="noopener"
+    title="Graph of the four pillars against the ontology, with progress"
+    >Active Ontology ↗</a
+  >
+  <button id="refresh" title="How to pull the latest drafts from git">↻ Refresh</button>
+  <div class="tabs" id="tabs" role="group" aria-label="Section">
+    <button id="tab-drafts" aria-pressed="true">Blog</button>
+    <button id="tab-learn" aria-pressed="false">Learn</button>
+    <button id="tab-whitepaper" aria-pressed="false">Whitepapers</button>
+    <button id="tab-thesis" aria-pressed="false">Thesis</button>
+  </div>
+  <div class="tabs centres" id="centre-tabs" role="group" aria-label="Centres and hubs">
+    <button id="tab-investor" aria-pressed="false">Investor</button>
+    <button id="tab-customer" aria-pressed="false">Customer</button>
+    <button id="tab-partner" aria-pressed="false">Partner</button>
+    <button id="tab-materials" aria-pressed="false">Materials</button>
+    <button id="tab-legal" aria-pressed="false">Legal hub</button>
+    <button id="tab-compliance" aria-pressed="false">Compliance hub</button>
+  </div>
+  <div class="row" id="edit-actions" hidden>
+    <button id="toggle">Read</button>
+    <button id="save" class="primary">Save</button>
+    <button id="approve" class="approve">Approve</button>
+  </div>
+</div>
+<main id="main"><p class="note">Loading…</p></main>
+<div class="sheet" id="sheet" hidden role="dialog" aria-live="polite"></div>
+
+<script>
+  const $ = (s) => document.querySelector(s);
+  const main = $("#main");
+  const esc = (s) =>
+    String(s ?? "").replace(
+      /[&<>"']/g,
+      (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+    );
+  const store = {
+    get(k) {
+      try {
+        return localStorage.getItem(k);
+      } catch {
+        return null;
+      }
+    },
+    set(k, v) {
+      try {
+        v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v);
+      } catch {}
+    },
+  };
+  let db = null;
+  // Routines fired from this page run without the page's storage or the repo (checked
+  // 30.09.2026: the refresh run ended after 18 s with nothing written), so the page no longer
+  // claims a sync it cannot do. A Claude session does it on request.
+  async function startSync() {
+    return {
+      text: 'Saved in the editor. To bring it into git, tell Claude: "sync blog editor".',
+    };
+  }
+
+  async function startRefresh() {
+    return {
+      text: 'To pull the latest drafts from git, tell Claude: "refresh blog editor". The list updates here by itself when that is done.',
+    };
+  }
+
+  let lastRefresh = null;
+  let drafts = [];
+  let learn = null;
+  let tab = store.get("be:tab") || "drafts";
+  let cur = null; // { id, rev, text, dirty, reading }
+
+  // The header is a `---` block, or (older /blog-draft template) the leading `Key: value` lines
+  // up to the first blank line.
+  function header(text) {
+    const t = String(text);
+    const m = t.match(/^---\n([\s\S]*?)\n---/);
+    if (m) return { body: m[1], start: 4, end: 4 + m[1].length };
+    const lead = t.match(/^(?:[A-Za-z_]+:[^\n]*(?:\n|$))+/);
+    return lead
+      ? { body: lead[0].replace(/\n$/, ""), start: 0, end: lead[0].replace(/\n$/, "").length }
+      : null;
+  }
+  function frontMatter(text) {
+    const fm = {};
+    for (const line of (header(text)?.body ?? "").split("\n")) {
+      const kv = line.match(/^([A-Za-z_]+):\s*"?(.*?)"?\s*$/);
+      if (kv) fm[kv[1]] = kv[2];
+    }
+    return fm;
+  }
+  // ---------- BLOG_STANDARD §16: post completeness contract ----------
+  const LANGS = ["en", "fi", "sv", "de", "fr"];
+  const VISUALS = ["infographic", "illustration", "photo", "video"];
+  const ref = { seo: null, posts: null };
+  const loadRef = Promise.all([
+    fetch("dictionary-seo.json").then((r) => (r.ok ? r.json() : null)),
+    fetch("posts-index.json").then((r) => (r.ok ? r.json() : null)),
+  ])
+    .then(([seo, posts]) => Object.assign(ref, { seo, posts }))
+    .catch(() => {});
+  const baseOf = (name) => String(name).replace(/(\.(fi|sv|de|fr))?\.(md|html)$/, "");
+  const langOf = (name) => String(name).match(/\.(fi|sv|de|fr)\.(md|html)$/)?.[1] || "en";
+  function contract(name, text) {
+    const fm = frontMatter(text);
+    const pick = (...k) => k.map((x) => fm[x]).find((v) => v && v.trim()) || "";
+    const out = [];
+    const hero = pick("hero", "subtitle");
+    out.push({
+      label: "Hero text",
+      ok: hero.length > 0 && hero.length <= 160,
+      d: hero ? hero.length + " / 160 characters" : "Add hero: one sentence under the title.",
+    });
+    const slug = pick("slug", "Slug");
+    const base = baseOf(name);
+    const slugOk =
+      /^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug) && slug.length <= 60 && !/\d{4}-\d{2}/.test(slug);
+    out.push({
+      label: "Naming convention",
+      ok: slugOk && slug === base,
+      d: !slug
+        ? "Add slug: lowercase-words, no date."
+        : !slugOk
+          ? "Slug must be lowercase words joined by -, ≤ 60 characters, no date."
+          : slug !== base
+            ? "File is " + base + ", slug is " + slug + " — they must match."
+            : slug,
+    });
+    const have = new Set();
+    for (const d of drafts) if (baseOf(d.name) === base) have.add(langOf(d.name));
+    for (const f of ref.posts || []) if (baseOf(f) === base) have.add(langOf(f));
+    const missing = LANGS.filter((l) => !have.has(l));
+    out.push({
+      label: "Five languages",
+      ok: missing.length === 0,
+      d: ref.posts
+        ? missing.length
+          ? "Missing: " + missing.join(", ").toUpperCase() + " (drafts and published posts)."
+          : "EN FI SV DE FR"
+        : "Checking…",
+    });
+    const vType = pick("visual");
+    const vSrc = pick("visual_src", "hero_image");
+    const vAlt = pick("visual_alt", "hero_image_alt");
+    out.push({
+      label: "Visual",
+      ok: VISUALS.includes(vType) && !!vSrc && !!vAlt,
+      d: !vSrc
+        ? "Add visual_src: infographic, illustration, photo or video."
+        : !VISUALS.includes(vType)
+          ? "Add visual: " + VISUALS.join(" | ") + "."
+          : !vAlt
+            ? "Add visual_alt (for video: a text summary)."
+            : vType + " · " + vSrc,
+    });
+    const tags = pick("seo_tags")
+      .replace(/[\[\]"']/g, "")
+      .split(/[,\s]+/)
+      .filter(Boolean);
+    if (!ref.seo) out.push({ label: "SEO tags (ontology)", ok: false, d: "Checking…" });
+    else {
+      const unknown = tags.filter((t) => !ref.seo[t]);
+      const bound = tags.filter((t) => ref.seo[t] && ref.seo[t].ontologyId !== "none");
+      const lang = langOf(name);
+      out.push({
+        label: "SEO tags (ontology)",
+        ok: !unknown.length && bound.length >= 3 && tags.length <= 8,
+        d: !tags.length
+          ? "Add seo_tags: 3–8 dictionary keys, e.g. [kya_trs, hic, skilled_agent]."
+          : [
+              bound.length + " bound to the ontology (need 3)",
+              tags.length > 8 ? "too many (max 8)" : "",
+              unknown.length ? "not in dictionary: " + unknown.join(", ") : "",
+              tags
+                .filter((t) => ref.seo[t])
+                .map((t) => ref.seo[t][lang] || ref.seo[t].en)
+                .join(" · "),
+            ]
+              .filter(Boolean)
+              .join(" — "),
+      });
+    }
+    const demo = pick("demo_url");
+    out.push({
+      label: "Agent demo (optional)",
+      optional: true,
+      ok: !!demo,
+      d: demo
+        ? pick("demo_agent") + " · " + demo
+        : "None. Offer one only if it runs for any reader.",
+    });
+    return out;
+  }
+  const score = (c) =>
+    c.filter((x) => !x.optional && x.ok).length + "/" + c.filter((x) => !x.optional).length;
+  function renderContract() {
+    const el = $("#contract");
+    if (!el || !cur) return;
+    const c = contract(cur.name, $("#ta").value);
+    const open = el.open;
+    el.innerHTML =
+      "<summary>Blog standard §16 · " +
+      score(c) +
+      " complete</summary><ul>" +
+      c
+        .map(
+          (x) =>
+            '<li class="' +
+            (x.optional && !x.ok ? "opt" : x.ok ? "ok" : "no") +
+            '">' +
+            esc(x.label) +
+            '<span class="d">' +
+            esc(x.d) +
+            "</span></li>",
+        )
+        .join("") +
+      "</ul>";
+    el.open = open;
+  }
+
+  function md(src) {
+    const fmMatch = src.match(/^---\n([\s\S]*?)\n---\n?/);
+    const body = fmMatch ? src.slice(fmMatch[0].length) : src;
+    const inl = (t) =>
+      esc(t)
+        .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+        .replace(/(^|[\s(])_(.+?)_(?=[\s).,;:!?]|$)/g, "$1<i>$2</i>")
+        .replace(/\*(.+?)\*/g, "<i>$1</i>")
+        .replace(
+          /\[(.+?)\]\((https?:[^\s)]+)\)/g,
+          '<a href="$2" target="_blank" rel="noopener">$1</a>',
+        )
+        .replace(/`(.+?)`/g, "<code>$1</code>");
+    const out = [];
+    let para = [];
+    let list = [];
+    const flush = () => {
+      if (para.length) out.push("<p>" + inl(para.join(" ")) + "</p>");
+      if (list.length)
+        out.push("<ul>" + list.map((x) => "<li>" + inl(x) + "</li>").join("") + "</ul>");
+      para = [];
+      list = [];
+    };
+    for (const l of body.split("\n")) {
+      let m;
+      if (!l.trim()) flush();
+      else if ((m = l.match(/^(#{1,4})\s+(.*)/))) {
+        flush();
+        out.push(`<h${m[1].length}>${inl(m[2])}</h${m[1].length}>`);
+      } else if (/^---+\s*$/.test(l)) {
+        flush();
+        out.push("<hr>");
+      } else if ((m = l.match(/^\s*(?:[-*]|\d+\.)\s+(.*)/))) {
+        if (para.length) flush();
+        list.push(m[1]);
+      } else if ((m = l.match(/^>\s?(.*)/))) {
+        flush();
+        out.push("<blockquote>" + inl(m[1]) + "</blockquote>");
+      } else para.push(l.trim());
+    }
+    flush();
+    return (fmMatch ? '<div class="fm">' + esc(fmMatch[1]) + "</div>" : "") + out.join("");
+  }
+
+  function setBar(title, { back = false, editing = false } = {}) {
+    sheet("");
+    $("#title").textContent = title;
+    $("#back").hidden = !back;
+    $("#tabs").hidden = back;
+    $("#refresh").hidden = back;
+    $("#onto").hidden = back;
+    $("#edit-actions").hidden = !editing;
+  }
+  // Messages the HIC must see wherever the page is scrolled go in the bottom sheet.
+  function sheet(html, ms) {
+    const el = $("#sheet");
+    clearTimeout(sheet.t);
+    el.innerHTML = html;
+    el.hidden = !html;
+    if (html && ms) sheet.t = setTimeout(() => (el.hidden = true), ms);
+  }
+  function toast(text, err) {
+    note(text, err);
+    sheet('<p class="' + (err ? "err" : "") + '">' + esc(text) + "</p>", err ? 6000 : 3500);
+  }
+  function note(text, err) {
+    const n = $("#msg");
+    if (n) {
+      n.textContent = text;
+      n.className = "note" + (err ? " err" : "");
+    }
+  }
+  function selectTab(t) {
+    if (cur?.dirty && !leaveOk()) return;
+    tab = t;
+    store.set("be:tab", t);
+    for (const k of PILLAR_TABS) $("#tab-" + k).setAttribute("aria-pressed", String(t === k));
+    cur = null;
+    t === "drafts" ? renderDrafts() : renderLearn(t);
+  }
+  let leaveArmed = false;
+  function leaveOk() {
+    if (leaveArmed) {
+      leaveArmed = false;
+      return true;
+    }
+    leaveArmed = true;
+    toast("Unsaved changes — tap again to leave without saving.", true);
+    setTimeout(() => (leaveArmed = false), 4000);
+    return false;
+  }
+
+  // ---------- drafts ----------
+  function renderDrafts() {
+    setBar("Blog editor");
+    if (!db) {
+      main.innerHTML =
+        '<p class="note err">Drafts need this page\'s storage, which is not available in this view. Open the page on claude.ai while signed in.</p>';
+      return;
+    }
+    const q = store.get("be:q") || "";
+    main.innerHTML =
+      '<input id="q" class="search" type="search" placeholder="Search drafts" autocomplete="off">' +
+      '<p class="note" id="msg"></p><ul class="list" id="list"></ul>';
+    $("#q").value = q;
+    const draw = () => {
+      const term = $("#q").value.toLowerCase();
+      store.set("be:q", $("#q").value);
+      const rows = drafts.filter((d) => (d.title + " " + d.name).toLowerCase().includes(term));
+      const waiting = drafts.filter((d) => d.edited).length;
+      note(
+        (lastRefresh
+          ? `Refreshed from git ${lastRefresh.commit || ""} ${String(lastRefresh.refreshedAt || "")
+              .slice(0, 16)
+              .replace("T", " ")} UTC · `
+          : "") +
+          `${drafts.length} drafts` +
+          (waiting
+            ? ` · ${waiting} saved here, waiting for sync to git`
+            : " · all in sync with git"),
+      );
+      $("#list").innerHTML = rows
+        .map((d) => {
+          const status =
+            (frontMatter(d.content).Status || "DRAFT").match(/^[A-Z_]+/)?.[0] || "DRAFT";
+          const c = contract(d.name, d.content);
+          const done = c.every((x) => x.optional || x.ok);
+          return `<li data-id="${esc(d.id)}"><span class="t">${esc(d.title)}</span>
+            <span class="pill ${d.edited ? "edited" : esc(status)}">${d.edited ? "edited" : esc(status)}</span>
+            <span class="pill ${done ? "complete" : "gaps"}" title="Blog standard §16">§16 ${score(c)}</span>
+            <span class="m">${esc(d.name)}${d.lang ? " · " + esc(d.lang) : ""}${d.date ? " · " + esc(d.date) : ""}</span></li>`;
+        })
+        .join("");
+      document
+        .querySelectorAll("#list li")
+        .forEach((li) => (li.onclick = () => openDraft(li.dataset.id)));
+    };
+    $("#q").oninput = draw;
+    draw();
+    loadRef.then(() => tab === "drafts" && !cur && $("#list") && draw());
+  }
+
+  async function openDraft(id) {
+    const snap = await db.doc("drafts/" + id).get();
+    const d = snap.data();
+    if (!d) return;
+    const unsent = store.get("be:unsent:" + id);
+    cur = {
+      id,
+      rev: d.rev || 0,
+      text: unsent ?? d.content,
+      dirty: !!unsent,
+      reading: false,
+      name: d.name,
+    };
+    setBar(d.name, { back: true, editing: true });
+    main.innerHTML =
+      '<div class="langbar" id="langbar" role="group" aria-label="Language"></div>' +
+      '<p class="note" id="msg"></p><details class="contract" id="contract"></details><textarea id="ta" spellcheck="true" autocapitalize="sentences" aria-label="Draft text"></textarea>' +
+      '<div id="read" class="reading" hidden></div>';
+    $("#ta").value = cur.text;
+    $("#toggle").textContent = "Read";
+    note(
+      unsent
+        ? "Restored your unsaved edit from this device."
+        : d.syncError
+          ? "Sync failed: " + d.syncError
+          : d.edited
+            ? "Saved here; not yet in git (ask Claude to sync blog editor)."
+            : d.syncedCommit
+              ? "In git (commit " + d.syncedCommit + ")."
+              : "In sync with git.",
+    );
+    renderContract();
+    loadRef.then(renderContract);
+    renderLangBar();
+    $("#ta").oninput = () => {
+      clearTimeout(renderContract.t);
+      renderContract.t = setTimeout(renderContract, 400);
+      cur.text = $("#ta").value;
+      cur.dirty = true;
+      store.set("be:unsent:" + id, cur.text);
+      note("Unsaved changes");
+    };
+  }
+
+  // ---------- language bar: EN FI SV DE FR (BLOG_STANDARD §16, five languages) ----------
+  // A language with a draft opens it. A missing one creates a translation request draft
+  // (base.<lang>.md, Status: TRANSLATE) carrying the source text; the sync writes it to git and
+  // the translation is made there with docs/localization/dws-dictionary.json, never invented here.
+  const nameFor = (base, l) => (l === "en" ? base + ".md" : base + "." + l + ".md");
+  function renderLangBar() {
+    const bar = $("#langbar");
+    if (!bar || !cur) return;
+    const base = baseOf(cur.name);
+    const mine = langOf(cur.name);
+    bar.innerHTML = LANGS.map((l) => {
+      const d = drafts.find((x) => x.name === nameFor(base, l));
+      const cls = d ? "" : ' class="missing"';
+      const tip = d ? "Open " + l.toUpperCase() : "Request " + l.toUpperCase() + " translation";
+      return `<button data-l="${l}"${cls} aria-pressed="${l === mine}" title="${tip}">${l.toUpperCase()}</button>`;
+    }).join("");
+    bar.querySelectorAll("button").forEach((b) => {
+      b.onclick = () => switchLang(b.dataset.l);
+    });
+  }
+  async function switchLang(l) {
+    const base = baseOf(cur.name);
+    if (l === langOf(cur.name)) return;
+    if (cur.dirty && !leaveOk()) return;
+    const target = drafts.find((x) => x.name === nameFor(base, l));
+    if (target) return openDraft(target.id);
+    document.activeElement?.blur();
+    sheet(
+      "<p><b>Request " +
+        l.toUpperCase() +
+        " version of " +
+        esc(base) +
+        "?</b></p>" +
+        '<p class="note">Creates ' +
+        esc(nameFor(base, l)) +
+        " as a translation request from this text. It is translated in git with the DWS dictionary and comes back here as a draft for your approval.</p>" +
+        '<div class="row"><button id="yes" class="primary">Request</button><button id="no">Cancel</button></div>',
+    );
+    $("#no").onclick = () => sheet("");
+    $("#yes").onclick = async () => {
+      $("#yes").disabled = true;
+      const src = $("#ta").value;
+      const fm = frontMatter(src);
+      const name = nameFor(base, l);
+      const today = new Date().toISOString().slice(0, 10);
+      const content =
+        "Status: TRANSLATE\n" +
+        "Slug: " +
+        base +
+        "\n" +
+        "Title: " +
+        (fm.Title || fm.title || base) +
+        "\n" +
+        "Language: " +
+        l +
+        "\n" +
+        "Translation-of: " +
+        cur.name +
+        "\n" +
+        "Requested: " +
+        today +
+        " (HIC, Blog editor)\n" +
+        "Instructions: translate the source below into " +
+        l.toUpperCase() +
+        " using docs/localization/dws-dictionary.json for every term it covers; keep the header fields; add the EU AI Act Art. 50(4) AI-content label (BLOG_STANDARD §3.2.1); then set Status: DRAFT.\n\n" +
+        "<!-- SOURCE (" +
+        cur.name +
+        ") -->\n\n" +
+        src.slice(header(src)?.end ?? 0).replace(/^\n+/, "");
+      try {
+        await db.doc("drafts/" + name).set({
+          name,
+          title: fm.Title || fm.title || base,
+          lang: l,
+          date: today,
+          content,
+          rev: 1,
+          edited: true,
+          editedAt: new Date().toISOString(),
+          translate: true,
+        });
+        const r = await startSync();
+        toast(
+          r.err
+            ? r.text
+            : l.toUpperCase() +
+                ' translation requested. Tell Claude "sync blog editor" to send it to git.',
+          r.err,
+        );
+      } catch (e) {
+        toast(e.message || String(e), true);
+      }
+    };
+  }
+
+  async function saveDraft(text, extra = {}) {
+    const ref = db.doc("drafts/" + cur.id);
+    const now = (await ref.get()).data();
+    if ((now.rev || 0) !== cur.rev)
+      throw new Error(
+        "This draft changed elsewhere since you opened it. Go back and open it again.",
+      );
+    const rev = cur.rev + 1;
+    await ref.update({
+      content: text,
+      rev,
+      edited: true,
+      editedAt: new Date().toISOString(),
+      ...extra,
+    });
+    cur.rev = rev;
+    cur.dirty = false;
+    store.set("be:unsent:" + cur.id, null);
+  }
+
+  $("#save").onclick = async () => {
+    const b = $("#save");
+    b.disabled = true;
+    try {
+      await saveDraft($("#ta").value);
+      const r = await startSync();
+      toast(r.text, r.err);
+    } catch (e) {
+      toast(e.message || String(e), true);
+    }
+    b.disabled = false;
+  };
+
+  $("#approve").onclick = () => {
+    document.activeElement?.blur(); // close the iPhone keyboard so the sheet is visible
+    sheet(
+      "<p><b>Approve " +
+        esc(cur.name) +
+        " for publication?</b></p>" +
+        '<p class="note">Only if you have read the whole text. This saves the text as shown' +
+        (cur.dirty ? ", including your unsaved edits," : "") +
+        " and sets Status: APPROVED.</p>" +
+        (() => {
+          const gaps = contract(cur.name, $("#ta").value).filter((x) => !x.optional && !x.ok);
+          return gaps.length
+            ? '<p class="note">This approves the text. Publishing waits until §16 is complete: ' +
+                esc(gaps.map((x) => x.label).join(", ")) +
+                ".</p>"
+            : "";
+        })() +
+        '<div class="row"><button id="yes" class="approve">Yes, approve</button><button id="no">Cancel</button></div>',
+    );
+    $("#no").onclick = () => sheet("");
+    $("#yes").onclick = async () => {
+      $("#yes").disabled = true;
+      const today = new Date().toISOString().slice(0, 10);
+      const text = $("#ta").value;
+      const hd = header(text);
+      if (!hd) {
+        toast("This draft has no header to mark (add a Status: line at the top).", true);
+        return;
+      }
+      let h = /^Status:.*$/m.test(hd.body)
+        ? hd.body.replace(/^Status:.*$/m, "Status: APPROVED")
+        : hd.body + "\nStatus: APPROVED";
+      h = /^approved:.*$/m.test(h)
+        ? h.replace(/^approved:.*$/m, `approved: ${today} (HIC, Blog editor)`)
+        : h + `\napproved: ${today} (HIC, Blog editor)`;
+      const next = text.slice(0, hd.start) + h + text.slice(hd.end);
+      try {
+        await saveDraft(next, { approved: true, approvedAt: new Date().toISOString() });
+        $("#ta").value = next;
+        cur.text = next;
+        if (cur.reading) $("#read").innerHTML = md(next);
+        const r = await startSync();
+        toast(
+          r.err
+            ? r.text
+            : 'Approved in the editor. Tell Claude "sync blog editor" to record it in git; publishing still waits for your go.',
+          r.err,
+        );
+      } catch (e) {
+        toast(e.message || String(e), true);
+      }
+    };
+  };
+
+  $("#toggle").onclick = () => {
+    cur.reading = !cur.reading;
+    $("#read").innerHTML = cur.reading ? md($("#ta").value) : "";
+    $("#read").hidden = !cur.reading;
+    $("#ta").hidden = cur.reading;
+    $("#toggle").textContent = cur.reading ? "Edit" : "Read";
+  };
+
+  // ---------- learn / whitepapers / thesis (BLOG_STANDARD §17: the four pillars) ----------
+  // Centres and hubs (scripts/knowledge-centres.mjs): live dws10.com pages, one button each.
+  const CENTRE_TABS = ["investor", "customer", "partner", "materials", "legal", "compliance"];
+  const PILLAR_TABS = ["drafts", "learn", "whitepaper", "thesis", ...CENTRE_TABS];
+  const PILLAR_NAME = {
+    learn: "Learn",
+    whitepaper: "Whitepapers & demos",
+    thesis: "Thesis — master's & PhD",
+    investor: "Investor centre",
+    customer: "Customer centre",
+    partner: "Partner centre",
+    materials: "Materials",
+    legal: "Legal hub",
+    compliance: "Compliance hub",
+  };
+  async function renderLearn(pillar = "learn") {
+    setBar(PILLAR_NAME[pillar] || "Learn");
+    main.innerHTML =
+      '<input id="q" class="search" type="search" placeholder="Search" autocomplete="off"><p class="note" id="msg">Loading…</p><ul class="list" id="list"></ul>';
+    try {
+      learn ??= await (await fetch("learn/manifest.json")).json();
+    } catch {
+      note("The Learn library is not included in this version of the page.", true);
+      return;
+    }
+    const draw = () => {
+      const term = $("#q").value.toLowerCase();
+      const inPillar = learn.docs.filter((d) => (d.pillar || "learn") === pillar);
+      const rows = inPillar.filter((d) => (d.title + " " + d.file).toLowerCase().includes(term));
+      const sourced = inPillar.filter((d) => d.sources >= 3 && d.academic >= 1).length;
+      note(
+        `${inPillar.length} documents · ${sourced} with external sources incl. academic · built ${learn.built}` +
+          (pillar === "learn" ? ` · ${learn.withheld} withheld by the access policy` : "") +
+          (CENTRE_TABS.includes(pillar)
+            ? ` · live dws10.com pages · ${learn.centres?.withheld?.[pillar] ?? 0} internal documents counted, not shown (access policy)` +
+              (learn.centres?.langCopies?.[pillar]
+                ? ` · ${learn.centres.langCopies[pillar]} language copies`
+                : "")
+            : ""),
+      );
+      $("#list").innerHTML = rows
+        .map(
+          (d) =>
+            `<li data-f="${esc(d.file)}"><span class="t">${esc(d.title)}</span><span class="pill ${d.sources >= 3 && d.academic >= 1 ? "complete" : "gaps"}" title="External sources (academic)">src ${d.sources ?? 0}/${d.academic ?? 0}</span><span class="pill">${esc(d.track || d.class)}</span><span class="m">${esc(d.url || d.file)} · ${d.kb} KB</span></li>`,
+        )
+        .join("");
+      document
+        .querySelectorAll("#list li")
+        .forEach((li) => (li.onclick = () => openLearn(li.dataset.f)));
+    };
+    $("#q").oninput = draw;
+    draw();
+  }
+  async function openLearn(file) {
+    const d = learn.docs.find((x) => x.file === file);
+    setBar(d.title, { back: true });
+    const live = d.url
+      ? `<p class="note"><a href="${esc(d.url)}" target="_blank" rel="noopener">Open live ↗ ${esc(d.url)}</a></p>`
+      : "";
+    if (d.url && !d.embed) {
+      main.innerHTML =
+        live +
+        `<p class="note">This page is ${d.kb} KB (inline images), so it opens on the live site.</p>`;
+      return;
+    }
+    main.innerHTML =
+      live +
+      '<p class="note" id="msg">Loading…</p><iframe id="doc" sandbox title="' +
+      esc(d.title) +
+      '"></iframe>';
+    try {
+      const html = await (await fetch("learn/" + encodeURIComponent(file))).text();
+      $("#doc").srcdoc = html;
+      note(d.file);
+    } catch (e) {
+      note("Could not open this document.", true);
+    }
+  }
+
+  $("#back").onclick = () => {
+    if (cur?.dirty && !leaveOk()) return;
+    cur = null;
+    tab === "drafts" ? renderDrafts() : renderLearn(tab);
+  };
+  $("#refresh").onclick = async () => {
+    const b = $("#refresh");
+    b.disabled = true;
+    try {
+      const r = await startRefresh();
+      toast(r.text, r.err);
+    } catch (e) {
+      toast(e.message || String(e), true);
+    }
+    setTimeout(() => (b.disabled = false), 5000);
+  };
+  for (const k of PILLAR_TABS) $("#tab-" + k).onclick = () => selectTab(k);
+  window.addEventListener("beforeunload", (e) => {
+    if (cur?.dirty) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+
+  selectTab(tab);
+  (async () => {
+    db = await window.claude?.use?.("db");
+    if (!db) {
+      if (tab === "drafts" && !cur) renderDrafts();
+      return;
+    }
+    db.doc("meta/refresh").onSnapshot((snap) => {
+      lastRefresh = snap?.data?.() ?? null;
+      if (tab === "drafts" && !cur) renderDrafts();
+    });
+    db.collection("drafts").onSnapshot(
+      (snap) => {
+        drafts = snap.docs
+          .map((s) => ({ id: s.id, ...s.data() }))
+          .sort(
+            (a, b) => (b.date || "").localeCompare(a.date || "") || a.name.localeCompare(b.name),
+          );
+        if (tab === "drafts" && !cur) renderDrafts();
+        else if (cur) renderLangBar();
+      },
+      (err) =>
+        note("Could not load drafts: " + (err?.message || err?.code || "unknown error"), true),
+    );
+  })();
+</script>

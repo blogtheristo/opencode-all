@@ -1,7 +1,7 @@
 <!--
 VERSION AND AGENT HISTORY
 Document: KTH / TECoSA — one-pager and proposed Letter of Intent topics
-Version: 1.5
+Version: 1.6
 Date: 03.08.2026
 Author: Risto Anton Päärni (risto.paarni@lifetime.fi), Founder, CEO, Lifetime Oy
 Owner: Lifetime Oy
@@ -92,6 +92,24 @@ A tension worth resolving before drafting rather than inside the draft.
 **Writing the LoI to serve an EIC application would therefore demote KTH to supplier in the very document meant to establish a partnership** — the exact failure mode to avoid, and one that a competence-centre director will recognise immediately.
 
 **So:** draft the LoI purely as a university-coordinated research partnership on the Vinnova track. The EIC benefit is real but indirect — a credible KTH collaboration strengthens the research and validation substance of any later EIC work package — and it should be a consequence of the partnership, never a stated purpose of the LoI.
+
+## 2b. Fit map against TECoSA's own public language (source: tecosa.center.kth.se, supplied by HIC 03.08.2026)
+
+TECoSA's public "industrial and societal relevance" text names four areas of interest and one certification gap. Mapping Lifetime against them, in **their** vocabulary:
+
+| TECoSA's own words | Lifetime's matching asset | Strength |
+| --- | --- | --- |
+| *"There is further a need to work out ways for **certifying the corresponding safety-critical CPS, which requires fundamentally new approaches**"* | Exactly the assurance-case ask in our §3.1 — near-verbatim overlap. This is the strongest single hook in their text. | ⭐ Lead with this |
+| *"Safety-critical interactions between humans and cyber-physical systems… autonomous cars… public environments"* | A licensed passenger fleet **is** safety-critical human–CPS interaction in a public environment, with a real duty of care | ⭐ |
+| *"**Drone fleet coordination** via edge infrastructures… reliability, safety and security concerns"* | Fleet coordination is the operating business; Control Room / Situation Room is the supervision layer | Strong |
+| *"Data-driven real-time analytics… collecting state information from devices and machinery… predictive maintenance… robustness of ML to adversarial input"* | KYA session trust scoring and containment are adversarial-robustness mechanisms on live telemetry | Strong |
+| *"a large market… including for **consulting expertise**"* | TECoSA's own text already names commercialisation and consulting as outcomes — the accelerator hypothesis lands on prepared ground | Context |
+| Swedish `samverkansområden`: **transportation** listed first | A Traficom-licensed transport operator maps 1:1 onto the first strategic collaboration area | Context |
+| Three **new postdocs** just introduced (Islam, Nolte, Olliaro) | Confirms the postdoc pathway (email question 5) is a live, funded mechanism at the centre — not a hypothetical | Validates Q5 |
+
+**Use:** this is the vocabulary to mirror when Martin replies — especially "certifying safety-critical CPS requires fundamentally new approaches", which lets the assurance-case proposal be framed as answering *their* stated gap rather than importing ours. Not retrofitted into the already-approved outgoing packet; the packet's content already lands on every row above without name-dropping their text back at them.
+
+**Practical action:** ✅ **Done — HIC subscribed to the TECoSA quarterly newsletter, 04.08.2026.** Standing intelligence channel on the centre's events and seminars is live; attending a seminar is a natural way to be present before any agreement exists.
 
 ## 3. What must be true before this is sent
 

@@ -79,13 +79,13 @@ shared.aegis_industry_count = T(
   },
 );
 shared.hic = T(
-  'Human-In-Command',
+  'Human-in-Command',
   'Ihmisen johtamisvalta',
   'Mänsklig ledningsrätt',
   'Menschliche Führung',
   'Commandement humain',
-  'none',
-  { source: 'ONTOLOGY.md §16' },
+  'kya_governance',
+  { source: 'ONTOLOGY.md §16.5', code: 'HIC', seo: true },
 );
 shared.article50_label = T(
   'AI-generated content',
@@ -156,6 +156,731 @@ shared.uncalibrated_confidence = T(
   'none',
   { source: 'docs/KYA_JEV_SPECIFICATION.md §7' },
 );
+
+// KYA-S1 vocabulary — verbatim from the HIC-approved five-language table
+// (docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6, approved 09.08.2026; ONTOLOGY.md §16.6).
+// FI is Ground Truth. seo: true marks terms used as article:tag / JSON-LD keywords.
+const KYA_S1_SOURCE = 'ONTOLOGY.md §16.6; docs/blog-drafts/kya-s1-sanasto-glossary.fi.md §6';
+const KYA_S1_TERMS = [
+  [
+    'kya_s1_spec',
+    'KYA-S1',
+    'KYA-S1 Security Specification',
+    'KYA-S1-turvallisuusspesifikaatio',
+    'KYA-S1 Säkerhetsspecifikation',
+    'KYA-S1 Sicherheitsspezifikation',
+    'Spécification de sécurité KYA-S1',
+  ],
+  [
+    'kya_evidence_meta_rule',
+    '§3',
+    'Evidence Meta-Rule (§3)',
+    'Näyttömetasääntö (§3)',
+    'Bevis-metaregel (§3)',
+    'Evidenz-Metaregel (§3)',
+    'Méta-règle de preuve (§3)',
+  ],
+  [
+    'agentic_commerce',
+    '—',
+    'Agentic Commerce',
+    'Autonominen agenttikaupankäynti',
+    'Agentisk handel',
+    'Agenten-Handel',
+    'Commerce agentique',
+  ],
+  [
+    'kya_idv',
+    'IDV',
+    'Verified Human Principal Binding',
+    'Todennettu ihmisjohtajan sidos',
+    'Verifierad mänsklig huvudmannakoppling',
+    'Verifizierte menschliche Hauptverbindung',
+    "Liaison d'agent à un responsable humain vérifié",
+  ],
+  [
+    'kya_reg',
+    'REG',
+    'Capability Manifest & Registry',
+    'Kyvykkyysmanifesti ja rekisteri',
+    'Kapacitetsmanifest och register',
+    'Fähigkeitsmanifest & Register',
+    'Manifeste et registre des capacités',
+  ],
+  [
+    'kya_bhm',
+    'BHM',
+    'Runtime Behavioral Modeling',
+    'Ajonaikainen käyttäytymisen valvonta',
+    'Beteendemodellering vid körning',
+    'Laufzeit-Verhaltensmodellierung',
+    'Modélisation comportementale en temps réel',
+  ],
+  [
+    'kya_tc4',
+    'TC4',
+    'Chain Termination / Leash Snap',
+    'Ketjun keskeytys / hätäjarru',
+    'Kedjeavslutning / nödbroms',
+    'Kettenabbruch / Notbremse',
+    "Terminaison de chaîne / frein d'urgence",
+  ],
+  [
+    'kya_flt',
+    'FLT',
+    'Bounded Fault Attribution',
+    'Aikarajoitettu virheattribuutio',
+    'Tidsbegränsad felattribuering',
+    'Zeitbegrenzte Fehlerattribuierung',
+    'Attribution limitée des fautes',
+  ],
+  [
+    'kya_trs',
+    'TRS',
+    'Trust Score & Authorization',
+    'Luottamuspiste ja valtuutus',
+    'Förtroendepoäng och auktorisering',
+    'Vertrauenswert & Autorisierung',
+    'Score de confiance et autorisation',
+  ],
+  [
+    'kya_prv',
+    'PRV',
+    'Decision Provenance & Audit Trail',
+    'Päätösten toistettavuus ja auditointijälki',
+    'Beslutsursprung och granskningskedja',
+    'Entscheidungsherkunft & Prüfpfad',
+    "Provenance de la décision et piste d'audit",
+  ],
+  [
+    'kya_al1',
+    'KYA-AL1',
+    'Standard Assurance',
+    'Vakiotaso',
+    'Standardgaranti',
+    'Standard-Garantie',
+    'Assurance standard',
+  ],
+  [
+    'kya_al2',
+    'KYA-AL2',
+    'Enhanced Assurance',
+    'Laajennettu taso',
+    'Förhöjd garanti',
+    'Erweiterte Garantie',
+    'Assurance renforcée',
+  ],
+  [
+    'kya_al3',
+    'KYA-AL3',
+    'Critical Assurance',
+    'Kriittinen taso',
+    'Kritisk garanti',
+    'Kritische Garantie',
+    'Assurance critique',
+  ],
+  [
+    'kya_lease_token',
+    'TRS-4',
+    'Atomic Single-Use Lease Token',
+    'Kertakäyttöinen valtuutusavain',
+    'Atomisk tidsbegränsad nyttjanderätts-token',
+    'Atomares Einmal-Autorisierungs-Token',
+    'Jeton de bail atomique à usage unique',
+  ],
+  [
+    'kya_fail_closed',
+    'TRS-5',
+    'Fail-Closed Protection',
+    'Pakkosuojaus vikatilanteessa',
+    'Säker vid fel (fail-closed)',
+    'Fehlersichere Sperre (fail-closed)',
+    'Verrouillage en cas de défaillance',
+  ],
+  [
+    'kya_leash_snap',
+    'TC4',
+    'Leash Snap Emergency Stop',
+    'Hätäjarru',
+    'Nödbroms',
+    'Notbremse',
+    "Frein d'urgence",
+  ],
+  [
+    'kya_capture_precedes_release',
+    'TC4-5',
+    'Capture Precedes Release',
+    'Tallennus ennen resursseista luopumista',
+    'Lagring före frigörande',
+    'Erfassung vor Freigabe',
+    'Capture avant libération des ressources',
+  ],
+  [
+    'kya_bounded_attribution_clock',
+    'FLT-4',
+    'Bounded Attribution Clock (72 h)',
+    'Aikarajoitettu virheattribuutio (72 h)',
+    'Tidsbegränsad felattribuering (72 h)',
+    'Zeitbegrenzte Fehlerattribuierung (72 h)',
+    "Horloge d'attribution limitée (72 h)",
+  ],
+  [
+    'hic_dashboard',
+    '—',
+    'Single Pane of Glass HIC Dashboard',
+    'Yhtenäinen valvomonäkymä',
+    'Enhetlig kontrollvy',
+    'Zentrales Kontrollpanel',
+    'Panneau de contrôle unique',
+  ],
+  [
+    'kya_human_decision_provenance',
+    'PRV-4',
+    'Human Decision Provenance',
+    'Ihmispäätöksen alkuperä ja kuittaus',
+    'Mänskligt beslutsursprung',
+    'Menschliche Entscheidungsherkunft',
+    'Provenance de la décision humaine',
+  ],
+  [
+    'eudi_wallet',
+    'IDV-1',
+    'European Digital Identity Wallet / eIDAS 2.0',
+    'EU:n digitaalinen lompakko / eIDAS 2.0',
+    'EU:s digitala plånbok / eIDAS 2.0',
+    'Digitale EU-Brieftasche / eIDAS 2.0',
+    "Portefeuille d'identité numérique de l'UE / eIDAS 2.0",
+  ],
+];
+for (const [key, code, en, fi, sv, de, fr] of KYA_S1_TERMS) {
+  shared[key] = T(en, fi, sv, de, fr, 'kya_governance', {
+    code,
+    machineTranslationReview: 'hic_approved_2026-08-09',
+    article50: false,
+    seo: true,
+    source: KYA_S1_SOURCE,
+  });
+}
+
+// Entries previously hand-added to dws-dictionary.json (not in this generator); ported 23.09.2026
+// so regeneration keeps them. Values unchanged.
+Object.assign(shared, {
+  thinkingbox: {
+    en: 'ThinkingBox',
+    fi: 'ThinkingBox',
+    sv: 'ThinkingBox',
+    de: 'ThinkingBox',
+    fr: 'ThinkingBox',
+    ontologyId: 'agent_auditing',
+    machineTranslationReview: 'n/a_product_name',
+    article50: false,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  mcp: {
+    en: 'Model Context Protocol',
+    fi: 'Model Context Protocol',
+    sv: 'Model Context Protocol',
+    de: 'Model Context Protocol',
+    fr: 'Model Context Protocol',
+    ontologyId: 'agent_communication',
+    machineTranslationReview: 'n/a_technical_acronym',
+    article50: false,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  process_isolation: {
+    en: 'process isolation',
+    fi: 'prosessin eristäminen',
+    sv: 'processisolering',
+    de: 'Prozessisolierung',
+    fr: 'isolation des processus',
+    ontologyId: 'agent_auditing',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  stateful_workflows: {
+    en: 'stateful workflows',
+    fi: 'tilalliset työnkulut',
+    sv: 'tillståndsbaserade arbetsflöden',
+    de: 'zustandsbehaftete Arbeitsabläufe',
+    fr: 'flux de travail avec état',
+    ontologyId: 'agent_auditing',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  side_effect_inspection: {
+    en: 'side effect inspection',
+    fi: 'sivuvaikutusten tarkastus',
+    sv: 'bieffektgranskning',
+    de: 'Überprüfung von Nebenwirkungen',
+    fr: 'inspection des effets secondaires',
+    ontologyId: 'agent_auditing',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  confidence_drift: {
+    en: 'confidence drift',
+    fi: 'luottamuksen häviäminen',
+    sv: 'självförtroendet-drift',
+    de: 'Vertrauens-Drift',
+    fr: 'dérive de confiance',
+    ontologyId: 'agent_auditing',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  dgx: {
+    en: 'DGX',
+    fi: 'DGX',
+    sv: 'DGX',
+    de: 'DGX',
+    fr: 'DGX',
+    ontologyId: 'infrastructure',
+    machineTranslationReview: 'n/a_acronym',
+    article50: false,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  aspire_telemetry: {
+    en: 'Aspire telemetry',
+    fi: 'Aspire-telemetria',
+    sv: 'Aspire-telemetri',
+    de: 'Aspire-Telemetrie',
+    fr: 'télémétrie Aspire',
+    ontologyId: 'observability',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  opentelemetry: {
+    en: 'OpenTelemetry',
+    fi: 'OpenTelemetry',
+    sv: 'OpenTelemetry',
+    de: 'OpenTelemetry',
+    fr: 'OpenTelemetry',
+    ontologyId: 'observability',
+    machineTranslationReview: 'n/a_product_name',
+    article50: false,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  control_room: {
+    en: 'Control Room',
+    fi: 'Kontrollihuone',
+    sv: 'Kontrollrum',
+    de: 'Kontrollraum',
+    fr: 'Salle de contrôle',
+    ontologyId: 'observability',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  digital_office: {
+    en: 'Digital Office',
+    fi: 'Digitaalinen toimisto',
+    sv: 'Digital kontor',
+    de: 'Digital Office',
+    fr: 'Bureau numérique',
+    ontologyId: 'observability',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  situation_room: {
+    en: 'Situation Room',
+    fi: 'Tilannehuone',
+    sv: 'Situationsrum',
+    de: 'Situationsraum',
+    fr: 'Salle de situation',
+    ontologyId: 'observability',
+    machineTranslationReview: 'pending_named_human',
+    article50: true,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+  dws_dashboard: {
+    en: 'DWS Dashboard',
+    fi: 'DWS Dashboard',
+    sv: 'DWS Dashboard',
+    de: 'DWS Dashboard',
+    fr: 'DWS Dashboard',
+    ontologyId: 'observability',
+    machineTranslationReview: 'n/a_product_name',
+    article50: false,
+    source: 'landing-pages/onelifetime-world/posts/thinkingbox-agent-audit.html',
+  },
+});
+
+// Lifetime World Model — two layers (ONTOLOGY.md §4.1): industry/enterprise model base and the
+// live state register (IDV/TRS/PRV). Part 9 wording approved by HIC 09.08.2026.
+shared.lwm = T(
+  'Lifetime World Model (LWM)',
+  'Lifetime World Model (LWM)',
+  'Lifetime World Model (LWM)',
+  'Lifetime World Model (LWM)',
+  'Lifetime World Model (LWM)',
+  'lwm',
+  {
+    machineTranslationReview: 'n/a_product_name',
+    article50: false,
+    seo: true,
+    source: 'ONTOLOGY.md §4',
+  },
+);
+shared.lwm_state_register = T(
+  'global state register and memory',
+  'globaali tilarekisteri ja muisti',
+  'globalt tillståndsregister och minne',
+  'globales Zustandsregister und Gedächtnis',
+  'registre d’état global et mémoire',
+  'lwm',
+  { source: 'ONTOLOGY.md §4.1; KYA-S1 series part 9 title (HIC 09.08.2026)', seo: true },
+);
+shared.skilled_agent = T(
+  'Skilled Agent',
+  'Skilled Agent',
+  'Skilled Agent',
+  'Skilled Agent',
+  'Skilled Agent',
+  'agent_taxonomy',
+  {
+    machineTranslationReview: 'n/a_product_term',
+    article50: false,
+    seo: true,
+    source: 'ONTOLOGY.md §13',
+  },
+);
+
+// Industrial process-model vocabulary (blog series "HIC-hallintamalli ja DWS IQ -agentit").
+// Standard names stay untranslated; only the descriptive gloss is localised.
+const PROCESS_SOURCE = 'docs/blog-drafts/teollisuuden-prosessikuvaustavat-ja-tekoalyagentit.md';
+shared.bpmn_service_task = T(
+  'BPMN Service Task (automatic lane)',
+  'BPMN Service Task (automaattinen kaista)',
+  'BPMN Service Task (automatiskt spår)',
+  'BPMN Service Task (automatische Spur)',
+  'BPMN Service Task (voie automatique)',
+  'kya_governance',
+  { source: 'ONTOLOGY.md §16.5', seo: true },
+);
+shared.bpmn_user_task = T(
+  'BPMN User Task (human sign-off)',
+  'BPMN User Task (ihmisen kuittaus)',
+  'BPMN User Task (mänskligt godkännande)',
+  'BPMN User Task (menschliche Freigabe)',
+  'BPMN User Task (validation humaine)',
+  'kya_governance',
+  { source: 'ONTOLOGY.md §16.5', seo: true },
+);
+shared.isa_95 = T(
+  'ISA-95 enterprise–control integration',
+  'ISA-95 (yritys- ja ohjausjärjestelmien integraatio)',
+  'ISA-95 (integration av affärs- och styrsystem)',
+  'ISA-95 (Integration von Unternehmens- und Leitsystemen)',
+  'ISA-95 (intégration entreprise–contrôle)',
+  'none',
+  { source: PROCESS_SOURCE, seo: true },
+);
+shared.sysml = T(
+  'SysML (systems modelling language)',
+  'SysML (järjestelmämallinnuskieli)',
+  'SysML (systemmodelleringsspråk)',
+  'SysML (Systemmodellierungssprache)',
+  'SysML (langage de modélisation de systèmes)',
+  'none',
+  { source: PROCESS_SOURCE, seo: true },
+);
+shared.vsm = T(
+  'Value Stream Mapping (VSM)',
+  'Arvovirtakuvaus (VSM)',
+  'Värdeflödesanalys (VSM)',
+  'Wertstromanalyse (VSM)',
+  'Cartographie de la chaîne de valeur (VSM)',
+  'none',
+  { source: PROCESS_SOURCE, seo: true },
+);
+shared.sipoc = T('SIPOC', 'SIPOC', 'SIPOC', 'SIPOC', 'SIPOC', 'none', {
+  source: PROCESS_SOURCE,
+  seo: true,
+});
+shared.rup = T(
+  'Rational Unified Process (RUP)',
+  'Rational Unified Process (RUP)',
+  'Rational Unified Process (RUP)',
+  'Rational Unified Process (RUP)',
+  'Rational Unified Process (RUP)',
+  'none',
+  { source: PROCESS_SOURCE },
+);
+
+// Domain taglines (HIC 23.09.2026). Top bar per domain; see shared-assets/nav/ironclad-nav.js.
+shared.tagline_dws10 = T(
+  'Complex Workflow Specialists',
+  'Complex Workflow Specialists',
+  'Complex Workflow Specialists',
+  'Complex Workflow Specialists',
+  'Complex Workflow Specialists',
+  'none',
+  { machineTranslationReview: 'n/a_brand_line', article50: false, domain: 'dws10.com' },
+);
+shared.tagline_lifetime_fi = T(
+  'Specialist store for digital products',
+  'Digitaalisten tuotteiden erikoisliike',
+  'Specialbutik för digitala produkter',
+  'Fachgeschäft für digitale Produkte',
+  'Boutique spécialisée en produits numériques',
+  'none',
+  { domain: 'lifetime.fi', source: 'lifetime.fi/shared-assets/vertical-lang-bar.js' },
+);
+shared.tagline_olw = T(
+  'Sovereign AI and Compliance for Industrial Use. Built in Finland.',
+  'Suvereeni tekoäly ja vaatimustenmukaisuus teollisuuskäyttöön. Rakennettu Suomessa.',
+  'Suverän AI och regelefterlevnad för industriellt bruk. Byggd i Finland.',
+  'Souveräne KI und Compliance für den industriellen Einsatz. Entwickelt in Finnland.',
+  'IA souveraine et conformité pour un usage industriel. Conçue en Finlande.',
+  'sovereignty',
+  {
+    domain: 'onelifetime.world',
+    source: 'onelifetime.world/shared-assets/olw-vertical-lang-bar.js',
+  },
+);
+
+// Product tags (HIC 25.09.2026). productTag = the exact tag value in
+// dws10.com/config/products.json; kind = group (names a price-list section) or attribute
+// (chip next to the product name). ONTOLOGY.md §17. FI is Ground Truth; unclear FI terms
+// carry the English term in parentheses (HIC 23.09.2026).
+const PRODUCT_TAG_SRC = 'ONTOLOGY.md §17; dws10.com/config/products.json definitions.productTags';
+shared.product_tag_sme = T('SME', 'Pk-yritys', 'Små och medelstora företag', 'KMU', 'PME', 'none', {
+  productTag: 'SME',
+  kind: 'group',
+  source: PRODUCT_TAG_SRC,
+});
+shared.product_tag_dws_iq = T('DWS IQ', 'DWS IQ', 'DWS IQ', 'DWS IQ', 'DWS IQ', 'none', {
+  productTag: 'DWS IQ',
+  kind: 'group',
+  brand: true,
+  source: PRODUCT_TAG_SRC,
+});
+shared.product_tag_firehorse = T(
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'Firehorse',
+  'none',
+  { productTag: 'Firehorse', kind: 'group', brand: true, source: PRODUCT_TAG_SRC },
+);
+shared.product_tag_hardware = T(
+  'Hardware',
+  'Laitteisto',
+  'Hårdvara',
+  'Hardware',
+  'Matériel',
+  'none',
+  { productTag: 'Hardware', kind: 'attribute', source: PRODUCT_TAG_SRC },
+);
+shared.product_tag_sovereign = T(
+  'Sovereign',
+  'Suvereeni',
+  'Suverän',
+  'Souverän',
+  'Souverain',
+  'sovereignty',
+  { productTag: 'Sovereign', kind: 'attribute', source: PRODUCT_TAG_SRC, seo: true },
+);
+shared.product_tag_air_gapped = T(
+  'Air-Gapped',
+  'Ilmaeristetty (air-gapped)',
+  'Fysiskt isolerad (air-gapped)',
+  'Physisch isoliert (Air-Gapped)',
+  'Isolé physiquement (air gap)',
+  'sovereignty',
+  { productTag: 'Air-Gapped', kind: 'attribute', source: PRODUCT_TAG_SRC, seo: true },
+);
+shared.product_tag_sovereign_cloud = T(
+  'Sovereign Cloud',
+  'Suvereeni pilvi',
+  'Suveränt moln',
+  'Souveräne Cloud',
+  'Cloud souverain',
+  'sovereignty',
+  {
+    productTag: 'Sovereign Cloud',
+    kind: 'attribute',
+    source: PRODUCT_TAG_SRC,
+    seo: true,
+    note: 'Not on the DWS IQ US Cloud offers (DWS-US-STARTER, DWS-US-PILOT): they run on US infrastructure.',
+  },
+);
+// Aegis acceptance and evidence vocabulary (HIC 01.10.2026; ONTOLOGY.md §16.7; WP13).
+const WP13_SRC = 'ONTOLOGY.md §16.7; docs/whitepapers/WP13_WHEN_THE_LINK_DROPS.md';
+shared.acceptance_test = T(
+  'Acceptance test',
+  'Hyväksymistesti',
+  'Acceptanstest',
+  'Abnahmetest',
+  'Test de réception',
+  'agent_auditing',
+  {
+    source: WP13_SRC,
+    seo: true,
+    note: 'Customer-run: offline continuity, ledger integrity, stop authority.',
+  },
+);
+shared.stop_authority = T(
+  'Stop authority',
+  'Pysäytysvalta',
+  'Stoppbefogenhet',
+  'Stoppbefugnis',
+  'Autorité d’arrêt',
+  'kya_governance',
+  { source: WP13_SRC, seo: true },
+);
+shared.evidence_bundle = T(
+  'Evidence bundle',
+  'Todistepaketti',
+  'Bevispaket',
+  'Nachweispaket',
+  'Dossier de preuves',
+  'agent_auditing',
+  { source: WP13_SRC, seo: true },
+);
+shared.retention_lock = T(
+  'Retention lock',
+  'Säilytyslukko',
+  'Lagringslås',
+  'Aufbewahrungssperre',
+  'Verrou de conservation',
+  'agent_auditing',
+  { source: WP13_SRC, note: 'Can be extended, never shortened or removed.' },
+);
+shared.whitepaper_on_request = T(
+  'Whitepaper on request',
+  'Whitepaper pyynnöstä',
+  'Whitepaper på begäran',
+  'Whitepaper auf Anfrage',
+  'Livre blanc sur demande',
+  'none',
+  { source: 'DWS_TRUTH_STANDARD.md §2J' },
+);
+// Further product tags (HIC 25.09.2026: "Kaikki tagit talteen").
+for (const [key, tag, en, fi, sv, de, fr, onto] of [
+  [
+    'us_sovereign_cloud',
+    'US Sovereign Cloud',
+    'US Sovereign Cloud',
+    'Yhdysvaltain suvereeni pilvi',
+    'Amerikanskt suveränt moln',
+    'US-souveräne Cloud',
+    'Cloud souverain américain',
+    'sovereignty',
+  ],
+  [
+    'on_prem',
+    'On-Prem',
+    'On-Prem',
+    'Omissa tiloissa (on-prem)',
+    'I egna lokaler (on-prem)',
+    'On-Premises',
+    'Sur site (on-prem)',
+    'sovereignty',
+  ],
+  [
+    'gov_ready',
+    'Gov Ready',
+    'Gov Ready',
+    'Viranomaisvalmis (Gov Ready)',
+    'Myndighetsredo (Gov Ready)',
+    'Behördentauglich (Gov Ready)',
+    'Prêt pour le secteur public (Gov Ready)',
+    'none',
+  ],
+  ['licence', 'Licence', 'Licence', 'Lisenssi', 'Licens', 'Lizenz', 'Licence', 'none'],
+  [
+    'subscription',
+    'Subscription',
+    'Subscription',
+    'Tilaus',
+    'Prenumeration',
+    'Abonnement',
+    'Abonnement',
+    'none',
+  ],
+  [
+    'installation',
+    'Installation',
+    'Installation',
+    'Asennus',
+    'Installation',
+    'Installation',
+    'Installation',
+    'none',
+  ],
+  ['pilot', 'Pilot', 'Pilot', 'Pilotti', 'Pilot', 'Pilot', 'Pilote', 'none'],
+  ['free', 'Free', 'Free', 'Maksuton', 'Kostnadsfri', 'Kostenlos', 'Gratuit', 'none'],
+  ['training', 'Training', 'Training', 'Koulutus', 'Utbildning', 'Schulung', 'Formation', 'none'],
+  [
+    'early_access',
+    'Early Access',
+    'Early Access',
+    'Varhainen käyttö (early access)',
+    'Tidig åtkomst (early access)',
+    'Early Access',
+    'Accès anticipé',
+    'none',
+  ],
+]) {
+  shared[`product_tag_${key}`] = T(en, fi, sv, de, fr, onto, {
+    productTag: tag,
+    kind: 'attribute',
+    source: PRODUCT_TAG_SRC,
+  });
+}
+for (const key of Object.keys(shared).filter((k) => k.startsWith('product_tag_'))) {
+  if (!shared[key].machineTranslationReview)
+    shared[key].machineTranslationReview = 'pending_named_human';
+}
+
+// SEO: terms that become article:tag / JSON-LD keywords on blog posts
+// (scripts/blog/seo-tags.mjs). KYA-S1 and process terms set seo: true where defined.
+for (const key of [
+  'eu_ai_act',
+  'kya',
+  'cld_act',
+  'data_sovereignty',
+  'sovereign_infrastructure',
+  'eu_sovereign_cloud',
+  'article_14',
+  'article_12',
+  'csrd',
+  'cbam',
+  'dws_iq',
+  'aegis',
+  'agent_isolation',
+  'dual_use',
+]) {
+  if (shared[key]) shared[key].seo = true;
+}
+
+// Every SEO term is bound to the active ontology (BLOG_STANDARD §16.1 item 5, HIC 28.09.2026).
+// Ids and the ONTOLOGY.md section each one points to: ONTOLOGY.md Appendix E.1.
+const SEO_ONTOLOGY = {
+  aegis: 'sovereignty',
+  cld_act: 'sovereignty',
+  dual_use: 'compliance_agent',
+  eu_ai_act: 'compliance_agent',
+  article_12: 'agent_auditing',
+  article_14: 'kya_governance',
+  kya: 'kya_governance',
+  agent_isolation: 'infrastructure',
+  dws_iq: 'dws_platform',
+  isa_95: 'process_model',
+  sysml: 'process_model',
+  vsm: 'process_model',
+  sipoc: 'process_model',
+};
+for (const [key, id] of Object.entries(SEO_ONTOLOGY)) {
+  if (shared[key]?.ontologyId === 'none') shared[key].ontologyId = id;
+}
 
 const AEGIS_EXCLUDE = new Set([17, 19, 20, 21]);
 
@@ -1207,7 +1932,7 @@ for (const meta of INDUSTRY_META) {
 
 const dict = {
   version: '0.1',
-  generatedAt: '2026-09-18',
+  generatedAt: '2026-09-23',
   enIsMaster: true,
   article50:
     'Machine translations labelled until a named human reviews. Icon optional; label required.',

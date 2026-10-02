@@ -1,14 +1,26 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/routes/payment.routes.ts
 /**
  * Payment API Routes
  * Proxies subscription requests to Python payment service (PayPal, Revolut)
  * Requires: PAYMENT_API_URL (e.g. http://payment-service:8000)
  */
 
+import { randomUUID } from 'node:crypto';
 import express, { type NextFunction, type Request, type Response, type Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 import logger from '../utils/logger.js';
 import AuthService from '../services/auth.service.js';
+import { requireProductOrderSchema } from '../middleware/product-order-readiness.middleware.js';
+import { CatalogueProductError } from '../services/product-catalog.service.js';
+import {
+  attachProductOrderPayment,
+  createProductOrderIntent,
+  type PaymentProvider as ProductPaymentProvider,
+  queuePendingExternalPaymentReview,
+} from '../services/product-order.service.js';
 
 const router: Router = express.Router();
 const PAYMENT_API_URL = process.env.PAYMENT_API_URL?.replace(/\/$/, '') || '';
@@ -62,6 +74,188 @@ interface SubscribeRequest {
   return_url?: string;
   cancel_url?: string;
 }
+
+const checkoutLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many checkout requests. Please try again later.' },
+});
+
+interface CheckoutRequest {
+  product_id: string;
+  customer_email: string;
+  customer_name: string;
+  company?: string;
+  country: string;
+  payment_provider: ProductPaymentProvider;
+}
+
+async function createCheckoutUrl(
+  provider: ProductPaymentProvider,
+  intentId: string,
+  product: { name: string; price: number; currency: string; revolutLink?: string },
+  customerEmail: string,
+): Promise<{ paymentUrl: string; paymentReference: string }> {
+  if (provider === 'revolut') {
+    const secret = process.env.REVOLUT_SECRET_KEY;
+    if (secret) {
+      const apiUrl = process.env.REVOLUT_API_URL || 'https://merchant.revolut.com/api';
+      const response = await fetch(`${apiUrl}/orders`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${secret}`,
+          'Content-Type': 'application/json',
+          'Revolut-Api-Version': '2024-09-01',
+        },
+        body: JSON.stringify({
+          amount: Math.round(product.price * 100),
+          currency: product.currency,
+          description: product.name,
+          merchant_order_ext_ref: intentId,
+          customer_email: customerEmail,
+        }),
+      });
+      const data = (await response.json().catch(() => ({}))) as {
+        id?: string;
+        token?: string;
+        checkout_url?: string;
+      };
+      const paymentUrl =
+        data.checkout_url ||
+        (data.token ? `https://checkout.revolut.com/payment-link/${data.token}` : '');
+      if (!response.ok || !data.id || !paymentUrl) {
+        throw new Error(`Revolut checkout creation failed with status ${response.status}`);
+      }
+      return { paymentUrl, paymentReference: data.id };
+    }
+
+    if (product.revolutLink) {
+      return { paymentUrl: product.revolutLink, paymentReference: intentId };
+    }
+    const fallback = process.env.REVOLUT_FALLBACK_LINK || 'https://revolut.me/lifetimeoy';
+    return {
+      paymentUrl: `${fallback.replace(/\/$/, '')}/${Math.round(product.price)}${product.currency}`,
+      paymentReference: intentId,
+    };
+  }
+
+  const merchantEmail = process.env.PAYPAL_MERCHANT_EMAIL || 'risto.anton@lifetime.fi';
+  const params = new URLSearchParams({
+    cmd: '_xclick',
+    business: merchantEmail,
+    item_name: product.name,
+    amount: product.price.toFixed(2),
+    currency_code: product.currency,
+    custom: intentId,
+  });
+  return {
+    paymentUrl: `https://www.paypal.com/cgi-bin/webscr?${params.toString()}`,
+    paymentReference: intentId,
+  };
+}
+
+router.post(
+  '/checkout',
+  checkoutLimiter,
+  requireProductOrderSchema,
+  [
+    body('product_id')
+      .isString()
+      .trim()
+      .isLength({ min: 1, max: 100 })
+      .matches(/^[A-Za-z0-9._-]+$/),
+    body('customer_email').isEmail().isLength({ max: 254 }).normalizeEmail(),
+    body('customer_name').isString().trim().isLength({ min: 1, max: 200 }),
+    body('company').optional({ checkFalsy: true }).isString().trim().isLength({ max: 200 }),
+    body('country').isString().trim().isLength({ min: 2, max: 2 }).isAlpha(),
+    body('payment_provider').isIn(['revolut', 'paypal']),
+    body('amount').optional().isFloat({ gt: 0 }),
+    body('product_name').optional().isString().isLength({ max: 300 }),
+    body('currency').optional().equals('EUR'),
+  ],
+  async (req: Request, res: Response) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: 'Validation Error', details: errors.array() });
+    }
+
+    const request = req.body as CheckoutRequest;
+    const idempotencyKey = req.get('idempotency-key') || `checkout:${randomUUID()}`;
+    if (
+      idempotencyKey.length < 8 ||
+      idempotencyKey.length > 128 ||
+      !/^[A-Za-z0-9._:-]+$/.test(idempotencyKey)
+    ) {
+      return res.status(400).json({ error: 'Invalid Idempotency-Key header' });
+    }
+
+    try {
+      const { intent, product } = await createProductOrderIntent({
+        idempotencyKey,
+        productId: request.product_id,
+        buyerEmail: request.customer_email,
+        buyerName: request.customer_name,
+        buyerCompany: request.company,
+        buyerCountry: request.country.toUpperCase(),
+        paymentProvider: request.payment_provider,
+        metadata: { source: 'dws10_checkout' },
+      });
+
+      if (!intent.created && intent.checkout_url && intent.checkout_reference) {
+        const reviewedIntent = await queuePendingExternalPaymentReview(
+          intent.id,
+          intent.checkout_reference,
+        );
+        return res.json({
+          order_intent_id: intent.id,
+          payment_url: intent.checkout_url,
+          product_id: intent.product_id,
+          product_name: intent.product_name,
+          amount: intent.unit_amount_cents / 100,
+          currency: intent.currency,
+          review_notification_status: reviewedIntent.payment_review_notification_status,
+          idempotent_replay: true,
+        });
+      }
+
+      const checkout = await createCheckoutUrl(
+        request.payment_provider,
+        intent.id,
+        product,
+        request.customer_email,
+      );
+      await attachProductOrderPayment(intent.id, checkout.paymentReference, checkout.paymentUrl);
+      const reviewedIntent = await queuePendingExternalPaymentReview(
+        intent.id,
+        checkout.paymentReference,
+      );
+
+      return res.status(201).json({
+        order_intent_id: intent.id,
+        payment_url: checkout.paymentUrl,
+        product_id: product.id,
+        product_name: product.name,
+        amount: product.price,
+        currency: product.currency,
+        review_notification_status: reviewedIntent.payment_review_notification_status,
+        idempotent_replay: false,
+      });
+    } catch (error) {
+      if (error instanceof CatalogueProductError) {
+        return res
+          .status(error.code === 'UNKNOWN_SKU' ? 404 : 409)
+          .json({ error: error.code, message: error.message });
+      }
+      logger.error('Product checkout failed', { error, productId: request.product_id });
+      return res.status(503).json({
+        error: 'CHECKOUT_UNAVAILABLE',
+        message: 'Checkout could not be created. No payment should be attempted.',
+      });
+    }
+  },
+);
 
 /**
  * POST /api/v1/payments/subscribe

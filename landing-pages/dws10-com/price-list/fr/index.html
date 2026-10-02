@@ -4,8 +4,8 @@
   DWS DOCUMENT STANDARD — VERSION AND AGENT HISTORY (HTML mirror)
   ============================================================================
   Document: dws10.com/price-list/index.html
-  Version: 1.30
-  Effective: 2026-09-15
+  Version: 1.35
+  Effective: 2026-10-01
   Next review: 2026-11-15
   Owner: Lifetime Oy (sales@lifetime.fi)
   Publication Status: ACTIVE
@@ -16,6 +16,24 @@
   Market: Finnish / EU B2B (VAT 0%, reverse charge against valid EU VAT ID)
 
   Sessions & Modifications:
+    - Version 1.35 | claude/aegis-fi-copy-buyer-definition | 2026-10-01 |
+        HIC 01.10.2026: LF-DGX-SPARK €6,109 → €8,008 (same as edge-node-gn100); LF-SITROOM-001
+        €11,598 → €16,016 (2 × €8,008). Hardware only; installation and support unchanged.
+    - Version 1.34 | claude/focused-lamport-r06g72 | 2026-09-30 |
+        DWS IQ 7 Aegis naming; Aegis availability RC 2026 / GA Q1 2027; pilot reported numbers
+        (decision-path coverage, operator time); A5 campaign end date 31.12.2026. No price changes.
+    - Version 1.33 | claude/price-list-a5-campaign | 2026-09-25 |
+        HIC 25.09.2026: old €750 'Kotisivut pk-yritykselle' archived (superseded by Web Starter,
+        A5 campaign €650 VAT 0 %, OVH €1,084). FI price list shows the Finnish campaign caption.
+    - Version 1.32 | claude/ontology-pilot-terms | 2026-09-24 |
+        HIC approved 24.09.2026. LF-ONTOLOGY-PILOT: 3 months; 100% of the pilot fee credited
+        against the first LF-ONTOLOGY-25 licence year if signed within 90 days of the pilot's end.
+    - Version 1.31 | claude/independent-ontology-page | 2026-09-24 |
+        HIC approved 24.09.2026. Effective 2026-09-24; next review stays 2026-11-15.
+        LF-TRAIN-IND renamed Ontology Implementation and Organisation (site configuration).
+        New LF-ONTOLOGY-PILOT one-site pilot (€15,000–€25,000 one-time, quoted), Supporting class,
+        services layer; price cell renders price–priceMax ranges.
+        LF-ONTOLOGY-25 pilot line points to LF-ONTOLOGY-PILOT; site tiers as structured data.
     - Version 1.30 | Cursor | 2026-09-15 |
         Validity: 2026-09-15 for 2 months; next review 2026-11-15.
         LF-ONTOLOGY-25 annual independent data product (from €25,000/year per 1 site).
@@ -100,9 +118,9 @@
       content="Official DWS IQ + Firehorse B2B price list. EUR, VAT 0% (reverse charge). Sovereign intelligence and compliance. Reviewed quarterly."
     />
     <meta name="author" content="Lifetime Oy" />
-    <meta name="dws-doc-version" content="1.30" />
+    <meta name="dws-doc-version" content="1.35" />
     <meta name="dws-doc-market" content="Finnish / EU B2B · VAT 0% reverse charge" />
-    <meta name="dws-doc-effective" content="2026-09-15" />
+    <meta name="dws-doc-effective" content="2026-10-01" />
     <meta name="dws-doc-status" content="ACTIVE" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="DWS IQ Price List · Lifetime Oy" />
@@ -312,11 +330,6 @@
         border: 1px solid rgba(212, 168, 67, 0.55);
         background: rgba(212, 168, 67, 0.12);
       }
-      .portfolio-badge.supporting {
-        color: #bfdbfe;
-        border: 1px solid rgba(96, 165, 250, 0.45);
-        background: rgba(59, 130, 246, 0.1);
-      }
       .portfolio-badge.independent {
         color: #a7f3d0;
         border: 1px solid rgba(52, 211, 153, 0.5);
@@ -326,6 +339,111 @@
       /* Category block */
       .cat-block {
         margin-bottom: 40px;
+        padding: 18px 18px 20px;
+        border-radius: 14px;
+        border-left: 4px solid var(--grp-accent, #60a5fa);
+        background: var(--grp-bg, transparent);
+      }
+      .pl-caption {
+        display: block;
+        color: #e2e8f0;
+        font-style: italic;
+        margin: 3px 0;
+      }
+      /* Attribute tag chips and collapsible long price notes */
+      .pl-tags {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+      .pl-tag {
+        font-size: 0.64rem;
+        font-weight: 700;
+        padding: 1px 7px;
+        border-radius: 999px;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        color: #cbd5e1;
+        background: rgba(148, 163, 184, 0.12);
+      }
+      .pl-tag-sovereign {
+        color: #a7f3d0;
+        border-color: rgba(52, 211, 153, 0.5);
+        background: rgba(16, 185, 129, 0.12);
+      }
+      .pl-tag-sovereign-cloud {
+        color: #bae6fd;
+        border-color: rgba(56, 189, 248, 0.5);
+        background: rgba(14, 165, 233, 0.12);
+      }
+      .pl-tag-air-gapped {
+        color: #ddd6fe;
+        border-color: rgba(167, 139, 250, 0.5);
+        background: rgba(139, 92, 246, 0.12);
+      }
+      .pl-tag-us-sovereign-cloud {
+        color: #fde68a;
+        border-color: rgba(251, 191, 36, 0.5);
+        background: rgba(245, 158, 11, 0.12);
+      }
+      .pl-tag-on-prem {
+        color: #99f6e4;
+        border-color: rgba(45, 212, 191, 0.5);
+        background: rgba(20, 184, 166, 0.12);
+      }
+      .pl-tag-gov-ready {
+        color: #fecdd3;
+        border-color: rgba(251, 113, 133, 0.5);
+        background: rgba(244, 63, 94, 0.12);
+      }
+      .pl-tag-early-access {
+        color: #fed7aa;
+        border-color: rgba(251, 146, 60, 0.5);
+        background: rgba(249, 115, 22, 0.12);
+      }
+      .pl-terms {
+        margin-top: 4px;
+        font-size: 0.78rem;
+        color: #94a3b8;
+      }
+      .pl-terms summary {
+        cursor: pointer;
+        color: #93c5fd;
+      }
+      .pl-terms p {
+        margin: 6px 0 0;
+      }
+      /* Product group themes: soft background + accent per group */
+      .cat-block .price-table {
+        background: transparent;
+      }
+      .cat-block .price-table thead th {
+        background: rgba(15, 23, 42, 0.35);
+      }
+      .cat-block.grp-sme {
+        --grp-bg: rgba(251, 191, 36, 0.1);
+        --grp-accent: #fcd34d;
+      }
+      .cat-block.grp-dwsiq {
+        --grp-bg: rgba(96, 165, 250, 0.11);
+        --grp-accent: #93c5fd;
+      }
+      .cat-block.grp-firehorse {
+        --grp-bg: rgba(251, 146, 60, 0.1);
+        --grp-accent: #fdba74;
+      }
+      .cat-block.grp-data {
+        --grp-bg: rgba(45, 212, 191, 0.1);
+        --grp-accent: #5eead4;
+      }
+      .cat-block.grp-services {
+        --grp-bg: rgba(167, 139, 250, 0.11);
+        --grp-accent: #c4b5fd;
+      }
+      .cat-block.grp-hardware {
+        --grp-bg: rgba(148, 163, 184, 0.1);
+        --grp-accent: #cbd5e1;
       }
       .cat-heading {
         display: flex;
@@ -447,6 +565,11 @@
         border-color: rgba(251, 191, 36, 0.4) !important;
         color: #fcd34d !important;
       }
+      .act-buy {
+        border-color: rgba(74, 222, 128, 0.6) !important;
+        color: #4ade80 !important;
+        background: rgba(74, 222, 128, 0.12) !important;
+      }
 
       .loading,
       .error {
@@ -482,6 +605,14 @@
 
       /* Print */
       @media print {
+        .pl-caption { color: #1e3a5f; }
+        .pl-tag { color: #334155; background: #f1f5f9; border-color: #94a3b8; }
+        .cat-block.grp-sme { --grp-bg: #fef9ec; --grp-accent: #f59e0b; }
+        .cat-block.grp-dwsiq { --grp-bg: #eff6ff; --grp-accent: #3b82f6; }
+        .cat-block.grp-firehorse { --grp-bg: #fff4ed; --grp-accent: #f97316; }
+        .cat-block.grp-data { --grp-bg: #effcf9; --grp-accent: #14b8a6; }
+        .cat-block.grp-services { --grp-bg: #f5f3ff; --grp-accent: #8b5cf6; }
+        .cat-block.grp-hardware { --grp-bg: #f8fafc; --grp-accent: #64748b; }
         body {
           background: #fff;
           color: #111;
@@ -1006,14 +1137,14 @@
           <p>Responsable : <span id="lOwner">Risto Anton Päärni</span></p>
           <p>Cadence : revue à chaque trimestre civil</p>
           <p>
-            Version du standard documentaire DWS : <strong id="lDocVersion">1.30</strong> · En vigueur
-            <strong id="lDocEffective">2026-09-15</strong>
+            Version du standard documentaire DWS : <strong id="lDocVersion">1.35</strong> · En vigueur
+            <strong id="lDocEffective">2026-10-01</strong>
           </p>
           <p style="margin-top: 6px">
             Marché : <strong>Finlande / UE B2B · TVA 0 % (autoliquidation)</strong>. Les coûts matériels reflètent des prix vérifiés de distributeurs européens et de lancement EMEA — non convertis depuis les tarifs américains. Les sources européennes NVIDIA / Acer sont documentées dans <code>priceHistory[]</code>.
           </p>
           <p style="margin-top: 6px">
-            Catalog version <strong id="lCatalogVersion">1.30</strong>. Current product and hardware
+            Catalog version <strong id="lCatalogVersion">1.35</strong>. Current product and hardware
             prices load directly from <code>dws10.com/config/products.json</code>.
           </p>
           <p>Source de vérité : <code>dws10.com/config/products.json</code></p>
@@ -1038,27 +1169,98 @@
       (function () {
         "use strict";
 
-        var LAYER_LABELS = {
-          solutions: "1. Customer solutions",
-          data: "2. Independent data products",
-          services: "3. Services and implementation",
-          hardware: "4. Hardware and infra SKUs",
+        // Product groups (HIC 25.09.2026): each group is a tag or a catalogue class and
+        // has its own soft background colour (.cat-block.grp-<key>).
+        var PAGE_LANG_FI = document.documentElement.lang === "fi";
+        var LAYER_LABELS = PAGE_LANG_FI
+          ? {
+              sme: "Pk-yritysten kampanjatuotteet",
+              dwsiq: "DWS IQ -alusta",
+              firehorse: "Firehorse-agentit",
+              data: "Itsenäiset datatuotteet",
+              services: "Palvelut, konsultointi ja koulutus",
+              hardware: "Laitteet ja infrastruktuuri",
+              other: "Muut tuotteet",
+            }
+          : {
+              sme: "SME campaign products",
+              dwsiq: "DWS IQ platform",
+              firehorse: "Firehorse agents",
+              data: "Independent data products",
+              services: "Services, consulting and training",
+              hardware: "Hardware and infrastructure",
+              other: "Other products",
+            };
+        var LAYER_ORDER = ["sme", "dwsiq", "firehorse", "data", "services", "hardware", "other"];
+        // Group tags name the section; attribute tags (Hardware, Sovereign, Air-Gapped,
+        // Sovereign Cloud) render as chips next to the product name.
+        var GROUP_TAGS = ["SME", "DWS IQ", "Firehorse"];
+        // FI chip labels = product_tag_* fi values in docs/localization/dws-dictionary.json
+        // (validate-product-publication checks they match).
+        var TAG_FI = {
+          "Hardware": "Laitteisto",
+          "Sovereign": "Suvereeni",
+          "Air-Gapped": "Ilmaeristetty (air-gapped)",
+          "Sovereign Cloud": "Suvereeni pilvi",
+          "US Sovereign Cloud": "Yhdysvaltain suvereeni pilvi",
+          "On-Prem": "Omissa tiloissa (on-prem)",
+          "Gov Ready": "Viranomaisvalmis (Gov Ready)",
+          "Licence": "Lisenssi",
+          "Subscription": "Tilaus",
+          "Installation": "Asennus",
+          "Pilot": "Pilotti",
+          "Free": "Maksuton",
+          "Training": "Koulutus",
+          "Early Access": "Varhainen käyttö (early access)",
         };
-        var LAYER_ORDER = ["solutions", "data", "services", "hardware"];
+        // Long price notes are one paragraph in the catalogue: show the first sentence and put
+        // the rest in a collapsible block, broken at ALL-CAPS headings (INCLUDED:, …).
+        function formatNote(text) {
+          var t = String(text);
+          if (t.length <= 180) return "<small>" + escapeHtml(t) + "</small>";
+          var m = t.match(/^(.+?[.)])\s+(?=[A-Z€0-9])/);
+          var head = m ? m[1] : t.slice(0, 180);
+          var rest = m ? t.slice(m[0].length) : t.slice(180);
+          var paras = rest
+            .split(/(?<=[.)])\s+(?=[A-Z][A-Z ]{3,}[:(])/)
+            .map(function (x) {
+              return "<p>" + escapeHtml(x.trim()) + "</p>";
+            })
+            .join("");
+          return (
+            "<small>" +
+            escapeHtml(head) +
+            "</small>" +
+            '<details class="pl-terms"><summary>' +
+            (PAGE_LANG_FI ? "Ehdot" : "Terms") +
+            "</summary>" +
+            paras +
+            "</details>"
+          );
+        }
         var independentLookup = {};
         function commercialLayer(p) {
           var id = p.id || "";
+          var tags = Array.isArray(p.tags) ? p.tags : [];
+          if (tags.indexOf("SME") !== -1) return "sme";
+          if (tags.indexOf("DWS IQ") !== -1) return "dwsiq";
+          if (tags.indexOf("Firehorse") !== -1) return "firehorse";
           if (independentLookup[id]) return "data";
-          if (p.storeCategory === "advisory" || id === "LF-TRAIN-IND" || id === "aws-consultancy") {
+          if (
+            p.storeCategory === "advisory" ||
+            p.storeCategory === "ai-cloud" ||
+            id === "LF-TRAIN-IND" ||
+            id === "LF-ONTOLOGY-PILOT"
+          ) {
             return "services";
           }
           if (
             p.storeCategory === "hardware" ||
-            /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE)/.test(id)
+            /^(LF-K8S|LF-DOCA|LF-NIM|LF-GOV|LF-IPC|LF-FIPS|LF-CINCOZE|LF-SOV)/.test(id)
           ) {
             return "hardware";
           }
-          return "solutions";
+          return "other";
         }
         var TIER_COLOR = {
           T0: "#94a3b8",
@@ -1194,16 +1396,61 @@
           var gov = pl.governance || {};
           var portfolio = data.commercialPortfolio || {};
           var seriousIds = portfolio.seriousProductIds;
-          if (!Array.isArray(seriousIds) || seriousIds.length !== 13) {
-            throw new Error("commercialPortfolio.seriousProductIds must contain exactly 13 IDs");
+          // Count drift is enforced in CI by scripts/validate-product-publication.mjs;
+          // the public page warns and renders what it can instead of going blank.
+          if (!Array.isArray(seriousIds)) seriousIds = [];
+          var expectedSerious = ((portfolio.surfaces || {}).buy || {}).expectedProductCount;
+          if (expectedSerious && seriousIds.length !== expectedSerious) {
+            console.warn(
+              "seriousProductIds has " +
+                seriousIds.length +
+                " IDs; surfaces.buy expects " +
+                expectedSerious,
+            );
           }
           var seriousLookup = {};
+          // Products with a .fi.html detail page (products.json detailsUrl + file exists, 2026-09-23)
+          var FI_DETAIL_PRODUCTS = {
+            "DWS-AEGIS-001": true,
+            "DWS-CLIMATE-001": true,
+            "DWS-EU-PILOT": true,
+            "DWS-EU-STARTER": true,
+            "DWS-IQ-006": true,
+            "DWS-IQ-FREE-2026": true,
+            "DWS-SOVEREIGN-DB-001": true,
+            "DWS-US-PILOT": true,
+            "DWS-US-STARTER": true,
+            "FH-AUTO-001": true,
+            "FH-CMS-001": true,
+            "FH-OMNI-001": true,
+            "FH-RPT-001": true,
+            "FH-SIGN-001": true,
+            "LF-COMPLIANCE-AMBULANCE-001": true,
+            "LF-DGX-SPARK": true,
+            "LF-IGX-ORIN": true,
+            "LF-JETSON-AGX": true,
+            "LF-JETSON-NANO": true,
+            "LF-JETSON-NX": true,
+            "LF-NVIDIA-INSTALL": true,
+            "LF-SITROOM-001": true,
+            "LIFETIME-BUNDLE-2026": true,
+            "LIFETIME-WEB-STARTER": true,
+            "LIFETIME-WEBSTORE-MINI": true,
+            "ai-consulting-agentic": true,
+            "consulting-fit55": true,
+            "consulting-hourly": true,
+            "edge-node-gn100": true,
+            "professional-web-pages": true,
+            "sovereignty-cloud-consulting": true,
+          };
+          var PAGE_FI = document.documentElement.lang === "fi";
           seriousIds.forEach(function (id) {
             seriousLookup[id] = true;
           });
           var independentIds = portfolio.independentProductIds;
-          if (!Array.isArray(independentIds) || independentIds.length !== 2) {
-            throw new Error("commercialPortfolio.independentProductIds must contain exactly 2 IDs");
+          if (!Array.isArray(independentIds)) independentIds = [];
+          if (independentIds.length !== 2) {
+            console.warn("independentProductIds has " + independentIds.length + " IDs; expected 2");
           }
           independentLookup = {};
           independentIds.forEach(function (id) {
@@ -1224,13 +1471,16 @@
             });
           seriousIds.forEach(function (id) {
             var product = catalogProducts[id];
-            if (!product) throw new Error("Serious product missing: " + id);
+            if (!product) {
+              console.warn("Serious product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Serious product is not public: " + id);
+              console.warn("Serious product is not public: " + id);
             }
           });
 
@@ -1276,13 +1526,13 @@
           document.getElementById("mEffective").textContent = fmtDate(pl.effectiveDate);
           document.getElementById("mNext").textContent = fmtDate(pl.nextReviewDate);
           var docVersionEl = document.getElementById("lDocVersion");
-          if (docVersionEl) docVersionEl.textContent = pl.version || "1.30";
+          if (docVersionEl) docVersionEl.textContent = pl.version || "1.35";
           var docEffectiveEl = document.getElementById("lDocEffective");
           if (docEffectiveEl && pl.effectiveDate)
             docEffectiveEl.textContent = fmtDate(pl.effectiveDate);
           var catalogVersionEl = document.getElementById("lCatalogVersion");
           if (catalogVersionEl)
-            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.30";
+            catalogVersionEl.textContent = data.priceVersion || pl.version || "1.35";
           document.getElementById("mCurrency").textContent = policy.currency || "EUR";
           document.getElementById("mVat").textContent =
             policy.vatTreatment === "B2B_VAT_0" ? "B2B · 0%" : policy.vatTreatment || "—";
@@ -1312,13 +1562,16 @@
 
           independentIds.forEach(function (id) {
             var product = products[id];
-            if (!product) throw new Error("Independent product missing: " + id);
+            if (!product) {
+              console.warn("Independent product missing: " + id);
+              return;
+            }
             if (
               product.deploymentColor === "blue" ||
               product.archived === true ||
               product.productType === "archived"
             ) {
-              throw new Error("Independent product is not public: " + id);
+              console.warn("Independent product is not public: " + id);
             }
           });
 
@@ -1354,7 +1607,7 @@
             });
 
             var block = document.createElement("section");
-            block.className = "cat-block";
+            block.className = "cat-block grp-" + cat;
             block.innerHTML =
               '<div class="cat-heading">' +
               "<h2>" +
@@ -1372,11 +1625,12 @@
               "</tr></thead><tbody>" +
               list
                 .map(function (p) {
+                  // No "Supporting" tag (HIC 25.09.2026): only Serious and Independent are badged.
                   var portfolioClass = seriousLookup[p.id]
                     ? "Serious"
                     : independentLookup[p.id]
                       ? "Independent"
-                      : "Supporting";
+                      : "";
                   var priceVal = p.price;
                   var priceCell;
                   if (priceVal === 0) {
@@ -1387,40 +1641,78 @@
                     !Number.isFinite(Number(priceVal))
                   ) {
                     priceCell = '<span style="color:#fbbf24">Quote</span>';
+                  } else if (
+                    Number.isFinite(Number(p.priceMax)) &&
+                    Number(p.priceMax) > Number(priceVal)
+                  ) {
+                    priceCell = eur(Number(priceVal)) + "–" + eur(Number(p.priceMax));
                   } else {
                     priceCell = (p.startingPrice === true ? "from " : "") + eur(Number(priceVal));
                   }
-                  var note = p.priceNote ? "<small>" + escapeHtml(p.priceNote) + "</small>" : "";
-                  var caption = p.caption
-                    ? '<small class="pl-caption" style="display:block;color:#1e3a5f;font-style:italic;margin:3px 0;">' +
-                      escapeHtml(p.caption) +
+                  var note = p.priceNote ? formatNote(p.priceNote) : "";
+                  var tagChips = (Array.isArray(p.tags) ? p.tags : [])
+                    .filter(function (t) {
+                      return GROUP_TAGS.indexOf(t) === -1;
+                    })
+                    .map(function (t) {
+                      return (
+                        '<span class="pl-tag pl-tag-' +
+                        t.toLowerCase().replace(/[^a-z]+/g, "-") +
+                        '">' +
+                        escapeHtml((PAGE_LANG_FI && TAG_FI[t]) || t) +
+                        "</span>"
+                      );
+                    })
+                    .join("");
+                  var captionText = (PAGE_FI && p.captionFi) || p.caption;
+                  var caption = captionText
+                    ? '<small class="pl-caption">' +
+                      escapeHtml(captionText) +
                       "</small>"
                     : "";
                   var rawDetails = p.detailsUrl ? p.detailsUrl.replace(/^\.\.\//, "/") : "";
                   var isMailto = rawDetails.indexOf("https://dws10.com/contact/") === 0;
                   var detailsHref = isMailto ? "" : rawDetails;
+                  var fiRow = PAGE_FI && FI_DETAIL_PRODUCTS[p.id] === true;
+                  var fiDetailsHref =
+                    fiRow && detailsHref ? detailsHref.replace(/\.html$/, ".fi.html") : "";
                   var pid = escapeHtml(p.id || "");
                   var pname = encodeURIComponent(p.name || p.id || "Product");
                   var cardBtn = seriousLookup[p.id]
                     ? '<a class="act-card" href="/buy/#product-' +
                       pid +
-                      '" title="Product card">Card</a>'
+                      '" title="Product card">' + (fiRow ? "Kortti" : "Card") + "</a>"
                     : "";
                   var detailBtn = detailsHref
                     ? '<a class="act-detail" href="' +
                       escapeHtml(detailsHref) +
-                      '" title="Full product details">Details</a>'
+                      '" title="Full product details">Details</a>' +
+                      (fiDetailsHref
+                        ? '<a class="act-detail" href="' +
+                          escapeHtml(fiDetailsHref) +
+                          '" title="Tuotetiedot suomeksi">Tuotetiedot</a>'
+                        : "")
                     : "";
                   var bookBtn =
                     '<a class="act-book" href="/book/?service=demo&amp;product=' +
                     pid +
-                    '" title="Book a meeting">Book&nbsp;Meeting</a>';
+                    '" title="Book a meeting">' + (fiRow ? "Varaa&nbsp;tapaaminen" : "Book&nbsp;Meeting") + "</a>";
                   var emailBtn =
-                    '<a class="act-email" href="https://dws10.com/contact/?subject=Enquiry%3A%20' +
+                    '<a class="act-email" href="https://dws10.com/contact/?subject=' + (fiRow ? "Tiedustelu%3A%20" : "Enquiry%3A%20") +
                     pname +
-                    '" title="Email sales">Email</a>';
+                    '" title="Email sales">' + (fiRow ? "Sähköposti" : "Email") + "</a>";
+                  // HIC 27.09.2026 (product-readiness-portfolio, tranche 2 part B): every priced,
+                  // active row gets a direct Buy action to the same real, working checkout route
+                  // every product detail page now uses. Never alters which rows are shown/hidden
+                  // (lifecycle filters are untouched) — purely an added action.
+                  var buyBtn =
+                    p.checkoutUrl && typeof p.price === "number" && p.price > 0
+                      ? '<a class="act-buy" href="' +
+                        escapeHtml(p.checkoutUrl) +
+                        '" title="Buy now">' + (fiRow ? "Osta&nbsp;nyt" : "Buy&nbsp;now") + "</a>"
+                      : "";
                   var btns =
-                    '<div class="act-btns">' + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
+                    '<div class="act-btns">' + buyBtn + cardBtn + detailBtn + bookBtn + emailBtn + "</div>";
                   var tierHtml = tierBadge(p.tier);
                   var anchor = replacesLine(p);
                   var upsell = upsellLine(p);
@@ -1429,14 +1721,19 @@
                     '<td class="col-id" data-label="ID">' +
                     escapeHtml(p.id || "") +
                     "</td>" +
-                    '<td data-label="Class"><span class="portfolio-badge ' +
-                    portfolioClass.toLowerCase() +
-                    '">' +
-                    portfolioClass +
-                    "</span></td>" +
+                    '<td data-label="Class">' +
+                    (portfolioClass
+                      ? '<span class="portfolio-badge ' +
+                        portfolioClass.toLowerCase() +
+                        '">' +
+                        portfolioClass +
+                        "</span>"
+                      : "") +
+                    "</td>" +
                     '<td class="col-name" data-label="Product">' +
                     tierHtml +
                     escapeHtml(p.name || "") +
+                    (tagChips ? '<span class="pl-tags">' + tagChips + "</span>" : "") +
                     caption +
                     note +
                     anchor +
@@ -1467,7 +1764,7 @@
             countEl.innerHTML =
               "This public list shows <strong>" +
               rendered +
-              "</strong> active offers (Serious, Independent, or Supporting). BLUE and archived SKUs are omitted. The count is taken from the rows below, not a frozen headline.";
+              "</strong> active offers in six product groups. Serious and Independent offers are badged. BLUE and archived SKUs are omitted. The count is taken from the rows below, not a frozen headline.";
           }
         }
 
@@ -1479,7 +1776,7 @@
             '<p style="margin-top:10px">Please refresh, or email <a href="https://dws10.com/contact/">sales@lifetime.fi</a>.</p></div>';
         }
 
-        fetch("/config/products.json?v=1.30", { cache: "no-store" })
+        fetch("/config/products.json?v=1.34", { cache: "no-store" })
           .then(function (r) {
             if (!r.ok) throw new Error("HTTP " + r.status);
             return r.json();

@@ -1,0 +1,19 @@
+{
+  "format": "aegis-operator-copy/1",
+  "command_kind": "stop",
+  "command": {
+    "v": 1,
+    "commandId": "00000000-0000-4000-8000-000000000402",
+    "target": "00000000-0000-4000-8000-000000000300",
+    "reason": "TEST-ONLY: operator stop",
+    "issuedAt": "2026-10-01T06:00:04.000Z",
+    "operatorCredentialId": "00000000-0000-4000-8000-000000000102",
+    "signature": "PH_QJDYD7a-PokIATn6pFvSCa_TSY94giA3NOES2DDF9uLmxM4LgVpXyKL3mO29w6lVuB1ZD4nLmza2wI0tZCw",
+    "digestSignature": "ew2FyebG9vvi6nGUNlWhUl91gCo88LMrjqKNk3td-8swRUfE9ASzav8RqKt9RvWnEGfpR-spMoRgwOe82X1RCA"
+  },
+  "issued_against": {
+    "segment": 0,
+    "seq": 2,
+    "event_hash": "fd1ae255ac662815bd98ab99aa1d80cd5dbfc2f543c0e432aea4615b1308029b"
+  }
+}

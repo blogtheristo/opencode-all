@@ -13,6 +13,7 @@
 
 import logger from '../../utils/logger.js';
 import { createLLMClientForAgent } from '../llm-client.js';
+import { checkpointService } from '../session-checkpoint.service.js';
 import { CheckerAgent } from './checker.agent.js';
 import { LoopBudget } from './loop-budget.js';
 import { runSafetyGate } from './loop-safety-gate.js';
@@ -130,7 +131,7 @@ export class LoopOrchestrator {
       });
 
       // ── INNER LOOP: Maker agent (observe-think-act) ──────────────────
-      const makerResult = await this.runMaker(context, makerInstruction, budget);
+      const makerResult = await this.runMaker(context, makerInstruction, budget, cycleNum);
       finalOutput = makerResult.output;
 
       // ── CHECKER: grade Maker output ──────────────────────────────────
@@ -222,9 +223,10 @@ export class LoopOrchestrator {
   // ── MAKER RUNNER ────────────────────────────────────────────────────────
 
   private async runMaker(
-    _context: AgentContext,
+    context: AgentContext,
     instruction: string,
     budget: LoopBudget,
+    cycleNum: number,
   ): Promise<{ output: string; tokensIn: number; tokensOut: number }> {
     const { maker } = this.config;
 
@@ -241,17 +243,37 @@ export class LoopOrchestrator {
       };
     }
 
-    const messages: LLMMessage[] = [
-      { role: 'system', content: maker.systemPrompt },
-      { role: 'user', content: instruction },
-    ];
+    // Resume mid-cycle if a prior process crashed after checkpointing but
+    // before this cycle finished (same session, same cycle instruction).
+    const recovered = await checkpointService.recover(
+      context.sessionId,
+      context.orgId,
+      maker.agentName,
+    );
+    const resumeState = recovered?.userMessage === instruction ? recovered : null;
+
+    const messages: LLMMessage[] = resumeState
+      ? resumeState.messages
+      : [
+          { role: 'system', content: maker.systemPrompt },
+          { role: 'user', content: instruction },
+        ];
+
+    if (resumeState) {
+      logger.info('Maker inner loop resumed from checkpoint', {
+        agent: maker.agentName,
+        cycle: cycleNum,
+        fromIteration: resumeState.iterationIndex,
+      });
+    }
 
     let totalIn = 0;
     let totalOut = 0;
     let lastContent = '';
     const maxIter = this.config.budget.maxIterationsPerCycle;
+    const startIter = resumeState ? resumeState.iterationIndex + 1 : 0;
 
-    for (let i = 0; i < maxIter; i++) {
+    for (let i = startIter; i < maxIter; i++) {
       const stepCheck = budget.stepUsed();
       if (!stepCheck.allowed) {
         logger.warn('Maker inner loop halted — step budget exhausted', {
@@ -282,6 +304,18 @@ export class LoopOrchestrator {
 
       messages.push({ role: 'assistant', content: response.content });
 
+      // Checkpoint after each iteration so a crash mid-cycle resumes here
+      // instead of re-running the whole cycle from scratch. Non-blocking.
+      void checkpointService.checkpoint(context, {
+        messages,
+        iterationIndex: i,
+        partialResults: [],
+        checkpointedAt: new Date().toISOString(),
+        agentName: maker.agentName,
+        systemPrompt: maker.systemPrompt,
+        userMessage: instruction,
+      });
+
       // Maker signals it is done (no tool calls = end_turn)
       if (
         !response.toolCalls ||
@@ -291,6 +325,11 @@ export class LoopOrchestrator {
         break;
       }
     }
+
+    // Cycle finished (pass, fail-to-checker, or budget/step exhaustion) —
+    // the file-based LoopStateFile now owns this cycle's record, so the
+    // mid-cycle checkpoint is no longer needed.
+    void checkpointService.clear(context.sessionId, maker.agentName);
 
     return { output: lastContent, tokensIn: totalIn, tokensOut: totalOut };
   }

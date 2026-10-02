@@ -1,0 +1,21 @@
+{
+  "task": "Aegis C6: version drift check (Standards Library cell, provenance documents, RIM)",
+  "prompt": "Add scripts/check-version-drift.mjs (plain Node ESM, no new dependency) and an npm script \"check:version-drift\" in package.json that runs it; add one step running it to the existing lint-check CI job in .github/workflows (find the workflow that defines the lint-check job). Accept --root DIR (default repo root) so tests can use fixtures. It must exit 1 and print each drifted pair when: (1) the Version: line of Legal/KYA_S1.md differs from the KYA-S1 version cell in DWS_STANDARDS_LIBRARY.md (the table row starting '| **KYA-S1**', cell text like 'v1.6 (30.09.2026)'); (2) any document listed in PROVENANCE_SOURCES in src/aegis/pilot/provenance.ts (read the object literal with a regex, do not import TypeScript) is missing or has no 'Version: X.Y' header line; (3) the reference PCR manifest (RIM) drifts: every file config/aegis-pilot/rim/*.json must parse and carry a 'version' field equal to its file name without .json, and if PILOT_ATTESTATION in provenance.ts has a non-null rimVersion, config/aegis-pilot/rim/<rimVersion>.json must exist. With no rim directory and rimVersion null, check (3) passes. Print {ok, failures:[...]} as JSON. Add scripts/__tests__/check-version-drift.test.mjs (vitest, >=5 cases on temp fixtures via --root: clean passes; library cell drift fails; unversioned provenance document fails; rim file with mismatched version fails; non-null rimVersion without its file fails). Do not change src/aegis/pilot/. prettier --write changed files; commit and push.",
+  "base": "main",
+  "order": 23,
+  "maxRounds": 4,
+  "checks": [
+    {
+      "name": "drift check exists and passes on the repo",
+      "run": "node scripts/check-version-drift.mjs"
+    },
+    {
+      "name": "drift check suite passes",
+      "run": "npx vitest run scripts/__tests__/check-version-drift.test.mjs 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "npm script and CI step",
+      "run": "grep -q 'check:version-drift' package.json && grep -rq 'check:version-drift' .github/workflows"
+    }
+  ]
+}

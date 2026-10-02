@@ -159,7 +159,7 @@ Lifetime Fleet on DWS IQ Aegisin fyysinen toteutuskerros ("Hands"):
 | **Mobiilisensorit**         | Lämpötila, kosteus, tuuli, paine, melu, pöly, tärinä, valo          |
 | **OpenSandbox v1.5**        | Agenttien eristys efemeerisissä Docker-konteissa                    |
 | **TimescaleDB**             | Aikasarjadata reunalaitteilla — ei pilviviivettä                    |
-| **Kill-switch**             | Sub-5ms kryptografinen pysäytys per agentti, <50ms koko laivastolle |
+| **Kill-switch**             | Kryptografinen pysäytys per agentti (suunnittelutavoite alle 5 ms, laivasto alle 50 ms) |
 
 **4-kumppanin laitteistoekosysteemi:**
 
@@ -353,7 +353,7 @@ Lifetime Oy sitoutuu siirtämään pääkonttorinsa kokonaisuudessaan Esposta Ri
 4. **Ainoa dual-compliance-alusta** — Puolustus + ilmasto yhdestä järjestelmästä
 5. **Lifetime Fleet IoT** — Mobiilisensorit ja reunalaskenta kentälle (NVIDIA Jetson + Acer Veriton GN100)
 6. **ICEYE-naapuri** — Espoo-Espoo yhteistyö SAR-tiedustelussa
-7. **KYA — Know Your Agent** — Ainoa agenttihallintamalli markkinoilla (sub-5ms kill-switch)
+7. **KYA — Know Your Agent** — Ainoa agenttihallintamalli markkinoilla (kill-switch, suunnittelutavoite alle 5 ms)
 8. **4 teknologiakumppania** — NVIDIA, Acer, Siemens, ABB
 9. **Suomalainen NATO-yhtiö** — Luotettava alkuperä puolustusekosysteemissä
 

@@ -1,3 +1,5 @@
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=copilot Date=2026-09-27
+// Audit trail: git log -- src/routes/stripe-webhook.routes.ts
 import { type Request, type Response, Router } from 'express';
 import {
   idempotencyCheck,
@@ -8,7 +10,7 @@ import {
 import logger from '../utils/logger.js';
 import { supabase } from '../services/supabase.service.js';
 import { gtmEventLogger } from '../services/gtm-event-logger.js';
-import { eventBus } from '../agents/event-bus.js';
+import { confirmProductOrderPayment } from '../services/product-order.service.js';
 
 const router = Router();
 
@@ -65,24 +67,50 @@ router.post(
           .single();
 
         if (error || !order) {
-          logger.warn('Order not found for Stripe invoice', { invoice_id: invoiceId });
-          const result = { success: true, message: 'Invoice processed (order not found)' };
+          logger.error('Verified Stripe invoice has no matching durable order', {
+            invoice_id: invoiceId,
+            error: error?.message,
+          });
+          const result = { success: false, error: 'ORDER_NOT_FOUND' };
           storeResult(result);
-          return res.status(200).json(result);
+          return res.status(404).json(result);
         }
 
-        // Mark order as paid
-        const { error: updateError } = await supabase.rpc('mark_order_paid', {
-          p_order_id: order.id,
+        const stripeCustomerId =
+          typeof invoice.customer === 'string' ? invoice.customer : invoice.customer?.id;
+        if (
+          invoice.metadata?.order_id !== order.id ||
+          invoice.metadata?.product_id !== order.product_id ||
+          !order.user_id ||
+          stripeCustomerId !== order.user_id
+        ) {
+          logger.error('Stripe invoice linkage verification failed', {
+            invoice_id: invoiceId,
+            order_id: order.id,
+            metadata_order_id: invoice.metadata?.order_id,
+            metadata_product_id: invoice.metadata?.product_id,
+            stripe_customer_id: stripeCustomerId,
+          });
+          const result = { success: false, error: 'INVOICE_LINKAGE_MISMATCH' };
+          storeResult(result);
+          return res.status(409).json(result);
+        }
+
+        const confirmedIntent = await confirmProductOrderPayment({
+          provider: 'stripe',
+          paymentReference: invoiceId,
+          amountCents: invoice.amount_paid,
+          currency: invoice.currency,
+          auditActor: `stripe:webhook:${event.id}`,
+          verificationMethod: 'stripe_webhook',
+          buyerEmail: invoice.customer_email || undefined,
+          legacyOrder: order,
         });
 
-        if (updateError) {
-          logger.error('Failed to mark order paid', { error: updateError, order_id: order.id });
-          return res.status(500).json({ error: 'Failed to process payment' });
-        }
-
-        logger.info('Order marked as paid', {
+        logger.info('Order payment confirmed and fulfilment queued', {
           order_id: order.id,
+          order_intent_id: confirmedIntent.id,
+          product_id: confirmedIntent.product_id,
           invoice_id: invoiceId,
           amount: invoice.amount_paid,
         });
@@ -98,26 +126,11 @@ router.post(
             order_id: order.id,
             customer_id: invoice.customer,
             invoice_number: invoice.number,
+            product_id: confirmedIntent.product_id,
           },
           user_id: order.user_id || undefined,
           session_id: order.session_id || undefined,
           timestamp: new Date(event.created * 1000).toISOString(),
-        });
-
-        // Emit to event bus for downstream handlers
-        await eventBus.emit({
-          type: 'sales.purchase',
-          source: 'stripe_webhook',
-          payload: {
-            transaction_id: invoiceId,
-            order_id: order.id,
-            amount_eur: invoice.amount_paid / 100,
-            customer_id: invoice.customer,
-          },
-          priority: 'normal',
-          timestamp: new Date(event.created * 1000).toISOString(),
-          orgId: order.org_id || 'unknown',
-          sessionId: order.session_id || 'unknown',
         });
 
         // Step 8: Alert Risto for enterprise / high-value orders (≥ €500)
@@ -173,35 +186,6 @@ router.post(
           session_id: order.session_id || undefined,
           timestamp: new Date(event.created * 1000).toISOString(),
         });
-
-        // Activate service/product access
-        try {
-          // Emit to event bus for downstream handlers
-          await eventBus.emit({
-            type: 'sales.purchase',
-            source: 'stripe_webhook',
-            payload: {
-              transaction_id: invoiceId,
-              order_id: order.id,
-              amount_eur: invoice.amount_paid / 100,
-              customer_id: invoice.customer,
-            },
-            priority: 'normal',
-            timestamp: new Date(event.created * 1000).toISOString(),
-            orgId: order.org_id || 'unknown',
-            sessionId: order.session_id || 'unknown',
-          });
-
-          logger.info('Order workflow triggered', {
-            order_id: order.id,
-            invoice_id: invoiceId,
-          });
-        } catch (error) {
-          logger.error('Failed to trigger order workflow', {
-            error,
-            order_id: order.id,
-          });
-        }
 
         const result = { success: true, order_id: order.id, status: 'payment_completed' };
         storeResult(result);

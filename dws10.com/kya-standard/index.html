@@ -553,11 +553,12 @@
         physical separation for every agent deployment.
       </p>
 
-      <h3>Firecracker MicroVMs</h3>
+      <h3>Sandbox Isolation (OpenShell today, Firecracker MicroVMs on the roadmap)</h3>
       <p>
-        Every BYO process is encapsulated in a dedicated MicroVM. No shared kernel access. Each
-        sandbox runs its own isolated guest kernel, eliminating "breakout" exploits and ensuring
-        that a compromise in one agent cannot migrate to the host or adjacent sandboxes.
+        Every BYO process runs in its own NVIDIA OpenShell sandbox: Landlock limits the
+        filesystem, seccomp limits system calls, and a network namespace blocks egress unless the
+        manifest allows it. The sandbox shares the host kernel. Dedicated MicroVMs with their own
+        guest kernel (Firecracker) are on the roadmap and not yet implemented.
       </p>
 
       <div class="summary-table">

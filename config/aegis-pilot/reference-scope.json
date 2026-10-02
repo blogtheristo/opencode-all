@@ -1,0 +1,73 @@
+{
+  "v": 1,
+  "site": {
+    "siteId": "reference-site",
+    "name": "Reference control room (rehearsal)",
+    "orgId": "lifetime-oy"
+  },
+  "workflow": {
+    "id": "shift-handover",
+    "name": "Control-room shift handover",
+    "completionState": "A signed-off handover report exists on local disk listing every out-of-band reading and the action assigned to it.",
+    "steps": [
+      {
+        "id": "read-readings",
+        "name": "Read local sensor snapshot",
+        "criticality": "core",
+        "requiresNetwork": false,
+        "handler": "read-readings"
+      },
+      {
+        "id": "evaluate-limits",
+        "name": "Evaluate alarm bands",
+        "criticality": "core",
+        "requiresNetwork": false,
+        "handler": "evaluate-limits"
+      },
+      {
+        "id": "decide-actions",
+        "name": "Assign operator actions",
+        "criticality": "core",
+        "requiresNetwork": false,
+        "advisory": true,
+        "handler": "decide-actions"
+      },
+      {
+        "id": "write-shift-report",
+        "name": "Write handover report locally",
+        "criticality": "core",
+        "requiresNetwork": false,
+        "handler": "write-shift-report"
+      },
+      {
+        "id": "sync-report",
+        "name": "Sync report to cloud archive",
+        "criticality": "non-core",
+        "requiresNetwork": true,
+        "handler": "sync-report"
+      }
+    ]
+  },
+  "deploymentMode": "local-edge",
+  "deploymentModeJustification": "The handover must be producible during a WAN outage; the cloud archive is a convenience copy, not the record.",
+  "isolation": {
+    "method": "host-egress-block",
+    "enforcedBy": "Rehearsal only: Linux network namespace (unshare --net). Customer runs use the method signed in Phase 0.",
+    "egressProbes": [
+      { "host": "1.1.1.1", "port": 443, "label": "public anycast" },
+      { "host": "9.9.9.9", "port": 443, "label": "public anycast" },
+      { "host": "dws10.com", "port": 443, "label": "DWS cloud" }
+    ]
+  },
+  "acceptance": {
+    "windowMinutes": 2,
+    "heartbeatMs": 500,
+    "maxGapMs": 2000,
+    "conditions": {
+      "workflowCompletes": "The handover report is written to local disk with the uplink down.",
+      "evidenceLocal": "Every decision is in the local Article 12 ledger, hash-chained and signed, with no interval longer than 2 seconds.",
+      "operatorStop": "The shift operator stops a running agent from the control-room terminal and it writes nothing further."
+    }
+  },
+  "reconciliationOrder": ["sync-report"]
+}

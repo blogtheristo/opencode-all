@@ -1,11 +1,11 @@
 # WORKTREE_POLICY.md — Agent Isolation via Git Worktrees
 
-| Field     | Value                              |
-| --------- | ---------------------------------- |
-| Document  | Git Worktree Policy for Agents     |
-| Tool      | opencode (ox-alpha)                |
-| SessionID | dws6-design-system-2026-08-22      |
-| Version   | 1.0                                |
+| Field     | Value                          |
+| --------- | ------------------------------ |
+| Document  | Git Worktree Policy for Agents |
+| Tool      | opencode (ox-alpha)            |
+| SessionID | dws6-design-system-2026-08-22  |
+| Version   | 1.0                            |
 
 **Status:** Active policy
 **Applies to:** All OpenCode agent sessions (primary runtime per AGENTS.md §Runtime
@@ -26,14 +26,17 @@ Index races like this will recur as long as agents commit from the shared checko
 1. **Agents NEVER commit from the primary checkout.** The primary checkout is reserved
    for human review, merges, and repo-level administration.
 2. **Every agent task gets its own worktree**, created with:
+
    ```bash
    scripts/new-opencode-worktree.sh <task-name> [base-branch] [--launch]
    ```
+
    - Location: `$HOME/.opencode-worktrees/dws6/<task-name>` — **outside the repository**,
      so no scanner, linter, or `git add .` can ever reach it from the primary checkout
    - Branch: `opencode/<task-name>`, cut from `origin/main`
    - venv symlinked; `.env`, `.env.local`, `.mcp.json` copied; `.opencode` settings
      copied (session state/memory intentionally NOT copied); npm install run
+
 3. **One task = one worktree = one branch = one PR.**
 4. **Commit only what you staged in your own worktree.** Never use `-a`/`.` blindly;
    verify `git status` before every commit.
@@ -47,11 +50,11 @@ Index races like this will recur as long as agents commit from the shared checko
 
 ## 3. Why outside-repo (not `.opencode/worktrees/` inside)
 
-| Option                          | Verdict                                             |
-| ------------------------------- | --------------------------------------------------- |
+| Option                                  | Verdict                                                                                                                               |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Outside repo (`~/.opencode-worktrees/`) | ✅ Chosen — zero risk of tooling scanning or committing worktree contents; mirrors the proven `scripts/new-claude-worktree.sh` design |
-| In-repo `.opencode/worktrees/`  | ❌ Rejected — must be gitignored forever; grep/lint/audit tooling repeatedly tripped on `.claude/worktrees/` residue historically |
-| Shared primary checkout         | ❌ Rejected — caused the 2026-08-22 incident        |
+| In-repo `.opencode/worktrees/`          | ❌ Rejected — must be gitignored forever; grep/lint/audit tooling repeatedly tripped on `.claude/worktrees/` residue historically     |
+| Shared primary checkout                 | ❌ Rejected — caused the 2026-08-22 incident                                                                                          |
 
 ## 4. Claude Code hot standby (per-branch)
 
@@ -71,21 +74,32 @@ OpenCode works with. Worktree isolation must not break failover:
 
 ## 5. Relationship to existing conventions
 
-| Tool         | Convention                              | Script                            |
-| ------------ | --------------------------------------- | --------------------------------- |
-| Claude Code  | `~/.claude-worktrees/dws6/`             | `scripts/new-claude-worktree.sh`  |
-| OpenCode     | `~/.opencode-worktrees/dws6/`           | `scripts/new-opencode-worktree.sh` (this policy) |
-| Copilot      | `.copilot-worktrees/` (in-repo, ignored)| IDE-managed                       |
-| Cursor       | `.cursor/worktrees.json` setup commands | IDE-managed                       |
+| Tool        | Convention                               | Script                                           |
+| ----------- | ---------------------------------------- | ------------------------------------------------ |
+| Claude Code | `~/.claude-worktrees/dws6/`              | `scripts/new-claude-worktree.sh`                 |
+| OpenCode    | `~/.opencode-worktrees/dws6/`            | `scripts/new-opencode-worktree.sh` (this policy) |
+| Copilot     | `.copilot-worktrees/` (in-repo, ignored) | IDE-managed                                      |
+| Cursor      | `.cursor/worktrees.json` setup commands  | IDE-managed                                      |
 
 ## 6. Enforcement
 
 - **Hard (active since 2026-08-22):** `.opencode/plugin/worktree-guard.ts` — an
   auto-discovered OpenCode plugin that blocks `git add|commit|merge|rebase|push|pull|
-  cherry-pick` executed from the primary checkout (`git-dir == git-common-dir`).
+cherry-pick` executed from the primary checkout (`git-dir == git-common-dir`).
   Violations receive instructions to create a worktree instead. Human override:
   prefix the command with `DWS_ALLOW_PRIMARY_GIT=1`. New sessions load it
   automatically; running sessions must be restarted.
+- **Launch-time (added 2026-09-27):** `scripts/shell/opencode-worktree.bash` wraps
+  `opencode` so a session started in the primary checkout runs in its own worktree
+  (`~/.opencode-worktrees/dws6/<task>`, branch `opencode/<task>`, `node_modules`
+  linked via `--link-deps`). The guard above only blocks git commands; without this,
+  parallel windows still edit the same files. Install once on the DGX:
+  `bash ~/dws6/scripts/shell/install-opencode-worktree.sh && exec bash` — idempotent;
+  exits 1 unless a fresh shell resolves `opencode` to the wrapper (`type -t opencode`
+  → `function`). The wrapper drops any `opencode` alias (it would shadow the function)
+  and rewrites a project-path argument pointing at the primary checkout to the worktree.
+  `-s`/`-c` resumes stay in place (with a warning); `OPENCODE_SHARED=1` opts out.
+  `scripts/opencode-open-all.sh` gives each window a worktree the same way.
 - **Soft:** this document + AGENTS.md pointer; session-start guidance tells agents
   to create a worktree before making changes.
 

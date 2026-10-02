@@ -20,7 +20,7 @@ pydantic==2.11.3
 supabase==2.13.0
 
 # Redis Streams (for email inbox/outbox integration)
-redis[hiredis]==5.3.0
+redis[hiredis]==5.3.1
 
 # Security: ZenFree (local module zen_free.py, no pip package)
 # Loaded at runtime from repo root — no pip install needed

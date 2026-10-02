@@ -1,0 +1,33 @@
+{
+  "task": "DWS-AEGIS-PILOT-001 Day 2 — C2 ledger segments and retention; C4 remainder: OpenShell policy proof in the acceptance record; H3/M4 on DGX Spark with physical-disconnect; PhD §14.57",
+  "checks": [
+    {
+      "name": "segments suite passes",
+      "run": "npx vitest run src/__tests__/aegis-pilot-segments.test.ts src/__tests__/aegis-pilot.test.ts src/__tests__/aegis-pilot-prover.test.ts src/__tests__/aegis-pilot-openshell.test.ts 2>&1 | tail -5; exit ${PIPESTATUS[0]}"
+    },
+    {
+      "name": "CLI seal + segments verify, prune without --confirm deletes nothing",
+      "run": "d=$(mktemp -d); P='node --import tsx scripts/aegis-pilot.ts'; $P init --state-dir $d/s --site-id c2-check >/dev/null && $P seal --state-dir $d/s --force | grep -q '\"sealed\": true' && $P segments --state-dir $d/s >/dev/null && $P prune --state-dir $d/s | grep -q '\"confirmed\": false' && test -f $d/s/ledger/segments/000000.jsonl"
+    },
+    {
+      "name": "tampered sealed segment fails verification (exit 4)",
+      "run": "d=$(mktemp -d); P='node --import tsx scripts/aegis-pilot.ts'; $P init --state-dir $d/s --site-id c2-check >/dev/null && $P seal --state-dir $d/s --force >/dev/null && sed -i 's/system.genesis/system.heartbeat/' $d/s/ledger/segments/000000.jsonl; $P segments --state-dir $d/s >/dev/null; [ $? -eq 4 ]"
+    },
+    {
+      "name": "isolated rehearsal still PASSes after a roll",
+      "run": "command -v unshare >/dev/null || { echo 'SKIP: unshare missing'; exit 0; }; d=$(mktemp -d); bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/s\" >/dev/null 2>&1; node --import tsx scripts/aegis-pilot.ts seal --state-dir \"$d/s\" --force >/dev/null && bash scripts/aegis-pilot-isolated-rehearsal.sh \"$d/s\" 2>/dev/null | grep -q '\"outcome\": \"PASS\"' && node --import tsx scripts/aegis-pilot.ts segments --state-dir \"$d/s\" >/dev/null"
+    },
+    {
+      "name": "evidence headers present",
+      "run": "node scripts/evidence-audit.mjs src/aegis/pilot/ledger-segments.ts src/aegis/pilot/evidence-ledger.ts scripts/aegis-pilot.ts src/__tests__/aegis-pilot-segments.test.ts"
+    },
+    {
+      "name": "real openshell-prover (pinned by sha256) proves every reference step within its boundary; a wrong pin is refused",
+      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER to a built openshell-prover'; exit 0; }; H=$(sha256sum \"$P\" | cut -d' ' -f1); node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" --expect-prover-sha256 $H 2>/dev/null | grep -q '\"pinned\": true' && ! node --import tsx scripts/aegis-pilot.ts prove --scope config/aegis-pilot/reference-scope.json --openshell-prover \"$P\" --expect-prover-sha256 0000000000000000000000000000000000000000000000000000000000000000 >/dev/null 2>&1"
+    },
+    {
+      "name": "real openshell-prover rejects a core-step policy that carries a network rule",
+      "run": "P=${AEGIS_OPENSHELL_PROVER:-}; [ -x \"$P\" ] || { echo 'SKIP: set AEGIS_OPENSHELL_PROVER'; exit 0; }; d=$(mktemp -d); fs='\"filesystem_policy\":{\"include_workdir\":false,\"read_only\":[\"/bin\",\"/usr\",\"/lib\",\"/lib64\",\"/etc\",\"/proc\",\"/dev/urandom\"],\"read_write\":[\"/sandbox\",\"/tmp\",\"/dev/null\"]},\"landlock\":{\"compatibility\":\"hard_requirement\"}'; echo \"{\\\"version\\\":1,$fs,\\\"network_policies\\\":{}}\" > $d/b.json; echo \"{\\\"version\\\":1,$fs,\\\"network_policies\\\":{\\\"x\\\":{\\\"name\\\":\\\"x\\\",\\\"endpoints\\\":[{\\\"host\\\":\\\"1.1.1.1\\\",\\\"port\\\":443}],\\\"binaries\\\":[{\\\"path\\\":\\\"/usr/local/bin/node\\\"}]}}}\" > $d/c.json; \"$P\" check $d/c.json --boundary $d/b.json -o json | grep -q '\"result\": \"exceeds_boundary\"'"
+    }
+  ]
+}

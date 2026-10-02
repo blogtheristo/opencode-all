@@ -105,7 +105,7 @@ export abstract class BaseAgent {
         }),
         iterations: [],
         totalTokens: { input: 0, output: 0 },
-        model: 'placeholder',
+        model: 'error',
       };
     }
 
@@ -314,14 +314,14 @@ export abstract class BaseAgent {
     const client = this.getLLMClient();
 
     if (!client) {
-      logger.debug('No LLM provider configured - returning placeholder response', {
+      logger.debug('No LLM provider configured - returning error response', {
         agent: this.config.name,
       });
       return {
         content: JSON.stringify({
           summary: 'LLM unavailable - analysis based on deterministic logic only',
         }),
-        model: 'placeholder',
+        model: 'error',
         inputTokens: 0,
         outputTokens: 0,
       };

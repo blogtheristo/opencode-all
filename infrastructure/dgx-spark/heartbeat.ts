@@ -9,11 +9,12 @@
  *   GET /health     → simple alive check
  *   GET /ping       → "pong" (minimal latency check)
  *
- * Code-Version: 1.0.1
- * Date: 2026-05-22
+ * Code-Version: 1.1.0
+ * Date: 2026-06-05
  */
 
 import http from 'http';
+import { pathToFileURL } from 'node:url';
 
 const PORT = Number(process.env.PORT || 9999);
 const CHECK_BACKEND = process.env.CHECK_BACKEND || 'http://dws-backend:8080/health';
@@ -26,6 +27,21 @@ const CHECK_STATE_OBSERVER =
   process.env.CHECK_STATE_OBSERVER || 'http://state-observer:9801/health';
 const CHECK_MCP_GATEWAY = process.env.CHECK_MCP_GATEWAY || 'http://mcp-gateway:8080/health';
 const STATUS_TOKEN = process.env.HEARTBEAT_STATUS_TOKEN || '';
+
+// Services that MUST be up for DGX Spark to count as "handling jobs". The
+// /health endpoint (the GitHub Actions failover signal) returns 200 only when
+// all of these are up; any one down → 503 so GHA takes over the schedules.
+//
+// Why this exists: the old /health returned 200 whenever ANY of the 7 monitored
+// services was up ("degraded"). So if the cron container died but Ollama/Aspire
+// were still up, GHA saw 200, treated DGX as alive, and SKIPPED every scheduled
+// job — the jobs then ran nowhere. Failover must key off the services that
+// actually run the work (cron scheduler + backend), not observability extras
+// (aspire, state-observer, github-runner, openclaw). Override via env.
+const CRITICAL_SERVICES = (process.env.HEARTBEAT_CRITICAL_SERVICES || 'backend,cron')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
 
 // LAN-only CIDR check (192.168.x.x, 10.x.x.x, 172.16-31.x.x, ::1, 127.x.x.x)
 function isLanClient(req: http.IncomingMessage): boolean {
@@ -60,6 +76,44 @@ const SERVICE_CHECKS = [
 const services: ServiceStatus[] = [];
 let systemStatus: 'healthy' | 'degraded' | 'down' = 'down';
 
+// ---------------------------------------------------------------------------
+// Pure decision helpers (exported for unit tests — no side effects)
+// ---------------------------------------------------------------------------
+
+/** Dashboard-facing rollup across ALL monitored services. */
+export function computeSystemStatus(
+  svc: ReadonlyArray<{ status: 'up' | 'down' }>,
+): 'healthy' | 'degraded' | 'down' {
+  if (svc.length === 0) return 'down';
+  const up = svc.filter((s) => s.status === 'up').length;
+  if (up === svc.length) return 'healthy';
+  if (up > 0) return 'degraded';
+  return 'down';
+}
+
+export interface FailoverDecision {
+  /** true → DGX is running the schedules, GHA should skip (200). */
+  handling: boolean;
+  /** Critical services that are down or not yet reporting. */
+  down: string[];
+}
+
+/**
+ * Decide whether DGX Spark is handling scheduled jobs. A critical service that
+ * is missing from the report (e.g. before the first check completes) counts as
+ * down — fail safe toward letting GHA take over rather than dropping jobs.
+ */
+export function evaluateFailover(
+  svc: ReadonlyArray<{ name: string; status: 'up' | 'down' }>,
+  critical: ReadonlyArray<string>,
+): FailoverDecision {
+  const down = critical.filter((name) => {
+    const s = svc.find((x) => x.name === name);
+    return !s || s.status === 'down';
+  });
+  return { handling: down.length === 0, down };
+}
+
 async function checkService(name: string, url: string): Promise<ServiceStatus> {
   const start = Date.now();
   try {
@@ -89,15 +143,8 @@ async function runChecks(): Promise<void> {
   services.length = 0;
   services.push(...results);
 
-  const upCount = results.filter((s) => s.status === 'up').length;
-  if (upCount === results.length) systemStatus = 'healthy';
-  else if (upCount > 0) systemStatus = 'degraded';
-  else systemStatus = 'down';
+  systemStatus = computeSystemStatus(results);
 }
-
-// Check every 30s
-setInterval(runChecks, 30_000);
-runChecks();
 
 const server = http.createServer(async (req, res) => {
   // Public endpoints (/ping, /health) — no CORS restriction, minimal info
@@ -110,13 +157,20 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // GET /health — simple alive check for GitHub Actions failover (public, safe)
+  // GET /health — GitHub Actions failover signal (public, safe).
+  // 200 → DGX is running the schedules, GHA skips. 503 → a critical service
+  // (cron/backend) is down, GHA takes over. Keyed off CRITICAL_SERVICES, NOT
+  // the all-or-nothing rollup, so a dead cron container can never read as 200.
   if (req.url === '/health') {
-    const code = systemStatus === 'down' ? 503 : 200;
+    const failover = evaluateFailover(services, CRITICAL_SERVICES);
+    const code = failover.handling ? 200 : 503;
     res.writeHead(code, { 'Content-Type': 'application/json' });
     res.end(
       JSON.stringify({
         status: systemStatus,
+        handling: failover.handling,
+        criticalServices: CRITICAL_SERVICES,
+        criticalDown: failover.down,
         timestamp: new Date().toISOString(),
       }),
     );
@@ -195,9 +249,20 @@ const server = http.createServer(async (req, res) => {
   res.end('Not found');
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`[HEARTBEAT] DGX Spark heartbeat on :${PORT}`);
-  console.log(`[HEARTBEAT] Dashboard: http://localhost:${PORT}/`);
-  console.log(`[HEARTBEAT] Health:    http://localhost:${PORT}/health`);
-  console.log(`[HEARTBEAT] Ping:      http://localhost:${PORT}/ping`);
-});
+// Only start the service when run directly (e.g. `tsx heartbeat.ts`), not when
+// imported by a test. Keeps the pure helpers above unit-testable.
+const isMain = process.argv[1] ? import.meta.url === pathToFileURL(process.argv[1]).href : false;
+
+if (isMain) {
+  // Kick off the first check immediately, then poll every 30s.
+  runChecks();
+  setInterval(runChecks, 30_000);
+
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`[HEARTBEAT] DGX Spark heartbeat on :${PORT}`);
+    console.log(`[HEARTBEAT] Dashboard: http://localhost:${PORT}/`);
+    console.log(`[HEARTBEAT] Health:    http://localhost:${PORT}/health`);
+    console.log(`[HEARTBEAT] Ping:      http://localhost:${PORT}/ping`);
+    console.log(`[HEARTBEAT] Failover critical services: ${CRITICAL_SERVICES.join(', ')}`);
+  });
+}

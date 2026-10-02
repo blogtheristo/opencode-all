@@ -5,7 +5,7 @@
  */
 import type { AgentRuntimeContext } from './types.js';
 import type { LLMClient } from './llm-client.js';
-import { makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
+import { type KyaJevAuditRecord, makeTypedDecision, type TypedDecisionResult } from './kya-jev.js';
 
 export type DictionaryAdvisoryKind = 'sv_display_safe' | 'aegis_scope' | 'wave3_live';
 
@@ -30,6 +30,7 @@ export async function adviseDictionaryTerm(
   client: LLMClient,
   req: DictionaryAdvisoryRequest,
   runtime: AgentRuntimeContext | undefined,
+  audit?: (record: KyaJevAuditRecord) => Promise<void>,
 ): Promise<DictionaryAdvisoryResult> {
   const question =
     req.kind === 'sv_display_safe'
@@ -51,6 +52,6 @@ export async function adviseDictionaryTerm(
             options: ['2', '24', 'dictionary-only'],
           };
 
-  const result = await makeTypedDecision(client, { state: req.state, question }, runtime);
+  const result = await makeTypedDecision(client, { state: req.state, question }, runtime, audit);
   return { kind: req.kind, result, actionable: false };
 }

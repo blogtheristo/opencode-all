@@ -1,3 +1,5 @@
+// Evidence: Tool=Claude Code 2.1.283 Model=anthropic/claude-opus-5-5 Agent=claude-code-web Date=2026-09-27
+// Audit trail: git log -- src/security/runtime-auth.ts
 /**
  * Runtime Tool-Call Authorization
  *
@@ -31,9 +33,14 @@
  * dispatch and short-circuits on `require_approval` or `deny`.
  */
 
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 import logger from '../utils/logger.js';
 import type { RuntimeKYAVerdict, ToolCall } from '../agents/types.js';
+import { digestOf } from './canonical-digest.js';
+import { isVerifiedThemisPrincipal, type ThemisPrincipal } from './themis-principal.js';
+
+/** Gate name the NemoClaw bridge accepts; signable only by issueThemisBridgeVerdict(). */
+export const THEMIS_BRIDGE_GATE = 'themis-policy-gate';
 
 export type ActionClass = 'READ' | 'WRITE' | 'EXTERNAL' | 'IRREVERSIBLE';
 
@@ -469,14 +476,35 @@ function assertNotPlaceholderInProd(secret: string): void {
  */
 
 function verdictPayload(
-  v: Pick<RuntimeKYAVerdict, 'decision' | 'trustScore' | 'policyVersion' | 'gate' | 'issuedAt'>,
+  v: Pick<
+    RuntimeKYAVerdict,
+    'decision' | 'trustScore' | 'policyVersion' | 'gate' | 'issuedAt' | 'expiresAt' | 'scope'
+  >,
 ): string {
-  return JSON.stringify({
+  const legacyPayload = {
     decision: v.decision,
     trustScore: v.trustScore ?? null,
     policyVersion: v.policyVersion ?? null,
     gate: v.gate ?? null,
     issuedAt: v.issuedAt ?? null,
+  };
+  if (!v.scope && !v.expiresAt) {
+    return JSON.stringify(legacyPayload);
+  }
+  return JSON.stringify({
+    ...legacyPayload,
+    expiresAt: v.expiresAt ?? null,
+    scope: v.scope
+      ? {
+          agentId: v.scope.agentId,
+          operatorId: v.scope.operatorId,
+          orgId: v.scope.orgId,
+          sessionId: v.scope.sessionId,
+          capability: v.scope.capability,
+          paramsDigest: v.scope.paramsDigest,
+          authorizationId: v.scope.authorizationId,
+        }
+      : null,
   });
 }
 
@@ -489,7 +517,21 @@ export function issueKyaVerdict(input: {
   trustScore?: number;
   policyVersion?: string;
   gate?: string;
+  scope?: RuntimeKYAVerdict['scope'];
+  expiresAt?: string;
 }): RuntimeKYAVerdict {
+  if (input.gate === THEMIS_BRIDGE_GATE) {
+    // Reserved: only issueThemisBridgeVerdict() may sign for the bridge gate,
+    // so bridge identity always comes from a verified ThemisPrincipal.
+    logger.error('issueKyaVerdict: gate is reserved for issueThemisBridgeVerdict — not signing', {
+      gate: input.gate,
+    });
+    return { ...input, issuedAt: new Date().toISOString() };
+  }
+  return signKyaVerdict(input);
+}
+
+function signKyaVerdict(input: Parameters<typeof issueKyaVerdict>[0]): RuntimeKYAVerdict {
   const secret = signingSecret();
   const issuedAt = new Date().toISOString();
   if (!secret) {
@@ -506,6 +548,62 @@ export function issueKyaVerdict(input: {
     .update(verdictPayload({ ...input, issuedAt }))
     .digest('hex');
   return { ...input, issuedAt, sig };
+}
+
+/**
+ * Apply the existing DWS per-tool authorization envelope, then issue a
+ * request-bound ticket for the NemoClaw bridge. Operator, tenant and agent
+ * come only from a ThemisPrincipal minted by resolveThemisPrincipal() from
+ * verified credentials; a look-alike object or a tenant mismatch throws.
+ */
+export function issueThemisBridgeVerdict(input: {
+  call: ToolCall;
+  context: AuthorizationContext;
+  principal: ThemisPrincipal;
+  trustScore: number;
+  policyVersion: string;
+}): RuntimeKYAVerdict {
+  if (!isVerifiedThemisPrincipal(input.principal)) {
+    throw new Error(
+      'issueThemisBridgeVerdict: principal was not resolved from verified credentials',
+    );
+  }
+  if (input.context.orgId !== input.principal.orgId) {
+    throw new Error(
+      "issueThemisBridgeVerdict: context tenant does not match the operator's tenant",
+    );
+  }
+  if (
+    !input.context.orgId.trim() ||
+    !input.context.sessionId.trim() ||
+    !input.policyVersion.trim() ||
+    !Number.isFinite(input.trustScore) ||
+    input.trustScore < 0 ||
+    input.trustScore > 100
+  ) {
+    throw new Error(
+      'issueThemisBridgeVerdict: authenticated identity and valid KYA context are required',
+    );
+  }
+
+  const authorization = authorizeToolCall(input.call, input.context);
+  const issuedAtMs = Date.now();
+  return signKyaVerdict({
+    decision: authorization.decision === 'allow' ? 'allowed' : 'denied',
+    trustScore: input.trustScore,
+    policyVersion: input.policyVersion,
+    gate: THEMIS_BRIDGE_GATE,
+    scope: {
+      agentId: input.principal.agentId,
+      operatorId: input.principal.operatorId,
+      orgId: input.context.orgId,
+      sessionId: input.context.sessionId,
+      capability: input.call.name,
+      paramsDigest: digestOf(input.call.arguments),
+      authorizationId: randomUUID(),
+    },
+    expiresAt: new Date(issuedAtMs + 30_000).toISOString(),
+  });
 }
 
 function signatureMatches(verdict: RuntimeKYAVerdict, secret: string): boolean {

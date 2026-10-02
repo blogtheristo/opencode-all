@@ -45,6 +45,17 @@ export type LLMProvider =
   | 'openai-compatible';
 export type LLMMode = 'agent' | 'hil';
 
+/** Baseten Model APIs endpoint for explicitly configured evaluation models. */
+const BASETEN_MODEL_APIS_URL = 'https://inference.baseten.co/v1';
+/** Baseten dedicated-deployment bridge for deployment IDs. */
+const BASETEN_BRIDGE_URL = 'https://bridge.baseten.co/v1/direct';
+
+/** Resolve an explicit Baseten model slug or deployment ID to its endpoint. */
+export function resolveBasetenBaseUrl(model: string): string {
+  if (process.env.BASETEN_BASE_URL) return process.env.BASETEN_BASE_URL;
+  return model.includes('/') ? BASETEN_MODEL_APIS_URL : BASETEN_BRIDGE_URL;
+}
+
 export interface LLMClientConfig {
   provider: LLMProvider;
   apiKey: string;
@@ -88,14 +99,15 @@ export function resolveProvider(agentModel: string): LLMClientConfig | null {
     };
   }
 
-  // Baseten EU — custom/fine-tuned model deployment, EU residency
-  // Sign Baseten DPA before routing EU customer data here
+  // Baseten EU — explicit custom deployment or Model APIs evaluation only.
+  // Production models must first pass DWS_MODEL_STANDARD.md §10.
   if (process.env.BASETEN_API_KEY) {
+    const model = process.env.BASETEN_MODEL || agentModel || 'llama-3-3-70b';
     return {
       provider: 'baseten',
       apiKey: process.env.BASETEN_API_KEY,
-      baseUrl: process.env.BASETEN_BASE_URL || 'https://bridge.baseten.co/v1/direct',
-      model: process.env.BASETEN_MODEL || agentModel || 'llama-3-3-70b',
+      baseUrl: resolveBasetenBaseUrl(model),
+      model,
       maxTokens: 2048,
       temperature: 0.3,
     };
@@ -210,11 +222,12 @@ function mapSelectionToConfig(selection: ModelSelection): LLMClientConfig | null
     case 'baseten': {
       const basetenKey = process.env.BASETEN_API_KEY;
       if (!basetenKey) return null;
+      const model = process.env.BASETEN_MODEL || selection.modelId;
       return {
         provider: 'baseten',
         apiKey: basetenKey,
-        baseUrl: process.env.BASETEN_BASE_URL || 'https://bridge.baseten.co/v1/direct',
-        model: process.env.BASETEN_MODEL || selection.modelId,
+        baseUrl: resolveBasetenBaseUrl(model),
+        model,
         maxTokens: selection.maxTokens,
         temperature: selection.temperature,
         selection,

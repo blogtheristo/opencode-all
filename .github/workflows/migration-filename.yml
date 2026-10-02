@@ -1,4 +1,4 @@
-# Evidence: Tool=Cursor Grok 4.6 Model=Cursor Grok 4.6 Agent=cursor Date=2026-09-19
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-luna Agent=copilot Date=2026-09-27
 # Audit trail: git log -- .github/workflows/migration-filename.yml
 name: Migration filename (§4.5)
 
@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   filename:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     steps:
       - uses: actions/checkout@v4
         with:

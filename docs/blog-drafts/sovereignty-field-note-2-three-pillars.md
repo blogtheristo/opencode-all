@@ -4,6 +4,7 @@ Status: PENDING-HIC-REVIEW
 Extracted-From: onelifetime.world/posts/sovereignty-field-note-2-three-pillars.html
 Extracted-On: 2026-08-12
 Published: 2026-05-28
+claims_checked: 2026-09-30
 
 > This draft was reconstructed from the already-published page, because the
 > post went live without one (Rule 13). It is here so the text is reviewable,
@@ -23,7 +24,7 @@ The short version
 
 - Origin sets the emphasis profile. EU emphasizes Data. US emphasizes Tech + Operational. Singapore emphasizes Operational neutrality.
 
-- Quantum re-prices all three pillars. Harvest-now-decrypt-later is already running. NIST FIPS 203/204/205 is the bridge.
+- Quantum re-prices all three pillars. Harvest-now-decrypt-later has to be assumed to be running already. NIST FIPS 203/204/205 is the bridge.
 
 - KYA wires the pillars into testable predicates: Data &rarr; SIB, Tech &rarr; CSB, Op &rarr; EAB, ASB binds the identity spine.
 
@@ -39,7 +40,7 @@ Pillar 1 · Data Sovereignty
 
 ### Control over where data resides and who can reach it
 
-The ability to keep citizen data, trade secrets, and regulated information out of reach of third-country extraterritorial law. CLOUD Act, FISA 702, Schrems II all live in this pillar.
+The ability to keep citizen data, trade secrets, and regulated information out of reach of third-country extraterritorial law. CLOUD Act [1], FISA 702, Schrems II all live in this pillar.
 
 Pillar 2 · Technology Sovereignty
 
@@ -57,7 +58,7 @@ The assurance that business keeps running even when geopolitics tightens. NIS2 a
 
 The pillars are universal. The weighting is set by where the enterprise is from and where it sells.
 
-- EU-origin enterprise. Data sovereignty leads. GDPR, the EU Data Act, EUCS classifications, and Schrems II are the daily vocabulary. Technology sovereignty is the structural gap — hypercloud dependency is real — which is why Aiven, Scaleway, OVHcloud, IONOS, SUSE, and Red Hat Confirmed Sovereign Support all matter.
+- EU-origin enterprise. Data sovereignty leads. GDPR, the EU Data Act, EUCS classifications, and Schrems II are the daily vocabulary. Technology sovereignty is the structural gap — hypercloud dependency is real — which is why Aiven, Scaleway, OVHcloud, IONOS, SUSE, and Red Hat Confirmed Sovereign Support [2] all matter.
 
 - US-origin enterprise. Operational and Technology sovereignty lead. Cyber resilience (CMMC, Executive Orders), IP protection, domestic silicon. Data sovereignty becomes reactive: a US firm selling into Europe or Asia must engineer local data residency or lose customers to local law.
 
@@ -67,9 +68,9 @@ The pillars are universal. The weighting is set by where the enterprise is from 
 
 ## The quantum overlay — and why it touches every pillar
 
-Quantum computers do not have to exist yet for quantum risk to be real today. Adversaries are already harvesting encrypted traffic on the bet that today's RSA and ECC ciphertexts will be decryptable on a Cryptographically-Relevant Quantum Computer within 7–15 years. The name is honest: harvest now, decrypt later.
+Quantum computers do not have to exist yet for quantum risk to be real today [3]. Any adversary can already be harvesting encrypted traffic on the bet that today's RSA and ECC ciphertexts will be decryptable on a Cryptographically-Relevant Quantum Computer within the next 10–15 years; surveyed experts rate one quite possible within 10 years and likely within 15 [4][5]. The name is honest: harvest now, decrypt later.
 
-NIST has finalized the standards — FIPS 203 (Kyber, key encapsulation), FIPS 204 (Dilithium, digital signatures), FIPS 205 (SPHINCS+, stateless signatures). The US CNSA 2.0 mandate sets a 2035 cutover for national security systems. The EU's ENISA and ETSI roadmaps land in the same window. Singapore's IMDA Quantum Engineering Programme and MAS's quantum-risk guidance for finance do too.
+NIST has finalized the standards [6] — FIPS 203 (ML-KEM, from Kyber: key encapsulation), FIPS 204 (ML-DSA, from Dilithium: digital signatures), FIPS 205 (SLH-DSA, from SPHINCS+: stateless hash-based signatures). The US CNSA 2.0 mandate sets a 2035 cutover for national security systems [7]. The EU's coordinated PQC roadmap lands in the same window: high-risk use cases by the end of 2030, as many systems as feasible by 2035 [8]. Singapore points the same way: IMDA's National Quantum-Safe Network Plus, and MAS's 2024 quantum-risk advisory, which asks financial institutions to inventory their cryptography first [9].
 
 Quantum is not a fourth pillar
 
@@ -166,3 +167,23 @@ Sovereignty is not isolation — it is risk management. Only jurisdiction and ap
 Risto Anton Paarni
 
 CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal
+
+## Sources
+
+[1] United States Congress (2018). 18 U.S.C. § 2713 — Required preservation and disclosure of communications and records (CLOUD Act, Pub. L. 115–141, div. V, § 103). United States Code. <https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section2713>
+
+[2] Red Hat (2025). Red Hat Introduces Confirmed Sovereign Support for European Union. Red Hat press release. <https://www.redhat.com/en/about/press-releases/red-hat-introduces-confirmed-sovereign-support-european-union>
+
+[3] Babbush, R., Zalcman, A., Gidney, C., Broughton, M., Khattar, T., Neven, H., Bergamaschi, T., Drake, J., & Boneh, D. (2026). Securing Elliptic Curve Cryptocurrencies against Quantum Vulnerabilities: Resource Estimates and Mitigations. arXiv preprint arXiv:2603.28846. <https://arxiv.org/abs/2603.28846>
+
+[4] Kearney, J. J., Moyler, J., & Perez-Delgado, C. A. (2024). Downtime Required for Bitcoin Quantum-Safety. arXiv preprint arXiv:2410.16965. <https://arxiv.org/abs/2410.16965>
+
+[5] Global Risk Institute & evolutionQ (2025). Quantum Threat Timeline Report 2025. Global Risk Institute. <https://globalriskinstitute.org/publication/quantum-threat-timeline-report-2025b/>
+
+[6] NIST (2024). NIST Releases First 3 Finalized Post-Quantum Encryption Standards (FIPS 203, 204, 205). National Institute of Standards and Technology. <https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards>
+
+[7] National Security Agency (2022). NSA Releases Future Quantum-Resistant (QR) Algorithm Requirements for National Security Systems (CNSA 2.0). NSA press release. <https://www.nsa.gov/Press-Room/News-Highlights/Article/Article/3148990/nsa-releases-future-quantum-resistant-qr-algorithm-requirements-for-national-se/>
+
+[8] NIS Cooperation Group (2025). A Coordinated Implementation Roadmap for the Transition to Post-Quantum Cryptography. European Commission. <https://digital-strategy.ec.europa.eu/en/library/coordinated-implementation-roadmap-transition-post-quantum-cryptography>
+
+[9] Monetary Authority of Singapore (2024). Advisory on Addressing the Cybersecurity Risks Associated with Quantum (MAS/TCRS/2024/01). MAS circular. <https://www.mas.gov.sg/regulation/circulars/advisory-on-addressing-the-cybersecurity-risks-associated-with-quantum>

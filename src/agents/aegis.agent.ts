@@ -62,8 +62,8 @@ import { ArgusAgent } from './argus.agent.js';
 import { SovereigntyMonitorAgent } from './sovereignty-monitor.agent.js';
 import { ComplianceAgent } from './compliance.agent.js';
 import { Article12Logger } from './article12-logger.js';
-import { scrubObject, type ScrubManifest } from './pii-scrubber.js';
-import { AegisDurableStore, type AegisAuditEntry } from './aegis-durable-store.js';
+import { type ScrubManifest, scrubObject } from './pii-scrubber.js';
+import { type AegisAuditEntry, AegisDurableStore } from './aegis-durable-store.js';
 import logger from '../utils/logger.js';
 
 type AegisAction = 'orbital-intelligence' | 'sovereignty' | 'compliance' | 'assess' | 'audit-chain';

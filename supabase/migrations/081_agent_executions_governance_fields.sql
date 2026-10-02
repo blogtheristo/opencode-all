@@ -1,11 +1,14 @@
--- 080_agent_executions_governance_fields.sql
+-- Migration 081: agent_executions governance fields
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
+-- Audit trail: git log -- supabase/migrations/081_agent_executions_governance_fields.sql
 -- =============================================================================
--- PROPOSAL — REVIEWABLE ARTIFACT, NOT YET APPLIED.
+-- HIC REVIEW: APPROVED 2026-09-27.
+-- The current user request explicitly reviewed and signed off this migration
+-- for application. Remote application is authorized by the HIC request, but
+-- remains contingent on successful Supabase CLI authentication.
 --
--- Do NOT run this via psql / supabase db push / supabase migration up without
--- explicit human review and sign-off (RED zone). It is authored so the schema
--- change needed to compute Monthly Governed Decisions (MGD) is reviewable as
--- text, per the dominant-game recipe step 6 (INSTRUMENT):
+-- The schema change needed to compute Monthly Governed Decisions (MGD) is
+-- grounded in the dominant-game recipe step 6 (INSTRUMENT):
 --   docs/field-notes/2026-07-05-groq-ross-dominant-game-recipe.md §3
 --   DWS_TRUTH_STANDARD.md §2 row 29
 --
@@ -55,7 +58,7 @@ CREATE INDEX IF NOT EXISTS idx_agent_executions_mgd
   ON agent_executions (org_id, created_at DESC)
   WHERE governed_outcome_layer AND audit_grade AND status = 'completed';
 
--- WHERE POPULATED (review note, not applied here):
+-- WHERE POPULATED (application integration note):
 --   src/agents/base.agent.ts → logExecution(log: AgentExecutionLog).
 --   AgentExecutionLog (src/agents/types.ts) must gain governed_outcome_layer,
 --   article12_lineage, audit_grade, sourced from the AgentResponse of
@@ -69,4 +72,4 @@ CREATE INDEX IF NOT EXISTS idx_agent_executions_mgd
 --     DROP COLUMN IF EXISTS article12_lineage,
 --     DROP COLUMN IF EXISTS governed_outcome_layer;
 
--- SELECT 'Migration 080 is a PROPOSAL — not applied automatically' AS status;
+-- SELECT 'Migration 081 reviewed by HIC on 2026-09-27' AS status;

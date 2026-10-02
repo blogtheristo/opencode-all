@@ -123,9 +123,9 @@
     <main>
       <h2>Das Problem der stillen Ausfallzeiten</h2>
       <p>Ihre Agenten funktionieren. Das Transkript sieht gut aus. Der Benutzer sagt "Danke". Dann überprüfen Sie die Datenbank, die API-Protokolle, die Nebenwirkungen—und nichts ist passiert. Der Agent halluzinierte Erfolg.</p>
-      <p>Dies ist die Lücke zwischen <em>Sagen</em> dass Sie etwas getan haben und <em>Tun</em> es. Bewertungs-Frameworks messen die Qualität von Transkripten. Sie messen keine Ergebnisse.</p>
+      <p>Dies ist die Lücke zwischen <em>Sagen</em> dass Sie etwas getan haben und <em>Tun</em> es. Viele Evaluierungen prüfen noch immer das Transkript oder den Funktionsaufruf, nicht aber, ob die Arbeit erledigt wurde.</p>
       <p>Für Revenue Engines—ausgehende Kampagnen, Lead-Anreicherung, Zielverfeinerung, Attribution—stille Ausfälle sind keine Grenzfälle. Sie sind existenziell. Ein Agent, der "Kampagne bereitgestellt" meldet, wenn nichts versendet wurde, und Ihr GTM verliert Glaubwürdigkeit bei einem Kunden. Ein Lead-Anreicherungs-Agent, der neue Kontaktfelder halluziniert, und Ihr Vertriebsteam verfolgt Geister.</p>
-      <p>Microsoft hat ThinkingBox genau zur Lösung dieses Problems gebaut. Bei Lifetime haben wir das Repository geforkt, es für Revenue Engines angepasst und es mit DGX-Integration und 507 Business-Domain-Benchmarks verpackt.</p>
+      <p>Microsoft hat ThinkingBox genau zur Lösung dieses Problems gebaut. Bei Lifetime haben wir das Repository geforkt, um es gegen unsere eigenen Agenten laufen zu lassen.</p>
 
       <h2>Was ThinkingBox tut</h2>
       <p>ThinkingBox führt Agenten in isolierten, zustandsbehafteten Werkzeugumgebungen über MCP (Model Context Protocol) Server aus. Jedes Gespräch erzeugt isolierte Werkzeugprozesse mit stdio-Transport—um sicherzustellen, dass jeder Testfall in einer sauberen, reproduzierbaren Sandbox ausgeführt wird.</p>
@@ -138,24 +138,12 @@
       <p>Das echte Signal ist nicht "der Agent sagte, es funktioniert". Es ist "die Datenbank zeigt die Änderung", "die API gab Erfolg zurück" oder "die Datei wurde erstellt". ThinkingBox prüft den Zustand vor und nach, markiert Halluzinationen, bei denen der Agent Erfolg behauptete, aber die Werkzeuge Fehler zeigen.</p>
 
       <h2>ThinkingBox-Bench: 507 echte Arbeitsabläufe</h2>
-      <p>Wir liefern ThinkingBox-Bench mit 507 ausführbaren Aufgaben über fünf Business-Domänen:</p>
-      <ul>
-        <li><strong>Ausgehend & GTM:</strong> Kampagnenbereitstellung, Lead-Bewertung, Publikumsverfeinerung</li>
-        <li><strong>Datenanreicherung:</strong> Kontaktsuche, Attributextraktion, Datenscheckqualität</li>
-        <li><strong>Attribution & Analytik:</strong> Ereigniskorrelation, Trichteranalyse, Kohortendefinition</li>
-        <li><strong>Inhalt & Wissen:</strong> Dokumentenverarbeitung, semantische Suche, Wissensdatenbankaktualisierungen</li>
-        <li><strong>Integration & Orchestrierung:</strong> API-Übergaben, systemübergreifende Synchronisierung, Fehlerwiederherstellung</li>
-      </ul>
-      <p>Jede Aufgabe enthält synthetische Datensätze, erwartete Ergebnisse und vorgefertigte MCP-Server. Sie führen Ihren Agenten dagegen aus und erhalten Pass/Fail für echte Nebenwirkungen—nicht Transkript-Sentiment.</p>
+      <p>Microsofts ThinkingBox-Bench umfasst 507 ausführbare Aufgaben aus fünf Geschäftsfeldern: Einzel- und Onlinehandel, Reisen und Gastgewerbe, Kfz-Versicherung, interner IT-Support einer Neobank sowie IT- und HR-Support in einem Beratungsunternehmen. [1, 2]</p>
+      <p>Die Zahlen sind das Argument. Das stärkste Modell der Studie besteht 65&nbsp;% der Aufgaben im ersten Versuch und löst 91&nbsp;% mindestens einmal in zwanzig Versuchen, schafft aber nur 25&nbsp;% in allen zwanzig. [1] Ein Erfolg ist noch keine Zuverlässigkeit.</p>
+      <p>Jede Aufgabe bringt erwartete Ergebnisse und isolierte MCP-Werkzeugsitzungen mit. Sie führen Ihren Agenten dagegen aus und erhalten Pass/Fail für echte Nebenwirkungen—nicht Transkript-Sentiment.</p>
 
-      <h2>DGX-First-Architektur</h2>
-      <p>ThinkingBox integriert sich mit DGX, dem lokalen Sandbox für agentengesteuerte Berechnungen. Gemäß DWS-Kostengovernance werden alle KI-Agentenarbeitslasten standardmäßig lokal—Cloud-Agenten sind sekundär und erfordern dokumentierte Begründung.</p>
-      <p>Dies bedeutet:</p>
-      <ul>
-        <li><strong>Entwicklung & Staging:</strong> Führen Sie ThinkingBox-Bench lokal auf DGX über MCP-Prozessisolierung aus. Schnelle Iteration, keine Cloud-Abrechnung für Prozesserzeugung, vollständig isoliert von Produktionsdaten.</li>
-        <li><strong>Vor der Bereitstellung:</strong> Jeder Agent-Arbeitsablauf führt die vollständige Bank vor der Promotion aus. Keine Überraschungen in der Produktion.</li>
-        <li><strong>Kostengovernance:</strong> Jede ThinkingBox-Bench-Aufgabe ist eine Prozesserzeugung + LLM-Aufruf. Die Ausführung von 507 Aufgaben × 20 Iterationen in der Cloud ist teuer. Die lokale Ausführung bedeutet, dass die Prozesserzeugung kostenlos ist—nur die LLM-Inferenz wird abgerechnet. Nach dem 12. Oktober 2026 werden Cloud-Agenten während der kostenlosen Krediterschöpfung blockiert. ThinkingBox-on-DGX sichert Ihre Evaluierungsschleife für die Zukunft.</li>
-      </ul>
+      <h2>Lokal zuerst, auf DGX</h2>
+      <p>Unsere Agenten-Workloads laufen standardmäßig auf lokaler Rechenleistung auf der DGX; Cloud-Agenten sind zweitrangig und brauchen eine dokumentierte Begründung. 507 Aufgaben × 20 Versuche in der Cloud sind teuer, deshalb holen wir den Bench auf die DGX, getrennt von Produktionsdaten. Dieser Runner ist noch in Arbeit, keine ausgelieferte Konfiguration.</p>
 
       <h2>Für Gründer und Teams</h2>
       <p>Wenn Sie Agent-Systeme aufbauen:</p>
@@ -166,14 +154,14 @@
       </ul>
 
       <h2>Erste Schritte</h2>
-      <p>DWS-ThinkingBox ist unser Fork des Microsoft ThinkingBox-Frameworks, angepasst für Revenue Engines:</p>
+      <p>DWS-ThinkingBox ist unser Fork des Microsoft ThinkingBox-Frameworks:</p>
       <ul>
-        <li><strong>Lifetime-Fork:</strong> github.com/blogtheristo/dws-thinkingbox — MCP-Sitzungsproxy, Agent/Benutzer/Richter-Schleife, 507 Benchmarks, DGX-Runner-Konfiguration</li>
+        <li><strong>Lifetime-Fork:</strong> github.com/blogtheristo/dws-thinkingbox — unser Arbeits-Fork</li>
         <li><strong>Upstream-Framework:</strong> github.com/microsoft/thinkingbox — das Bewertungs-Harness und die Prozessisolationsschicht</li>
       </ul>
       <p>Integrations-Arbeitsablauf:</p>
       <ol>
-        <li>Klonen Sie den Fork neben Ihrer Agenten-Infrastruktur.</li>
+        <li>Klonen Sie Microsofts Bewertungs-Harness (oder unseren Fork) neben Ihrer Agenten-Infrastruktur.</li>
         <li>Definieren Sie Werkzeug-Mocks als MCP-Server (Python-Unterprozess oder HTTP).</li>
         <li>Schreiben Sie Szenarien und Testfälle in YAML.</li>
         <li>Führen Sie aus <code>tb infer</code> gegen ThinkingBox-Bench mit Ihrem Agenten.</li>
@@ -186,7 +174,7 @@
       <p>ThinkingBox validiert Agenten vor der Bereitstellung. Sobald live, überwacht das DWS Dashboard sie in der Produktion—mit vollständiger Beobachtbarkeit durch Aspire.</p>
       <h3>Operationale Pipeline</h3>
       <ol>
-        <li><strong>ThinkingBox-Bench:</strong> Pass/Fail für 507 Aufgaben. Null stille Fehler.</li>
+        <li><strong>ThinkingBox-Bench:</strong> Pass/Fail für die Bench-Aufgaben.</li>
         <li><strong>Bereitstellen:</strong> Überprüfte Agenten auf DGX bereitstellen.</li>
         <li><strong>DWS Dashboard:</strong> Echtzeit-Agent-Überwachung über drei dedizierte Ansichten:</li>
       </ol>
@@ -205,13 +193,20 @@
       </ul>
 
       <h3>Reales Anwendungsbeispiel: Kontrollraum-Überwachung im großen Maßstab</h3>
-      <p>Stellen Sie sich vor, Sie stellen 50 Agenten bereit, und einer halluziniert dienstags subtil. Ohne Spuren verbringt Ihr Team 6 Stunden mit blindem Debugging. Mit Aspire, das den Kontrollraum speist:</p>
+      <p>Stellen Sie sich vor, Sie stellen 50 Agenten bereit, und einer halluziniert dienstags subtil. Ohne Spuren debuggt Ihr Team blind. Mit Aspire, das den Kontrollraum speist:</p>
       <ul>
-        <li>Der Vertrauens-Drift-Detektor markiert die Anomalie in 2 Minuten.</li>
+        <li>Der Vertrauens-Drift-Detektor markiert die Anomalie.</li>
         <li>Detaillierte Agent-Spuren zeigen genau, welche Werkzeugaufrufe abwichen.</li>
         <li>Sie lokalisieren die Modelltemperatur oder Eingabeänderung verantwortlich für die Drift.</li>
-        <li>Rollback oder Code-Fix dauert 15 Minuten statt eines ganzen Tages.</li>
+        <li>Rollback oder Code-Fix beginnt mit Nachweisen statt mit Vermutungen.</li>
       </ul>
+
+      <h2>Quellen</h2>
+      <ol>
+        <li>Ko, Y., Keramati, A., Ferri, N., et al. (2026). <em>One Success Isn't Reliability: Thinkingbox, a Sandbox and Benchmark for Agents in Stateful Business Workflows.</em> arXiv:2608.19741. <a href="https://arxiv.org/abs/2608.19741">arxiv.org/abs/2608.19741</a></li>
+        <li>Microsoft (2026). <em>thinkingbox-data.</em> GitHub. <a href="https://github.com/microsoft/thinkingbox-data">github.com/microsoft/thinkingbox-data</a></li>
+      </ol>
+      <p class="correction"><em>Korrigiert am 30. September 2026: Eine frühere Fassung stellte Microsofts ThinkingBox-Bench als unseren dar, nannte Geschäftsfelder, die er nicht enthält, und beschrieb einen DGX-Runner, der noch nicht gebaut ist.</em></p>
 
       <div class="footer">
         <p>Erbaut vom Lifetime-Team. Fragen? Erreichen Sie uns unter risto.paarni@lifetime.fi.</p>

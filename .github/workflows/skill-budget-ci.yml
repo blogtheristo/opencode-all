@@ -1,3 +1,5 @@
+# Evidence: Tool=GitHub-Copilot-CLI-1.0.88 Model=openai/gpt-5.6-luna Agent=copilot Date=2026-09-27
+# Audit trail: git log -- .github/workflows/skill-budget-ci.yml
 name: Skill Manifest & Budget
 
 on:
@@ -16,7 +18,7 @@ permissions:
 
 jobs:
   skills:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dgx-spark]
     steps:
       - uses: actions/checkout@v4
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Note — Workflow v2 Procedural Graphs, Chapters 0–8</title>
+<style>
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;max-width:900px;margin:0 auto;padding:0 20px 40px;line-height:1.7;color:#1a1a2e;background:#fafafa}
+h1{color:#0f172a;border-bottom:3px solid #fbbf24;padding-bottom:10px}
+h2{color:#1e3a5f;border-bottom:1px solid #e2e8f0;padding-bottom:8px;margin-top:40px}
+h3{color:#334155}h4{color:#475569}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;font-size:.9em}
+pre{background:#1e293b;color:#e2e8f0;padding:16px;border-radius:8px;overflow-x:auto}
+pre code{background:none;color:inherit}
+table{border-collapse:collapse;width:100%;margin:20px 0}
+th,td{border:1px solid #cbd5e1;padding:10px 14px;text-align:left}
+th{background:#1e3a5f;color:white}tr:nth-child(even){background:#f8fafc}
+blockquote{border-left:4px solid #fbbf24;margin:20px 0;padding:10px 20px;background:#fffbeb}
+a{color:#2563eb}strong{color:#0f172a}li{margin:4px 0}
+.dws-version-banner{background:#1e293b;color:#e2e8f0;padding:12px 20px;margin:-0px -20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:.85rem}
+.dws-version-badge{background:#fbbf24;color:#0f172a;font-weight:700;padding:4px 12px;border-radius:20px;font-size:.9rem;letter-spacing:.04em}
+.dws-version-meta{color:#94a3b8;font-size:.8rem}
+.dws-version-title{color:#e2e8f0;font-weight:600}
+</style>
+</head>
+<body>
+<div class="dws-version-banner">
+  <span class="dws-version-title">Field Note — Workflow v2 Procedural Graphs</span>
+  <span class="dws-version-badge">PR #2059</span>
+  <span class="dws-version-meta">Lifetime Oy · 2026-09-22 · Learn/ (private)</span>
+</div>
+<h1>Field Note — 2026-09-22: Workflow v2, Chapters 0–8</h1>
+<h2>1. What happened</h2>
+<p>Built <strong>Workflow v2</strong> — an implementation of the &quot;Procedural Graphs&quot; pattern for long-horizon AI agent tasks — end to end, from engine to nine domain graphs, on branch <code>claude/workflow-v2-procedural-graphs-k2324l</code> (PR #2059).</p>
+<p>The problem it solves: an agent running a long, multi-step task tracks its own progress in conversational memory, and conversational memory degrades. The model hallucinates having completed a step it skipped, or loops on a broken tool call. Workflow v2 moves that state <strong>out of the chat</strong> into an explicit graph the code enforces.</p>
+<h3>The engine (<code>src/agents/workflow-v2/</code>)</h3>
+<p>Two roles, per the pattern:</p>
+<ul>
+<li><strong>Executor</strong> — acts only within the current node, and may only transition along edges declared in that node&#x27;s <code>allowedNext</code>. An illegal transition throws <code>GraphValidationError</code> at runtime; it is not a prompt-level request.</li>
+<li><strong>Refiner</strong> — reads a completed run&#x27;s <code>ExecutionTrace</code> offline and proposes graph edits for future runs (the self-evolution half of the pattern).</li>
+</ul>
+<p>Traces checkpoint to disk after every step. The engine reuses the existing provider-agnostic <code>LLMClient</code> — no new provider wiring.</p>
+<h3>The hard gate</h3>
+<p><code>ApprovalToken</code> / <code>computeApprovalHash</code> / <code>ApprovalRequiredError</code>: a transition leaving a gated node requires a SHA-256 hash binding a human&#x27;s approval to the <strong>exact draft text</strong> plus that graph and edge. An approval cannot be replayed against a different draft. Built because CLAUDE.md&#x27;s RED-zone rule on outbound email must not depend on an LLM choosing to honour a prompt (Discipline rule 12, fail loud).</p>
+<h3>Phase 1 — KYA-gated typed transitions</h3>
+<p><code>runExecutorStepTyped()</code> routes the transition decision through the pre-existing <code>kya-jev</code> primitive (<code>src/agents/kya-jev.ts</code>) instead of regex-parsing prose out of an LLM reply. Two consequences:</p>
+<ol>
+<li>A graph run now requires a <strong>cryptographically signed KYA verdict</strong> to make any transition decision at all — <code>kya-jev</code> refuses to run without one, and a self-constructed <code>{decision:&#x27;allowed&#x27;}</code> object fails signature verification.</li>
+<li>The typed result carries per-option probabilities across every legal next node, which is recorded for the Refiner. A near-even split between two options is a strong signal the node description is ambiguous — exactly what the Refiner&#x27;s &quot;identify ambiguity&quot; rule is looking for.</li>
+</ol>
+<h3>Nine chapters</h3>
+<table>
+<thead><tr><th>#</th><th>Chapter</th><th>Gate</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>B2B Growth Funnel (campaign level)</td><td>—</td></tr>
+<tr><td>1</td><td>Sales Outreach</td><td><code>HIC_APPROVAL_GATE → SEND</code></td></tr>
+<tr><td>2</td><td>Investor Outreach</td><td><code>HIC_APPROVAL_GATE → SEND</code></td></tr>
+<tr><td>3</td><td>Compliance Assessment</td><td>none (read-only)</td></tr>
+<tr><td>4</td><td>Construction Site Assessment</td><td>none (read-only)</td></tr>
+<tr><td>5</td><td>Content Publishing</td><td><code>HIC_APPROVAL_GATE → PUBLISH</code></td></tr>
+<tr><td>6</td><td>Helpdesk Triage</td><td><code>HIC_APPROVAL_GATE → SEND_REPLY</code></td></tr>
+<tr><td>7</td><td>KYA Incident Response</td><td><code>SNAP_CONFIRM → SNAP_EXECUTE</code></td></tr>
+<tr><td>8</td><td>Case Coordination (Themis)</td><td><code>HIC_APPROVAL_GATE → EXECUTE_ACTION</code></td></tr>
+</tbody>
+</table>
+<p>Each is grounded in the real semantics of its backing skill doc or code — Chapter 1 maps 1:1 onto the existing <code>OutreachStatus</code> enum, Chapter 5 onto <code>/blog-draft</code>&#x27;s Rule 13 loop, Chapter 7 onto <code>/kya</code>&#x27;s IJS tiers — rather than inventing new mechanics.</p>
+<h2>2. The insight</h2>
+<p>Three things are worth keeping from this build.</p>
+<p><strong>The gate node id became the contract.</strong> Chapters 1, 2, 5, 6 and 8 all reuse the literal node id <code>HIC_APPROVAL_GATE</code>, which <code>DEFAULT_GATED_NODE_IDS</code> in <code>runner.ts</code> already enforces in code. Each new chapter therefore inherited runtime approval enforcement _for free, with no engine change_. That was not designed up front — it emerged from naming the node the same thing twice, and is the single highest-leverage accident in the build.</p>
+<p><strong>Not every chapter needs a gate, and forcing one would have been worse.</strong> Chapters 3 and 4 are read-only assessments that issue no outbound action. Adding an approval gate would have been cargo-culting the pattern rather than applying it. Recording _why_ they have no gate is more useful than the gate would have been.</p>
+<p><strong>Convergent discovery, independently.</strong> <code>DWS7_ROADMAP.md</code> Phase 4.1 had already scoped this exact problem months earlier — PR 138 (durable resumable multi-agent workflows, via Temporal.io) and PR 146 (human-in-the-loop approval queue) — with no reference to this work. Separately, Google Cloud&#x27;s GITEX AI Türkiye framing named the same three goals DWS&#x27;s own north-star uses. Two unconnected sources converging on one problem shape is a stronger market-timing signal than either alone, which is why it went into the PhD thesis as Key Contribution #60 rather than staying a note.</p>
+<h2>3. Verification</h2>
+<ul>
+<li>51/51 unit tests pass, all deterministic and offline (no live LLM calls, no network).</li>
+<li>The new gate tests were checked for vacuity: temporarily adding a <code>REVISE → PUBLISH</code> bypass to Chapter 5&#x27;s graph failed 2 tests as intended; the sabotage was reverted. A test that cannot fail is not evidence.</li>
+<li><code>tsc --noEmit</code> clean across all <code>workflow-v2</code> paths; <code>scripts/evidence-audit.mjs</code> 6/6 compliant.</li>
+</ul>
+<h2>4. Documentation updated</h2>
+<ul>
+<li><code>DWS7_ROADMAP.md</code> v1.7.1 → 1.7.2 — Phase 4.1 PRs 138/144/145/146 cross-referenced to what Workflow v2 already delivers, so that phase starts from the shipped pattern.</li>
+<li><code>Admin/ADMIN_MANUAL_DASHBOARD_V8_EN_v1.md</code> v1.0 → 1.1 — new §11 specifying the audit-trail view.</li>
+<li>Thesis lockstep v4.11 → 4.12 on all four files: V3Thesis_EN/FI §10.34 (implementation), PHD_FIREHORSE_EN/FI §14.54 + Key Contribution #60 (market signal).</li>
+<li><code>docs/workflow-v2-chapters-roadmap.md</code>, <code>-sales-outreach-chapter-one.md</code>, <code>-jev-kya-integration-plan.md</code>.</li>
+</ul>
+<h2>5. Next steps</h2>
+<p>The graphs exist; none has been <strong>run for real</strong>. Two things block that:</p>
+<ol>
+<li><strong>Mission Control queue surface</strong> — a graph paused at <code>HIC_APPROVAL_GATE</code> needs to appear where the HIC acts. <code>mission-control.js</code> already has the right shape (<code>CENTRES</code>, <code>HIC_ACTIONS</code>); it needs an <code>approve_draft</code> / <code>reject_draft</code> action and a queue item carrying <code>{ graphName, runId, currentNode, draftText }</code>.</li>
+<li><strong><code>workflow_v2_runs</code> Supabase table</strong> — <code>persistTrace()</code> writes local JSON today, which no web dashboard can read. Authoring the migration is GREEN; applying it is RED and needs the HIC.</li>
+</ol>
+<h2>6. Known conflict, unresolved</h2>
+<p><code>.claude/commands/email.md</code> (the <code>/email</code> skill) still documents <strong>Resend</strong> as its transport. CLAUDE.md Non-Negotiable Rule 4 says Amazon SES only, and <code>src/outreach/prospect-email-templates.ts</code> already says &quot;ready for Amazon SES&quot;. The skill doc is stale against policy. Chapters 1 and 2 route around it deliberately, but the doc should be corrected independently of Workflow v2 — flagged here rather than silently worked around.</p>
+<h2>7. Learning Standard record (DWS_LEARNING_STANDARD.md — EU AI Act Art. 14)</h2>
+<table>
+<thead><tr><th>Step</th><th>Description</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>KB update</td><td><code>kb/raw/signals/2026-09-22-workflow-v2-procedural-graphs.md</code></td></tr>
+<tr><td>2</td><td>Field note</td><td>This file</td></tr>
+<tr><td>3</td><td>Learn/ HTML render</td><td><code>Learn/2026-09-22-workflow-v2-procedural-graphs.html</code></td></tr>
+<tr><td>4</td><td>Drive export</td><td>N/A — Drive MCP not connected in this session; repo is source of truth</td></tr>
+<tr><td>5</td><td>HIC decision question</td><td>§8 below</td></tr>
+<tr><td>6</td><td>Calendar commitments</td><td>N/A — no dated external commitment arose from this session</td></tr>
+</tbody>
+</table>
+<h2>8. HIC decision question</h2>
+<blockquote><p><strong>Which chapter runs for real first, and on which surface?</strong><br />
+Chapter 1 (Sales Outreach) is the obvious candidate for revenue, but it means a real<br />
+prospect receives a real email through a gate that has never been exercised in<br />
+production. Chapter 3 (Compliance Assessment) is read-only and cannot send anything<br />
+— it would prove the engine on live data with zero outbound risk, but proves nothing<br />
+about the approval gate.<br />
+Recommendation: <strong>Chapter 3 first</strong> as an engine shakedown on real data, then<br />
+Chapter 1 once the Mission Control queue exists to catch its gate. Running Chapter 1<br />
+before that queue exists means the approval gate has nowhere to surface, and it<br />
+would be approved in a terminal — which is exactly the failure mode the placement<br />
+decision was made to prevent.</p></blockquote>
+<h2>9. Parked, not forgotten</h2>
+<p>Thirteen blog drafts in <code>docs/blog-drafts/</code> remain <code>Status: DRAFT</code> (vendor-dependency series, KYA one-signed-page FI/EN, sovereignty-axis in 5 languages, HIC hallintamalli, Lifetime World Model, process-description posts). None was touched this session. Per Rule 13 they publish only after the HIC reads the full text and approves each one — they are <strong>parked awaiting the HIC</strong>, not abandoned.</p>
+</body>
+</html>

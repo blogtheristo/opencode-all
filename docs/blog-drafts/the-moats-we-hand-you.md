@@ -4,6 +4,7 @@ Status: PENDING-HIC-REVIEW
 Extracted-From: onelifetime.world/posts/the-moats-we-hand-you.html
 Extracted-On: 2026-08-12
 Published: 2026-07-01
+claims_checked: 2026-09-30
 
 > This draft was reconstructed from the already-published page, because the
 > post went live without one (Rule 13). It is here so the text is reviewable,
@@ -34,7 +35,7 @@ the customer owns. The whole design has one spine: sovereignty vs. interdependen
 
 Interdependence is sold as efficiency. It is priced as control.
 
-Every dependency is a lever a counterparty can pull. It pulls hardest at renewal, at
+Every dependency is a lever a counterparty can pull [4]. It pulls hardest at renewal, at
 scale, under pressure — the moment you can least afford it.
 
 Sovereignty is not going it alone. It is owning the levers that decide your fate, and
@@ -46,7 +47,7 @@ below is one of those levers.
 1 · Local jurisdiction
 
 Be legally native to your own regime. A foreign vendor can move iron; it cannot move
-its jurisdiction of origin to sit inside yours.
+its jurisdiction of origin to sit inside yours [1].
 
 2 · Sovereignty is segmentation
 
@@ -59,7 +60,7 @@ Interdependence wins the full sovereignty-exit cost. We built and maintain our o
 libraries, so ours is near zero — and we pass that freedom to you.
 
 The third one is the tell. The real question is never the licence you stop paying. It is
-the full cost to leave: the libraries you no longer understand, the maintenance muscle you
+the full cost to leave [2]: the libraries you no longer understand, the maintenance muscle you
 let atrophy, the integrations that only ever ran on the vendor's terms.
 
 Interdependence accrues that cost quietly, then hands you the whole bill at once. Because
@@ -81,7 +82,7 @@ Own it
 
 Prove it
 
-- 7 Court-defensible evidence. Article 12 audit trail, not a promise.
+- 7 Court-defensible evidence. Article 12 audit trail [3], not a promise.
 
 - 8 Testable conformance. A sovereignty claim you can audit.
 
@@ -104,12 +105,12 @@ Position it
 - 15 Connector, not competitor. We compose with your platforms.
 
 - 16 Sovereign upstream. EU-trained provenance where a partner
-supplies it.
+  supplies it.
 
-- 17 Post-quantum readiness. The crypto transition, priced in early.
+- 17 Post-quantum readiness. The crypto transition, priced in early [5][6].
 
 - 18 Track-record epistemics. Decisions from what is right, not who
-is liked.
+  is liked.
 
 - 19 Standardization. Owning the spec others conform to.
 
@@ -118,7 +119,7 @@ Where each moat honestly stands
 Not all nineteen are shipping at the same depth, and saying otherwise is the fastest way
 to lose a European buyer's trust.
 
-Moats 1–13 run in production today. Moat 16 depends on a partner's EU upstream
+By our own assessment, moats 1–13 run in production today. Moat 16 depends on a partner's EU upstream
 — ours where they supply it, not a claim we make alone. Moat 17 is readiness, not
 a finished migration. Moat 19 is a standard we have proposed, not one the
 industry has ratified. We would rather name the tier than inflate it.
@@ -138,7 +139,7 @@ The short version
 - Most AI moats protect the seller. We build the kind the customer owns.
 
 - The spine is sovereignty vs. interdependence — own the levers that decide your
-fate.
+  fate.
 
 - Start local: your jurisdiction, your segmentation, your near-zero exit cost.
 
@@ -149,15 +150,29 @@ fate.
 ## Read next
 
 - The moat is not the model — NVIDIA makes it possible, EU-sovereign deployment
-makes it defensible
+  makes it defensible
 
 - Prompt, People, Plant, Perception — the four capital classes of the agentic
-era
+  era
 
 - The ontology lives in the team — why acquisition cannot extract it
 
 - Europe's AI factory came home — and why the edge still needs a box
 
-Risto Anton Paarni
+Risto Anton Päärni
 
 CEO, Lifetime Oy · Editor in Chief, Lifetime Scope Journal
+
+## Sources
+
+[1] United States Congress (2018). 18 U.S.C. § 2713 — Required preservation and disclosure of communications and records (CLOUD Act, Pub. L. 115–141, div. V, § 103). United States Code. <https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section2713>
+
+[2] European Parliament and Council (2023). Regulation (EU) 2023/2854 (Data Act), Chapter VI — switching between data processing services. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2023/2854/oj>
+
+[3] European Parliament and Council (2024). Regulation (EU) 2024/1689 (Artificial Intelligence Act), Art. 12 Record-keeping and Art. 14 Human oversight. Official Journal of the European Union. <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>
+
+[4] Cai, W., Shi, T., Zhao, X., & Song, D. (2025). Are You Getting What You Pay For? Auditing Model Substitution in LLM APIs. arXiv preprint arXiv:2504.04715. <https://arxiv.org/abs/2504.04715>
+
+[5] NIST (2024). NIST Releases First 3 Finalized Post-Quantum Encryption Standards (FIPS 203, 204, 205). National Institute of Standards and Technology. <https://www.nist.gov/news-events/news/2024/08/nist-releases-first-3-finalized-post-quantum-encryption-standards>
+
+[6] Babbush, R., Zalcman, A., Gidney, C., Broughton, M., Khattar, T., Neven, H., Bergamaschi, T., Drake, J., & Boneh, D. (2026). Securing Elliptic Curve Cryptocurrencies against Quantum Vulnerabilities: Resource Estimates and Mitigations. arXiv preprint arXiv:2603.28846. <https://arxiv.org/abs/2603.28846>

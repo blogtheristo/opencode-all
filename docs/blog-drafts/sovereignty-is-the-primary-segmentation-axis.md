@@ -5,6 +5,7 @@ Language: en
 Target: onelifetime.world/posts/sovereignty-is-the-primary-segmentation-axis.html
 Date: 2026-09-14
 Author: Risto Anton Päärni
+claims_checked: 2026-09-30
 Canonical: docs/field-notes/2026-09-14-sovereignty-is-the-primary-segmentation-axis.md §1
 Note: Language Standard master (EN). FI/SV/DE/FR are sibling drafts. Do not publish until Status: APPROVED (CLAUDE.md Rule 13).
 
@@ -20,23 +21,23 @@ The short version
 
 Sovereignty is segmentation. Locally.
 
-We used to write a weaker heading: sovereignty is *the* segmentation. We used a worse lede: the market splits on one axis. Both are wrong in the same way. They flatten a first cut into a monopoly.
+We used to write a weaker heading: sovereignty is _the_ segmentation. We used a worse lede: “the market splits on one axis”. Both are wrong in the same way. They flatten a first cut into a monopoly.
 
 The sentence we now use is longer because the fence is load-bearing:
 
 Sovereignty is the primary segmentation axis — not the only one.
 
-Drop the em dash and you are back to the overclaim.
-
 ## What the first cut actually is
 
 A regulated European buyer does not start with features. They start with a legal question: if a US court asks, can this vendor be compelled?
 
-Server location does not answer it. The CLOUD Act follows the parent, not the rack. That is why “EU hosting” on AWS, Azure or Google is a residency story, not a sovereignty story.
+Server location does not answer it. The CLOUD Act follows the parent, not the rack [1]. That is why “EU hosting” on AWS, Azure or Google is a residency story, not a sovereignty story.
+
+European data centres still provide real sovereignty, just at a different layer. Data is stored and processed in the EU, under the GDPR. Some offers add an operational layer: AWS European Sovereign Cloud (Brandenburg, since January 2026) runs on EU-resident staff and German legal entities [2], Microsoft's EU Data Boundary keeps storage and processing of customer data in the EU, with documented exceptions [3], and at S3NS the French company Thales operates Google technology. In the Commission's Cloud III tender, a Proximus-led consortium that uses S3NS was awarded at SEAL-2 (data sovereignty), the tender's minimum [4]. The sovereign clouds of AWS, Microsoft and Oracle are not on the Cloud III award list. None of them removes the parent's jurisdiction. That makes them a good fit for workloads that are not sensitive — which is most of what most companies run — and not for workloads that must withstand a disclosure order from a US court.
 
 The same cut appears inside our own catalogue. Aegis, Sovereign Infra and Connect are not three products. They are depths on one axis — how far the workload sits from a US parent.
 
-The Commission’s Cloud Sovereignty Framework makes the same move with different words. SEAL is a gate: miss the minimum on any of eight objectives and the offer is out. Cloud III’s floor was SEAL-2. The award in April 2026 put three consortia at SEAL-3 and one at SEAL-2. Nobody received SEAL-4. Chip dependence is why.
+The Commission’s Cloud Sovereignty Framework makes the same move with different words [5]. SEAL is a gate: miss the minimum on any of eight objectives and the offer is out. Cloud III’s floor was SEAL-2. The award in April 2026 put three consortia at SEAL-3 and one at SEAL-2. Nobody received SEAL-4. Chip dependence is why [5][6].
 
 We were not in that tender. We do not wear a SEAL badge. Mapping Aegis toward SEAL-3 is indicative, not a certificate. NVIDIA GN100 / DGX keeps SEAL-4 closed for us the same way it does for everyone else.
 
@@ -50,7 +51,7 @@ If we pretend the first cut is the only cut, we sell a slogan and miss the order
 
 ## What we will not say
 
-We will not say the market splits on one axis.
+We will not say “the market splits on one axis”.
 
 We will not say an EU region is sovereign because the pin is in Helsinki.
 
@@ -65,3 +66,17 @@ Sovereignty is segmentation — locally.
 Finland is not a wall. It is a jurisdiction you can name, a perimeter you can draw, and a later conversation about industry, price and capability that is allowed to happen after the first cut is honest.
 
 That is the axis. It is not the only one.
+
+## Sources
+
+[1] United States Congress (2018). 18 U.S.C. § 2713 — Required preservation and disclosure of communications and records (CLOUD Act, Pub. L. 115–141, div. V, § 103). United States Code. <https://uscode.house.gov/view.xhtml?req=granuleid:USC-prelim-title18-section2713>
+
+[2] Amazon Web Services (2026). AWS Launches AWS European Sovereign Cloud and Announces Expansion Across Europe. Amazon press release. <https://press.aboutamazon.com/aws/2026/1/aws-launches-aws-european-sovereign-cloud-and-announces-expansion-across-europe>
+
+[3] Microsoft (2025). What is the EU Data Boundary? Microsoft Learn. <https://learn.microsoft.com/privacy/eudb/eu-data-boundary-learn>
+
+[4] European Commission (2026). Commission advances cloud sovereignty through strategic procurement. European Commission news, 17 April 2026. <https://commission.europa.eu/news-and-media/news/commission-advances-cloud-sovereignty-through-strategic-procurement-2026-04-17_en>
+
+[5] European Commission (2026). Sovereign Cloud Framework explained. European Commission news, 1 June 2026. <https://commission.europa.eu/news-and-media/news/sovereign-cloud-framework-explained-2026-06-01_en>
+
+[6] Sastry, G., Heim, L., Belfield, H., Anderljung, M., Brundage, M., Hazell, J., O'Keefe, C., Hadfield, G. K., et al. (2024). Computing Power and the Governance of Artificial Intelligence. arXiv preprint arXiv:2402.08797. <https://arxiv.org/abs/2402.08797>

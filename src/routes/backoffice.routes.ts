@@ -1,4 +1,4 @@
-// Evidence: Tool=Claude Code 2.1.278 Model=anthropic/claude-opus-5 Agent=claude-code Date=2026-09-22
+// Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=openai/gpt-5.6-sol Agent=copilot Date=2026-09-27
 // Audit trail: git log -- src/routes/backoffice.routes.ts
 
 import express, { type NextFunction, type Request, type Response, type Router } from 'express';
@@ -6,6 +6,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { getSupabaseClient } from '../config/supabase.js';
 import logger from '../utils/logger.js';
+import { buildPipelineView, loadRegistry } from '../agents/workflow-v2/pipeline.js';
 
 const execFileAsync = promisify(execFile);
 const router: Router = express.Router();
@@ -18,7 +19,63 @@ export interface ContainerInfo {
   health: 'healthy' | 'unhealthy' | 'starting' | 'none';
 }
 
-// Same rule as SQL is_backoffice_admin() (migration 011): trust organization_members, never user_metadata.
+interface OrganizationMembershipRow {
+  role: string;
+  organizations:
+    | { name: string | null; is_internal: boolean }
+    | Array<{ name: string | null; is_internal: boolean }>
+    | null;
+}
+
+interface BackofficeAccess {
+  isAdmin: boolean;
+  orgs: string[];
+}
+
+function organizationsForMembership(
+  row: OrganizationMembershipRow,
+): Array<{ name: string | null; is_internal: boolean }> {
+  return Array.isArray(row.organizations)
+    ? row.organizations
+    : row.organizations
+      ? [row.organizations]
+      : [];
+}
+
+function organizationNames(row: OrganizationMembershipRow): string[] {
+  return organizationsForMembership(row)
+    .map((organization) => organization.name?.trim())
+    .filter((name): name is string => Boolean(name));
+}
+
+async function loadBackofficeAccess(
+  database: NonNullable<ReturnType<typeof getSupabaseClient>>,
+  userId: string,
+): Promise<{ access: BackofficeAccess | null; error: Error | null }> {
+  const { data, error } = await database
+    .from('organization_members')
+    .select('role, organizations!inner(name, is_internal)')
+    .eq('user_id', userId)
+    .eq('status', 'active');
+
+  if (error) return { access: null, error: new Error(error.message) };
+
+  const memberships = (data ?? []) as OrganizationMembershipRow[];
+  const internalMemberships = memberships.filter((membership) =>
+    organizationsForMembership(membership).some((organization) => organization.is_internal),
+  );
+  return {
+    access: {
+      isAdmin: internalMemberships.some((membership) =>
+        ['owner', 'admin'].includes(membership.role.toLowerCase()),
+      ),
+      orgs: [...new Set(internalMemberships.flatMap(organizationNames))],
+    },
+    error: null,
+  };
+}
+
+// Same rule as SQL is_backoffice_admin(): trust internal organization membership, never user_metadata.
 async function requireBackofficeAdmin(req: Request, res: Response, next: NextFunction) {
   const db = getSupabaseClient();
   if (!db) {
@@ -39,21 +96,14 @@ async function requireBackofficeAdmin(req: Request, res: Response, next: NextFun
     return;
   }
 
-  const { data: membership, error } = await db
-    .from('organization_members')
-    .select('user_id')
-    .eq('user_id', userData.user.id)
-    .in('role', ['owner', 'admin'])
-    .eq('status', 'active')
-    .limit(1)
-    .maybeSingle();
+  const { access, error } = await loadBackofficeAccess(db, userData.user.id);
 
   if (error) {
     logger.error('Backoffice admin check failed', { error: error.message });
     res.status(500).json({ error: 'Failed to verify admin role' });
     return;
   }
-  if (!membership) {
+  if (!access?.isAdmin) {
     logger.warn('Backoffice access denied', { userId: userData.user.id });
     res.status(403).json({ error: 'Forbidden' });
     return;
@@ -88,6 +138,37 @@ async function listContainers(): Promise<ContainerInfo[]> {
   });
   return parseDockerPs(stdout);
 }
+
+router.get('/me', async (req: Request, res: Response) => {
+  const database = getSupabaseClient();
+  if (!database) {
+    res.status(503).json({ error: 'Database not configured' });
+    return;
+  }
+
+  const token = req.headers.authorization?.startsWith('Bearer ')
+    ? req.headers.authorization.slice(7)
+    : '';
+  if (!token) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const { data: userData, error: userError } = await database.auth.getUser(token);
+  if (userError || !userData?.user) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+
+  const { access, error } = await loadBackofficeAccess(database, userData.user.id);
+  if (error || !access) {
+    logger.error('Backoffice access lookup failed', { error: error?.message });
+    res.status(500).json({ error: 'Failed to verify dashboard access' });
+    return;
+  }
+
+  res.json(access);
+});
 
 async function countRows(
   table: string,
@@ -176,6 +257,20 @@ router.get('/audit-log', async (req: Request, res: Response) => {
     return;
   }
   res.json({ entries: data });
+});
+
+// Workflow v2 pipeline view — the HIC's control panel (docs/workflow-v2-chapters-roadmap.md
+// "Pipeline view"): what the market says → what we believe → what we changed → did it work.
+// First implementation reads the repo registry (docs/market-signals); the durable version
+// will read workflow_v2_runs. Read-only; decisions still go through the approval-hash gate.
+router.get('/pipeline', async (_req: Request, res: Response) => {
+  try {
+    const signals = await loadRegistry();
+    res.json(buildPipelineView(signals));
+  } catch (error) {
+    logger.error('Backoffice pipeline view failed', { error: String(error) });
+    res.status(500).json({ error: 'Pipeline view unavailable' });
+  }
 });
 
 export default router;

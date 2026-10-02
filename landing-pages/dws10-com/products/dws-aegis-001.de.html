@@ -17,7 +17,37 @@
     <title>DWS IQ Aegis | Lifetime Firehorse™Store</title>
     <meta name="description" content="DWS IQ Aegis Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing — part of the DWS IQ Industrial Intelligence suite Product Overview DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering">
     <meta name="author" content="Lifetime Oy">
-    <link rel="canonical" href="https://dws10.com/products/dws-aegis-001.de.html">
+    <link rel="canonical" href="https://dws10.com/products/dws-aegis-001.de.html" />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://dws10.com/products/dws-aegis-001.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fi"
+      href="https://dws10.com/products/dws-aegis-001.fi.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="sv"
+      href="https://dws10.com/products/dws-aegis-001.sv.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="fr"
+      href="https://dws10.com/products/dws-aegis-001.fr.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="de"
+      href="https://dws10.com/products/dws-aegis-001.de.html"
+    />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://dws10.com/products/dws-aegis-001.html"
+    />
     <link rel="icon" type="image/png" href="/DWS_IQ2026.png">
     <meta property="og:type" content="product">
     <meta property="og:title" content="DWS IQ Aegis">
@@ -65,6 +95,11 @@
         .nav-links { display: flex; gap: 20px; }
         .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.2s; }
         .nav-links a:hover { color: #60a5fa; }
+        .delivery-section { margin-top: 28px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .delivery-section h2 { color: #93c5fd; font-size: 1.15rem; margin-bottom: 10px; }
+        .delivery-section ul { padding-left: 20px; }
+        .delivery-section li { margin-bottom: 6px; }
+        .fine-print { font-size: 0.85rem; color: #94a3b8; }
     </style>
 </head>
 <body>
@@ -86,14 +121,14 @@
         <a href="../" class="back-link">← Zurück zum Store</a>
         <h1>DWS IQ Aegis</h1>
         <div class="price">€59 990</div>
-        <div class="price-note">From €59,990 onboarding + one-time integration. Monthly subscription: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo</div>
+        <div class="price-note">€59,990 one-time licence + one-time integration. Maintenance subscription DWS-AEGIS-SUB-001: Standard €999/mo | Defence €1,999/mo | Sovereign €4,999/mo. Pilot: DWS-AEGIS-PILOT-001. Implementation: DWS-AEGIS-IMPL-001.</div>
         <div class="content">
             <h1>DWS IQ Aegis</h1>
 <p><strong>Sovereign Industrial Intelligence Platform for Dual-Use Manufacturing</strong> — part of the DWS IQ Industrial Intelligence suite</p>
 <h2>Product Overview</h2>
 <p>DWS IQ Aegis is the dual-use factory and critical-manufacturing layer of DWS IQ Industrial Intelligence — a standalone sovereign AI platform covering all 21 EU-regulated industries (including dual-use critical raw materials) for government agencies, military industry enterprises, and the dual-use manufacturing base that supplies Europe's defence sector. It optimizes and secures physical production facilities, not the tactical frontline. It packages sovereignty monitoring, orbital intelligence, agent governance, and EU AI Act compliance into a hardened platform — deployed on European cloud, enterprise private cloud, or customer-sited edge hardware, and never on a non-EU hyperscaler.</p>
 <p>Named after Athena's shield — Aegis provides protection through intelligence, not just walls.</p>
-<p><strong>Product status: DWS IQ Aegis is in preorder. General availability September 2026. Pre-revenue.</strong> It is not described as "live" or "in production".</p>
+<p><strong>Product status: DWS IQ Aegis is in preorder. Release candidate 2026; general availability Q1 2027, after the first pilot acceptance record. Pre-revenue.</strong> It is not described as "live" or "in production".</p>
 <p><strong>Aegis keeps critical compliance and control-room workflows running when the network cannot be trusted.</strong></p>
 <p>In a hybrid-war environment a manufacturing facility is <strong>dual-use critical infrastructure</strong>, and connectivity is an adversary-reachable dependency. <strong>For the control-room and critical / dual-use site deployment, local-first operation is an architectural requirement, not an option:</strong> loss of network connectivity must not stop production or the core compliance workflow. That deployment is scoped against five requirements — local execution and local evidence; local identity, logs and kill authority; no network dependency for the core outcome; cloud only for optional sync, backup or non-critical reporting; and graceful degradation specified in advance rather than discovered during an outage.</p>
 <p><strong>This is not a claim that every Aegis deployment is offline.</strong> EU-sovereign cloud remains a valid and fully supported mode for non-critical enterprise workloads, reporting and development. What is fixed is which mode the control-room use case requires.</p>
@@ -106,7 +141,7 @@
 | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | <strong>Physical</strong> — perception → action           | Sees the facility and acts on it in real time: scene understanding, intent prediction, machine-vision oversight feeding the Control Room / Situation Room | An <strong>adopted open, on-device world model</strong> (NVIDIA Cosmos 3 Edge class) running on customer-sited edge hardware — not a model DWS pretrains | <strong>Planned</strong> — target 2026 Q4, gated on the on-device evaluation. Not shipped today. |
 | <strong>Compliance evidence</strong> — reasoning → record | Turns operations into a court-defensible record: Article 12 logging, reasoning lineage, export-control and climate-compliance assessment                  | A <strong>separate LLM tier</strong> (open models, EU-served) — a different optimisation problem from real-time perception                               | <strong>Live</strong> — Article12Logger, ComplianceAgent, SovereigntyMonitor                     |</p>
-<p><strong>What binds them is the KYA loop</strong> — agent identity, MicroVM isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are <strong>components</strong>: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.</p>
+<p><strong>What binds them is the KYA loop</strong> — agent identity, sandbox isolation, kill authority, private evals and the Article 12 evidence chain. That loop is the part of Aegis that is built on the customer's own operations and cannot be bought off the shelf. The models and the boxes underneath are <strong>components</strong>: adoptable, replaceable, and deliberately not where the defensibility sits. DWS sells the governed outcome layer, not the infrastructure beneath it.</p>
 <h2>Agents Included</h2>
 <p>| Agent              | Capability                                                           | Domain                                |
 | ------------------ | -------------------------------------------------------------------- | ------------------------------------- |
@@ -131,7 +166,8 @@
 <h3>Sovereignty Assessment</h3>
 <ul>
 <li>CLOUD Act exposure scoring (US vs. EU-sovereign providers)</li>
-<li>Four sovereignty tiers: Sovereign / Compliant / Partial / Exposed</li>
+<li>Four DWS sovereignty-score tiers: Sovereign / Compliant / Partial / Exposed (this is not EU SEAL)</li>
+<li>Indicative nearest <strong>SEAL-3</strong> (Digital Resilience) on Commission Cloud Sovereignty Framework v1.2.1. Lifetime Oy was not in Cloud III and does not hold a SEAL certificate. SEAL-4 is closed by NVIDIA GN100/DGX chip dependence.</li>
 <li>NIS2 alignment verification</li>
 <li>EU AI Act compliance checks</li>
 <li>Data residency audit trail</li>
@@ -139,7 +175,7 @@
 <h3>Agent Governance (KYA — Know Your Agent)</h3>
 <ul>
 <li>Agent identity verification (Shufti partnership)</li>
-<li>Firecracker MicroVM sandbox isolation</li>
+<li>Sandbox per agent step with NVIDIA OpenShell (Landlock, seccomp, network namespace), verified in the Aegis Pilot kit 28.09.2026; Firecracker MicroVM isolation is roadmap, not yet implemented</li>
 <li>Kill authority — revoke any agent in real-time</li>
 <li>Forensic observability — full decision audit trail</li>
 <li>Multi-agent control room for fleet oversight</li>
@@ -202,14 +238,14 @@
 <li><strong>Cache:</strong> UpCloud Managed Valkey/Redis</li>
 <li><strong>GPU:</strong> NVIDIA L40S nodes available for local LLM inference</li>
 <li><strong>SLA:</strong> 99.9% application-availability target / 99.999% underlying infrastructure (UpCloud)</li>
-<li><strong>Isolation:</strong> Firecracker MicroVM per agent, no shared tenancy</li>
+<li><strong>Isolation:</strong> OpenShell sandbox per agent step (Landlock, seccomp, network namespace), no shared tenancy. Firecracker MicroVM isolation is roadmap, not yet implemented</li>
 <li><strong>Compliance:</strong> Artikel 12 der EU-KI-Verordnung, NIS2, GDPR, CER Directive, EU CRM Act, dual-use export control (Reg. 2021/821)</li>
 <li><strong>Hardware (by deployment mode — DWS does not resell hardware in any mode):</strong></li>
 <li><em>Local / edge</em> — runs on <strong>customer-sited hardware</strong>: existing customer machines, a small edge appliance, or DGX Spark / Jetson class where the physical layer is in scope. Procured by the customer or a partner and scoped per engagement. DWS supplies the platform and the governance layer, not the box.</li>
 <li><em>Hybrid</em> — the same local footprint, plus an EU-cloud endpoint for optional sync, backup and reporting.</li>
 <li><em>EU-sovereign cloud</em> — software-only on EU cloud (UpCloud, Helsinki); NVIDIA L40S GPU nodes available in-cluster. Nothing shipped to site.</li>
 <li><strong>Certifications roadmap:</strong> ISO 27001 (Lifetime Oy — targeting Q3 2026), SOC 2 Type II (targeting Q4 2026). Underlying UpCloud infrastructure is already ISO 27001 certified.</li>
-<li><strong>Availability:</strong> September 2026</li>
+<li><strong>Availability:</strong> Release candidate 2026; general availability Q1 2027, after the first pilot acceptance record</li>
 </ul>
 <h2>Deployment Architecture</h2>
 <p>Aegis is engineered <strong>local-first</strong> for deep and reliable industrial operations. In manufacturing control rooms, dual-use facilities, and air-gapped plants, compliance execution cannot rely on external connectivity. <strong>Local operation is an architectural requirement for critical environments</strong>, while cloud hosting remains a valid deployment choice for broader enterprise workloads.</p>
@@ -247,8 +283,33 @@
 | 3   | Model versioning CRDs      | 137C    | Q4 2026 | K8s Custom Resource Definitions for blue/green model deployments. Rollback &lt;60s. Article 12 audit continuity on model changes.                                                                                                                                                                                                                                                                                                |
 | 4   | Edge-cloud inference split | 137D    | Q1 2027 | Jetson Orin Nano (field/classified) + UpCloud K8s (cloud/cross-vertical). Routing by classification level and sovereignty constraints. <strong>Reference sovereign backhaul: IRIS² secure connectivity</strong> — the EU-owned transport leg between field/classified edge and the Helsinki sovereign cloud, avoiding commercial hyperscaler transit (see <code>docs/field-notes/2026-07-23-warsaw-iris2-signing-aegis-connection.md</code>, path B). |</p>
         </div>
-        <a href="mailto:risto@onelifetime.world?subject=Order Inquiry: DWS IQ Aegis (DWS-AEGIS-001)" class="buy-btn">Vertrieb kontaktieren</a>
+
+        <div class="delivery-section">
+            <h2>Acceptance criteria</h2>
+            <p>The ordered Aegis/KYA scope is deployed, its audit logging is verified writing locally, and an operator can invoke kill authority.</p>
+            <ul><li>Deployment reaches the ordered scope (pilot, implementation phase, or subscription entitlement)</li><li>Article 12 audit logging verified writing locally</li><li>Operator kill authority verified functional</li></ul>
+            <p class="fine-print">All listed required outcomes must be met. Delivery follows the chapter managed-delivery process described in fulfilment.deliveryMode; unattended automation is not claimed unless documented separately for this SKU.</p>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Not included</h2>
+            <ul><li>Hardware procurement (quoted and delivered separately)</li><li>Scope beyond the single ordered site/workflow unless separately ordered</li><li>Integrations with systems not named in the order</li></ul>
+        </div>
+
+        <div class="delivery-section">
+            <h2>Delivery</h2>
+            <ul>
+                <li>Delivered by: Lifetime Oy — Aegis &amp; KYA Team</li>
+                <li>Acknowledged within: 1 business day</li>
+                <li>Managed on-site or hybrid deployment with human oversight throughout; kill authority and audit logging verified by a named engineer before handover.</li>
+            </ul>
+        </div>
+        <div style="margin-top: 24px;">
+            <a href="/checkout/?product=DWS-AEGIS-001" class="buy-btn" data-product-sku="DWS-AEGIS-001">Buy now — €59 990</a>
+        </div>
+        <a href="mailto:risto@onelifetime.world?subject=Question: DWS IQ Aegis (DWS-AEGIS-001)" class="back-link">Questions before you buy? Contact sales</a>
     </div>
+    <script src="/shared-assets/nav/product-actions.js" defer></script>
     <footer style="text-align: center; padding: 40px; color: #64748b; font-size: 0.9rem;">
         <p><strong>RECHTLICHER HINWEIS</strong></p>
         <p><strong>Verantwortlicher:</strong> Lifetime Oy (Laidunmaanraitti 2 A 25, 02330 Espoo, Finnland).</p>
@@ -262,5 +323,5 @@
       <a href="/products/dws-aegis-001.fr.html" hreflang="fr" lang="fr" style="margin:0 8px;color:inherit">🇫🇷 Français</a>
     </nav>
 
-    </body>
+</body>
 </html>

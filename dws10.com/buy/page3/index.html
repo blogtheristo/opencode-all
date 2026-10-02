@@ -1488,7 +1488,8 @@
       // Source of truth = config/products.json (productType + buyPage + buyPageOrder).
       function getPageProducts(pageNumber) {
         return Object.values(PRODUCTS)
-          .filter((p) => p.buyPage === pageNumber)
+          // Archived records keep their detail pages but are never sold here.
+          .filter((p) => p.buyPage === pageNumber && !(p.archived === true || p.productType === 'archived'))
           .sort((a, b) => (a.buyPageOrder || 999) - (b.buyPageOrder || 999));
       }
 

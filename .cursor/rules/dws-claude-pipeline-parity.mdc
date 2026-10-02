@@ -17,6 +17,10 @@ Source of truth for hook logic: `.claude/hooks/session-start.sh` and `.claude/ho
 
 Budget: `CLAUDE_AUTO_MODE_BUDGET` env var (optional). Audit: prefer logging YELLOW actions under `.claude/hooks/audit/` when using full auto.
 
+## Per-host model endpoint
+
+Keep Cursor's OpenAI-compatible base URL in the per-machine **user** settings, not the shared repository workspace: DGX Spark uses `http://127.0.0.1:11434/v1`; Win11 uses its SSH tunnel on `http://127.0.0.1:11435/v1`. Never commit a host-specific endpoint to `.cursor/settings.json`, since the same worktree is opened on both hosts.
+
 ## Session start (run when a chat begins or after compaction)
 
 Ask the terminal/agent to report:
@@ -25,7 +29,7 @@ Ask the terminal/agent to report:
 2. **Dirty tree:** `git status --porcelain` — if non-empty, warn and suggest commit/stash before large refactors.
 3. **Branch:** `git branch --show-current` — if `main` or `master`, warn: create a feature branch before feature work.
 4. **Two environments:** Win11 = Cursor + VS Code IDEs; DGX = Cursor CLI + Copilot CLI (`/home/admin100/dws6`). Read `.claude/handoffs/`, opencode-all queue, and worktrees before git sync advice. **Admin:** `Admin/ADMIN_MANUAL.md` → *Two dev environments*.
-5. **Large work:** Plan first (`docs/plans/` or handoff), execute with **OpenCode agents on DGX** — do not implement large multi-file work inline in Win11 agent sessions. **Admin:** *Large work — plan first, OpenCode execution*.
+5. **Large work:** Plan first (`docs/plans/` or handoff), execute with **OpenCode agents on DGX** — do not implement large multi-file work inline in Win11 agent sessions. **Admin:** *Large work — plan first, OpenCode execution*; **Worktrees:** `WORKTREE_POLICY.md`; **Batch:** `opencode-all/ADMIN_MANUAL.md`.
 
 ## Session exit / before PR (advisory — mirror session-stop.sh)
 

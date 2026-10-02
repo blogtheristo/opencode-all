@@ -1,5 +1,5 @@
 -- Migration 084: Sales lifecycle — contracts table
--- Evidence: Tool=Claude-Code Model=claude-sonnet-4-6 Agent=claude-code Date=2026-08-29
+-- Evidence: Tool=GitHub Copilot CLI 1.0.88 Model=OpenAI/gpt-5.6-sol Agent=Copilot Date=2026-09-27
 -- Audit trail: git log -- supabase/migrations/084_contracts_lifecycle.sql
 --
 -- Tracks bid → offer → contract lifecycle entries as a Supabase-native mirror
@@ -40,7 +40,10 @@ CREATE INDEX IF NOT EXISTS contracts_lifecycle_type_status_idx
 
 -- Updated-at trigger
 CREATE OR REPLACE FUNCTION public.set_updated_at()
-RETURNS TRIGGER LANGUAGE plpgsql AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SET search_path = pg_catalog, public
+AS $$
 BEGIN
   NEW.updated_at = now();
   RETURN NEW;
@@ -53,14 +56,12 @@ CREATE TRIGGER contracts_lifecycle_updated_at
   FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 -- Grants (DWS standard — supabase/migrations/075_public_schema_grants.sql)
-GRANT SELECT, INSERT, UPDATE, DELETE ON public.contracts_lifecycle TO service_role;
-GRANT SELECT ON public.contracts_lifecycle TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.contracts_lifecycle
+  TO authenticated, service_role;
 
 ALTER TABLE public.contracts_lifecycle ENABLE ROW LEVEL SECURITY;
 
--- Only service_role can write; authenticated users read their own
+-- Contract rows have no owner/org discriminator, so RLS exposes them only to
+-- service_role. authenticated retains table grants but has no row policy.
 CREATE POLICY "service_role full access" ON public.contracts_lifecycle
   AS PERMISSIVE FOR ALL TO service_role USING (true) WITH CHECK (true);
-
-CREATE POLICY "authenticated read all" ON public.contracts_lifecycle
-  AS PERMISSIVE FOR SELECT TO authenticated USING (true);

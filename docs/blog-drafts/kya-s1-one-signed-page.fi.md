@@ -6,6 +6,8 @@ Title: Tunne agenttisi — yksi allekirjoitettu sivu tekoälystä, joka koskee d
 Language: fi
 Target: onelifetime.world/posts/kya-s1-one-signed-page.fi.html
 Date: 2026-08-06
+claims_checked: 2026-09-30
+Series: "Blogi 1/11 · DWS IQ & Lifetime World Model" (kartoitus lukittu docs/blog-drafts/SARJA_KYA_S1_NUMEROINTI.md)
 Note: Lukijaystävällinen uudelleenkirjoitus HIC:n ohjeesta (06.08.2026) — aiempi versio oli liian tekninen ja lyhyt lukijalle, joka ei tunne agentteja eikä KYA:ta. Jokainen termi avataan. Ääni DWS_BLOG_STANDARD §12 (Seth Godin -talotyyli). KYA-S1 on spesifikaatio, ei standardi (HIC-korjaus 06.08.2026, Legal/KYA_S1.md v1.3). Tämä FI-versio on käännöspohja; HIC vie Geminiin muille kielille.
 
 # Tunne agenttisi — yksi allekirjoitettu sivu tekoälystä, joka koskee dataasi
@@ -20,7 +22,7 @@ Julkaisemme tänään KYA-S1 v1.3:n. Se on yksi allekirjoitettu sivu, joka kerto
 
 Jokaisella yrityksellä on kansio.
 
-Siinä on paperi jokaisesta toimittajasta. SOC 2 -raportti kertoo, että ulkopuolinen tarkastaja on käynyt läpi toimittajan tietoturvakäytännöt. ISO 27001 kertoo saman toisella kielellä. GDPR-liite kertoo, miten henkilötietoja käsitellään. Jokaisessa on allekirjoitus ja päivämäärä, jolloin se pitää uusia.
+Siinä on paperi jokaisesta toimittajasta. SOC 2 -raportti kertoo, että ulkopuolinen tarkastaja on käynyt läpi toimittajan tietoturvakäytännöt [3]. ISO 27001 kertoo saman toisella kielellä. GDPR-liite kertoo, miten henkilötietoja käsitellään. Jokaisessa on allekirjoitus ja päivämäärä, jolloin se pitää uusia.
 
 Kansio on tylsä. Se on myös se paikka, jossa yritys päättää, kuka päästetään sisään.
 
@@ -36,7 +38,7 @@ Siinä on ero, jonka takia hankinta tarvitsee uuden paperin. Chat-vastaus on mie
 
 ## Pankeilta lainattu ajatus: KYC → KYA
 
-Pankeilla on ollut vuosikymmeniä sääntö nimeltä **KYC** — _Know Your Customer_, tunne asiakkaasi. Pankki ei saa ottaa rahaa vastaan tuntemattomalta. Sen on tiedettävä, kuka kävelee ovesta sisään, ja pystyttävä todistamaan se jälkikäteen.
+Pankeilla on ollut vuosikymmeniä sääntö nimeltä **KYC** — _Know Your Customer_, tunne asiakkaasi. Pankki ei saa ottaa rahaa vastaan tuntemattomalta [7]. Sen on tiedettävä, kuka kävelee ovesta sisään, ja pystyttävä todistamaan se jälkikäteen.
 
 **KYA** on sama ajatus siirrettynä tekoälyyn: _Know Your Agent_, tunne agenttisi.
 
@@ -60,7 +62,7 @@ Jokainen kohta on kysymys, jonka ostaja esittää ennen kuin agentti pääsee k�
 Jokainen agentin teko on jäljitettävissä todennettuun ihmiseen. Ei "järjestelmä teki sen", vaan nimi. Kun ihmisen oikeudet muuttuvat tai hän lähtee talosta, muutos leviää koko agenttijoukkoon sovitussa ajassa.
 
 **2. Onko agenttia koeteltu oikeilla hyökkäyksillä? (BHM)**
-Agentille on rakennettu käyttäytymisen perustaso — mikä on sille normaalia. Sitten sitä vastaan hyökätään jatkuvasti, samoilla tavoilla joita hyökkääjät oikeasti käyttävät. Poikkeamat pysäytetään ajossa, eikä pysäytyksestä jää pelkkä muistikuva vaan allekirjoitettu merkintä.
+Agentille on rakennettu käyttäytymisen perustaso — mikä on sille normaalia. Sitten sitä vastaan hyökätään jatkuvasti, samoilla tavoilla joita hyökkääjät oikeasti käyttävät [8][9]. Poikkeamat pysäytetään ajossa, eikä pysäytyksestä jää pelkkä muistikuva vaan allekirjoitettu merkintä.
 
 **3. Osaatko sanoa juuri nyt, mitkä agentit koskevat dataasi? (REG)**
 Elävä luettelo jokaisesta käynnissä olevasta agentista: kuka ihminen sen takana on, mitä se ilmoitti osaavansa ennen käynnistystä, mitä mallia se ajaa. Kysyttävissä milloin tahansa, myös silloin kun verkkoyhteys on poikki.
@@ -79,19 +81,19 @@ Jokainen tallennettu tieto kantaa mukanaan lähteensä, aikaleimansa ja sen, kui
 
 ## Mitä laki sanoo — ja mitä se ei sano
 
-EU:n tekoälyasetuksen **artikla 50** tuli sovellettavaksi 2. elokuuta 2026. Tässä kannattaa olla tarkkana, koska kyse on kolmesta eri velvoitteesta, joita sekoitetaan jatkuvasti keskenään.
+EU:n tekoälyasetuksen **artikla 50** tuli sovellettavaksi 2. elokuuta 2026 [1][2]; generatiivisiin järjestelmiin, jotka on saatettu markkinoille ennen tuota päivää, 50(2):n merkintävelvoitetta sovelletaan 2.12.2026 alkaen [2]. Tässä kannattaa olla tarkkana, koska kyse on kolmesta eri velvoitteesta, joita sekoitetaan jatkuvasti keskenään.
 
-- **Artikla 12** on kirjanpitoa: lokia on kerättävä niin, että järjestelmän toimintaa voi jäljittää sen koko eliniän ajan.
+- **Artikla 12** on kirjanpitoa [1]: lokia on kerättävä niin, että järjestelmän toimintaa voi jäljittää sen koko eliniän ajan.
 - **Artikla 14** on ihmisen valvontaa: on oltava ihminen, joka ymmärtää, valvoo ja voi kumota.
 - **Artikla 50** on merkitsemistä: tekoälyn tuottama sisältö on merkittävä sellaiseksi.
 
 KYA-S1 sivuaa kaikkia kolmea. Mutta sivuaminen ei ole sama kuin täyttäminen.
 
-> **Rehellinen kohta:** KYA-S1 -arviointi tuottaa aineistoa, joka on näiden artiklojen kannalta merkityksellistä. Se ei täytä niitä. Jos joku toimittaja — me mukaan lukien — sanoo "olemme KYA-S1:n mukaisia, siis olemme EU:n tekoälyasetuksen mukaisia", hän myy sinulle jotain mikä ei pidä paikkaansa. Artikla 50:ssä on kolme poikkeusta joita spesifikaatio ei koodaa, ja se onko järjestelmä ylipäätään korkean riskin järjestelmä, on kokonaan oma arviointinsa.
+> **Rehellinen kohta:** KYA-S1 -arviointi tuottaa aineistoa, joka on näiden artiklojen kannalta merkityksellistä. Se ei täytä niitä. Jos joku toimittaja — me mukaan lukien — sanoo "olemme KYA-S1:n mukaisia, siis olemme EU:n tekoälyasetuksen mukaisia", hän myy sinulle jotain mikä ei pidä paikkaansa. Artikla 50:ssä on poikkeuksia, joita spesifikaatio ei koodaa [1], ja se onko järjestelmä ylipäätään korkean riskin järjestelmä, on kokonaan oma arviointinsa [5].
 
 ## Miksi emme myönnä todistusta itsellemme
 
-Kuka tahansa voi kirjoittaa spesifikaation. Se on täsmälleen niin arvokas kuin se, joka allekirjoittaa sen toisena.
+Kuka tahansa voi kirjoittaa spesifikaation. Se on täsmälleen niin arvokas kuin se, joka allekirjoittaa sen toisena [6].
 
 Siksi KYA-S1 kieltää itsearvioinnin joka ainoassa kohdassa. Todiste on oltava jokin näistä: ulkopuolinen tarkastus, allekirjoitettu telemetria alustalta, riippumattoman arvioijan lukema arkkitehtuurikuvaus, tai sopimuksessa määritelty palvelutaso, jonka mittaustapa on kirjattu.
 
@@ -111,7 +113,7 @@ Toimittaja, joka vetoaa KYA-S1:een, kertoo samassa lauseessa tason, arvioijan ni
 
 Tämä on pieni sana, mutta se on rehellisyyskysymys.
 
-Standardi syntyy standardointielimessä: on prosessi, on jäsenet, on konsensus. ISO on standardi. ETSI on standardi.
+Standardi syntyy standardointielimessä: on prosessi, on jäsenet, on konsensus. ISO:n julkaisema on standardi [4]. ETSI:n julkaisema on standardi.
 
 KYA-S1 ei ole käynyt sellaista prosessia läpi. Sen kirjoitti yksi yritys ja julkaisi sen avoimesti kommentoitavaksi. Se on **spesifikaatio** — ja niin me sitä kutsumme, vaikka "standardi" kuulostaisi painavammalta.
 
@@ -135,3 +137,23 @@ Emme voi julkaista standardeja. Voimme julkaista spesifikaation ja pyytää muit
 
 Risto Anton Päärni
 Perustaja, toimitusjohtaja, Lifetime Oy · Päätoimittaja, Lifetime Scope Journal
+
+## Lähteet
+
+[1] European Parliament and Council of the European Union (2024). Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence (Artificial Intelligence Act). Official Journal of the European Union. https://eur-lex.europa.eu/eli/reg/2024/1689/oj
+
+[2] Microsoft (2026). EU AI Act compliance checklist — Regulation (EU) 2024/1689 as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI). microsoft/agent-governance-toolkit (GitHub). https://github.com/microsoft/agent-governance-toolkit/blob/main/docs/compliance/eu-ai-act-checklist.md
+
+[3] Microsoft (2026). System and Organization Controls (SOC) 2 Type 2. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-soc-2
+
+[4] Microsoft (2026). ISO/IEC 42001:2023 Artificial intelligence management system. Microsoft Learn — Compliance offerings. https://learn.microsoft.com/en-us/compliance/regulatory/offering-iso-42001
+
+[5] Gardhouse, K., Oueslati, A., Kolt, N. (2026). Regulating AI Agents. arXiv. https://arxiv.org/abs/2603.23471
+
+[6] Costanza-Chock, S., Harvey, E., Raji, I. D., Czernuszenko, M., Buolamwini, J. (2023). Who Audits the Auditors? Recommendations from a field scan of the algorithmic auditing ecosystem. arXiv. https://arxiv.org/abs/2310.02521
+
+[7] Financial Action Task Force (FATF) (2025). International Standards on Combating Money Laundering and the Financing of Terrorism & Proliferation — The FATF Recommendations (updated February 2025). FATF. https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html
+
+[8] Greshake, K., Abdelnabi, S., Mishra, S., Endres, C., Holz, T., Fritz, M. (2023). Not what you've signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. arXiv. https://arxiv.org/abs/2302.12173
+
+[9] Wang, Z., Gao, Y., Wang, Y., Liu, S., Sun, H., Cheng, H., Shi, G., Du, H., Li, X. (2025). MCPTox: A Benchmark for Tool Poisoning Attack on Real-World MCP Servers. arXiv. https://arxiv.org/abs/2508.14925
