@@ -18,6 +18,9 @@
 import dns from 'node:dns';
 import nodemailer from 'nodemailer';
 
+// nodemailer 10 bundles its own types and no longer exposes a `Transporter` namespace.
+type SmtpTransporter = ReturnType<typeof nodemailer.createTransport>;
+
 // ============================================================================
 // EMAIL AUDIT LOGGER — Local JSONL log of every outbound email
 // Catches shadow sends by rogue agents. No body content (privacy).
@@ -89,7 +92,7 @@ function trimEnv(value: string | undefined): string | undefined {
  * Amazon SES SMTP (STARTTLS on 587/2587, TLS on 465). Exported so diagnostics
  * use the same options as production sends.
  */
-export function createSmtpTransportFromEnv(): nodemailer.Transporter | null {
+export function createSmtpTransportFromEnv(): SmtpTransporter | null {
   const host = trimEnv(process.env.SMTP_HOST);
   if (!host) return null;
 
@@ -121,7 +124,7 @@ export function createSmtpTransportFromEnv(): nodemailer.Transporter | null {
   });
 }
 
-function createSmtpTransport(): nodemailer.Transporter | null {
+function createSmtpTransport(): SmtpTransporter | null {
   return createSmtpTransportFromEnv();
 }
 
