@@ -4,11 +4,12 @@
 
 # VERSION AND AGENT HISTORY
 
-Version: 1.0
+Version: 1.1 [Latest]
 
 Sessions & Modifications:
 
-- Version: 1.0 | Tool: OpenCode (Investor Deck V6 session) | Session: opencode-all-admin-manual | Date: 05.09.2026 | Changes: Initial creation. Documents the opencode-all batch processing system: architecture, queue lifecycle, batch worker operations, tmux launcher, evidence tooling, DGX Spark deployment, troubleshooting, and the DWS Engineering Standard (DDM-v1) policy layer.
+- Version: 1.1 [Latest] | Tool: Claude Code | Session: hic-rest-review-evidence | Date: 04.10.2026 | Changes: Added §13 HIC rest hours, batch PRs, opencode-me identity, 04:00 morning digest, Aikido-rated security tasks, review findings as evidence (dws6 PR #2368).
+- Version: 1.0 [not latest] | Tool: OpenCode (Investor Deck V6 session) | Session: opencode-all-admin-manual | Date: 05.09.2026 | Changes: Initial creation. Documents the opencode-all batch processing system: architecture, queue lifecycle, batch worker operations, tmux launcher, evidence tooling, DGX Spark deployment, troubleshooting, and the DWS Engineering Standard (DDM-v1) policy layer.
 
 Session Links & References:
 
@@ -20,7 +21,7 @@ Session Links & References:
 Document Status:
 
 - Created: 05.09.2026
-- Last Modified: 05.09.2026
+- Last Modified: 04.10.2026
 - Language: English
 - Publication Status: ACTIVE
 
@@ -40,6 +41,7 @@ Document Status:
 10. [Policy Layer — DWS Engineering Standard](#10-policy-layer--dws-engineering-standard)
 11. [Troubleshooting](#11-troubleshooting)
 12. [File Reference](#12-file-reference)
+13. [HIC Rest Hours, Batch PRs and Review Evidence](#13-hic-rest-hours-batch-prs-and-review-evidence)
 
 ---
 
@@ -544,3 +546,57 @@ node scripts/opencode-batch-worker.mjs enqueue
 **Created:** September 5, 2026
 **Owner:** Lifetime Oy
 **Classification:** Internal
+
+---
+
+## 13. HIC Rest Hours, Batch PRs and Review Evidence
+
+HIC 04.10.2026. Code lives in `blogtheristo/dws6` (PR #2368); this section is the operator view.
+
+### 13.1 Quiet hours — 23:00–04:00 Europe/Helsinki
+
+| Component | Behaviour in quiet hours |
+|-----------|--------------------------|
+| `opencode-task-loop.mjs` (opencode-loop) | Runs security tasks only; other tasks pause between rounds and resume at 04:00 |
+| `opencode-open-all.sh` (opencode-all) | Resumes no sessions; `--status`, `--watch`, `--prs` still work |
+| `opencode-batch-worker.mjs run` | Resumes no sessions; `--loop` sleeps until 04:00 |
+
+Shared rule: `scripts/lib/quiet-hours.mjs`. Override for one run: `OPENCODE_QUIET_HOURS=off`. Window: `OPENCODE_QUIET_HOURS=23-4`, zone: `OPENCODE_QUIET_TZ`.
+
+### 13.2 Security tasks — named by Aikido rating
+
+`node scripts/loop-task.mjs --aikido critical|high|medium|low --branch security/aikido-<sev>-<slug> …`
+
+- Task title `[Aikido HIGH] …`, PR title `security(aikido-high): …`.
+- Run order critical → low, before all other work; the only work allowed at night.
+
+### 13.3 Batch PRs
+
+A finished task with ≤ 300 changed lines and no PR of its own is queued; at 4 queued (or 24 h) they are merged into `opencode/batch-<date>` and opened as one PR with each task's gate output. Security tasks, PR-finishing tasks and `"batch": false` keep their own PR; a conflicting branch gets its own PR.
+Tuning: `OPENCODE_LOOP_BATCH_MAX_LINES`, `OPENCODE_LOOP_BATCH_MIN`, `OPENCODE_LOOP_BATCH_MAX_H`.
+
+### 13.4 opencode-me identity and the 04:00 digest
+
+- `OPENCODE_ME_GH_TOKEN` in `~/.config/opencode-loop.env` → every loop / `--prs` gh call posts as the `opencode-me` GitHub account (signed bodies). The HIC is then notified; GitHub never notifies you of your own comments.
+- At 04:00 the loop runs `copilot-harvest.mjs`, then `hic morning --post`: one comment on the open `hic-morning` issue mentioning the HIC — overnight security work, merge-ready PRs, PRs that need the HIC, missed review findings. Copy on the DGX: `~/.local/state/opencode-task-loop/morning.md`.
+- Setup: create the `hic-morning` label once.
+
+### 13.5 Review findings are evidence
+
+| Step | Command / table |
+|------|-----------------|
+| Harvest every PR, every reviewer | `node scripts/copilot-harvest.mjs --all` (then daily at 04:00) |
+| Evidence store | Supabase `pr_review_findings` (body + SHA-256 immutable) and `pr_review_finding_events` (append-only) — migration 102 |
+| Lessons fed to every loop round | `docs/quality/COPILOT_LESSONS.md` → Avoid list (DGX-local, gitignored) |
+| PR input | Loop round prompt gets unresolved findings of its PR; `--input <paths>` for new work |
+| Audit at an event | `copilot-harvest.mjs --audit <thread_url> --outcome used\|carried\|rejected\|duplicate --event "<event>" [--pr N]` |
+
+A finding leaves the backlog only through an audit naming its event; `carried` needs the PR that took it as input.
+
+### 13.6 DGX pages
+
+| Page | URL (LAN) | Note |
+|------|-----------|------|
+| Active Ontology | `http://192.168.101.113:8092/` | Moved from 8090 (clashed with nemoclaw) |
+| Blog editor | `http://192.168.101.113:8091/` | Read-only on the DGX: saving needs the claude.ai artifact |
+
