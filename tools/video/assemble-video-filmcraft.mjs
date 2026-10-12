@@ -8,7 +8,7 @@
  * plus the exported H.264 MP4. ffmpeg is used only to crop the infographic parts into PNGs.
  *
  *   node scripts/site/assemble-video-filmcraft.mjs --clips <dir with clip1.mp4..clip5.mp4> \
- *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>" [--cli <filmcraft-cli>]
+ *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>" [--tagline "<end-card line>"] [--cli <filmcraft-cli>]
  *
  * filmcraft-cli: a tagged release (.deb ships /usr/bin/filmcraft-cli) or `cargo build --release -p filmcraft-cli` (about 6 min).
  * --label is the on-screen AI-content marking (EU AI Act Art. 50); its text per language comes from the HIC (Translation Rule).
@@ -30,6 +30,8 @@ const clipsDir = arg("clips") ?? fail("--clips <dir> needed")
 const info = arg("info") ?? fail("--info <infographic.jpg> needed")
 const outArg = arg("out") ?? fail("--out <mp4> needed")
 const label = arg("label")
+// End-card line under the name (HIC 12.10.2026, FI: "Lisäämme ymmärrystä."); text per language from the HIC (Translation Rule).
+const tagline = arg("tagline")
 if (!existsSync(info)) fail(`infographic not found: ${info}`)
 
 const out = resolve(outArg)
@@ -95,14 +97,14 @@ for (const [id, p] of Object.entries(PANELS)) {
 }
 const panelIds = Object.keys(PANELS)
 
-// 1) project, sequence (video tracks: V1 clips, V2-V4 panels, V6-V8 end card, name, label), import.
+// 1) project, sequence (video tracks: V1 clips, V2-V4 panels, V6-V9 end card, name, tagline, label), import.
 const imp = runScript(
   "1-import.jsonl",
   [
     { id: "file.newProject", params: { name: "One Lifetime video" } },
     {
       id: "file.newSequence",
-      params: { name: "Main", width: 1920, height: 1080, fps: FPS, video: 8, audio: 2 },
+      params: { name: "Main", width: 1920, height: 1080, fps: FPS, video: 9, audio: 2 },
     },
     { id: "file.import", params: { paths: [...clips, ...panelIds.map((k) => PANELS[k].png)] } },
   ],
@@ -124,20 +126,21 @@ const total = starts[N - 1] + clipDur[N - 1]
 const frame = (t) => Math.round(t / (TICKS / FPS)) * (TICKS / FPS) // snap to a frame
 
 // 2) cues: [panel, clip (1-based), offset s, until end of clip, track]
-const P4_END = 5.0
+// [panel, clip (1-based), offset s, until clip, until offset s (null = end of that clip), track]
+// Offsets are estimates from the line order and length; adjust after the first real clips (or move the clips in the .fcproj by hand).
 const CUES = [
-  ["p1", 1, 1.5, 1, "V2"],
-  ["p2", 2, 0.8, 2, "V2"],
-  ["p3a", 3, 0.3, 3, "V2"],
-  ["p3b", 3, 3.0, 3, "V3"],
-  ["p3c", 3, 5.6, 3, "V4"],
-  ["p4", 4, 2.5, 5, "V2"],
+  ["p1", 1, 6.0, 2, 4.0, "V2"], // "Tekoäly oppii koko ajan" until the end of "Mutta vain ihminen ymmärtää"
+  ["p2", 2, 4.5, 3, 4.0, "V2"], // "Miten tämä toimii" until the end of "jäljitettävissä vielä vuosien päästä"
+  ["p3a", 3, 4.3, 3, null, "V2"],
+  ["p3b", 3, 6.3, 3, null, "V3"],
+  ["p3c", 3, 8.2, 3, null, "V4"],
+  ["p4", 4, 2.5, 5, 5.0, "V2"],
 ]
 const place = [{ id: "timeline.place", params: { items: clipItems, track: "V1", time: 0 } }]
 const span = []
-for (const [id, clip, off, until, track] of CUES) {
+for (const [id, clip, off, until, untilOff, track] of CUES) {
   const s = frame(starts[clip - 1] + off * TICKS)
-  const e = id === "p4" ? frame(starts[N - 1] + P4_END * TICKS) : starts[until - 1] + clipDur[until - 1]
+  const e = untilOff == null ? starts[until - 1] + clipDur[until - 1] : frame(starts[until - 1] + untilOff * TICKS)
   span.push({ id, s, e })
   place.push({
     id: "timeline.place",
@@ -160,6 +163,18 @@ place.push({
     time: endAt,
   },
 })
+if (tagline)
+  place.push({
+    id: "graphics.newText",
+    params: {
+      text: tagline,
+      position: [960, 650],
+      size: 34,
+      seconds: 4,
+      track: 7,
+      time: endAt,
+    },
+  })
 if (label)
   place.push({
     id: "graphics.newText",
@@ -168,7 +183,7 @@ if (label)
       position: [1500, 1050],
       size: 22,
       seconds: total / TICKS,
-      track: 7,
+      track: 8,
       time: 0,
     },
   })
@@ -177,7 +192,9 @@ const panelClip = {}
 span.forEach((c, k) => (panelClip[c.id] = placed[1 + k].result.clips[0]))
 const rectClip = placed[1 + span.length].result.clips?.[0] ?? placed[1 + span.length].result.clip
 const nameClip = placed[2 + span.length].result.clips?.[0] ?? placed[2 + span.length].result.clip
-const labelClip = label ? (placed[3 + span.length].result.clips?.[0] ?? placed[3 + span.length].result.clip) : null
+const clipOf = (r) => r.result.clips?.[0] ?? r.result.clip
+const taglineClip = tagline ? clipOf(placed[3 + span.length]) : null
+const labelClip = label ? clipOf(placed[3 + span.length + (tagline ? 1 : 0)]) : null
 
 // 3) fades (opacity keyframes: 0 -> 100 over 0.8 s, 100 -> 0 over 0.6 s), positions, end card look.
 const kf = (clip, t, v) => ({
@@ -204,6 +221,20 @@ style.push({
   },
 })
 style.push(kf(nameClip, endAt, 0), kf(nameClip, endAt + 1 * TICKS, 100))
+if (taglineClip) {
+  style.push({
+    id: "graphics.set",
+    params: {
+      clip: taglineClip,
+      props: { font: "Inter", size: 34, align: "center", fill_color: "#e2e8f0" },
+    },
+  })
+  style.push(
+    kf(taglineClip, endAt, 0),
+    kf(taglineClip, endAt + 1.2 * TICKS, 0),
+    kf(taglineClip, endAt + 2.2 * TICKS, 100),
+  )
+}
 if (labelClip)
   style.push({
     id: "graphics.set",

@@ -4,7 +4,7 @@ Version: 0.1.0 · 12.10.2026 · Claude Code · Status: PENDING_REVIEW
 
 Gemini makes 8-10 s clips. The One Lifetime business video is five such clips (a Nordic man and woman talking) with the lifetime.fi
 infographic fading in behind them. These two scripts stitch the clips and add the infographic parts, an end card and the AI-content label.
-Source commit in `blogtheristo/dws6`: `eeb7d119` (branch `claude/fervent-mccarthy-f814qn`); the scripts there are the source of truth.
+Source commit in `blogtheristo/dws6`: see `git log -- scripts/site/assemble-video*.mjs` (copy refreshed 12.10.2026 for `--tagline`); first copied from `eeb7d119` (branch `claude/fervent-mccarthy-f814qn`); the scripts there are the source of truth.
 
 | File                           | Does                                                                                                                     | Needs                                                           |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
@@ -16,7 +16,7 @@ Source commit in `blogtheristo/dws6`: `eeb7d119` (branch `claude/fervent-mccarth
 ```bash
 # clips: <dir>/clip1.mp4 ... clip5.mp4 (each with its own audio)
 node tools/video/assemble-video-filmcraft.mjs --clips <dir> \
-  --info <infographic-<lang>.jpg> --out <out.mp4> --label "<AI-content label text>" --cli /path/to/filmcraft-cli
+  --info <infographic-<lang>.jpg> --out <out.mp4> --label "<AI-content label text>" --tagline "<end-card line>" --cli /path/to/filmcraft-cli
 
 node tools/video/assemble-video.mjs --clips <dir> --info <infographic-<lang>.jpg> --out <out.mp4> --label "<text>"
 node tools/video/assemble-video.mjs --last-frame <dir>/clip2.mp4 --out frame.png
@@ -26,6 +26,7 @@ node tools/video/assemble-video.mjs --last-frame <dir>/clip2.mp4 --out frame.png
   the parts are cropped at fixed positions (part 1, part 2, the three boxes of part 3, part 4).
 - `--label` is the on-screen AI-content marking (EU AI Act Art. 50). Its text per language is given by the HIC (Translation Rule: agents do not
   translate). Without it the script warns and the video is not publishable.
+- `--tagline` is the end-card line under "Lifetime Oy" (FI: "Lisäämme ymmärrystä."); text per language from the HIC. The cue times (`CUES`) are estimates; adjust them after the first real clips.
 - Cuts are hard cuts at the half-second of silence each clip starts and ends with.
 
 ## filmcraft-cli
