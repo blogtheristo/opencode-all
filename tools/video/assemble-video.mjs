@@ -70,19 +70,22 @@ const total = starts[N - 1] + durs[N - 1]
 
 // Panels of the 696x1024 infographic (parts 1-4; part 3 split in its three boxes).
 const PANELS = {
-  p1: { crop: "696:265:0:45", w: 1000 },
-  p2: { crop: "696:194:0:318", w: 1000 },
-  p3a: { crop: "200:182:33:510", w: 400 },
-  p3b: { crop: "200:182:250:510", w: 400 },
-  p3c: { crop: "200:182:466:510", w: 400 },
-  p4: { crop: "696:324:0:700", w: 800 },
+  p1: { crop: "696:265:0:45", w: 700 },
+  p2: { crop: "696:194:0:318", w: 700 },
+  p3a: { crop: "200:182:33:510", w: 220 },
+  p3b: { crop: "200:182:250:510", w: 220 },
+  p3c: { crop: "200:182:466:510", w: 220 },
+  p4: { crop: "696:324:0:700", w: 700 },
 }
-const X3 = { p3a: 320, p3b: 760, p3c: 1200 }
+// Panels sit in the gap between the two speakers of the reference still (x 620-1360, above the bouquet), centre x 990:
+// the heads stay uncovered. Left edges for the three boxes of part 3 (220 px + 24 px frame, 16 px apart).
+const X3 = { p3a: 632, p3b: 868, p3c: 1104 }
 // clip index (1-based), offset in seconds into the clip, shown until the end of clip `until`
-// [panel, clip (1-based), offset s, until clip, until offset s (null = end of that clip)]
+// [panel, clip (1-based), offset s, until clip, until offset s (null = end of that clip), optional centre x of the panel]
 // Offsets are estimates from the line order and length; adjust after the first real clips.
 const CUES = [
-  ["p1", 1, 6.0, 2, 4.0],
+  // clip 1 (real, 12.10.2026) is the woman's close-up from 5.0 s to 9.9 s with the left of the frame empty: part 1 goes left (centre x 410)
+  ["p1", 1, 5.4, 1, 9.4, 410],
   ["p2", 2, 4.5, 3, 4.0],
   ["p3a", 3, 4.3, 3, null],
   ["p3b", 3, 6.3, 3, null],
@@ -144,11 +147,11 @@ try {
     `[0:v]tpad=stop_mode=clone:stop_duration=${END}${subPath ? `,subtitles='${subPath}':force_style='${subStyle}'` : ""}[b0];[0:a]apad=pad_dur=${END}[aout]`,
   )
   let last = "b0"
-  CUES.forEach(([id, clip, off, until, untilOff], k) => {
+  CUES.forEach(([id, clip, off, until, untilOff, cx], k) => {
     const s = starts[clip - 1] + off
     const e = untilOff == null ? starts[until - 1] + durs[until - 1] : starts[until - 1] + untilOff
     inputs.push("-loop", "1", "-t", String(total), "-i", png[id])
-    const x = X3[id] ?? "(W-w)/2"
+    const x = cx != null ? `${cx}-w/2` : (X3[id] ?? "990-w/2")
     chains.push(
       `[${k + 1}:v]format=rgba,pad=iw+24:ih+24:12:12:color=0x1e293b,fade=t=in:st=${s.toFixed(2)}:d=0.8:alpha=1,fade=t=out:st=${(e - 0.6).toFixed(2)}:d=0.6:alpha=1[g${k}];` +
         `[${last}][g${k}]overlay=x=${x}:y=60:eof_action=pass[o${k}]`,

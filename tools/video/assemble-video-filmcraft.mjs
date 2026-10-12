@@ -73,14 +73,15 @@ const runScript = (name, lines, extra = []) =>
     .map((l) => JSON.parse(l))
     .map((r) => (r.ok ? r : fail(`${r.id} (line ${r.line}) failed: ${JSON.stringify(r.error ?? r)}`)))
 
-// Panels of the 696x1024 infographic (parts 1-4; part 3 split in its three boxes), scaled and framed (12 px, #1e293b).
+// Panels sit in the gap between the two speakers of the reference still (x 620-1360, above the bouquet), centre x 990, top y 60:
+// the heads stay uncovered. Panels of the 696x1024 infographic (parts 1-4; part 3 split in its three boxes), scaled and framed (12 px, #1e293b).
 const PANELS = {
-  p1: { crop: "696:265:0:45", w: 1000, h: 381 },
-  p2: { crop: "696:194:0:318", w: 1000, h: 279 },
-  p3a: { crop: "200:182:33:510", w: 400, h: 364, x: 520 },
-  p3b: { crop: "200:182:250:510", w: 400, h: 364, x: 960 },
-  p3c: { crop: "200:182:466:510", w: 400, h: 364, x: 1400 },
-  p4: { crop: "696:324:0:700", w: 800, h: 372 },
+  p1: { crop: "696:265:0:45", w: 700, h: 266 },
+  p2: { crop: "696:194:0:318", w: 700, h: 195 },
+  p3a: { crop: "200:182:33:510", w: 220, h: 200, x: 754 },
+  p3b: { crop: "200:182:250:510", w: 220, h: 200, x: 990 },
+  p3c: { crop: "200:182:466:510", w: 220, h: 200, x: 1226 },
+  p4: { crop: "696:324:0:700", w: 700, h: 326 },
 }
 for (const [id, p] of Object.entries(PANELS)) {
   p.png = join(work, `${id}.png`)
@@ -128,10 +129,11 @@ const total = starts[N - 1] + clipDur[N - 1]
 const frame = (t) => Math.round(t / (TICKS / FPS)) * (TICKS / FPS) // snap to a frame
 
 // 2) cues: [panel, clip (1-based), offset s, until end of clip, track]
-// [panel, clip (1-based), offset s, until clip, until offset s (null = end of that clip), track]
+// [panel, clip (1-based), offset s, until clip, until offset s (null = end of that clip), track, optional centre x]
 // Offsets are estimates from the line order and length; adjust after the first real clips (or move the clips in the .fcproj by hand).
 const CUES = [
-  ["p1", 1, 6.0, 2, 4.0, "V2"], // "Tekoäly oppii koko ajan" until the end of "Mutta vain ihminen ymmärtää"
+  // clip 1 (real, 12.10.2026) is the woman's close-up from 5.0 s to 9.9 s with the left of the frame empty: part 1 goes left (centre x 410)
+  ["p1", 1, 5.4, 1, 9.4, "V2", 410],
   ["p2", 2, 4.5, 3, 4.0, "V2"], // "Miten tämä toimii" until the end of "jäljitettävissä vielä vuosien päästä"
   ["p3a", 3, 4.3, 3, null, "V2"],
   ["p3b", 3, 6.3, 3, null, "V3"],
@@ -140,10 +142,10 @@ const CUES = [
 ]
 const place = [{ id: "timeline.place", params: { items: clipItems, track: "V1", time: 0 } }]
 const span = []
-for (const [id, clip, off, until, untilOff, track] of CUES) {
+for (const [id, clip, off, until, untilOff, track, cx] of CUES) {
   const s = frame(starts[clip - 1] + off * TICKS)
   const e = untilOff == null ? starts[until - 1] + clipDur[until - 1] : frame(starts[until - 1] + untilOff * TICKS)
-  span.push({ id, s, e })
+  span.push({ id, s, e, cx })
   place.push({
     id: "timeline.place",
     params: { item: PANELS[id].item, track, time: s, duration: e - s, video: true, audio: false },
@@ -211,7 +213,12 @@ for (const c of span) {
   style.push(kf(clip, c.s, 0), kf(clip, c.s + 0.8 * TICKS, 100), kf(clip, c.e - 0.6 * TICKS, 100), kf(clip, c.e - 1, 0))
   style.push({
     id: "effects.setParam",
-    params: { clip, effect: "motion", param: "position", value: [p.x ?? 960, 72 + (p.h + 24) / 2] },
+    params: {
+      clip,
+      effect: "motion",
+      param: "position",
+      value: [c.cx ?? p.x ?? 990, 60 + (p.h + 24) / 2],
+    },
   })
 }
 style.push({ id: "graphics.set", params: { clip: rectClip, props: { fill_color: "#0f172a" } } })
