@@ -6,10 +6,11 @@ Gemini makes 8-10 s clips. The One Lifetime business video is five such clips (a
 infographic fading in behind them. These two scripts stitch the clips and add the infographic parts, an end card and the AI-content label.
 Source commit in `blogtheristo/dws6`: see `git log -- scripts/site/assemble-video*.mjs` (copy refreshed 12.10.2026 for `--tagline`); first copied from `eeb7d119` (branch `claude/fervent-mccarthy-f814qn`); the scripts there are the source of truth.
 
-| File                           | Does                                                                                                                     | Needs                                                           |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
-| `assemble-video-filmcraft.mjs` | Builds the cut as a FilmCraft project (`<out>.work/video.fcproj`, editable in the FilmCraft app) and exports H.264 MP4   | `node`, `ffmpeg` (crops the infographic parts), `filmcraft-cli` |
-| `assemble-video.mjs`           | Same result with plain ffmpeg; also `--last-frame <clip.mp4> --out frame.png` (the first frame for the next Gemini clip) | `node`, `ffmpeg`, `ffprobe`                                     |
+| File                           | Does                                                                                                                        | Needs                                                                              |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `assemble-video-filmcraft.mjs` | Builds the cut as a FilmCraft project (`<out>.work/video.fcproj`, editable in the FilmCraft app) and exports H.264 MP4      | `node`, `ffmpeg` (crops the infographic parts), `filmcraft-cli`                    |
+| `make-subtitles.mjs`           | Subtitles (`<lang>.srt`/`.vtt`) for every language from `lines.json`, timed from the real clips with ffmpeg `silencedetect` | `node`, `ffmpeg`, `ffprobe`, `lines.json` from dws6 (`docs/design/video-prompts/`) |
+| `assemble-video.mjs`           | Same result with plain ffmpeg; also `--last-frame <clip.mp4> --out frame.png` (the first frame for the next Gemini clip)    | `node`, `ffmpeg`, `ffprobe`                                                        |
 
 ## Use
 
@@ -27,6 +28,7 @@ node tools/video/assemble-video.mjs --last-frame <dir>/clip2.mp4 --out frame.png
 - `--label` is the on-screen AI-content marking (EU AI Act Art. 50). Its text per language is given by the HIC (Translation Rule: agents do not
   translate). Without it the script warns and the video is not publishable.
 - `--tagline` is the end-card line under "Lifetime Oy" (FI: "Lisäämme ymmärrystä."); text per language from the HIC. The cue times (`CUES`) are estimates; adjust them after the first real clips.
+- `--subtitles <lang>.srt` burns subtitles into the lower third (one spoken version, subtitles for the other languages). The 4 s end card is appended after the last clip.
 - Cuts are hard cuts at the half-second of silence each clip starts and ends with.
 
 ## filmcraft-cli

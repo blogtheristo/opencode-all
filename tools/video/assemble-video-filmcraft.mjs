@@ -8,7 +8,7 @@
  * plus the exported H.264 MP4. ffmpeg is used only to crop the infographic parts into PNGs.
  *
  *   node scripts/site/assemble-video-filmcraft.mjs --clips <dir with clip1.mp4..clip5.mp4> \
- *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>" [--tagline "<end-card line>"] [--cli <filmcraft-cli>]
+ *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>" [--tagline "<end-card line>"] [--subtitles <lang>.srt] [--cli <filmcraft-cli>]
  *
  * filmcraft-cli: a tagged release (.deb ships /usr/bin/filmcraft-cli) or `cargo build --release -p filmcraft-cli` (about 6 min).
  * --label is the on-screen AI-content marking (EU AI Act Art. 50); its text per language comes from the HIC (Translation Rule).
@@ -32,6 +32,8 @@ const outArg = arg("out") ?? fail("--out <mp4> needed")
 const label = arg("label")
 // End-card line under the name (HIC 12.10.2026, FI: "Lisäämme ymmärrystä."); text per language from the HIC (Translation Rule).
 const tagline = arg("tagline")
+// Burned-in subtitles (an .srt from make-subtitles.mjs): one spoken version, subtitles for the other languages (HIC 12.10.2026).
+const subtitles = arg("subtitles")
 if (!existsSync(info)) fail(`infographic not found: ${info}`)
 
 const out = resolve(outArg)
@@ -147,7 +149,8 @@ for (const [id, clip, off, until, untilOff, track] of CUES) {
     params: { item: PANELS[id].item, track, time: s, duration: e - s, video: true, audio: false },
   })
 }
-const endAt = frame(total - 4 * TICKS)
+// The end card (4 s) is appended after the last clip; it never covers speech.
+const endAt = frame(total)
 place.push({
   id: "graphics.newRectangle",
   params: { position: [960, 540], size: [1920, 1080], seconds: 4, track: 5, time: endAt },
@@ -182,7 +185,7 @@ if (label)
       text: label,
       position: [1500, 1050],
       size: 22,
-      seconds: total / TICKS,
+      seconds: total / TICKS + 4,
       track: 8,
       time: 0,
     },
@@ -246,8 +249,29 @@ if (labelClip)
 runScript("3-style.jsonl", style, ["--project", project, "--save"])
 
 // 4) export
-fc(["--project", project, "export", out, "--format", "h264"])
-console.log(`${out}  ${(total / TICKS).toFixed(1)} s from ${N} clips; editable project: ${project}`)
+const rawOut = subtitles ? out.replace(/\.mp4$/i, "") + ".nosubs.mp4" : out
+fc(["--project", project, "export", rawOut, "--format", "h264"])
+if (subtitles) {
+  // FilmCraft's own caption tracks could carry these; a burned-in pass keeps one file per language that plays anywhere.
+  const sp = resolve(subtitles).replace(/[\\':,]/g, "\\$&")
+  const style =
+    "FontName=DejaVu Sans,FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00281A0F,BorderStyle=3,Outline=1,Shadow=0,MarginV=70"
+  run("ffmpeg", [
+    "-y",
+    "-v",
+    "error",
+    "-i",
+    rawOut,
+    "-vf",
+    `subtitles='${sp}':force_style='${style}'`,
+    "-c:a",
+    "copy",
+    out,
+  ])
+}
+console.log(
+  `${out}  ${(total / TICKS + 4).toFixed(1)} s (${(total / TICKS).toFixed(1)} s of clips + 4 s end card) from ${N} clips; editable project: ${project}`,
+)
 if (!label)
   console.warn("WARNING: no --label: the video has no AI-content marking (EU AI Act Art. 50); do not publish it.")
 if (total / TICKS < 40 || total / TICKS > 55)

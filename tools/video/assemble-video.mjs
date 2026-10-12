@@ -6,7 +6,7 @@
  * Needs ffmpeg + ffprobe. Nothing is generated or translated here; the infographic is the HIC-approved image.
  *
  *   node scripts/site/assemble-video.mjs --clips <dir with clip1.mp4..clip5.mp4> \
- *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>"
+ *     --info lifetime.fi/static/infographics/infographic-fi.jpg --out <out.mp4> --label "<AI-content label text>" [--tagline "<end-card line>"] [--subtitles <lang>.srt]
  *   node scripts/site/assemble-video.mjs --last-frame <clipN.mp4> --out <frame.png>   # first frame for clip N+1
  *
  * --label is the on-screen AI-content marking (EU AI Act Art. 50); its text per language comes from the HIC (Translation Rule).
@@ -55,6 +55,8 @@ const out = arg("out") ?? fail("--out <mp4> needed")
 const label = arg("label")
 // End-card line under the name (HIC 12.10.2026, FI: "Lisäämme ymmärrystä."); text per language from the HIC (Translation Rule).
 const tagline = arg("tagline")
+// Burned-in subtitles (an .srt from make-subtitles.mjs): one spoken version, subtitles for the other languages (HIC 12.10.2026).
+const subtitles = arg("subtitles")
 if (!existsSync(info)) fail(`infographic not found: ${info}`)
 const N = 5
 const clips = Array.from({ length: N }, (_, i) => join(clipsDir, `clip${i + 1}.mp4`))
@@ -133,7 +135,15 @@ try {
   // Pass 2: infographic parts fade in/out on top, end card, label.
   const inputs = ["-i", base]
   const chains = []
-  let last = "0:v"
+  // The end card is appended after the last clip (4 s), it never covers speech. Subtitles go on the base picture, under the panels.
+  const END = 4
+  const subPath = subtitles ? resolve(subtitles).replace(/[\\':,]/g, "\\$&") : null
+  const subStyle =
+    "FontName=DejaVu Sans,FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H00281A0F,BorderStyle=3,Outline=1,Shadow=0,MarginV=70"
+  chains.push(
+    `[0:v]tpad=stop_mode=clone:stop_duration=${END}${subPath ? `,subtitles='${subPath}':force_style='${subStyle}'` : ""}[b0];[0:a]apad=pad_dur=${END}[aout]`,
+  )
+  let last = "b0"
   CUES.forEach(([id, clip, off, until, untilOff], k) => {
     const s = starts[clip - 1] + off
     const e = untilOff == null ? starts[until - 1] + durs[until - 1] : starts[until - 1] + untilOff
@@ -151,7 +161,7 @@ try {
     "/System/Library/Fonts/Supplemental/Arial.ttf",
   ].find(existsSync)
   const draws = []
-  const endAt = total - 4
+  const endAt = total
   if (font) {
     draws.push(
       `drawtext=fontfile='${font}':text='Lifetime Oy':fontcolor=0xd4a843:fontsize=64:x=(w-text_w)/2:y=(h-text_h)/2:enable='gte(t,${endAt.toFixed(2)})':alpha='min(1,(t-${endAt.toFixed(2)})/1)'`,
@@ -165,8 +175,8 @@ try {
         `drawtext=fontfile='${font}':text='${label.replace(/[\\':]/g, "\\$&")}':fontcolor=0xe2e8f0:fontsize=22:x=w-text_w-24:y=h-text_h-20:box=1:boxcolor=0x0f172a@0.6:boxborderw=8`,
       )
   }
-  const tail = [`fade=t=out:st=${(total - 1.2).toFixed(2)}:d=1.2:color=0x0f172a`, ...draws]
-  // end card: darken the last 4 s, then the name; drawbox ramps with the same enable window
+  const tail = [`fade=t=out:st=${(total + END - 1.2).toFixed(2)}:d=1.2:color=0x0f172a`, ...draws]
+  // end card: navy over the held last frame for the appended 4 s, then the name and the line
   chains.push(
     `[${last}]drawbox=x=0:y=0:w=iw:h=ih:color=0x0f172a@0.92:t=fill:enable='gte(t,${endAt.toFixed(2)})',${tail.join(",")}[vout]`,
   )
@@ -180,7 +190,7 @@ try {
     "-map",
     "[vout]",
     "-map",
-    "0:a",
+    "[aout]",
     "-c:v",
     "libx264",
     "-crf",
@@ -188,7 +198,11 @@ try {
     "-preset",
     "medium",
     "-c:a",
-    "copy",
+    "aac",
+    "-b:a",
+    "192k",
+    "-t",
+    String(total + END),
     "-movflags",
     "+faststart",
     resolve(out),
@@ -196,7 +210,9 @@ try {
 } finally {
   rmSync(tmp, { recursive: true, force: true })
 }
-console.log(`${out}  ${total.toFixed(1)} s from ${N} clips (${durs.map((d) => d.toFixed(1)).join(" + ")})`)
+console.log(
+  `${out}  ${(total + 4).toFixed(1)} s (${total.toFixed(1)} s of clips + 4 s end card) from ${N} clips (${durs.map((d) => d.toFixed(1)).join(" + ")})`,
+)
 if (!label)
   console.warn("WARNING: no --label: the video has no AI-content marking (EU AI Act Art. 50); do not publish it.")
 if (total < 40 || total > 55) console.warn(`WARNING: total ${total.toFixed(1)} s is outside the planned 40-55 s.`)
