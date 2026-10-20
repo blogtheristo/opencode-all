@@ -63,7 +63,7 @@ Document Status:
 
 **Submodule:** `opencode-all/` points to `https://github.com/blogtheristo/opencode-all.git` (fork of `anomalyco/opencode`).
 
-**Version:** 1.18.31 (all packages). OpenCode understands Cursor project rules (`.cursor/rules`, `.cursorrules`) and Cursor skills (`.cursor/skills`).
+**Version:** 2.1.1 (all packages; npm `@opencode/cli`, merged from upstream `dev` 20.10.2026). The 1.x fork patch that loaded Cursor project rules (`.cursor/rules`, `.cursorrules`) and Cursor skills (`.cursor/skills`) into the session is not wired into v2: upstream removed the 1.x instruction, skill and IDE modules it patched. `packages/core/src/cursor-instruction.ts` is kept, unused, until the patch is ported to v2.
 
 ---
 
